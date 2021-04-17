@@ -1,0 +1,41 @@
+.profile-container {
+  margin: 70px 0px;
+}
+
+.tab-title {
+  font-size: 20px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.custom-row {
+  margin-bottom: 20px;
+}
+
+.bill-address__edit-btn, .bill-address__edit-btn:hover {
+  color: black;
+}
+
+.bill-address-confirm, .bill-address-confirm:hover {
+  color: #1890ff;
+  margin-right: 20px;
+}
+
+/* .bill-address-confirm:hover {
+  color: #1890ff;
+} */
+
+.bill-address-cancel, .bill-address-cancel:hover {
+  color: #f5222d;
+}
+
+.bill-address__edit-btn, .bill-address-confirm, .bill-address-cancel {
+  font-size: 18px;
+}
+
+.bill-address__edit-btn:hover, .bill-address-confirm:hover, .bill-address-cancel:hover {
+  font-weight: bold;
+  text-decoration: none;
+}

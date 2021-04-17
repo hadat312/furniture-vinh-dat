@@ -1,0 +1,169 @@
+h1, h2, h3, h4, h5, h6 {
+  margin: 0px!important;
+  padding: 0px!important;
+}
+
+.detail-container {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.detail-container__bg, .detail-container__thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg__lgImage {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 500px;
+  height: 600px;
+  border: 1px solid;
+  box-shadow: 14px 18px 10px rgba(0, 0, 0, 0.3);
+}
+
+.thumbnail__item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+}
+
+.imageOption {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 12px;
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  border: 1px solid;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* CONTENT */
+
+/* DETAIL CONTAINER__CONTENT */
+
+.detail-container__rate, .detail-container__title, .detail-container__detail-price, .detail-container__descriptions, .detail-container__color, .detail-container__size, .detail-container__quantity {
+  margin-bottom: 20px;
+}
+
+/* DETAIL CONTAINER__RATE */
+
+.detail-container__rate {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* .detail-container__rate span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* DETAIL CONTAINER__DETAIL-PRICE */
+
+.detail-container__detail-price {
+  display: flex;
+  align-items: center;
+}
+
+.detail-price__old {
+  color: gray;
+  text-decoration: line-through;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.detail-price__current {
+  font-weight: bold;
+  font-size: 24px;
+  color: red;
+}
+
+/* DETAIL CONTAINER
+__DESCRIPTIONS */
+
+.detail-container__descriptions {
+  text-align: justify;
+}
+
+/* __COLOR */
+
+/* __SIZE */
+
+.color-content, .size-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*COLOR-CONTENT__ITEM, SIZE-CONTENT__ITEM , BTN-INCREASE, BTN-DECREASE , __WISHLIST-BUTTON */
+
+.color-content__item, .size-content__item, .btn-increase, .btn-decrease, .detail-container__order__wishlist-button {
+  margin-right: 20px!important;
+  width: 70px;
+  text-align: center;
+}
+
+/* __QUANTITY */
+
+.detail-container__quantity__content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn-outline-primary:first-child {
+  margin-left: 0px;
+}
+
+.btn-outline-primary {
+  margin-left: 20px;
+}
+
+.quantity__content__input {
+  width: 160px!important;
+}
+
+/* ICON - + */
+
+.btn-increase span {
+  font-size: 20px;
+}
+
+.svg-icon-increase-decrease {
+  font-size: 10px;
+  width: 10px;
+  height: 10px;
+}
+
+/* ADD TO CART */
+
+.detail-container__order__add-button {
+  width: 409px;
+  margin-right: 20px;
+}
+
+/* DETAIL DESCRIPTION, DETAIL REVIEW */
+
+/* __CONTAINER */
+
+.detail-description__container, .detail-review__container, .detail-add-review__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-description__container__content, .detail-review__container__list-review {
+  text-align: justify;
+}
+
+/* REPLY COMMENT */
+
+/* .detail-add-review__container__reply-box .ant-comment {
+  width: 100%!important;
+} */

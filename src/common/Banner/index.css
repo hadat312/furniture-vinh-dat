@@ -1,0 +1,46 @@
+/* BANNER */
+
+.product-container__banner-bg {
+  position: relative;
+  background-image: url(../../images/breadcrumb-bg-1.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 250px;
+}
+
+.banner-bg__content {
+  height:250px;
+}
+
+.banner-bg__content div{
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.content__path {
+  padding: 0px;
+  list-style-type: none;
+  margin: 0px;
+}
+
+.content__path li::after {
+  margin-left: 5px;
+  content: "/";
+}
+
+.content__path li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.content__path li a {
+  text-decoration: none;
+  color: black;
+}
+
+.content__path li a:hover {
+  font-weight: bold;
+}

@@ -1,0 +1,51 @@
+:root {
+  --backgroundColor: whitesmoke;
+  --contactsColor: gray;
+  --contactsIconColor: black;
+  --footerBrandColor: black;
+  --contactsColorHover: bold;
+}
+
+.footer {
+  /* background-image: linear-gradient(180deg, whitesmoke 0%, white 80% whitesmoke 50%); */
+  background-color: var(--backgroundColor);
+  padding: 80px;
+}
+/* FOOTER BRAND */
+.footer__brand {
+  color: var(--footerBrandColor);
+}
+.footer__brand:hover {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--footerBrandColor);
+}
+/* CONTACTS, SOCIAL MEDIA */
+
+.footer__info, .footer__social-media {
+  font-size: 18px;
+}
+
+.info__contacts ul , .social-media__links ul{
+  list-style-type: none;
+  
+}
+
+.info__contacts ul li a {
+  color: var(--contactsColor)!important;
+  text-decoration: none;
+}
+
+.info__contacts ul li a:hover, .social-media__links ul li a:hover{
+  font-weight: bold;
+  color: var(--contactsColorHover)!important;
+}
+
+.contacts__icon, .links__icon {
+  margin-right: 10px;
+}
+
+.contacts__icon {
+  color: var(--contactsIconColor);
+}
+

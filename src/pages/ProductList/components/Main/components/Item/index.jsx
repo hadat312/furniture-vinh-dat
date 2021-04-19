@@ -1,6 +1,8 @@
 import { Card, Col } from 'antd';
 import React, { useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import history from '../../../../../../utils/history';
+import { ROUTERS } from '../../../../../../constants/router';
 import './item.css';
 function Item(props) {
   const { Meta } = Card;
@@ -31,7 +33,10 @@ function Item(props) {
           }
         </a>
         <Meta title="Europe Street beat" className="main-container__card__title" />
-        <a className="main-container__card__add-to-card">
+        <a
+          className="main-container__card__add-to-card"
+          onClick={() => { history.push(ROUTERS.CART) }}
+        >
           + Thêm vào giỏ
             </a>
         <div className="main-container__card__price">

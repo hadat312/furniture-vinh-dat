@@ -13,7 +13,7 @@ function Banner(props) {
               <Title level={2}>Phòng khách</Title>
               <ul className="content__path">
                 <li>
-                  <a href="/">Home</a>
+                  <a href="/">Trang Chủ</a>
                 </li>
                 <li>
                   Phòng khách

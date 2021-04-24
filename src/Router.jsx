@@ -13,6 +13,7 @@ import DetailPage from './pages/ProductDetail';
 import LoginPage from './pages/Login';
 import ProductListPage from './pages/ProductList';
 import CartPage from './pages/Cart';
+import WishlistPage from './pages/Wishlist';
 import MyAccountPage from './pages/MyAccount';
 import CheckoutPage from './pages/Checkout';
 import OrderTrackingPage from './pages/OrderTracking';
@@ -27,7 +28,6 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.HOME}
           component={HomePage}
-          productLists={productLists}
         />
         <DefaultLayout
           exact
@@ -54,6 +54,11 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.CART}
           component={CartPage}
+        />
+        <DefaultLayout
+          exact
+          path={ROUTERS.WISHLIST}
+          component={WishlistPage}
         />
         <DefaultLayout
           exact

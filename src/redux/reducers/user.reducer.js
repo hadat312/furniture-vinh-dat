@@ -1,71 +1,78 @@
 const initialState = {
-  userToDoList: [],
-  userTaskDetail: {},
+  userInfo: {
+    data: {},
+    load: false,
+    error: '',
+  },
 };
 
-function userReducer(state = initialState, action) {
+export default function productReducer(state = initialState, action) {
   switch (action.type) {
-    case 'LOGIN': {
+    case 'LOGIN_REQUEST': {
       return {
         ...state,
-        userToDoList: [
-          ...state.userToDoList,
-          action.payload,
-        ],
-      };
+        userInfo: {
+          ...state.userInfo,
+          load: true,
+        },
+      }
     }
-    case 'LOGOUT': {
+    case 'LOGIN_SUCCESS': {
+      const { data } = action.payload;
       return {
         ...state,
-        userToDoList: [
-          ...state.userToDoList,
-          action.payload,
-        ],
-      };
+        userInfo: {
+          ...state.userInfo,
+          data: data,
+          load: false,
+        },
+      }
     }
-    case 'ADD_USER_TASK': {
+    case 'LOGIN_FAIL': {
+      const { error } = action.payload;
       return {
         ...state,
-        userToDoList: [
-          ...state.userToDoList,
-          action.payload,
-        ],
-      };
+        userInfo: {
+          ...state.userInfo,
+          load: false,
+          error: error,
+        },
+      }
     }
-    case 'EDIT_USER_TASK': {
-      const { index, title, description } = action.payload;
-      const newUserToDoList = state.userToDoList;
-      newUserToDoList.splice(index, 1, { title: title, description: description });
+
+    case 'GET_USER_INFO_REQUEST': {
       return {
         ...state,
-        userToDoList: [
-          ...newUserToDoList,
-        ],
-      };
+        userInfo: {
+          ...state.userInfo,
+          load: true,
+        },
+      }
     }
-    case 'DELETE_USER_TASK': {
-      const { index } = action.payload;
-      const newUserToDoList = state.userToDoList;
-      newUserToDoList.splice(index, 1);
+    case 'GET_USER_INFO_SUCCESS': {
+      const { data } = action.payload;
       return {
         ...state,
-        userToDoList: [
-          ...newUserToDoList,
-        ],
-      };
+        userInfo: {
+          ...state.userInfo,
+          data: data,
+          load: false,
+        },
+      }
     }
-    case 'GET_USER_TASK_DETAIL': {
-      const { index } = action.payload;
-      const userTaskDetail = state.userToDoList[index] ? state.toDoList[index] : {};
+    case 'GET_USER_INFO_FAIL': {
+      const { error } = action.payload;
       return {
         ...state,
-        userTaskDetail: userTaskDetail,
-      };
+        userInfo: {
+          ...state.userInfo,
+          load: false,
+          error: error,
+        },
+      }
     }
     default: {
       return state;
     }
   }
 }
-
-export default userReducer;

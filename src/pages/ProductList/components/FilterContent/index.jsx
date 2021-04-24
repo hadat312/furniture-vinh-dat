@@ -2,7 +2,11 @@ import { Col, Row, Typography } from 'antd';
 import React from 'react';
 import './filterContent.css'
 function FilterContent(props) {
-  const{Title} = Typography;
+  const { sortDescendingByPrice } = props;
+  const { Title } = Typography;
+  const sortDescending = () =>{
+    sortDescendingByPrice()
+  }
   return (
     <div>
       <Row className="product-container__collapse-filter">
@@ -12,7 +16,12 @@ function FilterContent(props) {
             <Title level={3}>Giá</Title>
             <ul className="collapse-filter__price__menu">
               <li>
-                <a className="price__menu__item">Giá - Cao tới Thấp</a>
+                <a
+                  className="price__menu__item"
+                  onClick={sortDescending}
+                >
+                  Giá - Cao tới Thấp
+                </a>
               </li>
               <li>
                 <a className="price__menu__item">Giá - Thấp tới Cao</a>

@@ -1,53 +1,82 @@
 const initialState = {
-  productToDoList: [],
-  productTaskDetail: {},
+  productList: {
+    data: [],
+    load: false,
+    error: '',
+  },
+  productDetail: {
+    data: [],
+    load: false,
+    error: '',
+  },
 };
 
-function productReducer(state = initialState, action) {
+export default function productReducer(state = initialState, action) {
   switch (action.type) {
-    case 'ADD_TASK': {
+    case 'GET_PRODUCT_LIST_REQUEST': {
       return {
         ...state,
-        productToDoList: [
-          ...state.productToDoList,
-          action.payload,
-        ],
-      };
+        productList: {
+          ...state.productList,
+          load: true,
+        },
+      }
     }
-    case 'EDIT_TASK': {
-      const { index, title, description } = action.payload;
-      const newProductToDoList = state.productToDoList;
-      newProductToDoList.splice(index, 1, { title: title, description: description });
+    case 'GET_PRODUCT_LIST_SUCCESS': {
+      const { data } = action.payload;
       return {
         ...state,
-        productToDoList: [
-          ...newProductToDoList,
-        ],
-      };
+        productList: {
+          ...state.productList,
+          data: data,
+          load: false,
+        },
+      }
     }
-    case 'DELETE_TASK': {
-      const { index } = action.payload;
-      const newProductToDoList = state.productToDoList;
-      newProductToDoList.splice(index, 1);
+    case 'GET_PRODUCT_LIST_FAIL': {
+      const { error } = action.payload;
       return {
         ...state,
-        productToDoList: [
-          ...newProductToDoList,
-        ],
-      };
+        productList: {
+          ...state.productList,
+          load: false,
+          error: error,
+        },
+      }
     }
-    case 'GET_TASK_DETAIL': {
-      const { index } = action.payload;
-      const productTaskDetail = state.productToDoList[index] ? state.productToDoList[index] : {};
+    case 'GET_PRODUCT_DETAIL_REQUEST': {
       return {
         ...state,
-        productTaskDetail: productTaskDetail,
-      };
+        productDetail: {
+          ...state.productDetail,
+          load: true,
+        },
+      }
+    }
+    case 'GET_PRODUCT_DETAIL_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        productDetail: {
+          ...state.productDetail,
+          data: data,
+          load: false,
+        },
+      }
+    }
+    case 'GET_PRODUCT_DETAIL_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        productDetail: {
+          ...state.productDetail,
+          load: false,
+          error: error,
+        },
+      }
     }
     default: {
       return state;
     }
   }
 }
-
-export default productReducer;

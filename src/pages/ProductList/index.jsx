@@ -1,15 +1,83 @@
 import { Col, Input, Row, Space, Typography, Menu, Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { getProductListAction, getCategoriesAction, getSubCategoriesAction, getItemCategoriesAction } from '../../redux/actions';
 import Main from './components/Main';
 import FilterContent from './components/FilterContent';
 import './productList.css';
 
 function ProductListPage(props) {
+  const list = [];
   const { Title } = Typography;
+  const {
+    getSubCategories,
+    getItemCategories,
+    getProductList,
+    subCategories,
+    itemCategories,
+    productList,
+    // categoríesID 
+  } = props;
+  const categoriesID = "category01";
+  const [id, setID] = useState("category01");
   const [searchKey, setSearchKey] = useState('');
   const [isShowFilterContent, setIsShowFilterContent] = useState(false);
+  const [sizeFilter, setSizeFilter] = useState("S");
+  const [priceDecrease, setPriceDecrease] = useState(0)
+  const [isItemCategories, setIsItemCategories] = useState('itemCategory01');
+  const [itemInRow, setItemInRow] = useState(6);
+
+  useEffect(() => {
+    getSubCategories({
+      page: 1,
+      limit: 20,
+    });
+  }, []);
+
+
+  useEffect(() => {
+    getItemCategories({
+      page: 1,
+      limit: 20,
+    });
+  }, []);
+
   const filterContentToggle = () => {
     setIsShowFilterContent(!isShowFilterContent);
+  }
+
+  const sortDescendingByPrice = () => {
+    productList.data.sort((itemInIndex0, itemInIndex1) => {
+      return itemInIndex1.productPrice * (1 - itemInIndex1.productDiscount) - itemInIndex0.productPrice * (1 - itemInIndex1.productDiscount);
+    });
+  }
+
+  function onClickItem(e) {
+    // console.log(e.key);
+    return (
+      itemCategories.data.map((itemCategoryItem, itemCategoryIndex) => {
+        if (e.item.props.children[1] === itemCategoryItem.itemCategoryName) {
+          setIsItemCategories(itemCategoryItem.itemCategoryId);
+        }
+      })
+    );
+  }
+
+
+  function renderSubCategories() {
+    if (subCategories.load) return <p>Loading...</p>;
+    subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
+      if (categoriesID === subCategoryItem.categoryId) {
+        list.push(<Menu.ItemGroup key={"g-" + subCategoryIndex + 1} title={subCategoryItem.subCategoryName} />)
+      }
+      itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
+        if (categoriesID === subCategoryItem.categoryId
+          && subCategoryItem.subCategoryId === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
+          list.push(<Menu.Item key={itemCategoryIndex + 1}>{itemCategoryItem.itemCategoryName}</Menu.Item>)
+        }
+      })
+    })
+    return list
   }
 
   return (
@@ -19,19 +87,31 @@ function ProductListPage(props) {
           <Row>
             <Col span={4}></Col>
             <Col span={4} className="content__number-of-pages">
+              {/* SỐ TRANG */}
               <div>
                 Number of pages
               </div>
             </Col>
             <Col span={12} className="content__format">
               <div className="d-flex" style={{ fontSize: "30px" }}>
-                <Button className="content__format__button-3-item" active>
+                {/* <Button className="content__format__button-3-item" focusable={true}>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path></svg>
-                </Button>
-                <Button className="content__format__button-4-item">
+                </Button> */}
+                {/* BUTTON HIỂN THỊ 4 SẢN PHẨM TRÊN 1 HÀNG*/}
+                <Button
+                  focusable
+                  className="content__format__button-4-item"
+                  onClick={() => {
+                    setItemInRow(6);
+                  }}>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h4V5H3v4zm0 5h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zM8 9h4V5H8v4zm5-4v4h4V5h-4zm5 9h4v-4h-4v4zM3 19h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zm5 0h4v-4h-4v4zm0-14v4h4V5h-4z"></path></svg>
                 </Button>
-                <Button className="content__format__button-1-item">
+                {/* BUTTON HIỂN THỊ 1 SẢN PHẨM TRÊN 1 HÀNG*/}
+                <Button
+                  className="content__format__button-1-item"
+                  onClick={() => {
+                    setItemInRow(24);
+                  }}>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"></path></svg>
                 </Button>
               </div>
@@ -48,65 +128,75 @@ function ProductListPage(props) {
         </div>
       </div>
       <div >
-        {isShowFilterContent ? <FilterContent /> : null}
+        {/* TOGGLE FILTER */}
+        {isShowFilterContent ? <FilterContent sortDescendingByPrice={sortDescendingByPrice} /> : null}
       </div>
       <div className="product-container__shop-body">
         <Row>
-          <Col span={4}></Col>
+          <Col span={2}></Col>
           <Col span={4} className="">
             <div className="shop-body__sideBar">
               <Space direction="vertical">
                 <Input.Search
                   onChange={(e) => setSearchKey(e.target.value)}
                   placeholder="Tìm kiếm..."
+                  className="input-search-content"
                 />
                 <div className="sideBar__categories">
                   <Title level={3}>Danh mục</Title>
                   <div className="categories__menu">
-                    {/* SỬ dùng hàm để render ra danh mục */}
                     <Menu
-                      onClick={(e) => console.log(e)}
+                      onClick={(e) =>
+                        onClickItem(e)
+                      }
                       style={{ width: 256 }}
                       defaultSelectedKeys={['1']}
                       mode="inline"
                     >
-                      <Menu.ItemGroup key="g1" title="Ghế & Sofa">
-                        <Menu.Item key="1">Sofa</Menu.Item>
-                        <Menu.Item key="2">Sofa góc</Menu.Item>
-                        <Menu.Item key="3">Ghế thư giãn</Menu.Item>
-                        <Menu.Item key="4">Ghế dài</Menu.Item>
-                      </Menu.ItemGroup>
-                      <Menu.ItemGroup key="g2" title="Bàn">
-                        <Menu.Item key="5">Bàn nước</Menu.Item>
-                        <Menu.Item key="6">Bàn console (bàn trang trí)</Menu.Item>
-                        <Menu.Item key="7">Bàn bên (bàn góc)</Menu.Item>
-                      </Menu.ItemGroup>
-                      <Menu.ItemGroup key="g3" title="Tủ">
-                        <Menu.Item key="8">Tủ TV</Menu.Item>
-                        <Menu.Item key="9">Tủ giày</Menu.Item>
-                        <Menu.Item key="10">Kệ trưng bày</Menu.Item>
-                      </Menu.ItemGroup>
-                      <Menu.ItemGroup key="g4" title="Thảm">
-                        <Menu.Item key="11">Thảm</Menu.Item>
-                      </Menu.ItemGroup>
+                      {renderSubCategories()}
                     </Menu>
                   </div>
                 </div>
               </Space>
             </div>
           </Col>
-          <Col span={12} className="">
+          <Col span={16} className="">
             <div classNames="shop-body__main">
-              <Main />
+              {/* HIỂN THỊ SẢN PHẨM */}
+              <Main
+                isItemCategories={isItemCategories}
+                itemInRow={itemInRow}
+                sizeFilter={sizeFilter}
+                getProductList={getProductList}
+                productListAfterSort={productList}
+              />
             </div>
           </Col>
-          <Col span={4}></Col>
+          <Col span={2}></Col>
         </Row>
-
-
       </div>
     </div>
   );
 }
 
-export default ProductListPage;
+const mapStateToProps = (state) => {
+  const { categories, subCategories, itemCategories } = state.categoriesReducer;
+  const { productList } = state.productReducer;
+  return {
+    categories: categories,
+    subCategories: subCategories,
+    itemCategories: itemCategories,
+    productList: productList
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCategories: (params) => dispatch(getCategoriesAction(params)),
+    getSubCategories: (params) => dispatch(getSubCategoriesAction(params)),
+    getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
+    getProductList: (params => dispatch(getProductListAction(params)))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListPage);

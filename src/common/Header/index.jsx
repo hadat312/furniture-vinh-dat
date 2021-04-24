@@ -11,7 +11,7 @@ function Header(props) {
   const { SubMenu } = Menu;
   const menuLivingRoom = (
     <Menu>
-      <SubMenu title="Ghế & Sofa">
+      <SubMenu title={<span onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>Ghế & Sofa</span>} >
         <Menu.Item>
           <a>
             Sofa
@@ -311,34 +311,46 @@ function Header(props) {
         <Row justify="center">
           <Col span={3}>
             <Title className="header__brand">
-              <div>
-                LAZEDA
+              <div >
+                <span style={{cursor:'pointer'}} onClick={() => { history.push(ROUTERS.HOME) }}>
+                  LAZEDA
+                </span>
               </div>
             </Title>
           </Col>
           <Col span={16}>
             <div className="header__menu">
               <Dropdown overlay={menuLivingRoom} placement="bottomLeft">
-                <a className="header__menu-item">
+                <a className="header__menu-item" onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>
                   Phòng khách <DownOutlined className="item__icon" />
                 </a>
               </Dropdown>
               <Dropdown overlay={menuDiningRoom} placement="bottomLeft">
-                <a className="header__menu-item">Phòng ăn <DownOutlined /></a>
+                <a className="header__menu-item" onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>
+                  Phòng ăn <DownOutlined />
+                </a>
               </Dropdown>
               <Dropdown overlay={menuBedRoom} placement="bottomLeft">
-                <a className="header__menu-item">Phòng ngủ <DownOutlined /></a>
+                <a className="header__menu-item" onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>
+                  Phòng ngủ <DownOutlined />
+                </a>
               </Dropdown>
               <Dropdown overlay={menuWorkRoom} placement="bottomLeft">
-                <a className="header__menu-item">Phòng phòng làm việc <DownOutlined /></a>
+                <a className="header__menu-item" onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>
+                  Phòng phòng làm việc <DownOutlined />
+                </a>
               </Dropdown>
               <Dropdown overlay={menuKitchenCabinets} placement="bottomLeft">
-                <a className="header__menu-item">Tủ bếp <DownOutlined /></a>
+                <a className="header__menu-item" onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>
+                  Tủ bếp <DownOutlined />
+                </a>
               </Dropdown>
               <Dropdown overlay={menuDecoratingGoods} placement="bottomLeft">
-                <a className="header__menu-item">Hàng trang trí <DownOutlined /></a>
+                <a className="header__menu-item" onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>
+                  Hàng trang trí <DownOutlined />
+                </a>
               </Dropdown>
-              <a className="header__menu-item">Giới thiệu</a>
+              <a className="header__menu-item" onClick={() => history.push(ROUTERS.ABOUT)}>Giới thiệu</a>
             </div>
           </Col>
           <Col span={3} >
@@ -353,10 +365,10 @@ function Header(props) {
                 />
               </a>
               <a>
-                <AiOutlineHeart className="block__heart-item" />
+                <AiOutlineHeart className="block__heart-item" onClick={() => { history.push(ROUTERS.WISHLIST) }} />
               </a>
               <a>
-                <AiOutlineShoppingCart className="block__cart-item" />
+                <AiOutlineShoppingCart className="block__cart-item" onClick={() => { history.push(ROUTERS.CART) }} />
               </a>
             </div>
           </Col>

@@ -1,5 +1,7 @@
 import { Col, Row, Typography } from 'antd';
 import React from 'react';
+import history from '../../utils/history'
+import { ROUTERS } from '../../constants/router';
 import { AiFillPhone, AiTwotoneMail, AiFillFacebook, AiFillYoutube, AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
 import './index.css'
 function Footer(props) {
@@ -9,9 +11,11 @@ function Footer(props) {
       <div className="footer">
         <Row justify="center">
           <Col>
-            <Title >LAZEDA</Title>
+            <Title >
+              <span style={{cursor:'pointer'}} onClick={() => history.push(ROUTERS.HOME)}>LAZEDA</span>
+            </Title>
             Copyrights © 2021 - 2031. All rights reserved by
-            <a className="footer__brand" target="_blank"> LAZEDA</a>
+            <a className="footer__brand" target="_blank" onClick={() => history.push(ROUTERS.HOME)}> LAZEDA</a>
           </Col>
           <Col span={10} >
             <Row>
@@ -23,13 +27,13 @@ function Footer(props) {
                   <div className="info__contacts">
                     <ul>
                       <li>
-                        <a>
+                        <a >
                           <AiFillPhone className="contacts__icon" />
                           +84774473993
                         </a>
                       </li>
                       <li>
-                        <a>
+                        <a >
                           <AiTwotoneMail className="contacts__icon" />
                           admin@furniture.com
                         </a>
@@ -50,25 +54,25 @@ function Footer(props) {
                   <div className="social-media__links">
                     <ul>
                       <li>
-                        <a>
+                        <a >
                           <AiFillFacebook className="links__icon" />
                           Facebook
                         </a>
                       </li>
                       <li>
-                        <a>
+                        <a >
                           <AiFillYoutube className="links__icon" />
                           Youtube
                         </a>
                       </li>
                       <li>
-                        <a>
+                        <a >
                           <AiFillInstagram className="links__icon" />
                           Instagram
                         </a>
                       </li>
                       <li>
-                        <a>
+                        <a >
                           <AiOutlineTwitter className="links__icon" />
                           Twitter
                         </a>

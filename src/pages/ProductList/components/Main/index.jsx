@@ -1,58 +1,76 @@
-import { Row } from 'antd';
-import React from 'react';
-
+import { Col, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import {
+  getItemCategoriesAction,
+  getProductListAction 
+} from '../../../../redux/actions';
 import Item from './components/Item';
 import './main.css';
 function Main(props) {
-  const { productList } = props;
-  // function renderItem() {
-  //   return productList.map((productItem, productIndex) => {
-  //     return (
-  //       <Item
-  //         key={productItem.id}
-  //         image={productItem.image}
-  //         title={productItem.title}
-  //         price={productItem.price}
-  //         discount={productItem.discount}
-  //       />
-  //     )
-  //   })
-  // }
-  
+  const {
+    getProductList,
+    isItemCategories,
+    // productList,
+    itemInRow,
+    productListAfterSort
+  } = props;
+
+  useEffect(() => {
+    getProductList({
+      page: 1,
+      limit: 20,
+    });
+  }, []);
+
+  const filterProductList = productListAfterSort.data.filter((productListItem) => {
+    return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
+  });
+
+  function renderProductList() {
+    if (productListAfterSort.load) return <p>Loading...</p>;
+    return filterProductList.map((productListItem, productListIndex) => {
+      return (
+        <Item
+          key={productListItem.productId}
+          id={productListItem.productId}
+          image={productListItem.productImage}
+          name={productListItem.productName}
+          description={productListItem.productDescription}
+          price={productListItem.productPrice}
+          discount={productListItem.productDiscount}
+          itemInRow={itemInRow}
+        />
+      )
+      // }
+    })
+  }
+
   return (
     <div className="main-container">
-      <Row gutter={[8, 40]}>
+      <Row gutter={[8, 32]}>
         {/* Dùng hàm render ra từng Card */}
-        {/* {renderItem()} */}
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+        {/* 1-24 4-6 */}
+        {renderProductList()}
       </Row>
     </div>
   );
 }
 
-// const mapStateToProps = (state) => {
-//   const { productList } = state.taskReducer;
-//   return {
-//     productList: productList,
-//   }
-// };
+const mapStateToProps = (state) => {
+  // const { productList } = state.productReducer;
+  const { itemCategories } = state.categoriesReducer;
+  return {
+    itemCategories: itemCategories,
+    // productList: productList,
+  }
+};
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addTask: (params) => dispatch(addTaskAction(params)),
-//     editTask: (params) => dispatch(editTaskAction(params)),
-//     deleteTask: (params) => dispatch(deleteTaskAction(params)),
-//   };
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
+    // getProductList: (params) => dispatch(getProductListAction(params)),
+  };
+}
 
-//export default: là export mặc định cho cả trang, là duy nhất
-// export default connect(mapStateToProps)(Main);
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -1,11 +1,21 @@
-/* MAIN CONTAINER */
 /* CARD */
+
 .main-container__card {
-  width: 200px;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
+  
+  /* align-items: center; */
+  /* justify-content: center!important; */
+}
+
+/* IMAGE */
+
+.main-container__card__img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main-container__card::after {
@@ -24,11 +34,13 @@
 }
 
 /* BUTTON ADD TO CARD */
+
 .main-container__card__add-to-card {
   display: none;
 }
 
 /* HIDDEN PRICE & TITLE */
+
 .main-container__card:hover .main-container__card__title, .main-container__card:hover .main-container__card__price {
   visibility: hidden;
 }
@@ -39,6 +51,8 @@
   z-index: 3;
   color: Red;
   font-size: 20px;
+  left: 40%;
+  transform: translate(-35%, 0%);
 }
 
 .main-container__card__add-to-card:hover {
@@ -48,10 +62,10 @@
 }
 
 .main-container__card__wishlist {
-  color: white;
+  color: #f5222d;
 }
 
-.main-container__card__add-to-wishlist{
+.main-container__card__add-to-wishlist {
   color: red;
 }
 
@@ -60,27 +74,36 @@
   position: absolute;
   top: 4%;
   left: 78%;
-  display:none;
+  display: none;
 }
 
-.main-container__card:hover .main-container__card__wishlist, .main-container__card:hover .main-container__card__add-to-wishlist{
+.main-container__card:hover .main-container__card__wishlist, .main-container__card:hover .main-container__card__add-to-wishlist {
   display: block;
   z-index: 3;
 }
 
 .main-container__card__price {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
 }
 
 .main-container__card__price__old {
   text-decoration: line-through;
   color: gray;
   font-size: 14px;
-  /* line-height:1; */
 }
 
 .main-container__card__price__current {
   font-weight: bold;
+  
   font-size: 18px;
+}
+
+.view-detail-btn{
+  width:50%;
+  height: 50px!important;
+  
+  font-weight: bold!important;
+  font-size:20px!important;
 }

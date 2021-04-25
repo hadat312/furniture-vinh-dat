@@ -59,10 +59,6 @@ function ProductListPage(props) {
     })
   }
 
-  const filterSizeFnc = () => {
-
-  }
-
   function onClickItem(e) {
     // console.log(e.key);
     return (
@@ -155,7 +151,8 @@ function ProductListPage(props) {
             sizeFilter={sizeFilter}
             setSizeFilter={setSizeFilter}
           />
-          : null}
+          : null
+        }
       </div>
       <div className="product-container__shop-body">
         <Row>
@@ -195,8 +192,7 @@ function ProductListPage(props) {
                 sizeFilter={sizeFilter}
                 getProductList={getProductList}
                 productList={filterProducts}
-                />
-                {console.log("🚀 ~ file: index.jsx ~ line 198 ~ ProductListPage ~ filterProducts", filterProducts)}
+              />
             </div>
           </Col>
           <Col span={2}></Col>

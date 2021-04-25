@@ -58,6 +58,9 @@ function FilterContent(props) {
                 <a className="size__menu__item" onClick={() => { setSizeFilter("M") }}>M</a>
               </li>
               <li>
+                <a className="size__menu__item" onClick={() => { setSizeFilter("L") }}>L</a>
+              </li>
+              <li>
                 <a className="size__menu__item" onClick={() => { setSizeFilter("XL") }}>XL</a>
               </li>
               <li>

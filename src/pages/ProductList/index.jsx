@@ -1,7 +1,12 @@
 import { Col, Input, Row, Space, Typography, Menu, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getProductListAction, getCategoriesAction, getSubCategoriesAction, getItemCategoriesAction } from '../../redux/actions';
+import {
+  getProductListAction,
+  getCategoriesAction,
+  getSubCategoriesAction,
+  getItemCategoriesAction
+} from '../../redux/actions';
 import Main from './components/Main';
 import FilterContent from './components/FilterContent';
 import './productList.css';
@@ -10,22 +15,49 @@ function ProductListPage(props) {
   const list = [];
   const { Title } = Typography;
   const {
+    getCategories,
     getSubCategories,
     getItemCategories,
     getProductList,
+    categories,
     subCategories,
     itemCategories,
     productList,
     // categoríesID 
   } = props;
-  const categoriesID = "category01";
+  const categoryId = "category01";
+  let itemCategoryId = "";
   const [id, setID] = useState("category01");
   const [searchKey, setSearchKey] = useState("");
   const [isShowFilterContent, setIsShowFilterContent] = useState(false);
   const [sizeFilter, setSizeFilter] = useState("");
   const [priceDecrease, setPriceDecrease] = useState(0)
-  const [isItemCategories, setIsItemCategories] = useState('itemCategory01');
+  const [isItemCategories, setIsItemCategories] = useState("itemCategory01");
   const [itemInRow, setItemInRow] = useState(6);
+
+
+
+  // Check login hay chua
+  // localStorage.setItem("userId", JSON.stringify("123"));
+  // const abc = JSON.parse(localStorage.getItem("userId"));
+  // function xxx() {
+  //   if (abc !== null) {
+  //     console.log("ok");
+  //   }
+  //   else{
+  //     console.log("not ok");
+  //   }
+  // }
+
+
+
+
+  useEffect(() => {
+    getCategories({
+      page: 1,
+      limit: 20,
+    });
+  }, []);
 
   useEffect(() => {
     getSubCategories({
@@ -42,6 +74,18 @@ function ProductListPage(props) {
     });
   }, []);
 
+  function getItemCategoryId() {
+    subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
+      return (
+        itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
+          if (categoryId === subCategoryItem.categoryId
+            && subCategoryItem.subCategoryId === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
+            return itemCategoryId = itemCategoryItem.itemCategoryId;
+          }
+        })
+      );
+    })
+  }
   const filterContentToggle = () => {
     setIsShowFilterContent(!isShowFilterContent);
   }
@@ -74,11 +118,11 @@ function ProductListPage(props) {
   function renderSubCategories() {
     if (subCategories.load) return <p>Loading...</p>;
     subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
-      if (categoriesID === subCategoryItem.categoryId) {
+      if (categoryId === subCategoryItem.categoryId) {
         list.push(<Menu.ItemGroup key={"g-" + subCategoryIndex + 1} title={subCategoryItem.subCategoryName} />)
       }
       itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
-        if (categoriesID === subCategoryItem.categoryId
+        if (categoryId === subCategoryItem.categoryId
           && subCategoryItem.subCategoryId === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
           list.push(<Menu.Item key={itemCategoryIndex + 1}>{itemCategoryItem.itemCategoryName}</Menu.Item>)
         }
@@ -141,7 +185,7 @@ function ProductListPage(props) {
         </div>
       </div>
       <div >
-
+        {getItemCategoryId()}
         {/* TOGGLE FILTER */}
         {isShowFilterContent
           ?
@@ -218,7 +262,7 @@ const mapDispatchToProps = (dispatch) => {
     getCategories: (params) => dispatch(getCategoriesAction(params)),
     getSubCategories: (params) => dispatch(getSubCategoriesAction(params)),
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
-    getProductList: (params => dispatch(getProductListAction(params)))
+    getProductList: (params => dispatch(getProductListAction(params))),
   };
 }
 

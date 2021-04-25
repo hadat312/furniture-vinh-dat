@@ -73,13 +73,14 @@
   font-size: 30px;
   position: absolute;
   top: 4%;
-  left: 78%;
-  display: none;
+  left: 65%;
+  display: block;
+  z-index: 4;
 }
 
-.main-container__card:hover .main-container__card__wishlist, .main-container__card:hover .main-container__card__add-to-wishlist {
+.main-container__card:hover .main-container__card__wishlist {
   display: block;
-  z-index: 3;
+  /* z-index: 4; */
 }
 
 .main-container__card__price {

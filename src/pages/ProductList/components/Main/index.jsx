@@ -11,9 +11,9 @@ function Main(props) {
   const {
     getProductList,
     isItemCategories,
-    // productList,
+    productList,
     itemInRow,
-    productListAfterSort
+    // productListAfterSort
   } = props;
 
   useEffect(() => {
@@ -23,13 +23,14 @@ function Main(props) {
     });
   }, []);
 
-  const filterProductList = productListAfterSort.data.filter((productListItem) => {
+  const products = productList.filter((productListItem) => {
     return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
   });
 
   function renderProductList() {
-    if (productListAfterSort.load) return <p>Loading...</p>;
-    return filterProductList.map((productListItem, productListIndex) => {
+
+    if (productList.load) return <p>Loading...</p>;
+    return products.map((productListItem, productListIndex) => {
       return (
         <Item
           key={productListItem.productId}

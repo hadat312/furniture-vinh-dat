@@ -52,16 +52,16 @@ function FilterContent(props) {
             <Title level={3}>Kích cỡ</Title>
             <ul className="collapse-filter__size__menu">
               <li>
-                <a className="size__menu__item" onClick={() =>{setSizeFilter("S")}}>S</a>
+                <a className="size__menu__item" onClick={() => { setSizeFilter("S") }}>S</a>
               </li>
               <li>
-                <a className="size__menu__item" onClick={() =>{setSizeFilter("M")}}>M</a>
+                <a className="size__menu__item" onClick={() => { setSizeFilter("M") }}>M</a>
               </li>
               <li>
-                <a className="size__menu__item" onClick={() =>{setSizeFilter("XL")}}>XL</a>
+                <a className="size__menu__item" onClick={() => { setSizeFilter("XL") }}>XL</a>
               </li>
               <li>
-                <a className="size__menu__item" onClick={() =>{setSizeFilter("XXL")}}>XXL</a>
+                <a className="size__menu__item" onClick={() => { setSizeFilter("XXL") }}>XXL</a>
               </li>
             </ul>
           </div>

@@ -32,13 +32,28 @@ function* getProductListSaga(action) {
 function* getProductDetailSaga(action) {
   try {
     //  const user = yield call(Api.fetchUser, action.payload.userId);
-    yield put({type: "GET_PRODUCT_DETAIL_SUCCESS", user: 'user'});
+    const result = yield axios({
+      method: 'GET',
+      url: 'http://localhost:3002/products/:id',
+      params: {
+      }
+    });
+    yield put({
+      type: "GET_PRODUCT_DETAIL_SUCCESS",
+      payload: { data: result.data }
+    });
   } catch (e) {
-    yield put({type: "GET_PRODUCT_DETAIL_FAIL", message: e.message});
+    yield put({
+      type: "GET_PRODUCT_DETAIL_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
   }
 }
 
 export default function* productSaga() {
   yield takeEvery('GET_PRODUCT_LIST_REQUEST', getProductListSaga);
+  // yield takeEvery('ADD_TASK_REQUEST', addTaskSaga);
   // yield takeEvery('GET_PRODUCT_DETAIL_REQUEST', getProductDetailSaga);
 }

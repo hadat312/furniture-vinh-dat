@@ -1,27 +1,27 @@
-export const addTaskAction = (params) => {
+export const addProductTaskAction = (params) => {
   return {
-    type: 'ADD_TASK',
+    type: 'ADD_PRODUCT_TASK_REQUEST',
     payload: params,
   }
 }
 
-export const editTaskAction = (params) => {
+export const editProductTaskAction = (params) => {
   return {
-    type: 'EDIT_TASK',
+    type: 'EDIT_PRODUCT_TASK_REQUEST',
     payload: params,
   }
 }
 
-export const deleteTaskAction = (params) => {
+export const deleteProductTaskAction = (params) => {
   return {
-    type: 'DELETE_TASK',
+    type: 'DELETE_PRODUCT_TASK_REQUEST',
     payload: params,
   }
 }
 
 export const getTaskDetailAction = (params) => {
   return {
-    type: 'GET_TASK_DETAIL',
+    type: 'GET_PRODUCT_TASK_DETAIL_REQUEST',
     payload: params,
   }
 }

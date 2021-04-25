@@ -116,6 +116,7 @@ function ProductDetailPage(props) {
                 <Radio.Group onChange={(e) => { onChangeSize(e) }} defaultValue="a" className="size-content">
                   <Radio.Button value="S" className="size-content__item">S</Radio.Button>
                   <Radio.Button value="M" className="size-content__item">M</Radio.Button>
+                  <Radio.Button value="L" className="size-content__item">L</Radio.Button>
                   <Radio.Button value="XL" className="size-content__item">XL</Radio.Button>
                   <Radio.Button value="XXL" className="size-content__item">XXL</Radio.Button>
                 </Radio.Group>

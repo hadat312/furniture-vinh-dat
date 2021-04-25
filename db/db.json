@@ -1,31 +1,5 @@
 {
-  "sizes": [
-    {
-      "sizeId": "size01",
-      "sizeName": "S",
-      "productId": "product01"
-    },
-    {
-      "sizeId": "size02",
-      "sizeName": "M",
-      "productId": "product01"
-    },
-    {
-      "sizeId": "size03",
-      "sizeName": "X",
-      "productId": "product01"
-    },
-    {
-      "sizeId": "size04",
-      "sizeName": "XL",
-      "productId": "product01"
-    },
-    {
-      "sizeId": "size05",
-      "sizeName": "XXL",
-      "productId": "product01"
-    }
-  ],
+ 
   "products": [
     {
       "productId": "product01",
@@ -145,7 +119,33 @@
       "itemCategoryId": "itemCategory04"
     }
   ],
-  
+  "sizes": [
+    {
+      "sizeId": "size01",
+      "sizeName": "S",
+      "productId": "product01"
+    },
+    {
+      "sizeId": "size02",
+      "sizeName": "M",
+      "productId": "product01"
+    },
+    {
+      "sizeId": "size03",
+      "sizeName": "X",
+      "productId": "product01"
+    },
+    {
+      "sizeId": "size04",
+      "sizeName": "XL",
+      "productId": "product01"
+    },
+    {
+      "sizeId": "size05",
+      "sizeName": "XXL",
+      "productId": "product01"
+    }
+  ],
   "categories": [
     {
       "categoryId": "category01",

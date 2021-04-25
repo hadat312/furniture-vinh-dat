@@ -20,9 +20,9 @@ function ProductListPage(props) {
   } = props;
   const categoriesID = "category01";
   const [id, setID] = useState("category01");
-  const [searchKey, setSearchKey] = useState('');
+  const [searchKey, setSearchKey] = useState("");
   const [isShowFilterContent, setIsShowFilterContent] = useState(false);
-  const [sizeFilter, setSizeFilter] = useState("S");
+  const [sizeFilter, setSizeFilter] = useState("");
   const [priceDecrease, setPriceDecrease] = useState(0)
   const [isItemCategories, setIsItemCategories] = useState('itemCategory01');
   const [itemInRow, setItemInRow] = useState(6);
@@ -46,10 +46,21 @@ function ProductListPage(props) {
     setIsShowFilterContent(!isShowFilterContent);
   }
 
+  //truyền hàm xuống component ở line 141, truyền productList xuống component ở line 179
   const sortDescendingByPrice = () => {
     productList.data.sort((itemInIndex0, itemInIndex1) => {
-      return itemInIndex1.productPrice * (1 - itemInIndex1.productDiscount) - itemInIndex0.productPrice * (1 - itemInIndex1.productDiscount);
-    });
+      return itemInIndex1.productPrice * (1 - itemInIndex1.productDiscount) - itemInIndex0.productPrice * (1 - itemInIndex0.productDiscount);
+    })
+  }
+
+  const sortAscendingByPrice = () => {
+    productList.data.sort((itemInIndex0, itemInIndex1) => {
+      return itemInIndex0.productPrice * (1 - itemInIndex0.productDiscount) - itemInIndex1.productPrice * (1 - itemInIndex1.productDiscount);
+    })
+  }
+
+  const filterSizeFnc = () => {
+
   }
 
   function onClickItem(e) {
@@ -79,6 +90,12 @@ function ProductListPage(props) {
     })
     return list
   }
+
+  const filterProducts = productList.data.filter((productListItem) => {
+    return productListItem.productName.trim().toLowerCase().indexOf(searchKey.trim().toLowerCase()) !== -1;
+  });
+
+
 
   return (
     <div className="product-container">
@@ -128,8 +145,17 @@ function ProductListPage(props) {
         </div>
       </div>
       <div >
+
         {/* TOGGLE FILTER */}
-        {isShowFilterContent ? <FilterContent sortDescendingByPrice={sortDescendingByPrice} /> : null}
+        {isShowFilterContent
+          ?
+          <FilterContent
+            sortDescendingByPrice={sortDescendingByPrice}
+            sortAscendingByPrice={sortAscendingByPrice}
+            sizeFilter={sizeFilter}
+            setSizeFilter={setSizeFilter}
+          />
+          : null}
       </div>
       <div className="product-container__shop-body">
         <Row>
@@ -168,8 +194,9 @@ function ProductListPage(props) {
                 itemInRow={itemInRow}
                 sizeFilter={sizeFilter}
                 getProductList={getProductList}
-                productListAfterSort={productList}
-              />
+                productList={filterProducts}
+                />
+                {console.log("🚀 ~ file: index.jsx ~ line 198 ~ ProductListPage ~ filterProducts", filterProducts)}
             </div>
           </Col>
           <Col span={2}></Col>

@@ -2,11 +2,23 @@ import { Col, Row, Typography } from 'antd';
 import React from 'react';
 import './filterContent.css'
 function FilterContent(props) {
-  const { sortDescendingByPrice } = props;
+  const {
+    sortDescendingByPrice,
+    sortAscendingByPrice,
+    sizeFilter,
+    setSizeFilter
+  } = props;
+
+
   const { Title } = Typography;
-  const sortDescending = () =>{
-    sortDescendingByPrice()
+  const sortDescending = () => {
+    return sortDescendingByPrice()
   }
+
+  const sortAscending = () => {
+    return sortAscendingByPrice()
+  }
+
   return (
     <div>
       <Row className="product-container__collapse-filter">
@@ -24,7 +36,12 @@ function FilterContent(props) {
                 </a>
               </li>
               <li>
-                <a className="price__menu__item">Giá - Thấp tới Cao</a>
+                <a
+                  className="price__menu__item"
+                  onClick={sortAscending}
+                >
+                  Giá - Thấp tới Cao
+                  </a>
               </li>
             </ul>
           </div>
@@ -35,16 +52,16 @@ function FilterContent(props) {
             <Title level={3}>Kích cỡ</Title>
             <ul className="collapse-filter__size__menu">
               <li>
-                <a className="size__menu__item">S</a>
+                <a className="size__menu__item" onClick={() =>{setSizeFilter("S")}}>S</a>
               </li>
               <li>
-                <a className="size__menu__item">M</a>
+                <a className="size__menu__item" onClick={() =>{setSizeFilter("M")}}>M</a>
               </li>
               <li>
-                <a className="size__menu__item">XL</a>
+                <a className="size__menu__item" onClick={() =>{setSizeFilter("XL")}}>XL</a>
               </li>
               <li>
-                <a className="size__menu__item">XXL</a>
+                <a className="size__menu__item" onClick={() =>{setSizeFilter("XXL")}}>XXL</a>
               </li>
             </ul>
           </div>

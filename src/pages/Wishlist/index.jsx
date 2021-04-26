@@ -4,7 +4,7 @@ import Item from './components/Item'
 import { connect } from 'react-redux';
 import {
   getWishlistAction,
-  deleteWishlistTaskAction
+  deleteWishlistTaskAction,
 } from '../../redux/actions';
 import './wishlist.css';
 function WishlistPage(props) {
@@ -13,6 +13,8 @@ function WishlistPage(props) {
     getWishlist,
     deleteWishlist,
   } = props;
+
+
   useEffect(() => {
     getWishlist({
       page: 1,
@@ -44,21 +46,24 @@ function WishlistPage(props) {
     );
   }
   return (
-    renderWishlist()
+    <>
+      <div>WISHLIST</div>
+      {renderWishlist()}
+    </>
   );
 }
 
 const mapStateToProps = (state) => {
   const { wishlist } = state.wishlistReducer;
   return {
-    wishlist: wishlist
+    wishlist: wishlist,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getWishlist: (params) => dispatch(getWishlistAction(params)),
-    deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params))
+    deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
   };
 }
 

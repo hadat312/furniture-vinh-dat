@@ -30,6 +30,7 @@ function CardPage(props) {
         return (
           productList.data.map((productListItem, productListIndex) => {
             if (cartItem._id === productListItem.productId) {
+              console.log("productListItem.productDiscount: ", productListItem.productDiscount)
               return (
                 <>
                   <Item
@@ -37,6 +38,8 @@ function CardPage(props) {
                     productId={cartItem._id}
                     name={productListItem.productName}
                     price={productListItem.productPrice}
+                    discount={productListItem.productDiscount}
+                    // discount={productListItem.productDiscount}
                   />
                   <hr />
                 </>
@@ -69,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getProductList: (params) => dispatch(getProductListAction(params)),
     getCart: (params) => dispatch(getCartAction(params)),
-    // deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
+    // deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
   };
 }
 

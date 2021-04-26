@@ -41,6 +41,9 @@ function Item(props) {
     name: name,
     price: price * (1 - discount),
   };
+  const itemInfo1 = {
+    id: id,
+  };
 
   function onAddWishlistTask() {
 
@@ -55,7 +58,7 @@ function Item(props) {
   }
 
   function onAddCartTask() {
-    addCartTask(itemInfo)
+    addCartTask(itemInfo1)
   }
 
   function renderFourCard() {

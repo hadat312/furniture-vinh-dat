@@ -20,18 +20,6 @@
     }
   ],
   "cart": [
-    {
-      "_id": "product01",
-      "_name": "Sofa Miami 2 chỗ hiện đại",
-      "_price": 9500000,
-      "id": 1
-    },
-    {
-      "_id": "product05",
-      "_name": "Sofa Miami 2 chỗ hiện đại",
-      "_price": 6650000,
-      "id": 2
-    }
   ],
   "products": [
     {

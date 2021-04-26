@@ -54,7 +54,10 @@ export default function cartReducer(state = initialState, action) {
         ...state,
         cart: {
           ...state.cart,
-          data: data,
+          data: [
+            ...state.cart.data,
+            data
+           ],
           load: false
         },
       };

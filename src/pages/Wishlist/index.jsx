@@ -3,17 +3,26 @@ import React, { useEffect } from 'react';
 import Item from './components/Item'
 import { connect } from 'react-redux';
 import {
+  getProductListAction,
   getWishlistAction,
   deleteWishlistTaskAction,
 } from '../../redux/actions';
 import './wishlist.css';
 function WishlistPage(props) {
   const {
+    getProductList,
+    productList,
     wishlist,
     getWishlist,
     deleteWishlist,
   } = props;
 
+  useEffect(() => {
+    getProductList({
+      page: 1,
+      limit: 20,
+    });
+  }, []);
 
   useEffect(() => {
     getWishlist({
@@ -26,21 +35,31 @@ function WishlistPage(props) {
     deleteWishlist({ _id: id });
   }
 
+
+
   function renderWishlist() {
     if (wishlist.load) return <p>Loading...</p>;
     return (
       wishlist.data.map((wishlistItem, wishlistIndex) => {
         return (
-          <>
-            <Item
-              key={wishlistItem._id}
-              productId={wishlistItem._id}
-              name={wishlistItem._name}
-              price={wishlistItem._price}
-              onDeleteWishlist={onDeleteWishlist}
-            />
-            <hr />
-          </>
+          productList.data.map((productListItem, productListIndex) => {
+            if (wishlistItem._id === productListItem.productId) {
+              console.log("productListItem.productDiscount: ", productListItem.productDiscount)
+              return (
+                <>
+                  <Item
+                    key={wishlistItem._id}
+                    productId={wishlistItem._id}
+                    name={productListItem.productName}
+                    price={productListItem.productPrice}
+                    discount={productListItem.productDiscount}
+                  // onDeleteWishlist={onDeleteWishlist}
+                  />
+                  <hr />
+                </>
+              );
+            }
+          })
         );
       })
     );
@@ -54,14 +73,17 @@ function WishlistPage(props) {
 }
 
 const mapStateToProps = (state) => {
+  const { productList } = state.productReducer;
   const { wishlist } = state.wishlistReducer;
   return {
+    productList: productList,
     wishlist: wishlist,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getProductList: (params) => dispatch(getProductListAction(params)),
     getWishlist: (params) => dispatch(getWishlistAction(params)),
     deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
   };

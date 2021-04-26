@@ -32,8 +32,8 @@ function Main(props) {
     return products.map((productListItem, productListIndex) => {
       return (
         <Item
-          key={productListItem.productId}
-          id={productListItem.productId}
+          key={productListItem.id}
+          id={productListItem.id}
           image={productListItem.productImage}
           name={productListItem.productName}
           description={productListItem.productDescription}

@@ -38,11 +38,6 @@ function Item(props) {
   }
   const itemInfo = {
     id: id,
-    name: name,
-    price: price * (1 - discount),
-  };
-  const itemInfo1 = {
-    id: id,
   };
 
   function onAddWishlistTask() {
@@ -54,11 +49,12 @@ function Item(props) {
   }
 
   function onDeleteWishlistTask(id) {
-    deleteWishlistTask({ id: id })
+    deleteWishlistTask({ id: id });
   }
 
   function onAddCartTask() {
-    addCartTask(itemInfo1)
+    addCartTask(itemInfo)
+    history.push(ROUTERS.CART)
   }
 
   function renderFourCard() {

@@ -33,10 +33,10 @@ function CardPage(props) {
     if (cart.load) return <p>Loading...</p>;
     return (
       cart.data.map((cartItem, cartIndex) => {
+        console.log("🚀 ~ file: index.jsx ~ line 36 ~ cart.data.map ~ cart.data", cart.data)
         return (
           productList.data.map((productListItem, productListIndex) => {
             if (cartItem._id === productListItem.id) {
-              console.log("productListItem.productDiscount: ", productListItem.productDiscount)
               return (
                 <>
                   <Item

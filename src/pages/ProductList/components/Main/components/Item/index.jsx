@@ -41,11 +41,9 @@ function Item(props) {
   };
 
   function onAddWishlistTask() {
-
     addWishlistTask(itemInfo);
+    history.push(ROUTERS.WISHLIST);
     // <Alert message={<span>Thêm {itemInfo.name} thành công!</span>} type = "success" />
-    // console.log("Thêm " + itemInfo.name + "thành công!");
-    // history.push(ROUTERS.WISHLIST);
   }
 
   function onDeleteWishlistTask(id) {
@@ -172,6 +170,7 @@ function Item(props) {
 
 const mapStateToProps = (state) => {
   const { wishlist } = state.wishlistReducer;
+  console.log("🚀 ~ file: index.jsx ~ line 174 ~ mapStateToProps ~ wishlist", wishlist)
   const { cart } = state.cartReducer;
   return {
     wishlist: wishlist,

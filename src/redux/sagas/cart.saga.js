@@ -36,7 +36,6 @@ function* addCartTaskSaga(action) {
       url: 'http://localhost:3002/cart',
       data: {
         _id: id,
-        // productId: id,
       }
     });
     yield put({

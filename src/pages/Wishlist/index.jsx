@@ -43,7 +43,7 @@ function WishlistPage(props) {
       wishlist.data.map((wishlistItem, wishlistIndex) => {
         return (
           productList.data.map((productListItem, productListIndex) => {
-            if (wishlistItem._id === productListItem.productId) {
+            if (wishlistItem._id === productListItem.id) {
               console.log("productListItem.productDiscount: ", productListItem.productDiscount)
               return (
                 <>

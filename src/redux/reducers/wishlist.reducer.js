@@ -54,7 +54,10 @@ export default function wishlistReducer(state = initialState, action) {
         ...state,
         wishlist: {
           ...state.wishlist,
-          data: data,
+          data: [
+            ...state.wishlist.data,
+            data
+           ],
           load: false
         },
       };
@@ -86,7 +89,7 @@ export default function wishlistReducer(state = initialState, action) {
       return {
         ...state,
         wishlist: {
-          data: {...newWishlist},
+          data: { ...newWishlist },
           load: false
         },
       };

@@ -11,36 +11,32 @@
     {
       "_id": "product05",
       "id": 3
+    },
+    {
+      "_id": "product01",
+      "id": 4
+    },
+    {
+      "_id": "product02",
+      "id": 5
+    },
+    {
+      "_id": "product07",
+      "id": 6
     }
   ],
   "cart": [
     {
-      "_id": "product05",
-      "id": 2
-    },
-    {
-      "_id": "product05",
-      "id": 3
-    },
-    {
-      "_id": "product07",
-      "id": 4
-    },
-    {
-      "_id": "product08",
-      "id": 5
+      "_id": "product01",
+      "id": 1
     },
     {
       "_id": "product06",
-      "id": 6
+      "id": 2
     },
     {
-      "_id": "product04",
-      "id": 7
-    },
-    {
-      "_id": "product01",
-      "id": 8
+      "_id": "product07",
+      "id": 3
     }
   ],
   "products": [

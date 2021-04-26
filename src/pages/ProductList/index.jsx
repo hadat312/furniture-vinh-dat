@@ -73,7 +73,7 @@ function ProductListPage(props) {
       limit: 20,
     });
   }, []);
-
+  
   function getItemCategoryId() {
     subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
       return (

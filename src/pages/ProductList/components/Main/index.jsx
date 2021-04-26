@@ -22,13 +22,12 @@ function Main(props) {
       limit: 20,
     });
   }, []);
-
   const products = productList.filter((productListItem) => {
     return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
   });
-
+  
   function renderProductList() {
-
+    
     if (productList.load) return <p>Loading...</p>;
     return products.map((productListItem, productListIndex) => {
       return (

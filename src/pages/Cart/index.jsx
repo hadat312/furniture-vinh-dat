@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getProductList: (params) => dispatch(getProductListAction(params)),
     getCart: (params) => dispatch(getCartAction(params)),
-    // deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
+    // deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
   };
 }
 

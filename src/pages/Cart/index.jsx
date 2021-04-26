@@ -30,6 +30,7 @@ function CardPage(props) {
         return (
           productList.data.map((productListItem, productListIndex) => {
             if (cartItem._id === productListItem.productId) {
+              console.log("productListItem.productDiscount: ", productListItem.productDiscount)
               return (
                 <>
                   <Item
@@ -37,6 +38,7 @@ function CardPage(props) {
                     productId={cartItem._id}
                     name={productListItem.productName}
                     price={productListItem.productPrice}
+                    discount={productListItem.productDiscount}
                   />
                   <hr />
                 </>

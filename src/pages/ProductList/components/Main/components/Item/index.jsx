@@ -42,8 +42,8 @@ function Item(props) {
 
   function onAddWishlistTask() {
     addWishlistTask(itemInfo);
-    history.push(ROUTERS.WISHLIST);
     // <Alert message={<span>Thêm {itemInfo.name} thành công!</span>} type = "success" />
+    history.push(ROUTERS.WISHLIST);
   }
 
   function onDeleteWishlistTask(id) {

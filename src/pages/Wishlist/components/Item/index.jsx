@@ -2,13 +2,13 @@ import { Button } from 'antd';
 import React from 'react';
 
 function Item(props) {
-  const {productId, name, price, onDeleteWishlist} = props;
+  const {productId, name, price, discount} = props;
   return (
     <>
       <div>ID: {productId}</div>
       <div>Name: {name}</div>
-      <div>Price: {price.toLocaleString()} vnđ</div>
-      <div><Button onClick={() => onDeleteWishlist(productId)}>Delete</Button></div>
+      <div>Price: {(price * (1 - discount)).toLocaleString()} vnđ</div>
+      <div><Button >Delete</Button></div>
     </>
   );
 }

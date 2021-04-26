@@ -79,8 +79,8 @@ function ProductListPage(props) {
       return (
         itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
           if (categoryId === subCategoryItem.categoryId
-            && subCategoryItem.subCategoryId === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
-            return itemCategoryId = itemCategoryItem.itemCategoryId;
+            && subCategoryItem.id === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
+            return itemCategoryId = itemCategoryItem.id;
           }
         })
       );
@@ -108,7 +108,7 @@ function ProductListPage(props) {
     return (
       itemCategories.data.map((itemCategoryItem, itemCategoryIndex) => {
         if (e.item.props.children[1] === itemCategoryItem.itemCategoryName) {
-          setIsItemCategories(itemCategoryItem.itemCategoryId);
+          setIsItemCategories(itemCategoryItem.id);
         }
       })
     );
@@ -123,7 +123,7 @@ function ProductListPage(props) {
       }
       itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
         if (categoryId === subCategoryItem.categoryId
-          && subCategoryItem.subCategoryId === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
+          && subCategoryItem.id === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
           list.push(<Menu.Item key={itemCategoryIndex + 1}>{itemCategoryItem.itemCategoryName}</Menu.Item>)
         }
       })

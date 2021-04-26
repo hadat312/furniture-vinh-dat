@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import {
   getProductListAction,
   getCartAction,
+  deleteCartTaskAction
 } from '../../redux/actions';
 function CardPage(props) {
 
-  const { getProductList, productList, getCart, cart } = props;
+  const { getProductList, productList, getCart, cart, deleteCart } = props;
 
   useEffect(() => {
     getProductList({
@@ -23,13 +24,18 @@ function CardPage(props) {
     });
   }, []);
 
+
+  function onDeleteCart(id) {
+    deleteCart({ id: id });
+  }
+
   function renderCart() {
     if (cart.load) return <p>Loading...</p>;
     return (
       cart.data.map((cartItem, cartIndex) => {
         return (
           productList.data.map((productListItem, productListIndex) => {
-            if (cartItem._id === productListItem.productId) {
+            if (cartItem._id === productListItem.id) {
               console.log("productListItem.productDiscount: ", productListItem.productDiscount)
               return (
                 <>
@@ -39,7 +45,8 @@ function CardPage(props) {
                     name={productListItem.productName}
                     price={productListItem.productPrice}
                     discount={productListItem.productDiscount}
-                    // discount={productListItem.productDiscount}
+                    discount={productListItem.productDiscount}
+                    // onDeleteCart={onDeleteCart}
                   />
                   <hr />
                 </>
@@ -62,6 +69,7 @@ function CardPage(props) {
 const mapStateToProps = (state) => {
   const { productList } = state.productReducer;
   const { cart } = state.cartReducer;
+  console.log("🚀 ~ file: index.jsx ~ line 72 ~ mapStateToProps ~ cart", cart)
   return {
     productList: productList,
     cart: cart,
@@ -72,7 +80,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getProductList: (params) => dispatch(getProductListAction(params)),
     getCart: (params) => dispatch(getCartAction(params)),
-    // deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
+    deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
   };
 }
 

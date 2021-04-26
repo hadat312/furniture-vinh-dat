@@ -30,14 +30,12 @@ function* getWishlistSaga(action) {
 
 function* addWishlistTaskSaga(action) {
   try {
-    const { id, name, price } = action.payload;
+    const { id, } = action.payload;
     const result = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/wishlist',
       data: {
         _id: id,
-        _name: name,
-        _price: price
       }
     });
     yield put({

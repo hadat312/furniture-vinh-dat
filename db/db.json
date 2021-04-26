@@ -2,28 +2,50 @@
   "wishlist": [
     {
       "_id": "product01",
-      "_name": "Sofa Miami 2 chỗ hiện đại",
-      "_price": 9500000,
       "id": 1
     },
     {
-      "_id": "product01",
-      "_name": "Sofa Miami 2 chỗ hiện đại",
-      "_price": 9500000,
+      "_id": "product05",
       "id": 2
     },
     {
       "_id": "product05",
-      "_name": "Sofa Miami 2 chỗ hiện đại",
-      "_price": 6650000,
       "id": 3
     }
   ],
   "cart": [
+    {
+      "_id": "product05",
+      "id": 2
+    },
+    {
+      "_id": "product05",
+      "id": 3
+    },
+    {
+      "_id": "product07",
+      "id": 4
+    },
+    {
+      "_id": "product08",
+      "id": 5
+    },
+    {
+      "_id": "product06",
+      "id": 6
+    },
+    {
+      "_id": "product04",
+      "id": 7
+    },
+    {
+      "_id": "product01",
+      "id": 8
+    }
   ],
   "products": [
     {
-      "productId": "product01",
+      "id": "product01",
       "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
       "productName": "Sofa Miami 2 chỗ hiện đại",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -34,7 +56,7 @@
       "itemCategoryId": "itemCategory01"
     },
     {
-      "productId": "product02",
+      "id": "product02",
       "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
       "productName": "Ghế Sofa Miami chỗ hiện đại",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -45,7 +67,7 @@
       "itemCategoryId": "itemCategory01"
     },
     {
-      "productId": "product03",
+      "id": "product03",
       "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
       "productName": "Sofa Miami 2 chỗ hiện đại",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -56,7 +78,7 @@
       "itemCategoryId": "itemCategory01"
     },
     {
-      "productId": "product04",
+      "id": "product04",
       "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
       "productName": "Sofa Miami 2 chỗ hiện đại",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -67,7 +89,7 @@
       "itemCategoryId": "itemCategory01"
     },
     {
-      "productId": "product05",
+      "id": "product05",
       "productImage": "http://lezada.reactdemo.hasthemes.com/assets/images/product/furniture/1.jpg",
       "productName": "Sofa Miami 2 chỗ hiện đại",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -78,7 +100,7 @@
       "itemCategoryId": "itemCategory01"
     },
     {
-      "productId": "product06",
+      "id": "product06",
       "productImage": "http://www.nhaxinh.com/photo/7160/sofa-goc-3-101543-1.jpg",
       "productName": "Sofa Poppy góc phải vải màu xanhSofa Poppy góc phải vải màu xanh",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -89,7 +111,7 @@
       "itemCategoryId": "itemCategory02"
     },
     {
-      "productId": "product07",
+      "id": "product07",
       "productImage": "http://www.nhaxinh.com/photo/7127/ghe-lazboy-3-87432_-_copy.jpg",
       "productName": "Ghế Lazboy Larson 1PT528 – Red Thương hiệu Mỹ - Lazboy Bảo hành 10 năm",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -100,7 +122,7 @@
       "itemCategoryId": "itemCategory03"
     },
     {
-      "productId": "product08",
+      "id": "product08",
       "productImage": "http://www.nhaxinh.com/photo/3791/bench-jazz.jpg",
       "productName": "Bench Jazz",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -111,7 +133,7 @@
       "itemCategoryId": "itemCategory04"
     },
     {
-      "productId": "product09",
+      "id": "product09",
       "productImage": "http://www.nhaxinh.com/photo/3791/bench-jazz.jpg",
       "productName": "Bench Jazz 2",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -124,184 +146,184 @@
   ],
   "sizes": [
     {
-      "sizeId": "1",
+      "id": "1",
       "sizeName": "80*150",
-      "productID": "product01"
+      "productId": "product01"
     },
     {
-      "sizeId": "2",
+      "id": "2",
       "sizeName": "160*230",
-      "productID": "product02"
+      "productId": "product02"
     },
     {
-      "sizeID": "3",
+      "id": "3",
       "sizeName": "2m*2m9",
-      "productID": "product02"
+      "productId": "product02"
     }
   ],
   "categories": [
     {
-      "categoryId": "category01",
+      "id": "category01",
       "categoryName": "Phòng Khách"
     },
     {
-      "categoryId": "category02",
+      "id": "category02",
       "categoryName": "Phòng Ăn"
     },
     {
-      "categoryId": "category03",
+      "id": "category03",
       "categoryName": "Phòng Ngủ"
     },
     {
-      "categoryId": "category04",
+      "id": "category04",
       "categoryName": "Phòng Làm Việc"
     },
     {
-      "categoryId": "category05",
+      "id": "category05",
       "categoryName": "Tủ Bếp"
     },
     {
-      "categoryId": "category06",
+      "id": "category06",
       "categoryName": "Hàng Trang Trí"
     }
   ],
   "subCategories": [
     {
-      "subCategoryId": "subCategory01",
+      "id": "subCategory01",
       "subCategoryName": "Ghế & sofa",
       "categoryId": "category01"
     },
     {
-      "subCategoryId": "subCategory02",
+      "id": "subCategory02",
       "subCategoryName": "Bàn",
       "categoryId": "category01"
     },
     {
-      "subCategoryId": "subCategory03",
+      "id": "subCategory03",
       "subCategoryName": "Tủ",
       "categoryId": "category01"
     },
     {
-      "subCategoryId": "subCategory04",
+      "id": "subCategory04",
       "subCategoryName": "Thảm",
       "categoryId": "category01"
     },
     {
-      "subCategoryId": "subCategory05",
+      "id": "subCategory05",
       "subCategoryName": "Giường & Bàn",
       "categoryId": "category03"
     },
     {
-      "subCategoryId": "subCategory06",
+      "id": "subCategory06",
       "subCategoryName": "Tủ",
       "categoryId": "category03"
     },
     {
-      "subCategoryId": "subCategory07",
+      "id": "subCategory07",
       "subCategoryName": "Mền & Gối",
       "categoryId": "category03"
     }
   ],
   "itemCategories": [
     {
-      "itemCategoryId": "itemCategory01",
+      "id": "itemCategory01",
       "itemCategoryName": "Sofa",
       "subCategoryId": "subCategory01"
     },
     {
-      "itemCategoryId": "itemCategory02",
+      "id": "itemCategory02",
       "itemCategoryName": "Sofa Góc",
       "subCategoryId": "subCategory01"
     },
     {
-      "itemCategoryId": "itemCategory03",
+      "id": "itemCategory03",
       "itemCategoryName": "Ghế Thư Giãn",
       "subCategoryId": "subCategory01"
     },
     {
-      "itemCategoryId": "itemCategory04",
+      "id": "itemCategory04",
       "itemCategoryName": "Ghế Dài",
       "subCategoryId": "subCategory01"
     },
     {
-      "itemCategoryId": "itemCategory05",
+      "id": "itemCategory05",
       "itemCategoryName": "Bàn Nước",
       "subCategoryId": "subCategory02"
     },
     {
-      "itemCategoryId": "itemCategory06",
+      "id": "itemCategory06",
       "itemCategoryName": "Bàn Console (Bàn trang trí)",
       "subCategoryId": "subCategory02"
     },
     {
-      "itemCategoryId": "itemCategory07",
+      "id": "itemCategory07",
       "itemCategoryName": "Bàn Bên",
       "subCategoryId": "subCategory02"
     },
     {
-      "itemCategoryId": "itemCategory09",
+      "id": "itemCategory09",
       "itemCategoryName": "Tủ TV",
       "subCategoryId": "subCategory03"
     },
     {
-      "itemCategoryId": "itemCategory08",
+      "id": "itemCategory08",
       "itemCategoryName": "Tủ Giày",
       "subCategoryId": "subCategory03"
     },
     {
-      "itemCategoryId": "itemCategory10",
+      "id": "itemCategory10",
       "itemCategoryName": "Kệ Trưng Bày",
       "subCategoryId": "subCategory03"
     },
     {
-      "itemCategoryId": "itemCategory11",
+      "id": "itemCategory11",
       "itemCategoryName": "Giường Ngủ",
       "subCategoryId": "subCategory05"
     },
     {
-      "itemCategoryId": "itemCategory12",
+      "id": "itemCategory12",
       "itemCategoryName": "Bàn Đầu Giường",
       "subCategoryId": "subCategory05"
     },
     {
-      "itemCategoryId": "itemCategory13",
+      "id": "itemCategory13",
       "itemCategoryName": "Bàn Trang Điểm",
       "subCategoryId": "subCategory05"
     },
     {
-      "itemCategoryId": "itemCategory14",
+      "id": "itemCategory14",
       "itemCategoryName": "Tủ Quần Áo",
       "subCategoryId": "subCategory06"
     },
     {
-      "itemCategoryId": "itemCategory15",
+      "id": "itemCategory15",
       "itemCategoryName": "Tủ Âm Tường",
       "subCategoryId": "subCategory06"
     },
     {
-      "itemCategoryId": "itemCategory16",
+      "id": "itemCategory16",
       "itemCategoryName": "Tủ Hộc Kéo",
       "subCategoryId": "subCategory06"
     },
     {
-      "itemCategoryId": "itemCategory17",
+      "id": "itemCategory17",
       "itemCategoryName": "Mền & Gối",
       "subCategoryId": "subCategory07"
     },
     {
-      "itemCategoryId": "itemCategory18",
+      "id": "itemCategory18",
       "itemCategoryName": "Nệm",
       "subCategoryId": "subCategory07"
     },
     {
-      "itemCategoryId": "itemCategory19",
+      "id": "itemCategory19",
       "itemCategoryName": "Cây Treo Áo",
       "subCategoryId": "subCategory07"
     }
   ],
   "users": [
     {
-      "userId": "user01",
+      "id": "user01",
       "userName": "Đạt",
       "userEmail": "hadat123@gmail.com",
       "userPassword": "123456789",
@@ -309,7 +331,7 @@
       "userRole": "admin"
     },
     {
-      "userId": "user02",
+      "id": "user02",
       "userName": "Vinh",
       "userEmail": "vinh2@gmail.com",
       "userPassword": "123456",
@@ -317,7 +339,7 @@
       "userRole": "customer"
     },
     {
-      "userId": "user03",
+      "id": "user03",
       "userName": "Vinh",
       "userEmail": "vinh3@gmail.com",
       "userPassword": "123456",
@@ -325,7 +347,7 @@
       "userRole": "customer"
     },
     {
-      "userId": "user04",
+      "id": "user04",
       "userName": "Đạt",
       "userEmail": "dat4@gmail.com",
       "userPassword": "123456",

@@ -49,31 +49,12 @@ function ProductListPage(props) {
   //   }
   // }
 
-
-
-
   useEffect(() => {
-    getCategories({
-      page: 1,
-      limit: 20,
-    });
+    getCategories();
+    getSubCategories();
+    getItemCategories();
   }, []);
 
-  useEffect(() => {
-    getSubCategories({
-      page: 1,
-      limit: 20,
-    });
-  }, []);
-
-
-  useEffect(() => {
-    getItemCategories({
-      page: 1,
-      limit: 20,
-    });
-  }, []);
-  
   function getItemCategoryId() {
     subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
       return (

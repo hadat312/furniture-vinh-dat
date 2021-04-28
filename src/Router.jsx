@@ -20,8 +20,6 @@ import OrderTrackingPage from './pages/OrderTracking';
 import ErrorPage from './pages/Error';
 
 function BrowserRouter(props) {
-  const { productList } = props;
-  console.log("ssssssssssssssss: ", productList)
   return (
     <Router history={history}>
       <Switch>
@@ -44,7 +42,6 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.PRODUCT_LIST}
           component={ProductListPage}
-          productList={productList}
         />
         <DefaultLayout
           exact

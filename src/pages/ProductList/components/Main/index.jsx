@@ -3,17 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getItemCategoriesAction,
-  getProductListAction 
+  // getProductListAction 
 } from '../../../../redux/actions';
 import Item from './components/Item';
 import './main.css';
 function Main(props) {
   const {
     getProductList,
-    isItemCategories,
     productList,
+    isItemCategories,
     itemInRow,
-    // productListAfterSort
   } = props;
 
   useEffect(() => {

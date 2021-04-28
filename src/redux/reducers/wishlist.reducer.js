@@ -83,13 +83,13 @@ export default function wishlistReducer(state = initialState, action) {
       };
     }
     case 'DELETE_WISH_LIST_TASK_SUCCESS': {
-      const { id } = action.payload;
-      const newWishlist = state.wishlist.data;
-      newWishlist.splice(id, 1);
+      const id  = action.payload;
+      const newWishlist = state.wishlist.data.filter((wishlist) => wishlist.id !== id);
       return {
         ...state,
         wishlist: {
-          data: { ...newWishlist },
+          ...state.wishlist,
+          data: newWishlist,
           load: false
         },
       };

@@ -30,12 +30,18 @@ function* getWishlistSaga(action) {
 
 function* addWishlistTaskSaga(action) {
   try {
-    const { id, } = action.payload;
+    const { id, image, name, size, color, quantity, price} = action.payload;
     const result = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/wishlist',
       data: {
         _id: id,
+        image: image,
+        name: name,
+        size: size,
+        color: color,
+        quantity: quantity,
+        price: price,
       }
     });
     yield put({
@@ -57,19 +63,15 @@ function* addWishlistTaskSaga(action) {
 function* deleteWishlistTaskSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios({
+    yield axios({
       method: 'DELETE',
       url: `http://localhost:3002/wishlist/${id}`,
     });
-    console.log("SUCCESS")
     yield put({
       type: "DELETE_WISH_LIST_TASK_SUCCESS",
-      payload: {
-          data: result.data
-        },
+      payload: id
       });
     } catch (e) {
-    console.log("FAIL")
     yield put({
       type: "DELETE_WISH_LIST_TASK_FAIL",
       payload: {

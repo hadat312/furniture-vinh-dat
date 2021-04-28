@@ -3,14 +3,9 @@ import axios from 'axios';
 
 function* getCategoriesSaga(action) {
   try {
-    const { page, limit } = action.payload;
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/categories',
-      params: {
-        _page: page,
-        _limit: limit,
-      }
     });
     yield put({
       type: "GET_CATEGORIES_SUCCESS",
@@ -30,14 +25,9 @@ function* getCategoriesSaga(action) {
 
 function* getSubCategoriesSaga(action) {
   try {
-    const { page, limit } = action.payload;
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/subCategories',
-      params: {
-        _page: page,
-        _limit: limit,
-      }
     });
     yield put({
       type: "GET_SUB_CATEGORIES_SUCCESS",
@@ -57,14 +47,9 @@ function* getSubCategoriesSaga(action) {
 
 function* getItemCategoriesSaga(action) {
   try {
-    const { page, limit } = action.payload;
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/itemCategories',
-      params: {
-        _page: page,
-        _limit: limit,
-      }
     });
     yield put({
       type: "GET_ITEM_CATEGORIES_SUCCESS",

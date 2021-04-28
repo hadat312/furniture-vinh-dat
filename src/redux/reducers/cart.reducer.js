@@ -57,18 +57,16 @@ export default function cartReducer(state = initialState, action) {
           data: [
             ...state.cart.data,
             data
-           ],
+          ],
           load: false
         },
       };
     }
     case 'ADD_CART_TASK_FAIL': {
-      const { error } = action.payload;
       return {
         ...state,
         cart: {
-          ...state.cart,
-          error: error,
+          ...state.cart.data,
           load: false
         },
       };
@@ -83,13 +81,13 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case 'DELETE_CART_TASK_SUCCESS': {
-      const { id } = action.payload;
-      const newCart = state.cart.data;
-      newCart.splice(id, 1);
+      const id = action.payload;
+      const newCart = state.cart.data.filter((cart) => cart.id !== id);
       return {
         ...state,
         cart: {
-          data: {...newCart},
+          ...state.cart,
+          data: newCart,
           load: false
         },
       };

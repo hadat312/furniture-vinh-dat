@@ -30,12 +30,18 @@ function* getCartSaga(action) {
 
 function* addCartTaskSaga(action) {
   try {
-    const { id,} = action.payload;
+    const { id, image, name, size, color, quantity, price } = action.payload;
     const result = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/cart',
       data: {
         _id: id,
+        image: image,
+        name: name,
+        size: size,
+        color: color,
+        quantity: quantity,
+        price: price,
       }
     });
     yield put({
@@ -57,19 +63,15 @@ function* addCartTaskSaga(action) {
 function* deleteCartTaskSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios({
+    yield axios({
       method: 'DELETE',
       url: `http://localhost:3002/cart/${id}`,
     });
-    console.log("SUCCESS")
     yield put({
       type: "DELETE_CART_TASK_SUCCESS",
-      payload: {
-          data: result.data
-        },
-      });
-    } catch (e) {
-    console.log("FAIL")
+      payload: id
+    });
+  } catch (e) {
     yield put({
       type: "DELETE_CART_TASK_FAIL",
       payload: {

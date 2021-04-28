@@ -32,7 +32,11 @@ function WishlistPage(props) {
   }, []);
 
   function onDeleteWishlist(id) {
-    deleteWishlist({ _id: id });
+    wishlist.data.map((item) => {
+      if (id === item._id) {
+        return deleteWishlist({ id: item.id });
+      }
+    })
   }
 
 
@@ -44,16 +48,17 @@ function WishlistPage(props) {
         return (
           productList.data.map((productListItem, productListIndex) => {
             if (wishlistItem._id === productListItem.id) {
-              console.log("productListItem.productDiscount: ", productListItem.productDiscount)
               return (
                 <>
                   <Item
                     key={wishlistItem._id}
-                    productId={wishlistItem._id}
-                    name={productListItem.productName}
-                    price={productListItem.productPrice}
-                    discount={productListItem.productDiscount}
-                  // onDeleteWishlist={onDeleteWishlist}
+                    productItem={productListItem}
+                    wishlistItem={wishlistItem}
+                    // productId={wishlistItem._id}
+                    // name={productListItem.productName}
+                    // price={productListItem.productPrice}
+                    // discount={productListItem.productDiscount}
+                    onDeleteWishlist={onDeleteWishlist}
                   />
                   <hr />
                 </>

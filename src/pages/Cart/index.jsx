@@ -26,27 +26,31 @@ function CardPage(props) {
 
 
   function onDeleteCart(id) {
-    deleteCart({ id: id });
+    cart.data.map((item) => {
+      if (id === item._id) {
+        return deleteCart({ id: item.id});
+      }
+    })
   }
 
   function renderCart() {
     if (cart.load) return <p>Loading...</p>;
     return (
-      cart.data.map((cartItem, cartIndex) => {
-        console.log("🚀 ~ file: index.jsx ~ line 36 ~ cart.data.map ~ cart.data", cart.data)
+      cart.data.map((cartItem) => {
         return (
-          productList.data.map((productListItem, productListIndex) => {
+          productList.data.map((productListItem) => {
             if (cartItem._id === productListItem.id) {
               return (
                 <>
                   <Item
                     key={cartItem._id}
-                    productId={cartItem._id}
-                    name={productListItem.productName}
-                    price={productListItem.productPrice}
-                    discount={productListItem.productDiscount}
-                    discount={productListItem.productDiscount}
-                    // onDeleteCart={onDeleteCart}
+                    productItem={productListItem}
+                    cartItem={cartItem}
+                    onDeleteCart={onDeleteCart}
+                    // image={cartItem.image}
+                    // priceInProductDetail={cartItem.price}
+                    // quantity={cartItem.quantity}
+                    // color={cartItem.color}
                   />
                   <hr />
                 </>
@@ -69,7 +73,6 @@ function CardPage(props) {
 const mapStateToProps = (state) => {
   const { productList } = state.productReducer;
   const { cart } = state.cartReducer;
-  console.log("🚀 ~ file: index.jsx ~ line 72 ~ mapStateToProps ~ cart", cart)
   return {
     productList: productList,
     cart: cart,

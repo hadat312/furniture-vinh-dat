@@ -1,13 +1,11 @@
 import { Alert, Button, Card, Col, Row, Typography } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { connect } from 'react-redux';
 import {
   addWishlistTaskAction,
   deleteWishlistTaskAction,
-  getCartAction,
   addCartTaskAction,
-  deleteCartTaskAction
 } from '../../../../../../redux/actions';
 import history from '../../../../../../utils/history';
 import { ROUTERS } from '../../../../../../constants/router';
@@ -21,17 +19,15 @@ function Item(props) {
     price,
     discount,
     itemInRow,
+    wishlist,
     addWishlistTask,
     deleteWishlistTask,
     addCartTask,
-    deleteCartTask
   } = props;
 
   const { Meta } = Card;
   const [isAddWishlist, setIsAddWishlist] = useState(false);
-  const onAddWishlist = () => {
-    setIsAddWishlist(!isAddWishlist);
-  }
+
   const { Title } = Typography;
   const marginBot = {
     marginBottom: 20,
@@ -39,40 +35,51 @@ function Item(props) {
   const itemInfo = {
     id: id,
   };
+  
+  function toggleWishlist() {
+    setIsAddWishlist(!isAddWishlist);
+  }
 
   function onAddWishlistTask() {
     addWishlistTask(itemInfo);
-    // <Alert message={<span>Thêm {itemInfo.name} thành công!</span>} type = "success" />
-    history.push(ROUTERS.WISHLIST);
+    console.log("thêm vào giỏ thành công");
   }
 
   function onDeleteWishlistTask(id) {
-    deleteWishlistTask({ id: id });
+    wishlist.data.map((item) => {
+      if (id === item._id) {
+        return deleteWishlistTask({ id: item.id });
+      }
+    })
+    console.log("xóa thành công");
   }
 
   function onAddCartTask() {
     addCartTask(itemInfo)
-    history.push(ROUTERS.CART)
+    console.log("thêm vào giỏ thành công");
   }
 
   function renderFourCard() {
     return (
       <>
-        <div onClick={onAddWishlist}>
+        <div>
           {
             isAddWishlist
-              ?
-              <>
-                <span>
-                  <AiFillHeart className="main-container__card__add-to-wishlist" />
-                </span>
-              </>
-              :
-              <>
-                <span onClick={onAddWishlistTask}>
-                  <AiOutlineHeart className="main-container__card__wishlist" />
-                </span>
-              </>
+              ? <AiFillHeart
+                onClick={() => {
+                  toggleWishlist()
+                  onDeleteWishlistTask(id);
+                }}
+                className="main-container__card__add-to-wishlist"
+              />
+              : <AiOutlineHeart
+                onClick={() => {
+                  toggleWishlist()
+                  onAddWishlistTask()
+                }}
+                className="main-container__card__wishlist"
+              />
+
           }
         </div>
         <Card
@@ -91,29 +98,28 @@ function Item(props) {
 
             />
           }
-        // onClick={() => { history.push(`/product/${id}`) }}
+          onClick={() => { history.push(`/product/${id}`) }}
         >
 
           <div className="card__container">
             <Meta
               title={name}
               className="main-container__card__title" />
-            <div>
-              <a
-                className="main-container__card__add-to-card"
-                onClick={onAddCartTask}
 
-              >
-                + Thêm vào giỏ
-              </a>
-            </div>
             <div className="main-container__card__price">
               <span className="main-container__card__price__old">{price.toLocaleString()} vnđ</span>
               <span className="main-container__card__price__current">{(price * (1 - discount)).toLocaleString()} vnđ</span>
             </div>
           </div>
-
         </Card >
+        <div className="main-container__card__add-to-card">
+          <a
+
+            onClick={onAddCartTask}
+          >
+            + Thêm vào giỏ
+          </a>
+        </div>
       </>
 
     );
@@ -170,7 +176,6 @@ function Item(props) {
 
 const mapStateToProps = (state) => {
   const { wishlist } = state.wishlistReducer;
-  console.log("🚀 ~ file: index.jsx ~ line 174 ~ mapStateToProps ~ wishlist", wishlist)
   const { cart } = state.cartReducer;
   return {
     wishlist: wishlist,
@@ -183,7 +188,6 @@ const mapDispatchToProps = (dispatch) => {
     addWishlistTask: (params) => dispatch(addWishlistTaskAction(params)),
     deleteWishlistTask: (params) => dispatch(deleteWishlistTaskAction(params)),
     addCartTask: (params) => dispatch(addCartTaskAction(params)),
-    deleteCartTask: (params) => dispatch(deleteCartTaskAction(params)),
   };
 }
 

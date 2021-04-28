@@ -1,44 +1,6 @@
 {
-  "wishlist": [
-    {
-      "_id": "product01",
-      "id": 1
-    },
-    {
-      "_id": "product05",
-      "id": 2
-    },
-    {
-      "_id": "product05",
-      "id": 3
-    },
-    {
-      "_id": "product01",
-      "id": 4
-    },
-    {
-      "_id": "product02",
-      "id": 5
-    },
-    {
-      "_id": "product07",
-      "id": 6
-    }
-  ],
-  "cart": [
-    {
-      "_id": "product01",
-      "id": 1
-    },
-    {
-      "_id": "product06",
-      "id": 2
-    },
-    {
-      "_id": "product07",
-      "id": 3
-    }
-  ],
+  "wishlist": [],
+  "cart": [],
   "products": [
     {
       "id": "product01",
@@ -144,17 +106,100 @@
     {
       "id": "1",
       "sizeName": "80*150",
+      "price": 0,
       "productId": "product01"
     },
     {
       "id": "2",
       "sizeName": "160*230",
-      "productId": "product02"
+      "price": 1500000,
+      "productId": "product01"
     },
     {
       "id": "3",
       "sizeName": "2m*2m9",
+      "price": 0,
       "productId": "product02"
+    },
+    {
+      "id": "3",
+      "sizeName": "1m*1m9",
+      "price": 1200000,
+      "productId": "product02"
+    },
+    {
+      "id": "4",
+      "sizeName": "1m*2m9",
+      "price": 2000000,
+      "productId": "product02"
+    },
+    {
+      "id": "5",
+      "sizeName": "3m*3m",
+      "price": 0,
+      "productId": "product03"
+    },
+    {
+      "id": "6",
+      "sizeName": "2m*3m9",
+      "price": 2000000,
+      "productId": "product03"
+    },
+    {
+      "id": "7",
+      "sizeName": "1m*1m9",
+      "price": 0,
+      "productId": "product06"
+    },
+    {
+      "id": "8",
+      "sizeName": "1m2*2m9",
+      "price": 2800000,
+      "productId": "product06"
+    }
+  ],
+  "colors": [
+    {
+      "id": 1,
+      "colorName": "Trắng",
+      "price": 0,
+      "productId": "product01"
+    },
+    {
+      "id": 2,
+      "colorName": "Đen",
+      "price": 500000,
+      "productId": "product01"
+    },
+    {
+      "id": 3,
+      "colorName": "Nâu",
+      "price": 350000,
+      "productId": "product01"
+    },
+    {
+      "id": 4,
+      "colorName": "Đỏ",
+      "price": 0,
+      "productId": "product05"
+    },
+    {
+      "id": 5,
+      "colorName": "Trắng",
+      "price": 300000,
+      "productId": "product05"
+    },
+    {
+      "id": 6,
+      "colorName": "Xanh lá",
+      "price": 0,
+      "productId": "product06"
+    },
+    {
+      "id": 7,
+      "colorName": "Xanh da trời",
+      "price": 550000,
+      "productId": "product06"
     }
   ],
   "categories": [

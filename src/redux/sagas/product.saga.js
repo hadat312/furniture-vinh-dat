@@ -31,6 +31,62 @@ function* getProductListSaga(action) {
   }
 }
 
+function* getSortProductListSaga(action) {
+  try {
+    const { itemCategoryId, sort, order } = action.payload;
+    const result = yield axios({
+      method: 'GET',
+      url: 'http://localhost:3002/products',
+      params: {
+        // _page: page,
+        // _limit: limit,
+        ...itemCategoryId && { itemCategoryId },
+        _sort: sort,
+        _order: order,
+      }
+    });
+    yield put({
+      type: "GET_SORT_PRODUCT_LIST_SUCCESS",
+      payload: {
+        data: result.data
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: "GET_SORT_PRODUCT_LIST_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+function* searchProductSaga(action) {
+  try {
+    const { text } = action.payload;
+    const result = yield axios({
+      method: 'GET',
+      url: `http://localhost:3002/products`,
+      params: {
+        q: text,
+      }
+    });
+    yield put({
+      type: "SEARCH_PRODUCT_SUCCESS",
+      payload: {
+        data: result.data
+      }
+    });
+  } catch (e) {
+    yield put({
+      type: "SEARCH_PRODUCT_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
 function* getProductDetailSaga(action) {
   try {
     const { id } = action.payload;
@@ -61,4 +117,6 @@ function* getProductDetailSaga(action) {
 export default function* productSaga() {
   yield takeEvery('GET_PRODUCT_LIST_REQUEST', getProductListSaga);
   yield takeEvery('GET_PRODUCT_DETAIL_REQUEST', getProductDetailSaga);
+  yield takeEvery('GET_SORT_PRODUCT_LIST_REQUEST', getSortProductListSaga);
+  yield takeEvery('SEARCH_PRODUCT_REQUEST', searchProductSaga);
 }

@@ -337,7 +337,7 @@ function Header(props) {
               </Dropdown>
               <Dropdown overlay={menuWorkRoom} placement="bottomLeft">
                 <a className="header__menu-item" onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>
-                  Phòng phòng làm việc <DownOutlined />
+                  Phòng làm việc <DownOutlined />
                 </a>
               </Dropdown>
               <Dropdown overlay={menuKitchenCabinets} placement="bottomLeft">

@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -9,40 +9,34 @@ import Item from './components/Item';
 import './main.css';
 function Main(props) {
   const {
-    getProductList,
-    productList,
-    isItemCategories,
     itemInRow,
+    products,
   } = props;
 
-  useEffect(() => {
-    getProductList({
-      page: 1,
-      limit: 20,
-    });
-  }, []);
-  const products = productList.filter((productListItem) => {
-    return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
-  });
-  
+  const [limit, setLimit] = useState(4);
+
+  const list = [];
   function renderProductList() {
-    
-    if (productList.load) return <p>Loading...</p>;
-    return products.map((productListItem, productListIndex) => {
-      return (
-        <Item
-          key={productListItem.id}
-          id={productListItem.id}
-          image={productListItem.productImage}
-          name={productListItem.productName}
-          description={productListItem.productDescription}
-          price={productListItem.productPrice}
-          discount={productListItem.productDiscount}
-          itemInRow={itemInRow}
-        />
-      )
-      // }
+
+    if (products.load) return <p>Loading...</p>;
+
+    products.forEach((productListItem, productListIndex) => {
+      if (productListIndex <= limit - 1) {
+        list.push(
+          <Item
+            key={productListItem.id}
+            id={productListItem.id}
+            image={productListItem.productImage}
+            name={productListItem.productName}
+            description={productListItem.productDescription}
+            price={productListItem.productPrice}
+            discount={productListItem.productDiscount}
+            itemInRow={itemInRow}
+          />
+        )
+      }
     })
+    return list;
   }
 
   return (
@@ -52,6 +46,12 @@ function Main(props) {
         {/* 1-24 4-6 */}
         {renderProductList()}
       </Row>
+      <div className="d-flex justify-content-center mt-5">
+        <Button onClick={() => {
+          setLimit(limit + 4)
+        }}>Load More</Button>
+      </div>
+
     </div>
   );
 }

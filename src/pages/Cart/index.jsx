@@ -15,14 +15,18 @@ function CardPage(props) {
       page: 1,
       limit: 20,
     });
-  }, []);
-
-  useEffect(() => {
     getCart({
       page: 1,
       limit: 20,
     });
   }, []);
+
+  // useEffect(() => {
+  //   getCart({
+  //     page: 1,
+  //     limit: 20,
+  //   });
+  // }, []);
 
 
   function onDeleteCart(id) {

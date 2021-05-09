@@ -30,8 +30,22 @@
 }
 
 .header__menu-item {
+  position: relative;
   color: black;
   padding: 10px;
+}
+
+.header__menu-item::after{
+  content: '';
+  display: block;
+  position: absolute;
+  /* top:18px; */
+  /* left: 19px; */
+  height: 2px;
+  width: 0%;
+  /* padding:0px; */
+  background: #333;
+  transition: all ease-in-out 200ms;
 }
 
 .header__menu-item:hover {
@@ -39,6 +53,12 @@
   list-style-type: none;
   color: black;
   font-weight: bold;
+  transition: all ease-in-out 200ms;
+}
+
+.header__menu-item:hover::after{
+  width: 100%;
+  transition: all ease-in-out 200ms;
 }
 
 .item__icon:hover{

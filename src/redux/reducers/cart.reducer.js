@@ -71,6 +71,39 @@ export default function cartReducer(state = initialState, action) {
         },
       };
     }
+    case 'EDIT_CART_TASK_REQUEST': {
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          load: true
+        },
+      };
+    }
+    case 'EDIT_CART_TASK_SUCCESS': {
+      const { id, data } = action.payload;
+      const newCart = state.cart.data;
+      newCart.splice(id, 1, data);
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          data: newCart,
+          load: false
+        },
+      };
+    }
+    case 'EDIT_CART_TASK_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          error: error,
+          load: false
+        },
+      };
+    }
     case 'DELETE_CART_TASK_REQUEST': {
       return {
         ...state,

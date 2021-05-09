@@ -5,7 +5,9 @@ import {
   getProductListAction,
   getCategoriesAction,
   getSubCategoriesAction,
-  getItemCategoriesAction
+  getItemCategoriesAction,
+  getSortProductListAction,
+  searchProductAction
 } from '../../redux/actions';
 import Main from './components/Main';
 import FilterContent from './components/FilterContent';
@@ -24,35 +26,27 @@ function ProductListPage(props) {
     itemCategories,
     productList,
     // categoríesID 
+    getSortProductList,
+    searchProduct
   } = props;
   const categoryId = "category01";
   let itemCategoryId = "";
   const [id, setID] = useState("category01");
-  const [searchKey, setSearchKey] = useState("");
-  const [isShowFilterContent, setIsShowFilterContent] = useState(false);
-  const [sizeFilter, setSizeFilter] = useState("");
-  const [priceDecrease, setPriceDecrease] = useState(0)
   const [isItemCategories, setIsItemCategories] = useState("itemCategory01");
   const [itemInRow, setItemInRow] = useState(6);
 
 
 
-  // Check login hay chua
-  // localStorage.setItem("userId", JSON.stringify("123"));
-  // const abc = JSON.parse(localStorage.getItem("userId"));
-  // function xxx() {
-  //   if (abc !== null) {
-  //     console.log("ok");
-  //   }
-  //   else{
-  //     console.log("not ok");
-  //   }
-  // }
+
 
   useEffect(() => {
     getCategories();
     getSubCategories();
     getItemCategories();
+    getProductList({
+      page: 1,
+      limit: 20,
+    });
   }, []);
 
   function getItemCategoryId() {
@@ -67,21 +61,10 @@ function ProductListPage(props) {
       );
     })
   }
-  const filterContentToggle = () => {
-    setIsShowFilterContent(!isShowFilterContent);
-  }
 
-  //truyền hàm xuống component ở line 141, truyền productList xuống component ở line 179
-  const sortDescendingByPrice = () => {
-    productList.data.sort((itemInIndex0, itemInIndex1) => {
-      return itemInIndex1.productPrice * (1 - itemInIndex1.productDiscount) - itemInIndex0.productPrice * (1 - itemInIndex0.productDiscount);
-    })
-  }
-
-  const sortAscendingByPrice = () => {
-    productList.data.sort((itemInIndex0, itemInIndex1) => {
-      return itemInIndex0.productPrice * (1 - itemInIndex0.productDiscount) - itemInIndex1.productPrice * (1 - itemInIndex1.productDiscount);
-    })
+  function onSearch(e) {
+    const text = e.target.value;
+    searchProduct({ text: text });
   }
 
   function onClickItem(e) {
@@ -94,6 +77,10 @@ function ProductListPage(props) {
       })
     );
   }
+
+  const products = productList.data.filter((productListItem) => {
+    return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
+  });
 
 
   function renderSubCategories() {
@@ -112,24 +99,17 @@ function ProductListPage(props) {
     return list
   }
 
-  const filterProducts = productList.data.filter((productListItem) => {
-    return productListItem.productName.trim().toLowerCase().indexOf(searchKey.trim().toLowerCase()) !== -1;
-  });
-
-
-
   return (
     <div className="product-container">
       <div className="product-container__shop-header">
         <div className="shop-header__content">
           <Row>
-            <Col span={4}></Col>
+            {/* <Col span={4}></Col>
             <Col span={4} className="content__number-of-pages">
-              {/* SỐ TRANG */}
               <div>
                 Number of pages
               </div>
-            </Col>
+            </Col> */}
             <Col span={12} className="content__format">
               <div className="d-flex" style={{ fontSize: "30px" }}>
                 {/* <Button className="content__format__button-3-item" focusable={true}>
@@ -154,30 +134,13 @@ function ProductListPage(props) {
                 </Button>
               </div>
             </Col>
-            <Col span={4} className="content__filter">
-              <div>
-                <Button className="content__filter__button" onClick={filterContentToggle}>
-                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M208 400h96v-47.994h-96V400zM32 112v47.994h448V112H32zm80 168.783h288v-49.555H112v49.555z"></path></svg>
-                  <span className="content__filter__button__title">Filter</span>
-                </Button>
-              </div>
-            </Col>
           </Row>
         </div>
       </div>
       <div >
         {getItemCategoryId()}
         {/* TOGGLE FILTER */}
-        {isShowFilterContent
-          ?
-          <FilterContent
-            sortDescendingByPrice={sortDescendingByPrice}
-            sortAscendingByPrice={sortAscendingByPrice}
-            sizeFilter={sizeFilter}
-            setSizeFilter={setSizeFilter}
-          />
-          : null
-        }
+
       </div>
       <div className="product-container__shop-body">
         <Row>
@@ -186,10 +149,37 @@ function ProductListPage(props) {
             <div className="shop-body__sideBar">
               <Space direction="vertical">
                 <Input.Search
-                  onChange={(e) => setSearchKey(e.target.value)}
+                  onChange={(e) => onSearch(e)}
                   placeholder="Tìm kiếm..."
                   className="input-search-content"
                 />
+                <div className="sideBar__sort-price">
+                  <Title level={3}>Sắp xếp theo giá</Title>
+                  <Menu key="g1" title="Item 1" mode="inline">
+                    <Menu.Item
+                      key="1"
+                      onClick={() => {
+                        getSortProductList({
+                          sort: "productPrice",
+                          order: "desc"
+                        })
+                      }}
+                    >
+                      Giảm dần
+                      </Menu.Item>
+                    <Menu.Item
+                      key="2"
+                      onClick={() => {
+                        getSortProductList({
+                          sort: "productPrice",
+                          order: "asc"
+                        })
+                      }}
+                    >
+                      Tăng dần
+                    </Menu.Item>
+                  </Menu>
+                </div>
                 <div className="sideBar__categories">
                   <Title level={3}>Danh mục</Title>
                   <div className="categories__menu">
@@ -212,11 +202,8 @@ function ProductListPage(props) {
             <div classNames="shop-body__main">
               {/* HIỂN THỊ SẢN PHẨM */}
               <Main
-                isItemCategories={isItemCategories}
                 itemInRow={itemInRow}
-                sizeFilter={sizeFilter}
-                getProductList={getProductList}
-                productList={filterProducts}
+                products={products}
               />
             </div>
           </Col>
@@ -244,6 +231,8 @@ const mapDispatchToProps = (dispatch) => {
     getSubCategories: (params) => dispatch(getSubCategoriesAction(params)),
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
     getProductList: (params => dispatch(getProductListAction(params))),
+    getSortProductList: (params) => dispatch(getSortProductListAction(params)),
+    searchProduct: (params) => dispatch(searchProductAction(params))
   };
 }
 

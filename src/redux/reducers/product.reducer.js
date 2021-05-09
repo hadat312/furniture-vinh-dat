@@ -49,6 +49,70 @@ export default function productReducer(state = initialState, action) {
         },
       }
     }
+    case 'GET_SORT_PRODUCT_LIST_REQUEST': {
+      return {
+        ...state,
+        productList: {
+          ...state.productList,
+          load: true,
+        },
+      }
+    }
+    case 'GET_SORT_PRODUCT_LIST_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        productList: {
+          ...state.productList,
+          data: data,
+          load: false,
+        },
+      }
+    }
+    case 'GET_SORT_PRODUCT_LIST_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        productList: {
+          ...state.productList,
+          load: false,
+          error: error,
+        },
+      }
+    }
+
+    case 'SEARCH_PRODUCT_REQUEST': {
+      return {
+        ...state,
+        productList: {
+          ...state.productList,
+          load: true,
+        },
+      }
+    }
+    case 'SEARCH_PRODUCT_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        productList: {
+          ...state.productList,
+          data: data,
+          load: false,
+        },
+      }
+    }
+    case 'SEARCH_PRODUCT_SUCCESS': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        productList: {
+          ...state.productList,
+          load: false,
+          error: error,
+        },
+      }
+    }
+
     case 'GET_PRODUCT_DETAIL_REQUEST': {
       return {
         ...state,

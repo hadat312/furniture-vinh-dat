@@ -1,5 +1,6 @@
 import { Button } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
+import history from '../../../../utils/history';
 
 function Item(props) {
   const {
@@ -7,6 +8,14 @@ function Item(props) {
     onDeleteCart,
     cartItem
   } = props;
+
+
+
+  const styleSpan = {
+    display: "inline-block",
+    cursor: "pointer",
+    color: "red"
+  }
   return (
     <>
       <div>Mã sản phẩm: {cartItem._id}</div>
@@ -19,13 +28,9 @@ function Item(props) {
       {cartItem.size
 
         ? <div>Kích thước: {cartItem.size}</div>
-        : null
+        : <div style={{ fontWeight: "bold" }}>Nhấn <span style={styleSpan} onClick={() => { history.push(`/product/${cartItem._id}`) }}>vào đây</span> để chọn kích thước và màu sắc</div>
       }
-      {cartItem.quantity
-
-        ? <div>Số lương: {cartItem.quantity}</div>
-        : null
-      }
+      <div>Số lương: {cartItem.quantity}</div>
       {cartItem.price
 
         ? <div>Giá: {cartItem.price.toLocaleString()}</div>

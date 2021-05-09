@@ -20,7 +20,8 @@ function ProductDetailPage({ productDetail,
   addCartTask,
   match
 }) {
-
+  console.log("🚀 ~ file: index.jsx ~ line 16 ~ productDetail", productDetail)
+  
   const productId = match.params.id;
 
   useEffect(() => {

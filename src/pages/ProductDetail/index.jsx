@@ -5,26 +5,35 @@ import { connect } from 'react-redux';
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import {
   getProductDetailAction,
+  getCartAction,
   addWishlistTaskAction,
   deleteWishlistTaskAction,
   addCartTaskAction,
+  editCartTaskAction
 } from '../../redux/actions';
 // import Slider from "react-slick";
 import './productDetail.css';
 
-function ProductDetailPage({ productDetail,
+function ProductDetailPage({
+  productDetail,
   wishlist,
+  cart,
+  getCart,
   getProductDetail,
   addWishlistTask,
   deleteWishlistTask,
   addCartTask,
+  editCartTask,
   match
 }) {
-  console.log("🚀 ~ file: index.jsx ~ line 16 ~ productDetail", productDetail)
-  
+
+
   const productId = match.params.id;
 
+  const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
+
   useEffect(() => {
+    getCart();
     getProductDetail({ id: productId });
   }, [])
 
@@ -38,15 +47,16 @@ function ProductDetailPage({ productDetail,
 
   const { Title } = Typography;
 
-  const [changeImage, setChangeImage] = useState("https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg");
   const imageList = [
     "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
     "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
     "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
     "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
     "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
-    "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg"
+    "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg",
+    productDetail.data.productImage,
   ];
+  const [changeImage, setChangeImage] = useState(productDetail.data.productImage);
 
 
   const [sizeSelected, setSizeSelected] = useState({});
@@ -56,7 +66,7 @@ function ProductDetailPage({ productDetail,
   const [isAddWishlist, setIsAddWishlist] = useState(false);
 
   const oldPrice = productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0);
-  const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount);
+  const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount) * quantity;
 
   function toggleWishlist() {
     setIsAddWishlist(!isAddWishlist);
@@ -64,13 +74,14 @@ function ProductDetailPage({ productDetail,
 
   const productItem = {
     id: productId,
-    image: productDetail.data.productImage,
+    image: changeImage,
     name: productDetail.data.productName,
     size: sizeSelected.sizeName,
     color: colorSelected.colorName,
     quantity: quantity,
     price: newPrice
   };
+  console.log("🚀 ~ file: index.jsx ~ line 84 ~ changeImage", changeImage)
 
   // function onChangeColor(e) {
   //   console.log(e.target.value.colorName);
@@ -81,9 +92,70 @@ function ProductDetailPage({ productDetail,
   //   console.log(e.target.value.sizeName);
   // }
 
-  function onAddCartTask() {
-    addCartTask(productItem)
-    console.log("thêm vào giỏ thành công");
+  // function onAddCartTask() {
+  //   addCartTask(productItem)
+  //   console.log("thêm vào giỏ thành công");
+  // }
+
+  //UPDATE QUANTITY OF ITEM IN CART
+  function checkIdAndAddTask() {
+    if (UserInfoLocalStorage !== null) {
+      let isNotMatch = true;
+      console.log("🚀 ~ (ban đầu) isNotMatch: ", isNotMatch)
+      //Không có sản phẩm trong cart
+      if (cart.data.length === 0) {
+        addCartTask(productItem);
+        console.log("(cart empty) Thêm vào giỏ thành công");
+        alert("Thêm vào giỏ thành công");
+        // setTimeout(() => {
+        //   setIsShowAlert(true)
+        // }, 2000)
+        // <Alert message="Thêm vào giỏ thành công" type="success" />
+      } else {
+        //Có sản phẩm trong giỏ
+        cart.data.map((cartItem) => {
+          //Kiểm tra xem đã thêm sản phẩm hiện tại vào giỏ chưa
+          if (productId === cartItem._id) {
+            let updateItem = {};
+            if (quantity !== 1) {
+              updateItem = {
+                image: changeImage,
+                size: sizeSelected.sizeName,
+                color: colorSelected.colorName,
+                quantity: quantity,
+                price: newPrice
+              };
+            } else {
+              updateItem = {
+                image: changeImage,
+                size: sizeSelected.sizeName,
+                color: colorSelected.colorName,
+                quantity: quantity + 1,
+                price: newPrice
+              };
+            }
+            console.log("Đã cập nhật giỏ hàng");
+            alert("Đã cập nhật giỏ hàng");
+            isNotMatch = false;
+            console.log("🚀 ~ (false) isNotMatch: ", isNotMatch)
+            editCartTask({ id: cartItem.id, ...updateItem });
+          }
+        })
+        console.log("🚀 ~ (lúc sau) isNotMatch: ", isNotMatch)
+        //Sản phẩm hiện tại không trùng với các sản phẩm trong giỏ
+        if (isNotMatch) {
+          alert("Thêm vào giỏ thành công");
+          console.log("Thêm vào giỏ thành công");
+          addCartTask(productItem);
+          // setTimeout(() => {
+          //    setIsShowAlert(true)
+          // }, 1000)
+        }
+      }
+    } else {
+      console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
+    }
+
   }
 
   function onAddWishlistTask() {
@@ -169,10 +241,13 @@ function ProductDetailPage({ productDetail,
         <Col span={4}></Col>
         <Col span={8}>
           <Row className="detail-container__bg">
-            <div
-              className="bg__lgImage"
-              style={{ verticalAlign: "middle", "backgroundImage": `url(${changeImage})` }}
-            />
+
+            <div className="bg__container">
+              <img
+                className="bg__container__lgImage"
+                src={changeImage} />
+            </div>
+
           </Row>
           <Row className="detail-container__thumbnail">
             <div className="thumbnail__item">
@@ -259,7 +334,7 @@ function ProductDetailPage({ productDetail,
               <div className="detail-container__order">
                 <Button
                   className="detail-container__order__add-button"
-                  onClick={onAddCartTask}
+                  onClick={checkIdAndAddTask}
                 >
                   Thêm vào giỏ hàng
                   </Button>
@@ -352,7 +427,9 @@ const mapDispatchToProps = (dispatch) => {
     getProductDetail: (params) => dispatch(getProductDetailAction(params)),
     addWishlistTask: (params) => dispatch(addWishlistTaskAction(params)),
     deleteWishlistTask: (params) => dispatch(deleteWishlistTaskAction(params)),
+    getCart: (params) => dispatch(getCartAction(params)),
     addCartTask: (params) => dispatch(addCartTaskAction(params)),
+    editCartTask: (params) => dispatch(editCartTaskAction(params)),
   };
 }
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* getProductListSaga(action) {
   try {
-    const { page, limit, itemCategoryId, sort, order } = action.payload;
+    const { page, limit, itemCategoryId } = action.payload;
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/products',
@@ -11,8 +11,6 @@ function* getProductListSaga(action) {
         _page: page,
         _limit: limit,
         ...itemCategoryId && { itemCategoryId },
-        // _sort: sort,
-        // _order: order,
       }
     });
     yield put({

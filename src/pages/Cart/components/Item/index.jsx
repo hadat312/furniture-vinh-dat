@@ -19,6 +19,7 @@ function Item(props) {
   return (
     <>
       <div>Mã sản phẩm: {cartItem._id}</div>
+      <div>Ảnh: {cartItem.image}</div>
       <div>Tên: {productItem.productName}</div>
       {cartItem.color
 
@@ -28,7 +29,7 @@ function Item(props) {
       {cartItem.size
 
         ? <div>Kích thước: {cartItem.size}</div>
-        : <div style={{ fontWeight: "bold" }}>Nhấn <span style={styleSpan} onClick={() => { history.push(`/product/${cartItem._id}`) }}>vào đây</span> để chọn kích thước và màu sắc</div>
+        : <div style={{ fontWeight: "bold" }}>Nhấn <span style={styleSpan} onClick={() => { history.push(`/product/${cartItem._id}`) }}>vào đây</span> để cập nhật thông tin</div>
       }
       <div>Số lương: {cartItem.quantity}</div>
       {cartItem.price

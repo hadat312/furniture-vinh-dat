@@ -101,7 +101,7 @@ export default function productReducer(state = initialState, action) {
         },
       }
     }
-    case 'SEARCH_PRODUCT_SUCCESS': {
+    case 'SEARCH_PRODUCT_FAIL': {
       const { error } = action.payload;
       return {
         ...state,

@@ -62,14 +62,16 @@ function* addCartTaskSaga(action) {
 
 function* editCartTaskSaga(action) {
   try {
-    const { id, color, size, quantity } = action.payload;
+    const { id, color, size, quantity, price, image } = action.payload;
     const resutl = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/cart/${id}`,
-      data:{
+      data: {
         color: color,
         size: size,
-        quantity: quantity
+        quantity: quantity,
+        price: price,
+        image: image,
       }
     });
     yield put({

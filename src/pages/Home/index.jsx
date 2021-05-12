@@ -6,9 +6,14 @@ import React from 'react';
 import './home.css';
 
 function HomePage(props) {
+  const userInfo = {
+    userId: "user01",
+    name: "Đạt"
+  }
+  localStorage.setItem("userId", JSON.stringify(userInfo));
   return (
-    <div style={{paddingTop:80}}>
-      <div style={{height:500,width:'100%'}}>
+    <div style={{ paddingTop: 80 }}>
+      <div style={{ height: 500, width: '100%' }}>
         carousel
       </div>
       <div>

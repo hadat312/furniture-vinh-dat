@@ -2,8 +2,12 @@ import { Redirect, Route } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import Banner from '../Banner';
-function DefaultLayout(props) {
+function PrivateLayout(props) {
   const { exact, path, component: Component, ...other } = props;
+  const userInfo = JSON.parse(localStorage.getItem('userId'));
+  if (!userInfo) {
+    return <Redirect to="/" />;
+  }
   return (
     <Route
       exact={exact}
@@ -22,4 +26,4 @@ function DefaultLayout(props) {
   );
 }
 
-export default DefaultLayout;
+export default PrivateLayout;

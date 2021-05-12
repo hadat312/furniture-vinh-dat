@@ -1,29 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, Radio, Card, Typography, Row, Col, Input, Form } from 'antd';
 import { AiOutlineEdit } from "react-icons/ai";
 import history from '../../utils/history';
 import { ROUTERS } from '../../constants/router';
+import { connect } from 'react-redux';
+import {
+  getUserInfoAction,
+} from '../../redux/actions';
 import OrderTable from './components/OrderTable';
 import './myAccount.css';
 const { TabPane } = Tabs;
-function ProfilePage(props) {
+function ProfilePage({
+  userInfo,
+  getUserInfo,
+}) {
+
+
+
+  const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
+
+  useEffect(() => {
+    getUserInfo({ id: UserInfoLocalStorage.userId });
+  }, [])
+
+  // useEffect(() => {
+  //   if (UserInfoLocalStorage === null) {
+  //     history.push(`/`);
+  //   }
+  // }, [UserInfoLocalStorage])
+
   const { Title } = Typography;
-  const myName = "Dat Ha";
-  const myAddress = "1355 Market St, Suite 900  San Francisco, CA 94103";
-  const myMobile = "0774473993";
   const [isEdit, setIsEdit] = useState(false);
   const [editForm] = Form.useForm();
   function renderBillAddressView() {
     return (
       <>
         <Row className="custom-row">
-          <Col><span className="text-bold">{myName}</span></Col>
+          <Col>Họ và Tên: <span className="text-bold">{userInfo.data.name}</span></Col>
         </Row>
         <Row className="custom-row">
-          <Col><span>{myAddress}</span></Col>
+          <Col>
+            {
+              userInfo.data.address
+                ? <span>Địa chỉ: {userInfo.data.address}</span>
+                : <span>Vui lòng cập nhật địa chỉ tại [<span style={{ fontWeight: "bold" }}>Chi Tiết Tài Khoản</span>]</span>
+            }
+          </Col>
         </Row>
         <Row className="custom-row">
-          <Col><span>Mobile: {myMobile}</span></Col>
+          <Col>
+            {
+              userInfo.data.userPhoneNumber
+                ? <span>Địa chỉ: {userInfo.data.userPhoneNumber}</span>
+                : <span>Vui lòng cập nhật địa chỉ tại [<span style={{ fontWeight: "bold" }}>Chi Tiết Tài Khoản</span>]</span>
+            }
+          </Col>
         </Row>
       </>
     );
@@ -38,9 +69,9 @@ function ProfilePage(props) {
         layout="vertical"
         name="basic"
         initialValues={{
-          name: myName,
-          address: myAddress,
-          mobile: myMobile,
+          name: UserInfoLocalStorage.name,
+          address: userInfo.data.address,
+          mobile: userInfo.data.phoneNumber,
         }}
         onFinish={(values) => {
           // editTask(values, index);
@@ -90,7 +121,7 @@ function ProfilePage(props) {
                   <Card title={
                     <Title level={5}>Dashboard</Title>
                   } bordered={true}>
-                    <p>Xin chào, <span style={{ fontWeight: "bold" }}>{myName}</span> (Nếu không phải <span style={{ fontWeight: "bold" }}>{myName}</span> ! Vui lòng <a style={{ fontWeight: "bold" }} onClick={() => history.push(ROUTERS.CUSTOMER_LOGIN)}>Logout!</a>)</p>
+                    <p>Xin chào, <span style={{ fontWeight: "bold" }}>{UserInfoLocalStorage.name}</span> (Nếu không phải <span style={{ fontWeight: "bold" }}>{UserInfoLocalStorage.name}</span> ! Vui lòng <a style={{ fontWeight: "bold" }} onClick={() => history.push(ROUTERS.CUSTOMER_LOGIN)}>Logout!</a>)</p>
                     <p>Từ bảng điều khiển. Bạn có thể dễ dàng kiểm tra & xem đơn hàng hiện tại của bạn, quản lý shipping, địa chỉ hóa đơn và chỉnh sửa chi tiết tài khoản cũng như mật khẩu của bạn.</p>
                   </Card>
                 </Col>
@@ -144,7 +175,7 @@ function ProfilePage(props) {
                 <Card title={
                   <Title level={5}>Chi tiết tài khoản</Title>
                 } bordered={true}>
-                  <p>Hello, {myName} (If Not {myName} ! <a onClick={() => history.push(ROUTERS.CUSTOMER_LOGIN)}>Logout!</a>)</p>
+                  <p>Hello, {UserInfoLocalStorage.name} (If Not {UserInfoLocalStorage.name} ! <a onClick={() => history.push(ROUTERS.CUSTOMER_LOGIN)}>Logout!</a>)</p>
                   <p>Từ bảng điều khiển. Bạn có thể dễ dàng kiểm tra & xem đơn hàng hiện tại của bạn, quản lý shipping, địa chỉ hóa đơn và chỉnh sửa chi tiết tài khoản cũng như mật khẩu của bạn.</p>
                 </Card>
               </Col>
@@ -157,4 +188,18 @@ function ProfilePage(props) {
   );
 }
 
-export default ProfilePage;
+const mapStateToProps = (state) => {
+  const { userInfo } = state.userReducer;
+  return {
+    userInfo: userInfo,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserInfo: (params) => dispatch(getUserInfoAction(params)),
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

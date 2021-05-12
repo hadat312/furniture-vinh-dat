@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getProductListAction,
-  getCategoriesAction,
+  // getCategoriesAction,
   getSubCategoriesAction,
   getItemCategoriesAction,
   getSortProductListAction,
@@ -17,7 +17,7 @@ function ProductListPage(props) {
   const list = [];
   const { Title } = Typography;
   const {
-    getCategories,
+    // getCategories,
     getSubCategories,
     getItemCategories,
     getProductList,
@@ -27,20 +27,16 @@ function ProductListPage(props) {
     productList,
     // categoríesID 
     getSortProductList,
-    searchProduct
+    searchProduct,
+    categoryId
   } = props;
-  const categoryId = "category01";
-  let itemCategoryId = "";
-  const [id, setID] = useState("category01");
-  const [isItemCategories, setIsItemCategories] = useState("itemCategory01");
+  // const categoryId = "category01";
+  const [isItemCategories, setIsItemCategories] = useState("");
+
   const [itemInRow, setItemInRow] = useState(6);
 
-
-
-
-
   useEffect(() => {
-    getCategories();
+    // getCategories();
     getSubCategories();
     getItemCategories();
     getProductList({
@@ -49,26 +45,12 @@ function ProductListPage(props) {
     });
   }, []);
 
-  function getItemCategoryId() {
-    subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
-      return (
-        itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
-          if (categoryId === subCategoryItem.categoryId
-            && subCategoryItem.id === itemCategoryItem.subCategoryId) { // chỉ lấy item của phòng khách
-            return itemCategoryId = itemCategoryItem.id;
-          }
-        })
-      );
-    })
-  }
-
   function onSearch(e) {
     const text = e.target.value;
     searchProduct({ text: text });
   }
 
   function onClickItem(e) {
-    // console.log(e.key);
     return (
       itemCategories.data.map((itemCategoryItem, itemCategoryIndex) => {
         if (e.item.props.children[1] === itemCategoryItem.itemCategoryName) {
@@ -78,6 +60,7 @@ function ProductListPage(props) {
     );
   }
 
+  //get sản phẩm theo itemCategoryId
   const products = productList.data.filter((productListItem) => {
     return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
   });
@@ -100,21 +83,13 @@ function ProductListPage(props) {
   }
 
   return (
+    
     <div className="product-container">
       <div className="product-container__shop-header">
         <div className="shop-header__content">
           <Row>
-            {/* <Col span={4}></Col>
-            <Col span={4} className="content__number-of-pages">
-              <div>
-                Number of pages
-              </div>
-            </Col> */}
             <Col span={12} className="content__format">
               <div className="d-flex" style={{ fontSize: "30px" }}>
-                {/* <Button className="content__format__button-3-item" focusable={true}>
-                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path></svg>
-                </Button> */}
                 {/* BUTTON HIỂN THỊ 4 SẢN PHẨM TRÊN 1 HÀNG*/}
                 <Button
                   focusable
@@ -138,8 +113,7 @@ function ProductListPage(props) {
         </div>
       </div>
       <div >
-        {getItemCategoryId()}
-        {/* TOGGLE FILTER */}
+        {/* {getItemCategoryId()} */}
 
       </div>
       <div className="product-container__shop-body">
@@ -188,9 +162,10 @@ function ProductListPage(props) {
                         onClickItem(e)
                       }
                       style={{ width: 256 }}
-                      defaultSelectedKeys={['1']}
+                      // defaultSelectedKeys={["1"]}
                       mode="inline"
                     >
+                      {/* <Menu.Item key="0">Tất cả</Menu.Item> */}
                       {renderSubCategories()}
                     </Menu>
                   </div>
@@ -204,6 +179,8 @@ function ProductListPage(props) {
               <Main
                 itemInRow={itemInRow}
                 products={products}
+              // products = {productList.data}
+              // itemCategoryId = {isItemCategories}
               />
             </div>
           </Col>
@@ -218,7 +195,7 @@ const mapStateToProps = (state) => {
   const { categories, subCategories, itemCategories } = state.categoriesReducer;
   const { productList } = state.productReducer;
   return {
-    categories: categories,
+    // categories: categories,
     subCategories: subCategories,
     itemCategories: itemCategories,
     productList: productList
@@ -227,7 +204,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCategories: (params) => dispatch(getCategoriesAction(params)),
+    // getCategories: (params) => dispatch(getCategoriesAction(params)),
     getSubCategories: (params) => dispatch(getSubCategoriesAction(params)),
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
     getProductList: (params => dispatch(getProductListAction(params))),

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getItemCategoriesAction,
-  // getProductListAction 
+  getProductListAction
 } from '../../../../redux/actions';
 import Item from './components/Item';
 import './main.css';
@@ -11,11 +11,29 @@ function Main(props) {
   const {
     itemInRow,
     products,
+    getProductList,
+    itemCategoryId
   } = props;
+
+  // useEffect(() => {
+  //   getCategories();
+  //   getSubCategories();
+  //   getItemCategories();
+  //   getProductList({
+  //     page: 1,
+  //     limit: 20,
+  //   });
+  // }, []);
 
   const [limit, setLimit] = useState(4);
 
   const list = [];
+
+  //get sản phẩm theo itemCategoryId
+  // const products = productList.data.filter((productListItem) => {
+  //   return productListItem.itemCategoryId.trim().toLowerCase().indexOf(itemCategoryId.trim().toLowerCase()) !== -1;
+  // });
+
   function renderProductList() {
 
     if (products.load) return <p>Loading...</p>;

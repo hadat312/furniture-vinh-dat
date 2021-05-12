@@ -21,18 +21,12 @@ function CardPage(props) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   getCart({
-  //     page: 1,
-  //     limit: 20,
-  //   });
-  // }, []);
-
+  const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"))||{};
 
   function onDeleteCart(id) {
     cart.data.map((item) => {
       if (id === item._id) {
-        return deleteCart({ id: item.id});
+        return deleteCart({ id: item.id });
       }
     })
   }
@@ -43,7 +37,8 @@ function CardPage(props) {
       cart.data.map((cartItem) => {
         return (
           productList.data.map((productListItem) => {
-            if (cartItem._id === productListItem.id) {
+            if (cartItem._id === productListItem.id
+              && cartItem.userId === UserInfoLocalStorage.userId) {
               return (
                 <>
                   <Item
@@ -51,10 +46,10 @@ function CardPage(props) {
                     productItem={productListItem}
                     cartItem={cartItem}
                     onDeleteCart={onDeleteCart}
-                    // image={cartItem.image}
-                    // priceInProductDetail={cartItem.price}
-                    // quantity={cartItem.quantity}
-                    // color={cartItem.color}
+                  // image={cartItem.image}
+                  // priceInProductDetail={cartItem.price}
+                  // quantity={cartItem.quantity}
+                  // color={cartItem.color}
                   />
                   <hr />
                 </>

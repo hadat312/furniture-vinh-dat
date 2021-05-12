@@ -1,40 +1,16 @@
 {
-  "wishlist": [
-    {
-      "_id": "product03",
-      "image": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-      "name": "Sofa Miami 2 chỗ hiện đại",
-      "quantity": 1,
-      "price": 9000000,
-      "id": 1
-    }
-  ],
+  "wishlist": [],
   "cart": [
     {
       "_id": "product01",
-      "image": "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg",
-      "name": "Sofa Miami 2 chỗ hiện đại",
-      "quantity": 4,
-      "price": 43700000,
-      "id": 1,
-      "color": "Trắng",
-      "size": "160*230"
-    },
-    {
-      "_id": "product03",
       "image": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
       "name": "Sofa Miami 2 chỗ hiện đại",
+      "size": "160*230",
+      "color": "Đen",
       "quantity": 2,
-      "price": 9000000,
-      "id": 3
-    },
-    {
-      "_id": "product04",
-      "image": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-      "name": "Sofa Miami 2 chỗ hiện đại",
-      "quantity": 2,
-      "price": 10000000,
-      "id": 4
+      "price": 22800000,
+      "userId": "user01",
+      "id": 1
     }
   ],
   "products": [
@@ -160,6 +136,17 @@
       "itemCategoryId": "itemCategory02"
     },
     {
+      "id": "product15",
+      "productImage": "http://www.nhaxinh.com/photo/7160/sofa-goc-3-101543-1.jpg",
+      "productName": "Sofa Poppy góc phải vải màu xanhSofa Poppy góc phải vải màu xanh",
+      "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "productDetailDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "productSpecifications": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "productPrice": 20000000,
+      "productDiscount": 0.1,
+      "itemCategoryId": "itemCategory02"
+    },
+    {
       "id": "product12",
       "productImage": "http://www.nhaxinh.com/photo/7127/ghe-lazboy-3-87432_-_copy.jpg",
       "productName": "Ghế Lazboy Larson 1PT528 – Red Thương hiệu Mỹ - Lazboy Bảo hành 10 năm",
@@ -168,7 +155,7 @@
       "productSpecifications": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       "productPrice": 9000000,
       "productDiscount": 0.3,
-      "itemCategoryId": "itemCategory03"
+      "itemCategoryId": "itemCategory11"
     },
     {
       "id": "product13",
@@ -480,35 +467,35 @@
   "users": [
     {
       "id": "user01",
-      "userName": "Đạt",
-      "userEmail": "hadat123@gmail.com",
-      "userPassword": "123456789",
-      "userPhoneNumber": "0123465789",
-      "userRole": "admin"
+      "name": "Đạt",
+      "email": "hadat123@gmail.com",
+      "password": "123456789",
+      "phoneNumber": "0123465789",
+      "role": "admin"
     },
     {
       "id": "user02",
-      "userName": "Vinh",
-      "userEmail": "vinh2@gmail.com",
-      "userPassword": "123456",
-      "userPhoneNumber": "0123465789",
-      "userRole": "customer"
+      "name": "Vinh",
+      "email": "vinh2@gmail.com",
+      "password": "123456",
+      "phoneNumber": "0123465789",
+      "role": "customer"
     },
     {
       "id": "user03",
-      "userName": "Vinh",
-      "userEmail": "vinh3@gmail.com",
-      "userPassword": "123456",
-      "userPhoneNumber": "0123465789",
-      "userRole": "customer"
+      "name": "Vinh",
+      "email": "vinh3@gmail.com",
+      "password": "123456",
+      "phoneNumber": "0123465789",
+      "role": "customer"
     },
     {
       "id": "user04",
-      "userName": "Đạt",
-      "userEmail": "dat4@gmail.com",
-      "userPassword": "123456",
-      "userPhoneNumber": "0123465789",
-      "userRole": "customer"
+      "name": "Đạt",
+      "email": "dat4@gmail.com",
+      "password": "123456",
+      "phoneNumber": "0123465789",
+      "role": "customer"
     }
   ]
 }

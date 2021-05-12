@@ -1,41 +1,41 @@
-export const loginTaskAction = (params) => {
+export const loginAction = (params) => {
   return {
-    type: 'LOGIN',
+    type: 'LOGIN_REQUEST',
     payload: params,
   }
 }
 
-export const logoutTaskAction = (params) => {
+export const logoutAction = (params) => {
   return {
-    type: 'LOGOUT',
+    type: 'LOGOUT_REQUEST',
     payload: params,
   }
 }
 
-export const addUserTaskAction = (params) => {
+export const addUserAction = (params) => {
   return {
     type: 'ADD_USER_TASK',
     payload: params,
   }
 }
 
-export const editUserTaskAction = (params) => {
+export const editUserAction = (params) => {
   return {
-    type: 'EDIT_USER_TASK',
+    type: 'EDIT_USER_REQUEST',
     payload: params,
   }
 }
 
-export const deleteUserTaskAction = (params) => {
+export const deleteUserAction = (params) => {
   return {
-    type: 'DELETE_USER_TASK',
+    type: 'DELETE_USER_REQUEST',
     payload: params,
   }
 }
 
-export const getUserTaskDetailAction = (params) => {
+export const getUserInfoAction = (params) => {
   return {
-    type: 'GET_USER_TASK_DETAIL',
+    type: 'GET_USER_INFO_REQUEST',
     payload: params,
   }
 }

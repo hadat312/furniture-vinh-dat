@@ -30,7 +30,7 @@ function* getCartSaga(action) {
 
 function* addCartTaskSaga(action) {
   try {
-    const { id, image, name, size, color, quantity, price } = action.payload;
+    const { id, image, name, size, color, quantity, price, userId } = action.payload;
     const result = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/cart',
@@ -42,6 +42,7 @@ function* addCartTaskSaga(action) {
         color: color,
         quantity: quantity,
         price: price,
+        userId: userId,
       }
     });
     yield put({

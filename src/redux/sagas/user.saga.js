@@ -43,12 +43,15 @@ function* loginSaga(action) {
 function* getUserInfoSaga(action) {
   try {
     const { id } = action.payload;
-    const result = yield axios.get(`http://localhost:3001/users/${id}`);
+    const result = yield axios({
+      method: 'GET',
+      url: `http://localhost:3002/users/${id}`,
+    });
     yield put({
       type: "GET_USER_INFO_SUCCESS",
       payload: {
-        data: result.data,
-      },
+        data: result.data
+      }
     });
   } catch (e) {
     yield put({

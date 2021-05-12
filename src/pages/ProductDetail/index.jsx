@@ -1,5 +1,4 @@
 import { Col, Radio, Rate, Row, Typography, Button, Comment, Avatar, InputNumber } from 'antd';
-// import Avatar from 'antd/lib/avatar/avatar';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -27,7 +26,6 @@ function ProductDetailPage({
   match
 }) {
 
-
   const productId = match.params.id;
 
   const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
@@ -38,6 +36,7 @@ function ProductDetailPage({
   }, [])
 
 
+  //chọn màu sắc và kích cỡ mặc định 
   useEffect(() => {
     if (productDetail.data.id) {
       setSizeSelected(productDetail.data.sizes[0] || {})
@@ -57,6 +56,7 @@ function ProductDetailPage({
     productDetail.data.productImage,
   ];
   const [changeImage, setChangeImage] = useState(productDetail.data.productImage);
+  console.log("🚀 ~ file: index.jsx ~ line 61 ~ changeImage", changeImage)
 
 
   const [sizeSelected, setSizeSelected] = useState({});
@@ -68,8 +68,12 @@ function ProductDetailPage({
   const oldPrice = productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0);
   const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount) * quantity;
 
+  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
+
   function toggleWishlist() {
-    setIsAddWishlist(!isAddWishlist);
+    if (UserInfoLocalStorage !== null) {
+      setIsAddWishlist(!isAddWishlist);
+    }
   }
 
   const productItem = {
@@ -79,37 +83,19 @@ function ProductDetailPage({
     size: sizeSelected.sizeName,
     color: colorSelected.colorName,
     quantity: quantity,
-    price: newPrice
+    price: newPrice,
+    userId: userInfoLocalStorage.userId
   };
-  console.log("🚀 ~ file: index.jsx ~ line 84 ~ changeImage", changeImage)
-
-  // function onChangeColor(e) {
-  //   console.log(e.target.value.colorName);
-  //   return e.target.value.colorName;
-  // }
-
-  // function onChangeSize(e) {
-  //   console.log(e.target.value.sizeName);
-  // }
-
-  // function onAddCartTask() {
-  //   addCartTask(productItem)
-  //   console.log("thêm vào giỏ thành công");
-  // }
 
   //UPDATE QUANTITY OF ITEM IN CART
   function checkIdAndAddTask() {
     if (UserInfoLocalStorage !== null) {
       let isNotMatch = true;
-      console.log("🚀 ~ (ban đầu) isNotMatch: ", isNotMatch)
       //Không có sản phẩm trong cart
       if (cart.data.length === 0) {
         addCartTask(productItem);
-        console.log("(cart empty) Thêm vào giỏ thành công");
+        console.log("Thêm vào giỏ thành công");
         alert("Thêm vào giỏ thành công");
-        // setTimeout(() => {
-        //   setIsShowAlert(true)
-        // }, 2000)
         // <Alert message="Thêm vào giỏ thành công" type="success" />
       } else {
         //Có sản phẩm trong giỏ
@@ -137,39 +123,50 @@ function ProductDetailPage({
             console.log("Đã cập nhật giỏ hàng");
             alert("Đã cập nhật giỏ hàng");
             isNotMatch = false;
-            console.log("🚀 ~ (false) isNotMatch: ", isNotMatch)
             editCartTask({ id: cartItem.id, ...updateItem });
           }
         })
-        console.log("🚀 ~ (lúc sau) isNotMatch: ", isNotMatch)
         //Sản phẩm hiện tại không trùng với các sản phẩm trong giỏ
         if (isNotMatch) {
           alert("Thêm vào giỏ thành công");
           console.log("Thêm vào giỏ thành công");
           addCartTask(productItem);
-          // setTimeout(() => {
-          //    setIsShowAlert(true)
-          // }, 1000)
         }
       }
     } else {
+      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
       console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
     }
 
   }
 
   function onAddWishlistTask() {
-    addWishlistTask(productItem)
-    console.log("thêm vào giỏ thành công");
+    if (UserInfoLocalStorage !== null) {
+      addWishlistTask(productItem);
+      alert("Thêm vào danh sách yêu thích thành công!");
+      console.log("Thêm vào danh sách yêu thích thành công!");
+    }
+    else {
+      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
+      console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
+    }
   }
 
   function onDeleteWishlistTask(productId) {
-    wishlist.data.map((item) => {
-      if (productId === item._id) {
-        return deleteWishlistTask({ id: item.id });
-      }
-    })
     console.log("xóa thành công");
+    if (UserInfoLocalStorage !== null) {
+      wishlist.data.map((item) => {
+        if (productId === item._id) {
+          return deleteWishlistTask({ id: item.id });
+        }
+      })
+      alert("xóa khỏi danh sách yêu thích thành công!");
+      console.log("xóa khỏi danh sách yêu thích thành công!");
+    }
+    else {
+      console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
+      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
+    }
   }
 
   //COMMENT
@@ -281,7 +278,6 @@ function ProductDetailPage({
               <Row>
                 <Radio.Group
                   onChange={(e) => {
-                    // onChangeColor(e)
                     setColorSelected(e.target.value)
                   }}
                   value={colorSelected}
@@ -299,7 +295,6 @@ function ProductDetailPage({
               <Row>
                 <Radio.Group
                   onChange={(e) => {
-                    // onChangeSize(e)
                     setSizeSelected(e.target.value)
                   }}
 

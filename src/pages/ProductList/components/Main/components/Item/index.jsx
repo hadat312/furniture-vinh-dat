@@ -51,31 +51,27 @@ function Item(props) {
   const [isShowAlert, setIsShowAlert] = useState(false);
 
   useEffect(() => {
-    getCart({
-      page: 1,
-      limit: 20,
-    });
-  }, []);
+    getCart();
+  }, [])
 
-  // Check login hay chua
-  // const userInfo = {
-  //   userId: "user04",
-  //   name: "Đạt"
-  // }
-  // localStorage.setItem("userId", JSON.stringify(userInfo));
+
   // get data từ localStorage để kiểm tra
   const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
 
   function toggleWishlist() {
-    setIsAddWishlist(!isAddWishlist);
+    if (UserInfoLocalStorage !== null) {
+      setIsAddWishlist(!isAddWishlist);
+    }
   }
 
   function onAddWishlistTask() {
     if (UserInfoLocalStorage !== null) {
       addWishlistTask(itemInfo);
+      alert("Thêm vào danh sách yêu thích thành công!");
       console.log("Thêm vào danh sách yêu thích thành công!");
     }
     else {
+      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
       console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
     }
   }
@@ -87,9 +83,11 @@ function Item(props) {
           return deleteWishlistTask({ id: item.id });
         }
       })
+      alert("xóa khỏi danh sách yêu thích thành công!");
       console.log("xóa khỏi danh sách yêu thích thành công!");
     }
     else {
+      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
       console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
     }
   }
@@ -132,6 +130,7 @@ function Item(props) {
         }
       }
     } else {
+      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
       console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
     }
 
@@ -194,17 +193,7 @@ function Item(props) {
           </div>
         </Card >
         <div className="main-container__card__add-to-card">
-          <a
-
-            // onClick={onAddCartTask}
-            onClick={checkIdAndAddTask}
-          // onClick={() => {
-          //   onAddCartTask();
-          //   checkDuplicateId();
-          // }}
-          >
-            + Thêm vào giỏ
-          </a>
+          <a onClick={checkIdAndAddTask}>+ Thêm vào giỏ</a>
         </div>
       </>
 
@@ -270,8 +259,8 @@ const mapStateToProps = (state) => {
   const { wishlist } = state.wishlistReducer;
   const { cart } = state.cartReducer;
   return {
-    wishlist: wishlist,
-    cart: cart,
+    wishlist,
+    cart
   }
 };
 

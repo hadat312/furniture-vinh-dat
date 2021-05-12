@@ -28,7 +28,7 @@ function ProductDetailPage({
 
   const productId = match.params.id;
 
-  const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
+  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
     getCart();
@@ -56,8 +56,9 @@ function ProductDetailPage({
     productDetail.data.productImage,
   ];
   const [changeImage, setChangeImage] = useState(productDetail.data.productImage);
-  console.log("🚀 ~ file: index.jsx ~ line 61 ~ changeImage", changeImage)
+  console.log("🚀 ~ file: index.jsx ~ line 59 ~ changeImage", changeImage)
 
+  
 
   const [sizeSelected, setSizeSelected] = useState({});
   const [colorSelected, setColorSelected] = useState({});
@@ -68,10 +69,9 @@ function ProductDetailPage({
   const oldPrice = productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0);
   const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount) * quantity;
 
-  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
 
   function toggleWishlist() {
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       setIsAddWishlist(!isAddWishlist);
     }
   }
@@ -84,12 +84,12 @@ function ProductDetailPage({
     color: colorSelected.colorName,
     quantity: quantity,
     price: newPrice,
-    userId: userInfoLocalStorage.userId
+    userId: userInfoLocalStorage.id
   };
 
   //UPDATE QUANTITY OF ITEM IN CART
   function checkIdAndAddTask() {
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       let isNotMatch = true;
       //Không có sản phẩm trong cart
       if (cart.data.length === 0) {
@@ -141,7 +141,7 @@ function ProductDetailPage({
   }
 
   function onAddWishlistTask() {
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       addWishlistTask(productItem);
       alert("Thêm vào danh sách yêu thích thành công!");
       console.log("Thêm vào danh sách yêu thích thành công!");
@@ -154,7 +154,7 @@ function ProductDetailPage({
 
   function onDeleteWishlistTask(productId) {
     console.log("xóa thành công");
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       wishlist.data.map((item) => {
         if (productId === item._id) {
           return deleteWishlistTask({ id: item.id });

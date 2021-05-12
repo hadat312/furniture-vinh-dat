@@ -4,7 +4,7 @@ import Footer from '../Footer';
 import Banner from '../Banner';
 function PrivateLayout(props) {
   const { exact, path, component: Component, ...other } = props;
-  const userInfo = JSON.parse(localStorage.getItem('userId'));
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   if (!userInfo) {
     return <Redirect to="/" />;
   }

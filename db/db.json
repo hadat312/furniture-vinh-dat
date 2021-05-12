@@ -1,15 +1,46 @@
 {
-  "wishlist": [],
-  "cart": [
+  "bill": [
+    {
+      "firstName": "xuan",
+      "lastName": "huynh",
+      "email": "sieuquaydn33@gmail.com",
+      "phone": "05222",
+      "company": "ádasd",
+      "address": "ádasd",
+      "country": "",
+      "city": "ádasdasd",
+      "userId": "ZUQA8T8",
+      "id": 1
+    }
+  ],
+  "wishlist": [
     {
       "_id": "product01",
       "image": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
       "name": "Sofa Miami 2 chỗ hiện đại",
-      "size": "160*230",
-      "color": "Đen",
-      "quantity": 2,
-      "price": 22800000,
-      "userId": "user01",
+      "quantity": 1,
+      "price": 10000000,
+      "userId": "ZUQA8T8",
+      "id": 1
+    },
+    {
+      "_id": "product05",
+      "image": "http://lezada.reactdemo.hasthemes.com/assets/images/product/furniture/1.jpg",
+      "name": "Sofa Miami 2 chỗ hiện đại",
+      "quantity": 1,
+      "price": 7000000,
+      "userId": "ZUQA8T8",
+      "id": 2
+    }
+  ],
+  "cart": [
+    {
+      "_id": "product01",
+      "wishlistId": 1,
+      "image": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+      "quantity": 1,
+      "price": 10000000,
+      "userId": "ZUQA8T8",
       "id": 1
     }
   ],
@@ -467,35 +498,35 @@
   "users": [
     {
       "id": "user01",
-      "name": "Đạt",
-      "email": "hadat123@gmail.com",
-      "password": "123456789",
-      "phoneNumber": "0123465789",
-      "role": "admin"
+      "userName": "Đạt",
+      "userEmail": "hadat123@gmail.com",
+      "userPassword": "123456789",
+      "userPhoneNumber": "0123465789",
+      "userRole": "admin"
     },
     {
       "id": "user02",
-      "name": "Vinh",
-      "email": "vinh2@gmail.com",
-      "password": "123456",
-      "phoneNumber": "0123465789",
-      "role": "customer"
+      "userName": "Vinh",
+      "userEmail": "vinh2@gmail.com",
+      "userPassword": "123456",
+      "userPhoneNumber": "0123465789",
+      "userRole": "customer"
     },
     {
-      "id": "user03",
-      "name": "Vinh",
-      "email": "vinh3@gmail.com",
-      "password": "123456",
-      "phoneNumber": "0123465789",
-      "role": "customer"
+      "userPassword": "123456",
+      "userEmail": "vinh4@gmail.com",
+      "userName": "vinh",
+      "userPhoneNumber": "5221",
+      "userRole": "customer",
+      "id": "ZUQA8T8"
     },
     {
-      "id": "user04",
-      "name": "Đạt",
-      "email": "dat4@gmail.com",
-      "password": "123456",
-      "phoneNumber": "0123465789",
-      "role": "customer"
+      "userPassword": "123456",
+      "userEmail": "khelahni@gmail.com",
+      "userName": "khelahni",
+      "userPhoneNumber": "012541",
+      "userRole": "customer",
+      "id": "4XpnfQe"
     }
   ]
 }

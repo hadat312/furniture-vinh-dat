@@ -1,7 +1,6 @@
 export const ROUTERS = {
   HOME: '/',
   ABOUT: '/about',
-  CUSTOMER_LOGIN: '/login-register',
   LIVING_ROOM: '/phong-khach',
   DINING_ROOM: '/phong-an',
   BED_ROOM: '/phong-ngu',
@@ -16,4 +15,7 @@ export const ROUTERS = {
   CHECKOUT: '/checkout',
   ORDER_TRACKING: '/order-tracking',
   ERROR: '/404',
+  ADMIN: '/admin',
+  Login: '/Login',
+  Register: '/Register',
 }

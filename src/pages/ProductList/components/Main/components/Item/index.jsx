@@ -35,6 +35,10 @@ function Item(props) {
 
   const [quantity, setQuantity] = useState(1);
 
+  // get data từ localStorage để kiểm tra
+  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo")) ||{};
+  console.log("🚀 ~ file: index.jsx ~ line 40 ~ Item ~ userInfoLocalStorage", userInfoLocalStorage.id)
+
   const { Title } = Typography;
   const marginBot = {
     marginBottom: 20,
@@ -45,7 +49,8 @@ function Item(props) {
     image: image,
     price: price,
     discount: discount,
-    quantity: quantity
+    quantity: quantity,
+    userId: userInfoLocalStorage.id
   };
 
   const [isShowAlert, setIsShowAlert] = useState(false);
@@ -55,17 +60,16 @@ function Item(props) {
   }, [])
 
 
-  // get data từ localStorage để kiểm tra
-  const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"));
+
 
   function toggleWishlist() {
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       setIsAddWishlist(!isAddWishlist);
     }
   }
 
   function onAddWishlistTask() {
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       addWishlistTask(itemInfo);
       alert("Thêm vào danh sách yêu thích thành công!");
       console.log("Thêm vào danh sách yêu thích thành công!");
@@ -77,7 +81,7 @@ function Item(props) {
   }
 
   function onDeleteWishlistTask() {
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       wishlist.data.map((item) => {
         if (id === item._id) {
           return deleteWishlistTask({ id: item.id });
@@ -94,7 +98,7 @@ function Item(props) {
 
   //UPDATE QUANTITY OF ITEM IN CART
   function checkIdAndAddTask() {
-    if (UserInfoLocalStorage !== null) {
+    if (userInfoLocalStorage !== null) {
       let isNotMatch = true;
       //Không có sản phẩm trong cart
       if (cart.data.length === 0) {

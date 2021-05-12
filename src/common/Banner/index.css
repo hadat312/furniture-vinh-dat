@@ -2,7 +2,8 @@
 
 .product-container__banner-bg {
   position: relative;
-  background-image: url(../../images/breadcrumb-bg-1.png);
+  /* background-image: url(../../images/breadcrumb-bg-1.png); */
+  background-image: url(/src/images/cartbg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

@@ -1,0 +1,24 @@
+*{
+    margin:0px;
+    padding: 0px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin:0px;
+}
+
+
+
+ .checkout-cart-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:0px;
+    font-size: 16px;
+}
+/* 
+ .checkout-cart-list li{
+     margin-left: 10px;
+ } */

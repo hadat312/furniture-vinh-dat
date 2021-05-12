@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import history from './utils/history';
 import { ROUTERS } from './constants/router';
 
@@ -9,16 +9,18 @@ import DefaultLayout from './common/DefaultLayout';
 import PrivateLayout from './common/PrivateLayout';
 import ErrorLayout from './common/ErrorLayout';
 import HomePage from './pages/Home';
-import AboutPage from './pages/About';
+import AboutPage from './pages/About'
 import DetailPage from './pages/ProductDetail';
-import LoginPage from './pages/Login';
 import ProductListPage from './pages/ProductList';
 import CartPage from './pages/Cart';
 import WishlistPage from './pages/Wishlist';
 import MyAccountPage from './pages/MyAccount';
-import CheckoutPage from './pages/Checkout';
+import CheckOutPage from './pages/Checkout'
 import OrderTrackingPage from './pages/OrderTracking';
 import ErrorPage from './pages/Error';
+import AdminPage from './pages/Admin';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register'
 
 function BrowserRouter(props) {
   return (
@@ -29,14 +31,27 @@ function BrowserRouter(props) {
           path={ROUTERS.HOME}
           component={HomePage}
         />
-        <DefaultLayout
+        <HomeLayout
           exact
           path={ROUTERS.ABOUT}
           component={AboutPage}
         />
-        <DefaultLayout
+
+        <HomeLayout
           exact
-          path={ROUTERS.CUSTOMER_LOGIN}
+          path={ROUTERS.ADMIN}
+          component={AdminPage}
+        />
+
+        <Route
+          exact
+          path={ROUTERS.Register}
+          component={RegisterPage}
+        />
+
+        <Route
+          exact
+          path={ROUTERS.Login}
           component={LoginPage}
         />
         <DefaultLayout
@@ -95,10 +110,10 @@ function BrowserRouter(props) {
           path={ROUTERS.MY_ACCOUNT}
           component={MyAccountPage}
         />
-        <DefaultLayout
+        <PrivateLayout
           exact
           path={ROUTERS.CHECKOUT}
-          component={CheckoutPage}
+          component={CheckOutPage}
         />
         <DefaultLayout
           exact

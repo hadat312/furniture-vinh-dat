@@ -1,51 +1,118 @@
-:root {
+/* :root {
   --backgroundColor: whitesmoke;
   --contactsColor: gray;
   --contactsIconColor: black;
   --footerBrandColor: black;
   --contactsColorHover: bold;
+} */
+.footer-bg{
+  background: #f8f8f8;
 }
 
-.footer {
-  /* background-image: linear-gradient(180deg, whitesmoke 0%, white 80% whitesmoke 50%); */
-  background-color: var(--backgroundColor);
-  padding: 80px;
-}
-/* FOOTER BRAND */
-.footer__brand {
-  color: var(--footerBrandColor);
-}
-.footer__brand:hover {
-  font-weight: bold;
-  text-decoration: none;
-  color: var(--footerBrandColor);
-}
-/* CONTACTS, SOCIAL MEDIA */
 
-.footer__info, .footer__social-media {
-  font-size: 18px;
+.footer-purpot{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 120px 20px;
 }
 
-.info__contacts ul , .social-media__links ul{
+.footer-logo_brand img{
+ width: auto;
+ height: 100px;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   list-style-type: none;
-  
+  margin:0px;
+  padding: 0px;
 }
 
-.info__contacts ul li a {
-  color: var(--contactsColor)!important;
+
+
+.footer-about_dropdown , .footer-useful_dropdown, .footer-follow_dropdown{
+   list-style-type: none;
+   padding: 0px;
+
+}
+
+.footer-about_dropdown{
+  margin-right: 100px;
+}
+
+.footer-useful_dropdown{
+  margin-right: 100px;
+}
+
+
+.footer-list_title{
+
+  color: black;
+  text-decoration: none;
+  font: 30px;
+  font-weight: 600;
+}
+
+.footer-list_title:hover{
+  color:black;
+
+}
+
+.footer-list{
+  color: #999;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 2.5em;
   text-decoration: none;
 }
 
-.info__contacts ul li a:hover, .social-media__links ul li a:hover{
-  font-weight: bold;
-  color: var(--contactsColorHover)!important;
+.footer-list:hover{
+  color: #333;
+  border-bottom: 1px solid #333;
+  transition: all ease-in-out 300ms;
+  text-decoration: none;
 }
 
-.contacts__icon, .links__icon {
-  margin-right: 10px;
+.footer-subscribe input{
+  margin: 10px 0px;
+  width: 300px;
+  height: 50px;
+  border:none;
+  background: none;
+  overflow: hidden;
+  outline: none;
+  border-bottom: 2px solid #333;
 }
 
-.contacts__icon {
-  color: var(--contactsIconColor);
+.footer-follow_dropdown{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100px;
 }
 
+
+.footer-follow_dropdown img{
+  /* margin-top: 0.95em; */
+  margin: 0.8em 8px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.footer-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #999;
+}
+
+.footer-info p:hover{
+  color: #333;
+  border-bottom: 1px solid #333;
+  transition: all ease-in-out 300ms;
+}

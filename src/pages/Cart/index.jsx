@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 import {
   getProductListAction,
   getCartAction,
-  deleteCartTaskAction
+  deleteCartTaskAction,
+  
 } from '../../redux/actions';
+import { ROUTERS } from '../../constants/router';
+import history from '../../utils/history';
+
+import './cart.css';
 function CardPage(props) {
 
-  const { getProductList, productList, getCart, cart, deleteCart } = props;
+  const { getProductList, productList, getCart, cart, deleteCart, editCart } = props;
 
   useEffect(() => {
     getProductList({
@@ -21,7 +26,14 @@ function CardPage(props) {
     });
   }, []);
 
-  const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userId"))||{};
+
+  
+
+  function onAddCheckOut() {
+    history.push(ROUTERS.CHECKOUT)
+  }
+
+  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo")) || {};
 
   function onDeleteCart(id) {
     cart.data.map((item) => {
@@ -38,7 +50,7 @@ function CardPage(props) {
         return (
           productList.data.map((productListItem) => {
             if (cartItem._id === productListItem.id
-              && cartItem.userId === UserInfoLocalStorage.userId) {
+              && cartItem.userId === userInfoLocalStorage.id) {
               return (
                 <>
                   <Item
@@ -46,6 +58,7 @@ function CardPage(props) {
                     productItem={productListItem}
                     cartItem={cartItem}
                     onDeleteCart={onDeleteCart}
+             
                   // image={cartItem.image}
                   // priceInProductDetail={cartItem.price}
                   // quantity={cartItem.quantity}
@@ -63,8 +76,29 @@ function CardPage(props) {
 
   return (
     <>
-      <div>CART</div>
-      {renderCart()}
+      <table className="cart-table-container container">
+        <thead>
+          <tr>
+            <th className="cart-name" colSpan="2">Product</th>
+            <th className="cart-price"> Price</th>
+            <th className="cart-quantity" >Quantity</th>
+            <th className="cart-subtotal" colSpan="2" >Total</th>
+          </tr>
+        </thead>
+        {renderCart()}
+      </table>
+
+      <div className="cart-coupon_area container">
+        <div className="cart-content">
+          <div className="cart-coupon_code">
+            {/* <input type="text" name="Coupon" placeholder="Enter your coupon code" /> */}
+            <button className="btn-clear">CART CLEAR</button>
+            <button className="btn-checkout"
+              onClick={onAddCheckOut}
+            >View Checkout</button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
@@ -83,6 +117,7 @@ const mapDispatchToProps = (dispatch) => {
     getProductList: (params) => dispatch(getProductListAction(params)),
     getCart: (params) => dispatch(getCartAction(params)),
     deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
+    // editCart: (params) => dispatch(editCartTaskAction(params)),
   };
 }
 

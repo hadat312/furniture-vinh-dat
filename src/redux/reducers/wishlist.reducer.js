@@ -4,6 +4,12 @@ const initialState = {
     load: false,
     error: '',
   },
+
+  anotherwishlist:{
+    data: [],
+    load: false,
+    error: '',
+  }
 };
 
 export default function wishlistReducer(state = initialState, action) {
@@ -73,6 +79,43 @@ export default function wishlistReducer(state = initialState, action) {
         },
       };
     }
+
+    case 'ADD_WISH_LIST_TO_CART_REQUEST': {
+      return {
+        ...state,
+        anotherwishlist: {
+          ...state.anotherwishlist,
+          load: true
+        },
+      };
+    }
+    case 'ADD_WISH_LIST_TO_CART_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        anotherwishlist: {
+          ...state.anotherwishlist,
+          data: [
+            ...state.anotherwishlist.data,
+            data
+           ],
+          load: false
+        },
+      };
+    }
+    case 'ADD_WISH_LIST_TO_CART_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        anotherwishlist: {
+          ...state.anotherwishlist,
+          error: error,
+          load: false
+        },
+      };
+    }
+
+
     case 'DELETE_WISH_LIST_TASK_REQUEST': {
       return {
         ...state,

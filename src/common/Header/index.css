@@ -3,12 +3,29 @@
 }
 
 .header {
-  position: fixed;
+  /* position: fixed; */
   z-index: 999;
   background-color: whitesmoke;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
   height: var(--header-height);
+  position: relative;
+}
+
+.user-area{
+  position: absolute;
+  top:55px;
+  left:34px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-area li{
+  display: none;
+}
+
+.header__user-block:hover .user-area li {
+  display: block;
 }
 
 .header__brand {
@@ -27,23 +44,41 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  width: 100%;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
+/* 
+.header__menu-item {
+  color: black;
+  padding: 10px;
+}
+
+.header__menu-item:hover {
+  text-decoration: none;
+  list-style-type: none;
+  color: black;
+  font-weight: bold;
+} */
 
 .header__menu-item {
   position: relative;
   color: black;
-  padding: 10px;
+  /* padding: 10px; */
+  padding: 0px 20px;
 }
 
 .header__menu-item::after{
   content: '';
   display: block;
   position: absolute;
-  /* top:18px; */
-  /* left: 19px; */
+  top:20px;
+  left: 20px;
   height: 2px;
   width: 0%;
-  /* padding:0px; */
+  padding:0px;
   background: #333;
   transition: all ease-in-out 200ms;
 }
@@ -57,8 +92,12 @@
 }
 
 .header__menu-item:hover::after{
-  width: 100%;
+  width: 74%;
   transition: all ease-in-out 200ms;
+}
+
+.space-border{
+  margin-left: 3px;
 }
 
 .item__icon:hover{
@@ -75,4 +114,52 @@
 .block__search-item, .block__avatar-item, .block__cart-item, .block__heart-item{
   margin-right: 20px;
   font-size:25px;
+}
+
+.block__avatar-item{
+  position: relative;
+}
+
+.header__user-block:hover  .dropdown-btn{
+  display: block;
+}
+
+.dropdown-btn{
+  display: none;
+}
+
+.dropdown-btn{
+  position: absolute;
+  top: 80px;
+  left:30px;
+}
+
+.btn-into{
+  padding: 5px 8px;
+  background: #e7e7e7;
+  color: #333;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.btn-logout{
+  margin-top: 1px;
+  padding: 5px 8px;
+  background: #e7e7e7;
+  color: #333;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.btn-into:hover{
+  /* background: #D1EEEE; */
+  background: #333;
+  color: #e8e8e8;
+  transition: all ease-in-out .55s;
+}
+
+.btn-logout:hover{
+  background: #333;
+  color: #e8e8e8;
+  transition: all ease-in-out .55s;
 }

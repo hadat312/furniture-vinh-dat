@@ -1,14 +1,33 @@
-import { Row, Col, Typography, Menu, Dropdown } from 'antd';
+import { Row, Col, Typography, Menu, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { AiOutlineUser, AiOutlineSearch, AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
-import React from 'react';
+import React, { useEffect } from 'react';
 import history from '../../utils/history'
 import { ROUTERS } from '../../constants/router';
+import { connect } from 'react-redux';
+
+import { getUserInfoAction } from '../../redux/actions'
 
 import './index.css';
 function Header(props) {
   const { Title } = Typography;
   const { SubMenu } = Menu;
+
+  const { userInfo, getUserInfo } = props;
+
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (userInfo && userInfo.id) {
+      getUserInfo({ id: userInfo.id });
+    }
+  }, []);
+
+  function handleLogout() {
+    localStorage.clear();
+    window.location.reload();
+  }
+
   const menuLivingRoom = (
     <Menu>
       <SubMenu title={<span onClick={() => history.push(ROUTERS.PRODUCT_LIST)}>Ghế & Sofa</span>} >
@@ -373,8 +392,25 @@ function Header(props) {
               <a>
                 <AiOutlineUser
                   className="block__avatar-item"
-                  onClick={() => { history.push(ROUTERS.CUSTOMER_LOGIN) }}
+                // onClick={() => { history.push(ROUTERS.CUSTOMER_LOGIN) }}
                 />
+
+                <div className="user-container">
+                  <p className="user-area">
+                    {userInfo.data.id
+                      ? (
+                        <p>{`Hola: ${userInfo.data.userName}`}</p>
+                      )
+                      : ""
+                    }
+                  </p>
+
+                  <ul className="dropdown-btn">
+                    <li className="btn-into" onClick={() => history.push('/login')}>Đăng nhập     </li>
+                    <li className="btn-logout" onClick={() => handleLogout()}>Đăng Xuất </li>
+                  </ul>
+
+                </div>
               </a>
               <a>
                 <AiOutlineHeart className="block__heart-item" onClick={() => { history.push(ROUTERS.WISHLIST) }} />
@@ -391,4 +427,18 @@ function Header(props) {
   );
 }
 
-export default Header;
+
+const mapStateToProps = (state) => {
+  const { userInfo } = state.userReducer;
+  return {
+    userInfo: userInfo,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserInfo: (params) => dispatch(getUserInfoAction(params)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

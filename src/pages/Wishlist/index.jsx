@@ -15,7 +15,10 @@ function WishlistPage(props) {
     wishlist,
     getWishlist,
     deleteWishlist,
+    addWishList,
   } = props;
+
+  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo")) || {};
 
   useEffect(() => {
     getProductList({
@@ -47,7 +50,9 @@ function WishlistPage(props) {
       wishlist.data.map((wishlistItem, wishlistIndex) => {
         return (
           productList.data.map((productListItem, productListIndex) => {
-            if (wishlistItem._id === productListItem.id) {
+            if (wishlistItem._id === productListItem.id
+              && wishlistItem.userId === userInfoLocalStorage.id
+            ) {
               return (
                 <>
                   <Item
@@ -71,8 +76,15 @@ function WishlistPage(props) {
   }
   return (
     <>
-      <div>WISHLIST</div>
-      {renderWishlist()}
+      <table className="cart-table container">
+        <thead>
+          <tr>
+            <th className="product-name" colSpan="2">Product</th>
+            <th className="product-price" colSpan="3"> Price</th>
+          </tr>
+        </thead>
+        {renderWishlist()}
+      </table>
     </>
   );
 }

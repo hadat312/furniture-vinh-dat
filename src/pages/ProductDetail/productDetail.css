@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 600px;
   object-fit: contain;
   border: 1px solid;
-  box-shadow: 14px 18px 10px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 14px 18px 10px rgba(0, 0, 0, 0.3); */
 }
 
 .thumbnail__item {

@@ -5,6 +5,13 @@ export function getWishlistAction(params) {
   }
 }
 
+export const addWishListToCartAction = (params) => {
+  return {
+    type: 'ADD_WISH_LIST_TO_CART_REQUEST',
+    payload: params,
+  }
+}
+
 export const addWishlistTaskAction = (params) => {
   return {
     type: 'ADD_WISH_LIST_TASK_REQUEST',

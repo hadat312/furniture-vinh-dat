@@ -22,6 +22,7 @@ function Item(props) {
   const itemInfo = {
     id: wishlistItem._id,
     wishlistId: wishlistItem.id,
+    name: wishlistItem.name,
     quantity: wishlistItem.quantity,
     image: wishlistItem.image,
     price: wishlistItem.price, 
@@ -52,7 +53,7 @@ function Item(props) {
 
           <td className="wishlist-remove">
             <button className="btn-add">
-              <span onClick={() => addCartTask()}>ADDED</span>
+              <span onClick={() => addCartTask()}>Thêm vào giỏ</span>
             </button>
           </td>
 

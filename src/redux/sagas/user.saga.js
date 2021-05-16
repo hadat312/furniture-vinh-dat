@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import history from '../../utils/history';
+import { ROUTERS } from '../../constants/router';
 
 function* registerSaga(action) {
   try {
@@ -19,6 +20,8 @@ function* registerSaga(action) {
           userName,
           userPhoneNumber,
           userRole: "customer",
+          carts:[],
+          wishlist:[],
         }
       });
       // console.log("🚀 ~ file: user.saga.js ~ line 21 ~ function*registerSaga ~ result", result)
@@ -28,7 +31,7 @@ function* registerSaga(action) {
           data: result.data,
         },
       });
-      yield history.push('/login')
+      yield history.push(ROUTERS.LOGIN)
     }
   } catch (e) {
     yield put({
@@ -51,7 +54,6 @@ function* loginSaga(action) {
         userPassword,
       }
     });
-    // console.log("🚀 ~ file: user.saga.js ~ line 65 ~ function*loginSaga ~ result", result)
     if (result.data.length > 0) {
       localStorage.setItem('userInfo', JSON.stringify(result.data[0]));
       yield put({
@@ -61,9 +63,9 @@ function* loginSaga(action) {
         },
       });
       if (result.data[0].userRole === 'customer') {
-        yield history.push('/about');
+        yield history.push(ROUTERS.HOME);
       } else {
-        yield history.push('/admin');
+        yield history.push(ROUTERS.ADMIN);
       }
     } else {
       yield put({

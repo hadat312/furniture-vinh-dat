@@ -1,81 +1,222 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { notification, Table, Divider } from 'antd';
 import Item from './components/Item';
 import { connect } from 'react-redux';
 import {
   getProductListAction,
-  getCartAction,
+  getCartListAction,
   deleteCartTaskAction,
-  
+  editCartTaskAction,
+
 } from '../../redux/actions';
 import { ROUTERS } from '../../constants/router';
 import history from '../../utils/history';
 
 import './cart.css';
-function CardPage(props) {
+function CardPage({
+  productList,
+  getCartList,
+  cartList,
+  deleteCart,
+  editCart
+}) {
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-  const { getProductList, productList, getCart, cart, deleteCart, editCart } = props;
+  const [selectionType, setSelectionType] = useState('checkbox');
 
-  useEffect(() => {
-    getProductList({
-      page: 1,
-      limit: 20,
-    });
-    getCart({
-      page: 1,
-      limit: 20,
-    });
-  }, []);
+  const key = `open${Date.now()}`;
 
+  // const columns = [
+  //   {
+  //     title: 'Product',
+  //     dataIndex: 'productImage',
+  //     // render: (text) => <a> <img src={`${text}`} /></a>,
+  //   },
+  //   {
+  //     dataIndex: 'productName',
+  //     render: (text) => 
+  //       <div>{text}</div>
+  //   },
+  //   {
+  //     title: 'Price',
+  //     dataIndex: 'productPrice',
+  //   },
+  //   {
+  //     title: 'Quantity',
+  //     dataIndex: 'productQuantity',
+  //   },
+  //   {
+  //     title: 'Total',
+  //     // dataIndex: 'productQuantity',
+  //   }
+  // ];
 
-  
+  // const rowSelection = {
+  //   onChange: (selectedRowKeys, selectedRows) => {
+  //     // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  //   },
+  //   getCheckboxProps: (record) => ({
+  //     disabled: record.name === 'Disabled User',
+  //     // Column configuration not to be checked
+  //     name: record.name,
+  //   }),
+  // };
 
   function onAddCheckOut() {
     history.push(ROUTERS.CHECKOUT)
   }
 
-  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo")) || {};
-
-  function onDeleteCart(id) {
-    cart.data.map((item) => {
-      if (id === item._id) {
-        return deleteCart({ id: item.id });
-      }
+  function onDeleteCart(cartIndex) {
+    const newCart = cartList.data;
+    newCart.splice(cartIndex, 1)
+    deleteCart({
+      userId: userInfo.id,
+      carts: [
+        ...newCart,
+      ]
     })
+    notification.success({
+      message: 'xóa sản phẩm thành công',
+      key,
+      duration: 2
+    });
   }
 
+  function onUpdateQuantity(cartIndex, value, colorSelected, sizeSelected) {
+    // const newCart = cartList.data;
+    // newCart.splice(cartIndex, 1, {
+    //   productQuantity: value
+    // })
+    // editCart({
+    //   userId: userInfo.id,
+    //   carts: [
+    //     ...newCart,
+    //   ]
+    // })
+
+    if (!colorSelected.id && !sizeSelected.id) { //ko có size và color
+      const newCart = cartList.data;
+      newCart.splice(cartIndex, 1, {
+        productId: cartList.data[cartIndex].productId,
+        productQuantity: value,
+        productName: cartList.data[cartIndex].productName,
+        productImage: cartList.data[cartIndex].productImage,
+        productPrice: cartList.data[cartIndex].productPrice,
+        productDiscount: cartList.data[cartIndex].productDiscount,
+        color: {},
+        size: {}
+      })
+      editCart({
+        userId: userInfo.id,
+        carts: newCart,
+      })
+    }
+    else if (!colorSelected.id) { // nếu chỉ có size
+      const newCartList = cartList.data;
+      newCartList.splice(cartIndex, 1, {
+        productId: cartList.data[cartIndex].productId,
+        productQuantity: value,
+        productName: cartList.data[cartIndex].productName,
+        productImage: cartList.data[cartIndex].productImage,
+        productPrice: cartList.data[cartIndex].productPrice,
+        productDiscount: cartList.data[cartIndex].productDiscount,
+        color: {},
+        size: {
+          id: sizeSelected.id,
+          sizeName: sizeSelected.sizeName,
+          price: sizeSelected.price
+        }
+      })
+      editCart({
+        userId: userInfo.id,
+        carts: newCartList,
+      })
+      // }
+    }
+    else if (!sizeSelected.id) { // nếu chỉ có color
+      const newCartList = cartList.data;
+      newCartList.splice(cartIndex, 1, {
+        productId: cartList.data[cartIndex].productId,
+        productQuantity: value,
+        productName: cartList.data[cartIndex].productName,
+        productImage: cartList.data[cartIndex].productImage,
+        productPrice: cartList.data[cartIndex].productPrice,
+        productDiscount: cartList.data[cartIndex].productDiscount,
+        color: {
+          id: colorSelected.id,
+          colorName: colorSelected.colorName,
+          price: colorSelected.price
+        },
+        size: {}
+      })
+      editCart({
+        userId: userInfo.id,
+        carts: newCartList,
+      })
+    }
+    else {//có cả color và size
+      const newCartList = cartList.data;
+      newCartList.splice(cartIndex, 1, {
+        productId: cartList.data[cartIndex].productId,
+        productQuantity: value,
+        productName: cartList.data[cartIndex].productName,
+        productImage: cartList.data[cartIndex].productImage,
+        productPrice: cartList.data[cartIndex].productPrice,
+        productDiscount: cartList.data[cartIndex].productDiscount,
+        color: {
+          id: colorSelected.id,
+          colorName: colorSelected.colorName,
+          price: colorSelected.price
+        },
+        size: {
+          id: sizeSelected.id,
+          sizeName: sizeSelected.sizeName,
+          price: sizeSelected.price
+        }
+      })
+      editCart({
+        userId: userInfo.id,
+        carts: newCartList,
+      })
+    }
+  }
   function renderCart() {
-    if (cart.load) return <p>Loading...</p>;
+    if (cartList.load) return <p>Loading...</p>;
     return (
-      cart.data.map((cartItem) => {
+      cartList.data.map((cartItem, cartIndex) => {
         return (
-          productList.data.map((productListItem) => {
-            if (cartItem._id === productListItem.id
-              && cartItem.userId === userInfoLocalStorage.id) {
-              return (
-                <>
-                  <Item
-                    key={cartItem._id}
-                    productItem={productListItem}
-                    cartItem={cartItem}
-                    onDeleteCart={onDeleteCart}
-             
-                  // image={cartItem.image}
-                  // priceInProductDetail={cartItem.price}
-                  // quantity={cartItem.quantity}
-                  // color={cartItem.color}
-                  />
-                  <hr />
-                </>
-              );
-            }
-          })
+          <>
+            <Item
+              key={cartItem.productId}
+              cartItem={cartItem}
+              cartIndex={cartIndex}
+              onDeleteCart={onDeleteCart}
+              onUpdateQuantity={onUpdateQuantity}
+
+            // image={cartItem.image}
+            // priceInProductDetail={cartItem.price}
+            // quantity={cartItem.quantity}
+            // color={cartItem.color}
+            />
+            {/* <hr /> */}
+          </>
         );
       })
     );
   }
-
   return (
     <>
+      {/* <div className="cart-table-container container">
+        <Table
+          rowSelection={{
+            type: selectionType,
+            ...rowSelection,
+          }}
+          columns={columns}
+          dataSource={cartList.data}
+          pagination={{ defaultCurrent: 1 }}
+        />
+      </div> */}
       <table className="cart-table-container container">
         <thead>
           <tr>
@@ -91,7 +232,6 @@ function CardPage(props) {
       <div className="cart-coupon_area container">
         <div className="cart-content">
           <div className="cart-coupon_code">
-            {/* <input type="text" name="Coupon" placeholder="Enter your coupon code" /> */}
             <button className="btn-clear">CART CLEAR</button>
             <button className="btn-checkout"
               onClick={onAddCheckOut}
@@ -102,22 +242,18 @@ function CardPage(props) {
     </>
   );
 }
-
 const mapStateToProps = (state) => {
-  const { productList } = state.productReducer;
-  const { cart } = state.cartReducer;
+  const { cartList } = state.cartReducer;
   return {
-    productList: productList,
-    cart: cart,
+    cartList: cartList,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProductList: (params) => dispatch(getProductListAction(params)),
-    getCart: (params) => dispatch(getCartAction(params)),
+    getCartList: (params) => dispatch(getCartListAction(params)),
     deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
-    // editCart: (params) => dispatch(editCartTaskAction(params)),
+    editCart: (params) => dispatch(editCartTaskAction(params)),
   };
 }
 

@@ -19,6 +19,9 @@
     border: 1px solid #e7e7e7;
 } */
 
+.cart-thumbnail {
+    width: 250px;
+}
 
 .cart-thumbnail img{
     width: auto;

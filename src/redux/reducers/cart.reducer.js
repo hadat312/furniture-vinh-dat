@@ -1,5 +1,5 @@
 const initialState = {
-  cart: {
+  cartList: {
     data: [],
     load: false,
     error: '',
@@ -8,42 +8,56 @@ const initialState = {
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
-    case 'GET_CART_REQUEST': {
+    case 'GET_CART_LIST_REQUEST': {
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           load: true,
         },
       }
     }
-    case 'GET_CART_SUCCESS': {
-      const { data } = action.payload;
+    case 'GET_CART_LIST_SUCCESS': {
+      const { data, userId } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
+          userId: userId,
           data: data,
           load: false,
         },
       }
     }
-    case 'GET_CART_FAIL': {
+    case 'GET_CART_LIST_FAIL': {
       const { error } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           load: false,
           error: error,
         },
       }
     }
+
+    case 'GET_USER_INFO_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        cartList: {
+          ...state.cartList,
+          data: data.carts,
+          load: false,
+        },
+      }
+    }
+
     case 'ADD_CART_TASK_REQUEST': {
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           load: true
         },
       };
@@ -52,12 +66,9 @@ export default function cartReducer(state = initialState, action) {
       const { data } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          data: [
-            ...state.cart.data,
-            data
-          ],
+        cartList: {
+          ...state.cartList,
+          data: data,
           load: false
         },
       };
@@ -65,8 +76,8 @@ export default function cartReducer(state = initialState, action) {
     case 'ADD_CART_TASK_FAIL': {
       return {
         ...state,
-        cart: {
-          ...state.cart.data,
+        cartList: {
+          ...state.cartList.data,
           load: false
         },
       };
@@ -81,18 +92,29 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case 'EDIT_CART_TASK_SUCCESS': {
-      const { id, data } = action.payload;
-      const newCart = state.cart.data;
-      newCart.splice(id, 1, data);
+      const { data } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          data: newCart,
+        cartList: {
+          ...state.cartList,
+          data: data,
           load: false
         },
       };
     }
+    // case 'EDIT_CART_TASK_SUCCESS': {
+    //   const { id, data } = action.payload;
+    //   const newCart = state.cart.data;
+    //   newCart.splice(id, 1, data);
+    //   return {
+    //     ...state,
+    //     cart: {
+    //       ...state.cart,
+    //       data: newCart,
+    //       load: false
+    //     },
+    //   };
+    // }
     case 'EDIT_CART_TASK_FAIL': {
       const { error } = action.payload;
       return {
@@ -114,17 +136,28 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case 'DELETE_CART_TASK_SUCCESS': {
-      const id = action.payload;
-      const newCart = state.cart.data.filter((cart) => cart.id !== id);
+      const { data } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          data: newCart,
+        cartList: {
+          ...state.cartList,
+          data: data,
           load: false
         },
       };
     }
+    // case 'DELETE_CART_TASK_SUCCESS': {
+    //   const id = action.payload;
+    //   const newCart = state.cart.data.filter((cart) => cart.id !== id);
+    //   return {
+    //     ...state,
+    //     cart: {
+    //       ...state.cart,
+    //       data: newCart,
+    //       load: false
+    //     },
+    //   };
+    // }
     case 'DELETE_CART_TASK_FAIL': {
       const { error } = action.payload;
       return {

@@ -1,38 +1,24 @@
 export const registerAction = (params) => {
   // console.log("🚀 ~ file: user.action.js ~ line 2 ~ registerAction ~ params", params)
   return {
-      type: 'ADD_REGISTER_REQUEST',
-      payload: params
+    type: 'ADD_REGISTER_REQUEST',
+    payload: params
   }
 }
 
 export const loginAction = (params) => {
-console.log("🚀 ~ file: user.action.js ~ line 10 ~ loginAction ~ params", params)
   return {
-      type: 'LOGIN_REQUEST',
-      payload: params,
+    type: 'LOGIN_REQUEST',
+    payload: params,
   }
 }
-
 
 export const getUserInfoAction = (params) => {
   return {
-      type: 'GET_USER_INFO_REQUEST',
-      payload: params
+    type: 'GET_USER_INFO_REQUEST',
+    payload: params
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 export const logoutTaskAction = (params) => {
   return {

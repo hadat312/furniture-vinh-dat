@@ -3,22 +3,22 @@ import React from 'react';
 import './styles.css'
 
 function Item(props) {
-    // console.log("🚀 ~ file: index.jsx ~ line 5 ~ Item ~ props", props)
-    const { productId, name, price, discount, cartItem } = props;
-    // console.log("🚀 ~ file: index.jsx ~ line 8 ~ Item ~ cartItem", cartItem)
+    const { cartItem } = props;
+    const productPrice = (cartItem.productPrice + (cartItem.color.price || 0) + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount);
+    // const total = productPrice * cartItem.productQuantity;
+    
     return (
         <>
             <div className="item-container">
                 <div className="item-content">
-                  
+
                     <ul className="checkout-cart-list">
-                        
-                            <li>{cartItem.name}</li>
-                            <li>{cartItem.price.toLocaleString()} VND</li>
+
+                        <li style={{display: 'flex'}}><span className="checkout-cart-list__custom-text">{cartItem.productName}</span>{' x' + cartItem.productQuantity}</li>
+                        <li>{productPrice.toLocaleString() + ' vnđ'}</li>
                     </ul>
                 </div>
             </div>
-
         </>
     )
 

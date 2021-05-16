@@ -16,6 +16,6 @@ export const ROUTERS = {
   ORDER_TRACKING: '/order-tracking',
   ERROR: '/404',
   ADMIN: '/admin',
-  Login: '/Login',
-  Register: '/Register',
+  LOGIN: '/Login',
+  REGISTER: '/Register',
 }

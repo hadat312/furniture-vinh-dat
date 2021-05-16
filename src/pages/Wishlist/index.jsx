@@ -4,7 +4,7 @@ import Item from './components/Item'
 import { connect } from 'react-redux';
 import {
   getProductListAction,
-  getWishlistAction,
+  getWishListAction,
   deleteWishlistTaskAction,
 } from '../../redux/actions';
 import './wishlist.css';
@@ -101,7 +101,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getProductList: (params) => dispatch(getProductListAction(params)),
-    getWishlist: (params) => dispatch(getWishlistAction(params)),
+    getWishList: (params) => dispatch(getWishListAction(params)),
     deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
   };
 }

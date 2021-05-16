@@ -3,81 +3,32 @@ import axios from 'axios';
 
 function* getProductListSaga(action) {
   try {
-    const { page, limit, itemCategoryId } = action.payload;
+    const { more, page, limit, categoryId, itemCategoryId, searchKey, sort, order } = action.payload;
     const result = yield axios({
       method: 'GET',
-      url: 'http://localhost:3002/products',
+      url: 'http://localhost:3002/products?_embed=colors',
       params: {
         _page: page,
         _limit: limit,
+        ...categoryId && { categoryId },
         ...itemCategoryId && { itemCategoryId },
+        ...searchKey && { q: searchKey },
+        _sort: sort,
+        _order: order,
+        _embed: "sizes",
       }
     });
     yield put({
       type: "GET_PRODUCT_LIST_SUCCESS",
       payload: {
-        data: result.data
+        data: result.data,
+        page,
+        more,
       },
     });
   } catch (e) {
     yield put({
       type: "GET_PRODUCT_LIST_FAIL",
-      payload: {
-        error: e.error
-      },
-    });
-  }
-}
-
-function* getSortProductListSaga(action) {
-  try {
-    const { itemCategoryId, sort, order } = action.payload;
-    const result = yield axios({
-      method: 'GET',
-      url: 'http://localhost:3002/products',
-      params: {
-        // _page: page,
-        // _limit: limit,
-        ...itemCategoryId && { itemCategoryId },
-        _sort: sort,
-        _order: order,
-      }
-    });
-    yield put({
-      type: "GET_SORT_PRODUCT_LIST_SUCCESS",
-      payload: {
-        data: result.data
-      },
-    });
-  } catch (e) {
-    yield put({
-      type: "GET_SORT_PRODUCT_LIST_FAIL",
-      payload: {
-        error: e.error
-      },
-    });
-  }
-}
-
-function* searchProductSaga(action) {
-  try {
-    const { text } = action.payload;
-    const result = yield axios({
-      method: 'GET',
-      url: `http://localhost:3002/products`,
-      params: {
-        q: text,
-      }
-    });
-    yield put({
-      type: "SEARCH_PRODUCT_SUCCESS",
-      payload: {
-        data: result.data
-      }
-    });
-  } catch (e) {
-    yield put({
-      type: "SEARCH_PRODUCT_FAIL",
       payload: {
         error: e.error
       },
@@ -115,6 +66,4 @@ function* getProductDetailSaga(action) {
 export default function* productSaga() {
   yield takeEvery('GET_PRODUCT_LIST_REQUEST', getProductListSaga);
   yield takeEvery('GET_PRODUCT_DETAIL_REQUEST', getProductDetailSaga);
-  yield takeEvery('GET_SORT_PRODUCT_LIST_REQUEST', getSortProductListSaga);
-  yield takeEvery('SEARCH_PRODUCT_REQUEST', searchProductSaga);
 }

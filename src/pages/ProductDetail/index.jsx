@@ -1,10 +1,11 @@
-import { Col, Radio, Rate, Row, Typography, Button, Comment, Avatar, InputNumber } from 'antd';
+import { Col, Radio, Rate, Row, Typography, Button, Comment, Avatar, InputNumber, notification, Alert, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import history from '../../utils/history';
 import {
   getProductDetailAction,
-  getCartAction,
+  getCartListAction,
   addWishlistTaskAction,
   deleteWishlistTaskAction,
   addCartTaskAction,
@@ -12,12 +13,13 @@ import {
 } from '../../redux/actions';
 // import Slider from "react-slick";
 import './productDetail.css';
+import { ROUTERS } from '../../constants/router';
 
 function ProductDetailPage({
   productDetail,
   wishlist,
-  cart,
-  getCart,
+  cartList,
+  // getCartList,
   getProductDetail,
   addWishlistTask,
   deleteWishlistTask,
@@ -28,10 +30,10 @@ function ProductDetailPage({
 
   const productId = match.params.id;
 
-  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
-    getCart();
+    // getCartList();
     getProductDetail({ id: productId });
   }, [])
 
@@ -56,9 +58,8 @@ function ProductDetailPage({
     productDetail.data.productImage,
   ];
   const [changeImage, setChangeImage] = useState(productDetail.data.productImage);
-  console.log("🚀 ~ file: index.jsx ~ line 59 ~ changeImage", changeImage)
 
-  
+
 
   const [sizeSelected, setSizeSelected] = useState({});
   const [colorSelected, setColorSelected] = useState({});
@@ -67,106 +68,289 @@ function ProductDetailPage({
   const [isAddWishlist, setIsAddWishlist] = useState(false);
 
   const oldPrice = productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0);
-  const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount) * quantity;
+  const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount);
 
 
   function toggleWishlist() {
-    if (userInfoLocalStorage !== null) {
+    if (userInfo !== null) {
       setIsAddWishlist(!isAddWishlist);
     }
   }
 
-  const productItem = {
-    id: productId,
-    image: changeImage,
-    name: productDetail.data.productName,
-    size: sizeSelected.sizeName,
-    color: colorSelected.colorName,
-    quantity: quantity,
-    price: newPrice,
-    userId: userInfoLocalStorage.id
-  };
 
-  //UPDATE QUANTITY OF ITEM IN CART
-  function checkIdAndAddTask() {
-    if (userInfoLocalStorage !== null) {
-      let isNotMatch = true;
-      //Không có sản phẩm trong cart
-      if (cart.data.length === 0) {
-        addCartTask(productItem);
-        console.log("Thêm vào giỏ thành công");
-        alert("Thêm vào giỏ thành công");
-        // <Alert message="Thêm vào giỏ thành công" type="success" />
+
+  function onAddToCart() {
+    //color, size đều không có
+    //chỉ có color
+    //chỉ có size
+    //có cả 2
+    //nếu không có cart và cả size
+    const key = `open${Date.now()}`;
+    if (!userInfo) {
+      return notification.warning({
+        message: 'Chưa đăng nhập',
+        description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        key,
+        btn: (
+          <Button
+            type="primary"
+            onClick={() => {
+              notification.close(key);
+              history.push(ROUTERS.LOGIN);
+            }}
+          >
+            Đăng nhập ngay
+          </Button>
+        ),
+      });
+    }
+    if (!colorSelected.id && !sizeSelected.id) {
+      const existProductIndex = cartList.data.findIndex((item) => item.productId === productId);
+      if (existProductIndex !== -1) {
+        const newCart = cartList.data;
+        newCart.splice(existProductIndex, 1, {
+          productId: productId,
+          productQuantity: cartList.data[existProductIndex].productQuantity + quantity,
+          productName: productDetail.data.productName,
+          productImage: changeImage,
+          productPrice: productDetail.data.productPrice,
+          productDiscount: productDetail.data.productDiscount,
+          color: {},
+          size: {}
+        })
+        addCartTask({
+          userId: userInfo.id,
+          carts: newCart,
+        })
+        notification.success({
+          message: 'Cập nhật vào giỏ thành công',
+          key,
+          duration: 2
+        });
       } else {
-        //Có sản phẩm trong giỏ
-        cart.data.map((cartItem) => {
-          //Kiểm tra xem đã thêm sản phẩm hiện tại vào giỏ chưa
-          if (productId === cartItem._id) {
-            let updateItem = {};
-            if (quantity !== 1) {
-              updateItem = {
-                image: changeImage,
-                size: sizeSelected.sizeName,
-                color: colorSelected.colorName,
-                quantity: quantity,
-                price: newPrice
-              };
-            } else {
-              updateItem = {
-                image: changeImage,
-                size: sizeSelected.sizeName,
-                color: colorSelected.colorName,
-                quantity: quantity + 1,
-                price: newPrice
-              };
+        addCartTask({
+          userId: userInfo.id,
+          carts: [
+            ...cartList.data,
+            {
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {},
+              size: {}
             }
-            console.log("Đã cập nhật giỏ hàng");
-            alert("Đã cập nhật giỏ hàng");
-            isNotMatch = false;
-            editCartTask({ id: cartItem.id, ...updateItem });
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào giỏ thành công',
+          key,
+          duration: 2
+        });
+      }
+    } else if (!colorSelected.id) { // nếu chỉ có size
+      const existSizeIndex = cartList.data.findIndex((item) => item.size.id === sizeSelected.id);
+      if (existSizeIndex !== -1) {
+        const newCartList = cartList.data;
+        newCartList.splice(existSizeIndex, 1, {
+          productId: productId,
+          productQuantity: cartList.data[existSizeIndex].productQuantity + quantity,
+          productName: productDetail.data.productName,
+          productImage: changeImage,
+          productPrice: productDetail.data.productPrice,
+          productDiscount: productDetail.data.productDiscount,
+          color: {},
+          size: {
+            id: sizeSelected.id,
+            sizeName: sizeSelected.sizeName,
+            price: sizeSelected.price
           }
         })
-        //Sản phẩm hiện tại không trùng với các sản phẩm trong giỏ
-        if (isNotMatch) {
-          alert("Thêm vào giỏ thành công");
-          console.log("Thêm vào giỏ thành công");
-          addCartTask(productItem);
-        }
+        addCartTask({
+          userId: userInfo.id,
+          carts: newCartList,
+        })
+        notification.success({
+          message: 'Cập nhật vào giỏ thành công',
+          key,
+          duration: 2
+        });
+      } else {
+        addCartTask({
+          userId: userInfo.id,
+          carts: [
+            ...cartList.data,
+            {
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {},
+              size: {
+                id: sizeSelected.id,
+                sizeName: sizeSelected.sizeName,
+                price: sizeSelected.price
+              }
+            }
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào giỏ thành công',
+          key,
+          duration: 2
+        });
       }
-    } else {
-      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
-      console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
+    } else if (!sizeSelected.id) { // nếu chỉ có color
+      const existColorIndex = cartList.data.findIndex((item) => item.color.id === colorSelected.id);
+      if (existColorIndex !== -1) {
+        const newCartList = cartList.data;
+        newCartList.splice(existColorIndex, 1, {
+          productId: productId,
+          productQuantity: cartList.data[existColorIndex].productQuantity + quantity,
+          productName: productDetail.data.productName,
+          productImage: changeImage,
+          productPrice: productDetail.data.productPrice,
+          productDiscount: productDetail.data.productDiscount,
+          color: {
+            id: colorSelected.id,
+            colorName: colorSelected.colorName,
+            price: colorSelected.price
+          },
+          size: {}
+        })
+        addCartTask({
+          userId: userInfo.id,
+          carts: newCartList,
+        })
+        notification.success({
+          message: 'Cập nhật vào giỏ thành công',
+          key,
+          duration: 2
+        });
+      } else {
+        addCartTask({
+          userId: userInfo.id,
+          carts: [
+            ...cartList.data,
+            {
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {
+                id: colorSelected.id,
+                colorName: colorSelected.colorName,
+                price: colorSelected.price
+              },
+              size: {}
+            }
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào giỏ thành công',
+          key,
+          duration: 2
+        });
+      }
     }
-
+    else {//có cả color và size
+      const existOptionIndex = cartList.data.findIndex((item) => item.color.id === colorSelected.id && item.size.id === sizeSelected.id);
+      if (existOptionIndex !== -1) {
+        const newCartList = cartList.data;
+        newCartList.splice(existOptionIndex, 1, {
+          productId: productId,
+          productQuantity: cartList.data[existOptionIndex].productQuantity + quantity,
+          productName: productDetail.data.productName,
+          productImage: changeImage,
+          productPrice: productDetail.data.productPrice,
+          productDiscount: productDetail.data.productDiscount,
+          color: {
+            id: colorSelected.id,
+            colorName: colorSelected.colorName,
+            price: colorSelected.price
+          },
+          size: {
+            id: sizeSelected.id,
+            sizeName: sizeSelected.sizeName,
+            price: sizeSelected.price
+          }
+        })
+        addCartTask({
+          userId: userInfo.id,
+          carts: newCartList,
+        })
+        notification.success({
+          message: 'Cập nhật vào giỏ thành công',
+          key,
+          duration: 2
+        });
+      } else {
+        addCartTask({
+          userId: userInfo.id,
+          carts: [
+            ...cartList.data,
+            {
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {
+                id: colorSelected.id,
+                colorName: colorSelected.colorName,
+                price: colorSelected.price
+              },
+              size: {
+                id: sizeSelected.id,
+                sizeName: sizeSelected.sizeName,
+                price: sizeSelected.price
+              }
+            }
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào giỏ thành công',
+          key,
+          duration: 2
+        });
+      }
+    }
   }
 
   function onAddWishlistTask() {
-    if (userInfoLocalStorage !== null) {
-      addWishlistTask(productItem);
-      alert("Thêm vào danh sách yêu thích thành công!");
-      console.log("Thêm vào danh sách yêu thích thành công!");
-    }
-    else {
-      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
-      console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
-    }
+    // if (userInfo !== null) {
+    //   addWishlistTask(productItem);
+    //   alert("Thêm vào danh sách yêu thích thành công!");
+    //   console.log("Thêm vào danh sách yêu thích thành công!");
+    // }
+    // else {
+    //   alert("Vui lòng đăng nhập để thực hiện thao tác này!");
+    //   console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
+    // }
   }
 
   function onDeleteWishlistTask(productId) {
-    console.log("xóa thành công");
-    if (userInfoLocalStorage !== null) {
-      wishlist.data.map((item) => {
-        if (productId === item._id) {
-          return deleteWishlistTask({ id: item.id });
-        }
-      })
-      alert("xóa khỏi danh sách yêu thích thành công!");
-      console.log("xóa khỏi danh sách yêu thích thành công!");
-    }
-    else {
-      console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
-      alert("Vui lòng đăng nhập để thực hiện thao tác này!");
-    }
+    // console.log("xóa thành công");
+    // if (userInfo !== null) {
+    //   wishlist.data.map((item) => {
+    //     if (productId === item._id) {
+    //       return deleteWishlistTask({ id: item.id });
+    //     }
+    //   })
+    //   alert("xóa khỏi danh sách yêu thích thành công!");
+    //   console.log("xóa khỏi danh sách yêu thích thành công!");
+    // }
+    // else {
+    //   console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
+    //   alert("Vui lòng đăng nhập để thực hiện thao tác này!");
+    // }
   }
 
   //COMMENT
@@ -198,9 +382,9 @@ function ProductDetailPage({
         <Radio.Button
           key={sizesItem.id + 1}
           value={sizesItem}
-          className="size-content__item">
-          {sizesItem.sizeName}
-        </Radio.Button>
+          className="size-content__item" >
+          { sizesItem.sizeName}
+        </Radio.Button >
       )
     })
   }
@@ -272,7 +456,9 @@ function ProductDetailPage({
           </Row>
           <Row className="detail-container__color">
             <Col span={6}>
-              <Title level={3} className="color-title">Color</Title>
+              {
+                colorSelected.id && <Title level={3} className="color-title">Color</Title>
+              }
             </Col>
             <Col span={14}>
               <Row>
@@ -289,7 +475,10 @@ function ProductDetailPage({
           </Row>
           <Row className="detail-container__size">
             <Col span={6}>
-              <Title level={3} className="size-title">Size</Title>
+              {
+                sizeSelected.id && <Title level={3} className="size-title">Size</Title>
+              }
+
             </Col>
             <Col span={14}>
               <Row>
@@ -313,6 +502,7 @@ function ProductDetailPage({
               <Row >
                 <div className="detail-container__quantity__content">
                   <InputNumber
+                    onStep={(value) => console.log(value)}
                     min={1}
                     max={10}
                     defaultValue={1}
@@ -329,7 +519,8 @@ function ProductDetailPage({
               <div className="detail-container__order">
                 <Button
                   className="detail-container__order__add-button"
-                  onClick={checkIdAndAddTask}
+                  // onClick={checkIdAndAddTask}
+                  onClick={onAddToCart}
                 >
                   Thêm vào giỏ hàng
                   </Button>
@@ -408,12 +599,12 @@ function ProductDetailPage({
 
 const mapStateToProps = (state) => {
   const { wishlist } = state.wishlistReducer;
-  const { cart } = state.cartReducer;
+  const { cartList } = state.cartReducer;
   const { productDetail } = state.productReducer;
   return {
     productDetail,
     wishlist,
-    cart
+    cartList
   }
 };
 
@@ -422,7 +613,7 @@ const mapDispatchToProps = (dispatch) => {
     getProductDetail: (params) => dispatch(getProductDetailAction(params)),
     addWishlistTask: (params) => dispatch(addWishlistTaskAction(params)),
     deleteWishlistTask: (params) => dispatch(deleteWishlistTaskAction(params)),
-    getCart: (params) => dispatch(getCartAction(params)),
+    // getCartList: (params) => dispatch(getCartListAction(params)),
     addCartTask: (params) => dispatch(addCartTaskAction(params)),
     editCartTask: (params) => dispatch(editCartTaskAction(params)),
   };

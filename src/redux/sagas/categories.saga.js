@@ -25,9 +25,13 @@ function* getCategoriesSaga(action) {
 
 function* getSubCategoriesSaga(action) {
   try {
+    const { categoryId } = action.payload;
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/subCategories',
+      params: {
+        ...categoryId && { categoryId },
+      }
     });
     yield put({
       type: "GET_SUB_CATEGORIES_SUCCESS",

@@ -3,71 +3,131 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getProductListAction,
-  // getCategoriesAction,
   getSubCategoriesAction,
   getItemCategoriesAction,
-  getSortProductListAction,
-  searchProductAction
 } from '../../redux/actions';
 import Main from './components/Main';
-import FilterContent from './components/FilterContent';
 import './productList.css';
 
 function ProductListPage(props) {
+
   const list = [];
   const { Title } = Typography;
   const {
-    // getCategories,
     getSubCategories,
     getItemCategories,
     getProductList,
-    categories,
     subCategories,
     itemCategories,
     productList,
-    // categoríesID 
-    getSortProductList,
-    searchProduct,
     categoryId
   } = props;
-  // const categoryId = "category01";
-  const [isItemCategories, setIsItemCategories] = useState("");
 
   const [itemInRow, setItemInRow] = useState(6);
-
+  const [itemCategorySelected, setItemCategorySelected] = useState(undefined);
   useEffect(() => {
-    // getCategories();
-    getSubCategories();
+    getSubCategories({
+      categoryId: categoryId //get SubCategories theo categoryId
+    });
     getItemCategories();
     getProductList({
       page: 1,
-      limit: 20,
+      limit: 4,
+      categoryId: categoryId
     });
   }, []);
 
+  useEffect(() => {
+    getSubCategories({
+      categoryId: categoryId //get SubCategories theo categoryId
+    });
+    getItemCategories();
+    getProductList({
+      page: 1,
+      limit: 4,
+      categoryId: categoryId
+    });
+  }, [categoryId]);
+
   function onSearch(e) {
-    const text = e.target.value;
-    searchProduct({ text: text });
+    const searchKey = e.target.value;
+    getProductList({
+      page: 1,
+      limit: 4,
+      categoryId: categoryId,
+      searchKey: searchKey,
+    })
   }
 
+  function sortDescendingProduct() {
+    getProductList({
+      page: 1,
+      limit: 4,
+      categoryId: categoryId,
+      sort: "productPrice",
+      order: "desc"
+    })
+  }
+
+  function sortAscendingProduct() {
+    getProductList({
+      page: 1,
+      limit: 4,
+      categoryId: categoryId,
+      sort: "productPrice",
+      order: "asc"
+    })
+  }
+
+  //get sản phẩm theo categoryId
+  function onFilterCategory() {
+    getProductList({
+      page: 1,
+      limit: 4,
+      categoryId: categoryId
+    });
+  }
+
+  //get sản phẩm theo itemCategoryId
+  function onFilterItemCategory(id) {
+    setItemCategorySelected(id)
+    getProductList({
+      page: 1,
+      limit: 4,
+      itemCategoryId: id
+    });
+  }
+
+  //set lại state isItemCategories = itemCategoryItem.id
   function onClickItem(e) {
     return (
       itemCategories.data.map((itemCategoryItem, itemCategoryIndex) => {
         if (e.item.props.children[1] === itemCategoryItem.itemCategoryName) {
-          setIsItemCategories(itemCategoryItem.id);
+          onFilterItemCategory(itemCategoryItem.id)
         }
       })
     );
   }
 
+  function handleShowMore() {
+    getProductList({
+      more: true,
+      page: productList.page + 1,
+      limit: 4,
+      categoryId: categoryId,
+      itemCategoryId: itemCategorySelected,
+    });
+  }
+
   //get sản phẩm theo itemCategoryId
-  const products = productList.data.filter((productListItem) => {
-    return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
-  });
+  // products = productList.data.filter((productListItem) => {
+  //   return productListItem.itemCategoryId.trim().toLowerCase().indexOf(isItemCategories.trim().toLowerCase()) !== -1;
+  // });
 
 
   function renderSubCategories() {
     if (subCategories.load) return <p>Loading...</p>;
+    list.push(<Menu.Item key="a" onClick={onFilterCategory}>Tất cả</Menu.Item>)
     subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
       if (categoryId === subCategoryItem.categoryId) {
         list.push(<Menu.ItemGroup key={"g-" + subCategoryIndex + 1} title={subCategoryItem.subCategoryName} />)
@@ -83,7 +143,7 @@ function ProductListPage(props) {
   }
 
   return (
-    
+
     <div className="product-container">
       <div className="product-container__shop-header">
         <div className="shop-header__content">
@@ -132,23 +192,13 @@ function ProductListPage(props) {
                   <Menu key="g1" title="Item 1" mode="inline">
                     <Menu.Item
                       key="1"
-                      onClick={() => {
-                        getSortProductList({
-                          sort: "productPrice",
-                          order: "desc"
-                        })
-                      }}
+                      onClick={sortDescendingProduct}
                     >
                       Giảm dần
                       </Menu.Item>
                     <Menu.Item
                       key="2"
-                      onClick={() => {
-                        getSortProductList({
-                          sort: "productPrice",
-                          order: "asc"
-                        })
-                      }}
+                      onClick={sortAscendingProduct}
                     >
                       Tăng dần
                     </Menu.Item>
@@ -158,14 +208,11 @@ function ProductListPage(props) {
                   <Title level={3}>Danh mục</Title>
                   <div className="categories__menu">
                     <Menu
-                      onClick={(e) =>
-                        onClickItem(e)
-                      }
+                      onClick={(e) => onClickItem(e)}
                       style={{ width: 256 }}
-                      // defaultSelectedKeys={["1"]}
+                      defaultSelectedKeys={"a"}
                       mode="inline"
                     >
-                      {/* <Menu.Item key="0">Tất cả</Menu.Item> */}
                       {renderSubCategories()}
                     </Menu>
                   </div>
@@ -174,13 +221,12 @@ function ProductListPage(props) {
             </div>
           </Col>
           <Col span={16} className="">
-            <div classNames="shop-body__main">
+            <div className="shop-body__main">
               {/* HIỂN THỊ SẢN PHẨM */}
               <Main
                 itemInRow={itemInRow}
-                products={products}
-              // products = {productList.data}
-              // itemCategoryId = {isItemCategories}
+                productList={productList}
+                handleShowMore={handleShowMore}
               />
             </div>
           </Col>
@@ -192,10 +238,10 @@ function ProductListPage(props) {
 }
 
 const mapStateToProps = (state) => {
-  const { categories, subCategories, itemCategories } = state.categoriesReducer;
+  const { subCategories, itemCategories } = state.categoriesReducer;
   const { productList } = state.productReducer;
+
   return {
-    // categories: categories,
     subCategories: subCategories,
     itemCategories: itemCategories,
     productList: productList
@@ -204,12 +250,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // getCategories: (params) => dispatch(getCategoriesAction(params)),
     getSubCategories: (params) => dispatch(getSubCategoriesAction(params)),
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
     getProductList: (params => dispatch(getProductListAction(params))),
-    getSortProductList: (params) => dispatch(getSortProductListAction(params)),
-    searchProduct: (params) => dispatch(searchProductAction(params))
   };
 }
 

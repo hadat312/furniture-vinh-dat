@@ -1,121 +1,104 @@
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import React, { useState } from 'react';
 import history from '../../../../utils/history';
 import { connect } from 'react-redux';
 
-import { editCartTaskAction } from '../../../../redux/actions';
+import { editCartTaskAction, deleteCartTaskAction } from '../../../../redux/actions';
 
 
 import './styles.css';
 
-function Item(props) {
+function Item({
+  productItem,
+  onDeleteCart,
+  onUpdateQuantity,
+  cartItem,
+  cartIndex,
+  editCart
+}) {
 
-  const {
-    productItem,
-    onDeleteCart,
-    cartItem,
-    editCart
-  } = props;
+  const [quantity, setQuantity] = useState(cartItem.productQuantity);
+  // const productPrice = 0;
+  const productPrice = (cartItem.productPrice + (cartItem.color.price || 0) + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount);
 
-  const [count, setCount] = useState(cartItem.quantity);
-  console.log("🚀 ~ file: index.jsx ~ line 21 ~ Item ~ count", count)
-
-  const objCart = {
-    quantity: cartItem.quantity
+  function cong() {
+    let newQuantity = quantity + 1;
+    console.log("cartIndex: ", cartIndex, ", quantity: " + newQuantity);
+    onUpdateQuantity(cartIndex, newQuantity, cartItem.color, cartItem.size);
   }
 
-  function editCartTask() {
-    editCart({ id: cartItem.id, ...objCart })
+  function tru() {
+    let newQuantity = quantity - 1;
+    if (newQuantity <= 1) {
+      newQuantity = 1;
+      console.log("cartIndex: ", cartIndex, ", quantity: " + newQuantity);
+      onUpdateQuantity(cartIndex, newQuantity, cartItem.color, cartItem.size);
+    } else {
+      console.log("cartIndex: ", cartIndex, ", quantity: " + newQuantity);
+      onUpdateQuantity(cartIndex, newQuantity, cartItem.color, cartItem.size);
+    }
   }
 
 
-  const styleSpan = {
-    display: "inline-block",
-    cursor: "pointer",
-    color: "red"
-  }
   return (
     <>
-      {/* <div>Mã sản phẩm: {cartItem._id}</div>
-      <div>Ảnh: {cartItem.image}</div>
-      <div>Tên: {productItem.productName}</div>
-      {cartItem.color
-
-        ? <div>Màu: {cartItem.color}</div>
-        : null
-      }
-      {cartItem.size
-
-        ? <div>Kích thước: {cartItem.size}</div>
-        : <div style={{ fontWeight: "bold" }}>Nhấn <span style={styleSpan} onClick={() => { history.push(`/product/${cartItem._id}`) }}>vào đây</span> để cập nhật thông tin</div>
-      }
-      <div>Số lương: {cartItem.quantity}</div>
-      {cartItem.price
-
-        ? <div>Giá: {cartItem.price.toLocaleString()}</div>
-        : <div>Giá: {(productItem.productPrice * (1 - productItem.productDiscount)).toLocaleString()} vnđ</div>
-      }
-
-      <div><Button danger onClick={() => onDeleteCart(cartItem._id)}>Delete</Button></div> */}
       <tbody>
         <tr>
           <td className="cart-thumbnail">
-            <img src={cartItem.image} alt="" />
-            {/* {console.log("🚀 ~ file: index.jsx ~ line 22 ~ Item ~ productItem.image", productItem.image)} */}
+            <img
+              style={{ cursor: 'pointer' }}
+              src={cartItem.productImage} a
+              lt=""
+              onClick={() => history.push(`/product/${cartItem.productId}`)}
+            />
           </td>
-          <td className="product-name">
-            {productItem.productName}
-            {cartItem.color
-
-              ? <div>Màu: {cartItem.color}</div>
-              : null
-            }
-            {cartItem.size
-
-              ? <div>Kích thước: {cartItem.size}</div>
-              : <div style={{ fontWeight: "bold" }}>Nhấn <span style={styleSpan} onClick={() => { history.push(`/product/${cartItem._id}`) }}>vào đây</span> để cập nhật thông tin</div>
-            }
+          <td
+            className="product-name"
+            style={{ width: 250, cursor: 'pointer' }}
+            onClick={() => history.push(`/product/${cartItem.productId}`)}
+          >
+            <div>{cartItem.productName}</div>
+            {cartItem.color.colorName && <div>Màu: {cartItem.color.colorName}</div>}
+            {cartItem.size.sizeName && <div>Kích thước: {cartItem.size.sizeName}</div>}
           </td>
           <td className="product-price">
-            {cartItem.price
-              ? <div> {cartItem.price.toLocaleString()} vnđ</div>
-              : <div>{(productItem.productPrice * (1 - productItem.productDiscount)).toLocaleString()} vnđ</div>
-            }
-
+            <div>{productPrice.toLocaleString() + " vnđ"}</div>
           </td>
           <td className="product-quantity">
             <div className="plus-cart-minus">
               <button className="minus-btn"
                 onClick=
-                {() =>
-                  count <= 1 ? setCount(1) : setCount(count - 1)
-                }>-
-                </button>
+                {() => {
+                  quantity <= 1 ? setQuantity(1) : setQuantity(quantity - 1)
+                  tru()
+                }}
+              >-</button>
 
               <input type="text" name="" className="plus-minus-cart-box" disabled
 
                 value=
                 {
-                  count < 1 ? 1 : count
+                  quantity < 1 ? 1 : quantity
                 }
 
 
               />
-              <button className="plus-btn" onClick={() => setCount(count + 1) }>+</button>
+              <button className="plus-btn" onClick={() => {
+                setQuantity(quantity + 1)
+                cong()
+              }}
+              >+</button>
             </div>
           </td>
           <td className="total-price">
-           <div> {(cartItem.price * count).toLocaleString()} vnđ</div>
-           {console.log("aaaaaa: ",count)}
-            {/* {cartItem.price
-              ? <div> {cartItem.price.toLocaleString()}</div>
-              : <div> {(productItem.productPrice * (1 - productItem.productDiscount)).toLocaleString()} vnđ</div>
-            } */}
+            <div> {(productPrice * quantity).toLocaleString()} vnđ</div>
           </td>
 
           <td className="product-remove">
             <button className="delete-product">
-              <span onClick={() => onDeleteCart(cartItem._id)}>X</span>
+              <span
+                onClick={() => onDeleteCart(cartIndex)}
+              >X</span>
             </button>
           </td>
         </tr>

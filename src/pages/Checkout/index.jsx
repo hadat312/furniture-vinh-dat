@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import {
     getProductListAction,
-    getCartAction,
+    getCartListAction,
     addBillTaskAction
 } from '../../redux/actions'
 
@@ -22,7 +22,6 @@ const { Option } = Select;
 function CheckOutPage(props) {
 
     // const [grandTotal, setGrandTotal] = useState(0);
-    // console.log("🚀 ~ file: index.jsx ~ line 24 ~ CheckOutPage ~ grandTotal", grandTotal)
 
     const {
         id,
@@ -33,26 +32,26 @@ function CheckOutPage(props) {
         discount,
         getProductList,
         productList,
-        getCart,
-        cart,
+        getCartList,
+        cartList,
         addBill,
         userid
 
     } = props;
-    // console.log("🚀 ~ file: index.jsx ~ line 41 ~ CheckOutPage ~ cart", cart)
 
+    const { Title } = Typography;
 
-    useEffect(() => {
-        getCart({
-            page: 1,
-            limit: 20,
-        });
+    // useEffect(() => {
+    //     getCartList({
+    //         page: 1,
+    //         limit: 20,
+    //     });
 
-        getProductList({
-            page: 1,
-            limit: 20,
-        })
-    }, []);
+    //     getProductList({
+    //         page: 1,
+    //         limit: 20,
+    //     })
+    // }, []);
 
     const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
 
@@ -109,35 +108,35 @@ function CheckOutPage(props) {
         }
 
         if (fillBill.firstName.trim().length === 0) {
-            newCheckoutError.firstName = "First Name is required";
+            newCheckoutError.firstName = "Vui lòng không để trống";
             isValid = false;
         } else {
             newCheckoutError.firstName = "";
         }
 
         if (fillBill.lastName.trim().length === 0) {
-            newCheckoutError.lastName = "Last Name is required";
+            newCheckoutError.lastName = "Vui lòng không để trống";
             isValid = false;
         } else {
             newCheckoutError.lastName = "";
         }
 
         if (fillBill.email.trim().length === 0) {
-            newCheckoutError.email = "Email is required";
+            newCheckoutError.email = "Vui lòng không để trống";
             isValid = false;
         } else {
             newCheckoutError.email = "";
         }
 
         if (fillBill.phone.trim().length === 0) {
-            newCheckoutError.phone = "Phone is required";
+            newCheckoutError.phone = "Vui lòng không để trống";
             isValid = false;
         } else {
             newCheckoutError.phone = "";
         }
 
         if (fillBill.company.trim().length === 0) {
-            newCheckoutError.company = "Company is required";
+            newCheckoutError.company = "Vui lòng không để trống";
             isValid = false;
         } else {
             newCheckoutError.company = "";
@@ -145,7 +144,7 @@ function CheckOutPage(props) {
 
 
         if (fillBill.address.trim().length === 0) {
-            newCheckoutError.address = "Address is required";
+            newCheckoutError.address = "Vui lòng không để trống";
             isValid = false;
         } else {
             newCheckoutError.address = "";
@@ -153,14 +152,14 @@ function CheckOutPage(props) {
 
 
         // if (fillBill.country.trim().length === 0) {
-        //     newCheckoutError.country = "Country is required";
+        //     newCheckoutError.country = "Vui lòng không để trống";
         //     isValid = false;
         // } else {
         //     newCheckoutError.country = "";
         // }
 
         if (fillBill.city.trim().length === 0) {
-            newCheckoutError.city = "City is required";
+            newCheckoutError.city = "Vui lòng không để trống";
             isValid = false;
         } else {
             newCheckoutError.city = "";
@@ -177,22 +176,24 @@ function CheckOutPage(props) {
 
 
     let grandTotal = 0
-
     function renderCheckOut() {
-        if (cart.load) return <p>Loading...</p>;
+        if (cartList.load) return <p>Đợi một chút nha...</p>;
 
         return (
-            cart.data.map((cartItem, cartIndex) => {
-                grandTotal = grandTotal + cartItem.price;
-                if (cartItem.userId === userInfoLocalStorage.id
-                ) {
-                    return (
-                        <Item
-                            key={cartItem._id}
-                            cartItem={cartItem}
-                        />
-                    )
-                }
+            cartList.data.map((cartItem, cartIndex) => {
+                const productPrice = ((cartItem.productPrice + (cartItem.color.price || 0) + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount)) * cartItem.productQuantity;
+                console.log(cartItem.productId, ", total: ", productPrice)
+                grandTotal = grandTotal + productPrice;
+                console.log(cartItem.productId, ", grand total: ", grandTotal);
+                // if (cartItem.userId === userInfoLocalStorage.id
+                // ) {
+                // }
+                return (
+                    <Item
+                        key={cartItem.productId}
+                        cartItem={cartItem}
+                    />
+                )
             })
         );
     }
@@ -202,49 +203,49 @@ function CheckOutPage(props) {
                 <div className="main-content ">
                     <div className="checkout-main-left">
                         <div className="checkout-bill_content">
-                            <h2 className="bill-title">
-                                Billing Address
-                            </h2>
+                            <div className="bill-title">
+                                <Title level={2}>Địa chỉ nhận hàng</Title>
+                            </div>
 
                             <div className="bill-name_info">
                                 <div className="checkout-input_content">
-                                    <label htmlFor="first-name" className="">First Name*</label>
-                                    <input type="text" placeholder="First Name" name="firstName" onChange={(e) => handleChange(e)} />
+                                    <label htmlFor="first-name" className="">Tên*</label>
+                                    <input type="text" placeholder="Tên" name="firstName" onChange={(e) => handleChange(e)} />
                                     <div className="text-warning">{checkoutError.firstName}</div>
                                 </div>
 
                                 <div className="input-content">
-                                    <label htmlFor="last-name">Last Name*</label>
-                                    <input type="text" placeholder="Last Name" name="lastName" onChange={(e) => handleChange(e)} />
+                                    <label htmlFor="last-name">Họ*</label>
+                                    <input type="text" placeholder="Họ và tên lót" name="lastName" onChange={(e) => handleChange(e)} />
                                     <div className="text-warning">{checkoutError.lastName}</div>
                                 </div>
 
                                 <div className="input-content">
-                                    <label htmlFor="email">EMAIL ADDRESS*</label>
-                                    <input type="text" placeholder="Email Address" name="email" onChange={(e) => handleChange(e)} />
+                                    <label htmlFor="email">Địa chỉ email*</label>
+                                    <input type="text" placeholder="Địa chỉ email" name="email" onChange={(e) => handleChange(e)} />
                                     <div className="text-warning">{checkoutError.email}</div>
                                 </div>
 
                                 <div className="input-content">
-                                    <label htmlFor="phone">PHONE NO*</label>
-                                    <input type="text" placeholder="Phone number" name="phone" onChange={(e) => handleChange(e)} />
+                                    <label htmlFor="phone">Số điện thoại*</label>
+                                    <input type="text" placeholder="Số điện thoại" name="phone" onChange={(e) => handleChange(e)} />
                                     <div className="text-warning">{checkoutError.phone}</div>
                                 </div>
 
-                                <div className="input-content">
-                                    <label htmlFor="comapny">COMPANY NAME</label>
+                                {/* <div className="input-content">
+                                    <label htmlFor="comapny">Công ty</label>
                                     <input type="text" placeholder="Company name" name="company" onChange={(e) => handleChange(e)} />
                                     <div className="text-warning">{checkoutError.company}</div>
-                                </div>
+                                </div> */}
 
                                 <div className="input-content">
-                                    <label htmlFor="address">ADDRESS</label>
-                                    <input type="text" placeholder="Address" name="address" onChange={(e) => handleChange(e)} />
+                                    <label htmlFor="address">Địa chỉ</label>
+                                    <input type="text" placeholder="Địa chỉ" name="address" onChange={(e) => handleChange(e)} />
                                     <div className="text-warning">{checkoutError.address}</div>
                                 </div>
 
-                                <div className="input-content">
-                                    <label htmlFor="country">COUNTRY*</label>
+                                {/* <div className="input-content">
+                                    <label htmlFor="country">Quốc giá*</label>
                                     <select name="" id="" className="checkout-select">
                                         <option value="Đà Nẵng">Việt Nam</option>
                                         <option value="Gia Lai">ThaiLand</option>
@@ -253,38 +254,39 @@ function CheckOutPage(props) {
                                         <option value="Hà Nội">Spain</option>
                                         <option value="Đà Lạt">Greece</option>
                                     </select>
-                                    {/* <div className="text-warning">{checkoutError.country}</div> */}
-                                </div>
+                                    <div className="text-warning">{checkoutError.country}</div>
+                                </div> */}
 
-                                <div className="input-content">
-                                    <label htmlFor="city">TOWN/CITY*</label>
+                                {/* <div className="input-content">
+                                    <label htmlFor="city">Quận / Thành phố*</label>
                                     <input type="text" placeholder="Town/City" name="city" onChange={(e) => handleChange(e)} />
                                     <div className="text-warning">{checkoutError.city}</div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
 
 
                     <div className="checkout-main-right">
-                        <h2 className="checkout-title">
-                            Cart Total
-                        </h2>
+                        <div className="checkout-title">
+                            <Title level={2}>Gói hàng</Title>
+                        </div>
+
 
                         <div className="checkout_cart-container">
                             <div className="checkout_cart-subtitle">
-                                <h4>Product</h4>
-                                <h4>Total</h4>
+                                <Title level={3}>Sản phẩm</Title>
+                                <Title level={3}>Giá</Title>
                             </div>
                             {renderCheckOut()}
 
                             <div className="checkout_cart-grand-total-area">
-                                <h5>Grand Total</h5>
-                                <h5>{grandTotal.toLocaleString()} VND</h5>
+                                <h5>Tổng cộng</h5>
+                                <h5>{grandTotal.toLocaleString() + ' vnđ'}</h5>
                             </div>
                         </div>
 
-                        <button className="btn-order" onClick={() => handleCheckout()}>Place Order</button>
+                        <button className="btn-order" onClick={() => handleCheckout()}>Đặt hàng</button>
                     </div>
                 </div>
             </div>
@@ -293,19 +295,18 @@ function CheckOutPage(props) {
     )
 }
 const mapStateToProps = (state) => {
-    const { productList } = state.productReducer;
-    const { cart } = state.cartReducer;
-    // console.log("🚀 ~ file: index.jsx ~ line 215 ~ mapStateToProps ~ cart", cart)
+    // const { productList } = state.productReducer;
+    const { cartList } = state.cartReducer;
     return {
-        productList: productList,
-        cart: cart,
+        // productList: productList,
+        cartList: cartList,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getProductList: (params) => dispatch(getProductListAction(params)),
-        getCart: (params) => dispatch(getCartAction(params)),
+        getCartList: (params) => dispatch(getCartListAction(params)),
         addBill: (params) => dispatch(addBillTaskAction(params))
     };
 }

@@ -1,23 +1,30 @@
-*{
-    margin:0px;
+* {
+    margin: 0px;
     padding: 0px;
 }
 
 ul {
     list-style-type: none;
     padding: 0px;
-    margin:0px;
+    margin: 0px;
 }
 
-
-
- .checkout-cart-list{
+.checkout-cart-list {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin:0px;
+    margin: 0px;
     font-size: 16px;
 }
+
+.checkout-cart-list__custom-text {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    width: 210px;
+}
+
 /* 
  .checkout-cart-list li{
      margin-left: 10px;

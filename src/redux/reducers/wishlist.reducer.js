@@ -1,15 +1,10 @@
 const initialState = {
   wishlist: {
+    wishlistId: NaN,
     data: [],
     load: false,
     error: '',
   },
-
-  anotherwishlist:{
-    data: [],
-    load: false,
-    error: '',
-  }
 };
 
 export default function wishlistReducer(state = initialState, action) {
@@ -24,11 +19,12 @@ export default function wishlistReducer(state = initialState, action) {
       }
     }
     case 'GET_WISH_LIST_SUCCESS': {
-      const { data } = action.payload;
+      const { data, wishlistId } = action.payload;
       return {
         ...state,
         wishlist: {
           ...state.wishlist,
+          wishlistId: wishlistId,
           data: data,
           load: false,
         },

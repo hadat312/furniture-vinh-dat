@@ -10,64 +10,51 @@ import './main.css';
 function Main(props) {
   const {
     itemInRow,
-    products,
-    getProductList,
-    itemCategoryId
+    productList,
+    handleShowMore
   } = props;
 
-  // useEffect(() => {
-  //   getCategories();
-  //   getSubCategories();
-  //   getItemCategories();
-  //   getProductList({
-  //     page: 1,
-  //     limit: 20,
-  //   });
-  // }, []);
+  // get data từ localStorage để kiểm tra
 
-  const [limit, setLimit] = useState(4);
-
-  const list = [];
-
-  //get sản phẩm theo itemCategoryId
-  // const products = productList.data.filter((productListItem) => {
-  //   return productListItem.itemCategoryId.trim().toLowerCase().indexOf(itemCategoryId.trim().toLowerCase()) !== -1;
-  // });
+  // console.log(productList.data[0].colors[1].price);
 
   function renderProductList() {
-
-    if (products.load) return <p>Loading...</p>;
-
-    products.forEach((productListItem, productListIndex) => {
-      if (productListIndex <= limit - 1) {
-        list.push(
-          <Item
-            key={productListItem.id}
-            id={productListItem.id}
-            image={productListItem.productImage}
-            name={productListItem.productName}
-            description={productListItem.productDescription}
-            price={productListItem.productPrice}
-            discount={productListItem.productDiscount}
-            itemInRow={itemInRow}
-          />
-        )
-      }
+    if (productList.load) return <p>Loading...</p>;
+    return productList.data.map((productListItem, productListIndex) => {
+      return (
+        <Item
+          key={productListItem.id}
+          productListItem={productListItem}
+          itemInRow={itemInRow}
+        />
+      );
+      // return (
+      //   <Item
+      //     key={productListItem.id}
+      //     colorId={""}
+      //     sizeId={""}
+      //     colorName={""}
+      //     sizeName={""}
+      //     initialColorPrice={0}
+      //     initialSizePrice={0}
+      //     productListItem={productListItem}
+      //     itemInRow={itemInRow}
+      //   />
+      // );
     })
-    return list;
   }
 
   return (
     <div className="main-container">
       <Row gutter={[8, 32]}>
-        {/* Dùng hàm render ra từng Card */}
         {/* 1-24 4-6 */}
         {renderProductList()}
       </Row>
       <div className="d-flex justify-content-center mt-5">
-        <Button onClick={() => {
-          setLimit(limit + 4)
-        }}>Load More</Button>
+        {/* nếu tổng số sản phẩm(length) là chẵn =>  hiện button [Show more]*/}
+        {productList.data.length % 4 === 0 && (
+          <Button onClick={handleShowMore}>Show more</Button>
+        )}
       </div>
 
     </div>
@@ -75,18 +62,15 @@ function Main(props) {
 }
 
 const mapStateToProps = (state) => {
-  // const { productList } = state.productReducer;
   const { itemCategories } = state.categoriesReducer;
   return {
     itemCategories: itemCategories,
-    // productList: productList,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
-    // getProductList: (params) => dispatch(getProductListAction(params)),
   };
 }
 

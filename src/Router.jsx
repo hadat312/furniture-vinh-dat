@@ -45,13 +45,13 @@ function BrowserRouter(props) {
 
         <Route
           exact
-          path={ROUTERS.Register}
+          path={ROUTERS.REGISTER}
           component={RegisterPage}
         />
 
         <Route
           exact
-          path={ROUTERS.Login}
+          path={ROUTERS.LOGIN}
           component={LoginPage}
         />
         <DefaultLayout

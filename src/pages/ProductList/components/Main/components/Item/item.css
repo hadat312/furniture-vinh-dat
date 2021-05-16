@@ -60,12 +60,10 @@
   font-weight: bold;
 } */
 
-.main-container__card__wishlist {
-  color: #f5222d;
-}
-
-.main-container__card__add-to-wishlist {
+.main-container__four-card__add-to-wishlist, .main-container__four-card__remove-from-wishlist, .main-container__one-card__add-to-wishlist, .main-container__one-card__remove-from-wishlist {
   color: red;
+  font-size: 30px;
+  margin: 5px;
 }
 
 .main-container__card__wishlist, .main-container__card__add-to-wishlist {

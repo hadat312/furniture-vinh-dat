@@ -1,26 +1,48 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* getCartSaga(action) {
+function* getCartListSaga(action) {
   try {
-    const { page, limit } = action.payload;
+    const { userId, page, limit } = action.payload;
     const result = yield axios({
       method: 'GET',
-      url: 'http://localhost:3002/cart',
+      url: `http://localhost:3002/users/`,
       params: {
+        id: userId,
         _page: page,
         _limit: limit,
       }
     });
-    yield put({
-      type: "GET_CART_SUCCESS",
-      payload: {
-        data: result.data
-      },
-    });
+    if (result.data.length === 0) {
+      const newResult = yield axios({
+        method: 'POST',
+        url: 'http://localhost:3002/users',
+        data: {
+          userId,
+          isPay: false,
+          carts: [],
+        }
+      });
+      yield put({
+        type: "GET_CART_LIST_SUCCESS",
+        payload: {
+          data: newResult.data.cart,
+          orderId: newResult.data.id
+        },
+      });
+    } else {
+      yield put({
+        type: "GET_CART_LIST_SUCCESS",
+        payload: {
+          // get theo id(duy nhất) sẽ trả về 1 giá trị duy nhất => index = 0
+          data: result.data[0].carts,
+          orderId: result.data[0].id
+        },
+      });
+    }
   } catch (e) {
     yield put({
-      type: "GET_CART_FAIL",
+      type: "GET_CART_LIST_FAIL",
       payload: {
         error: e.error
       },
@@ -30,26 +52,18 @@ function* getCartSaga(action) {
 
 function* addCartTaskSaga(action) {
   try {
-    const { id, wishlistId, image, name, size, color, quantity, price, userId } = action.payload;
+    const { userId, carts } = action.payload;
     const result = yield axios({
-      method: 'POST',
-      url: 'http://localhost:3002/cart',
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
       data: {
-        _id: id,
-        wishlistId: wishlistId,
-        image: image,
-        name: name,
-        size: size,
-        color: color,
-        quantity: quantity,
-        price: price,
-        userId: userId,
+        carts: carts,
       }
     });
     yield put({
       type: "ADD_CART_TASK_SUCCESS",
       payload: {
-        data: result.data
+        data: result.data.carts,
       },
     });
   } catch (e) {
@@ -64,23 +78,18 @@ function* addCartTaskSaga(action) {
 
 function* editCartTaskSaga(action) {
   try {
-    const { id, color, size, quantity, price, image } = action.payload;
-    const resutl = yield axios({
+    const { userId, carts } = action.payload;
+    const result = yield axios({
       method: 'PATCH',
-      url: `http://localhost:3002/cart/${id}`,
+      url: `http://localhost:3002/users/${userId}`,
       data: {
-        color: color,
-        size: size,
-        quantity: quantity,
-        price: price,
-        image: image,
+        carts: carts
       }
     });
     yield put({
       type: "EDIT_CART_TASK_SUCCESS",
       payload: {
-        id: id,
-        data: resutl.data
+        data: result.data.carts,
       }
     });
   } catch (e) {
@@ -93,16 +102,52 @@ function* editCartTaskSaga(action) {
   }
 }
 
+// function* editCartTaskSaga(action) {
+//   try {
+//     const { id, color, size, quantity, price, image } = action.payload;
+//     const resutl = yield axios({
+//       method: 'PATCH',
+//       url: `http://localhost:3002/cart/${id}`,
+//       data: {
+//         color: color,
+//         size: size,
+//         quantity: quantity,
+//         price: price,
+//         image: image,
+//       }
+//     });
+//     yield put({
+//       type: "EDIT_CART_TASK_SUCCESS",
+//       payload: {
+//         id: id,
+//         data: resutl.data
+//       }
+//     });
+//   } catch (e) {
+//     yield put({
+//       type: "EDIT_CART_TASK_FAIL",
+//       payload: {
+//         error: e.error
+//       },
+//     });
+//   }
+// }
+
 function* deleteCartTaskSaga(action) {
   try {
-    const { id } = action.payload;
-    yield axios({
-      method: 'DELETE',
-      url: `http://localhost:3002/cart/${id}`,
+    const { userId, carts } = action.payload;
+    const result = yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
+      data: {
+        carts: carts
+      }
     });
     yield put({
       type: "DELETE_CART_TASK_SUCCESS",
-      payload: id
+      payload: {
+        data: result.data.carts,
+      }
     });
   } catch (e) {
     yield put({
@@ -114,8 +159,29 @@ function* deleteCartTaskSaga(action) {
   }
 }
 
+// function* deleteCartTaskSaga(action) {
+//   try {
+//     const { id } = action.payload;
+//     yield axios({
+//       method: 'DELETE',
+//       url: `http://localhost:3002/cart/${id}`,
+//     });
+//     yield put({
+//       type: "DELETE_CART_TASK_SUCCESS",
+//       payload: id
+//     });
+//   } catch (e) {
+//     yield put({
+//       type: "DELETE_CART_TASK_FAIL",
+//       payload: {
+//         error: e.error
+//       },
+//     });
+//   }
+// }
+
 export default function* cartSaga() {
-  yield takeEvery('GET_CART_REQUEST', getCartSaga);
+  yield takeEvery('GET_CART_LIST_REQUEST', getCartListSaga);
   yield takeEvery('ADD_CART_TASK_REQUEST', addCartTaskSaga);
   yield takeEvery('DELETE_CART_TASK_REQUEST', deleteCartTaskSaga);
   yield takeEvery('EDIT_CART_TASK_REQUEST', editCartTaskSaga);

@@ -4,6 +4,11 @@ const initialState = {
     load: false,
     error: '',
   },
+  userList: {
+    data: [],
+    load: false,
+    error: '',
+  },
 };
 
 export default function userReducer(state = initialState, action) {

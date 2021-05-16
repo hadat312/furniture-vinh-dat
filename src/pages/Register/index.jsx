@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 import history from '../../utils/history';
+import { REGEX } from '../../constants/validate';
 import logo from '../../images/logo.webp';
 import logo3 from '../../images/logo3.png'
 import fb from '../../images/fb.svg';
@@ -15,7 +16,7 @@ function RegisterPage(props) {
     const { addUserInfo, userInfo } = props;
 
 
-    const [fielData, setFielData] = useState({
+    const [fieldData, setFieldData] = useState({
         userName: "",
         userEmail: "",
         userPassword: "",
@@ -23,7 +24,6 @@ function RegisterPage(props) {
         userPhoneNumber: "",
         check: false,
     });
-    console.log("🚀 ~ file: index.jsx ~ line 19 ~ RegisterPage ~ fielData", fielData)
 
     const [userError, setUserError] = useState({
         userName: "",
@@ -40,8 +40,8 @@ function RegisterPage(props) {
 
     function handleChange(e) {
         const { name, value, checked, type } = e.target;
-        setFielData({
-            ...fielData,
+        setFieldData({
+            ...fieldData,
             [name]: type === "checkbox" ? checked : value,
         });
     }
@@ -57,41 +57,45 @@ function RegisterPage(props) {
             userPhoneNumber: "",
         }
 
-        if (fielData.userName.trim().length === 0) {
+        if (fieldData.userName.trim().length === 0) {
             newUserError.userName = "Email is required";
             isValid = false;
         } else {
             newUserError.userName = "";
         }
-
-        if (fielData.userPhoneNumber.trim().length === 0) {
+        if (fieldData.userPhoneNumber.trim().length === 0) {
             newUserError.userPhoneNumber = "Phone is required";
             isValid = false;
-        } else {
+          }
+          else if (REGEX.PHONE_NUMBER_REGEX.test(fieldData.userPhoneNumber) === false) {
+            newUserError.userPhoneNumber = "Vui lòng nhập lại số di động hợp lệ"
+            isValid = false;
+          }
+          else {
             newUserError.userPhoneNumber = "";
-        }
+          }
 
-        if (fielData.userEmail.trim().length === 0) {
+        if (fieldData.userEmail.trim().length === 0) {
             newUserError.userEmail = "Email is required";
             isValid = false;
         } else {
             newUserError.userEmail = "";
         }
 
-        if (fielData.userPassword.trim().length === 0) {
+        if (fieldData.userPassword.trim().length === 0) {
             newUserError.userPassword = "Password is required";
             isValid = false;
-        } else if (fielData.userPassword.trim().length < 4) {
+        } else if (fieldData.userPassword.trim().length < 4) {
             newUserError.userPassword = "Password should be between 4 and 60 characters";
             isValid = false;
         } else {
             newUserError.userPassword = "";
         }
 
-        if (fielData.confirmPassword.trim().length === 0) {
+        if (fieldData.confirmPassword.trim().length === 0) {
             newUserError.confirmPassword = "You need to confirm your pasword";
             isValid = false;
-        } else if (fielData.confirmPassword !== fielData.userPassword) {
+        } else if (fieldData.confirmPassword !== fieldData.userPassword) {
             newUserError.confirmPassword = "Invalid password confirmation";
             isValid = false;
         } else {
@@ -99,7 +103,7 @@ function RegisterPage(props) {
         }
 
         if (isValid) {
-            addUserInfo(fielData);
+            addUserInfo(fieldData);
             // localStorage.setItem('userInfo', JSON.stringify(addUserInfo));
         } else {
             // history.push('/Login')

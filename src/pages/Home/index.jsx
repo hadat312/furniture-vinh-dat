@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 // import { ROUTERS } from '../../constants/router';
 // import { Button, Card } from 'antd';
 // import history from '../../utils/history';
@@ -13,7 +13,6 @@ import './home.css';
 
 
 function HomePage(props) {
-
   const [autoPlay, setAutoPlay] = useState({
     activeIndex: 0,
     transalate: 0,

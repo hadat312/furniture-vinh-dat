@@ -1,7 +1,7 @@
-import { Row, Col, Typography, Menu, Dropdown, Button } from 'antd';
+import { Row, Col, Typography, Menu, Dropdown, Button, Badge, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { AiOutlineUser, AiOutlineSearch, AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import history from '../../utils/history'
 import { ROUTERS } from '../../constants/router';
 import { connect } from 'react-redux';
@@ -10,10 +10,8 @@ import { getUserInfoAction } from '../../redux/actions'
 
 import './index.css';
 function Header(props) {
-  const { Title } = Typography;
-  const { SubMenu } = Menu;
 
-  const { userInfo, getUserInfo } = props;
+  const { userInfo, getUserInfo, cartList, wishlist } = props;
 
 
   useEffect(() => {
@@ -22,6 +20,19 @@ function Header(props) {
       getUserInfo({ id: userInfo.id });
     }
   }, []);
+
+  // useEffect(() => {
+  //   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  //   if (userInfo && userInfo.id) {
+  //     getUserInfo({ id: userInfo.id });
+  //   }
+  // }, [userInfo.data.carts]);
+  console.log("🚀 ~ file: index.jsx ~ line 15 ~ Header ~ cartList", cartList.data.length);
+  const countCarts = cartList.data.length;
+  const countWishlist = wishlist.data.length;
+  const { Title } = Typography;
+
+  const { SubMenu } = Menu;
 
   function handleLogout() {
     localStorage.clear();
@@ -385,15 +396,42 @@ function Header(props) {
             </div>
           </Col>
           <Col span={3} >
-            <div className="header__user-block">
+            <Space size="large" className="header__user-block">
+              <AiOutlineSearch
+                className="block__search-item"
+              />
+              <div className="block__avatar-item">
+                <AiOutlineUser />
+              </div>
+                {userInfo.data.id && <p className="user-area">{`Hola: ${userInfo.data.userName}`}</p> }
+
+
+              <ul className="dropdown-btn">
+                {userInfo.data.id
+                  ? <li className="btn-into" style={{ cursor: 'pointer' }} onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</li>
+                  : <li className="btn-into" style={{ cursor: 'pointer' }} onClick={() => history.push(ROUTERS.LOGIN)}>Đăng nhập</li>
+                }
+                <li className="btn-logout" style={{ cursor: 'pointer' }} onClick={() => handleLogout()}>Đăng Xuất</li>
+              </ul>
+              <Badge size="small" count={countWishlist}>
+                <AiOutlineHeart
+                  className="block__heart-item"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => { history.push(ROUTERS.WISHLIST) }} />
+              </Badge>
+              <Badge size="small" count={countCarts}>
+                <AiOutlineShoppingCart
+                  className="block__cart-item"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => { history.push(ROUTERS.CART) }} />
+              </Badge>
+            </Space>
+            {/* <div className="header__user-block">
               <a>
                 <AiOutlineSearch className="block__search-item" />
               </a>
               <a>
-                <AiOutlineUser
-                  className="block__avatar-item"
-                // onClick={() => { history.push(ROUTERS.CUSTOMER_LOGIN) }}
-                />
+                <AiOutlineUser className="block__avatar-item" />
 
                 <div className="user-container">
                   <p className="user-area">
@@ -406,19 +444,30 @@ function Header(props) {
                   </p>
 
                   <ul className="dropdown-btn">
-                    <li className="btn-into" onClick={() => history.push(ROUTERS.LOGIN)}>Đăng nhập     </li>
-                    <li className="btn-logout" onClick={() => handleLogout()}>Đăng Xuất </li>
+                    {userInfo.data.id
+                      ? <li className="btn-into" onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</li>
+                      : <li className="btn-into" onClick={() => history.push(ROUTERS.LOGIN)}>Đăng nhập</li>
+                    }
+                    <li className="btn-logout" onClick={() => handleLogout()}>Đăng Xuất</li>
                   </ul>
 
                 </div>
               </a>
               <a>
-                <AiOutlineHeart className="block__heart-item" onClick={() => { history.push(ROUTERS.WISHLIST) }} />
+                <Badge size="small" count={10}>
+                  <AiOutlineHeart
+                    // className="block__heart-item"  
+                    onClick={() => { history.push(ROUTERS.WISHLIST) }} />
+                </Badge>
               </a>
-              <a>
-                <AiOutlineShoppingCart className="block__cart-item" onClick={() => { history.push(ROUTERS.CART) }} />
-              </a>
-            </div>
+              <Badge size="small" count={countCarts}>
+                <a>
+                  <AiOutlineShoppingCart
+                    // className="block__cart-item" 
+                    onClick={() => { history.push(ROUTERS.CART) }} />
+                </a>
+              </Badge>
+            </div> */}
           </Col>
         </Row>
       </div>
@@ -430,8 +479,12 @@ function Header(props) {
 
 const mapStateToProps = (state) => {
   const { userInfo } = state.userReducer;
+  const { cartList } = state.cartReducer;
+  const {wishlist} = state.wishlistReducer;
   return {
     userInfo: userInfo,
+    cartList: cartList,
+    wishlist: wishlist,
   }
 };
 

@@ -3,7 +3,7 @@
 }
 
 .header {
-  /* position: fixed; */
+  position: fixed!important;
   z-index: 999;
   background-color: whitesmoke;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
@@ -20,11 +20,11 @@
   font-weight: 600;
 }
 
-.user-area li{
+.block__avatar-item li{
   display: none;
 }
 
-.header__user-block:hover .user-area li {
+.block__avatar-item:hover .block__avatar-item li {
   display: block;
 }
 
@@ -112,7 +112,7 @@
 }
 
 .block__search-item, .block__avatar-item, .block__cart-item, .block__heart-item{
-  margin-right: 20px;
+  /* margin-right: 20px; */
   font-size:25px;
 }
 

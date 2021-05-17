@@ -8,31 +8,16 @@ import {
   deleteWishlistTaskAction,
 } from '../../redux/actions';
 import './wishlist.css';
-function WishlistPage(props) {
-  const {
-    getProductList,
-    productList,
-    wishlist,
-    getWishlist,
-    deleteWishlist,
-    addWishList,
-  } = props;
+function WishlistPage({
+  getProductList,
+  productList,
+  wishlist,
+  getWishlist,
+  deleteWishlist,
+  addWishList,
+}) {
 
-  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo")) || {};
-
-  useEffect(() => {
-    getProductList({
-      page: 1,
-      limit: 20,
-    });
-  }, []);
-
-  useEffect(() => {
-    getWishlist({
-      page: 1,
-      limit: 20,
-    });
-  }, []);
+  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
 
   function onDeleteWishlist(id) {
     wishlist.data.map((item) => {
@@ -49,27 +34,16 @@ function WishlistPage(props) {
     return (
       wishlist.data.map((wishlistItem, wishlistIndex) => {
         return (
-          productList.data.map((productListItem, productListIndex) => {
-            if (wishlistItem._id === productListItem.id
-              && wishlistItem.userId === userInfoLocalStorage.id
-            ) {
-              return (
-                <>
-                  <Item
-                    key={wishlistItem._id}
-                    productItem={productListItem}
-                    wishlistItem={wishlistItem}
-                    // productId={wishlistItem._id}
-                    // name={productListItem.productName}
-                    // price={productListItem.productPrice}
-                    // discount={productListItem.productDiscount}
-                    onDeleteWishlist={onDeleteWishlist}
-                  />
-                  <hr />
-                </>
-              );
-            }
-          })
+          <>
+            <Item
+              key={wishlistItem.productId}
+              wishlistIndex={wishlistIndex}
+              productItem={wishlistItem}
+              wishlistItem={wishlistItem}
+              onDeleteWishlist={onDeleteWishlist}
+            />
+            <hr />
+          </>
         );
       })
     );
@@ -90,17 +64,14 @@ function WishlistPage(props) {
 }
 
 const mapStateToProps = (state) => {
-  const { productList } = state.productReducer;
   const { wishlist } = state.wishlistReducer;
   return {
-    productList: productList,
     wishlist: wishlist,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProductList: (params) => dispatch(getProductListAction(params)),
     getWishList: (params) => dispatch(getWishListAction(params)),
     deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
   };

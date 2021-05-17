@@ -7,7 +7,7 @@ import {
 } from './redux/actions';
 import './App.css';
 
-function App({getUserInfo, getCartList}) {
+function App({ getUserInfo, getCartList }) {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (userInfo && userInfo.id) {
@@ -21,6 +21,13 @@ function App({getUserInfo, getCartList}) {
     </div>
   );
 }
+
+// const mapStateToProps = (state)=>{
+//   const { userList} = state.userReducer;
+//   return {
+//     userList: userList
+//   }
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return {

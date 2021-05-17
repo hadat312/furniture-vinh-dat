@@ -6,7 +6,7 @@ function* getCartListSaga(action) {
     const { userId, page, limit } = action.payload;
     const result = yield axios({
       method: 'GET',
-      url: `http://localhost:3002/users/`,
+      url: `http://localhost:3002/users`,
       params: {
         id: userId,
         _page: page,
@@ -19,7 +19,6 @@ function* getCartListSaga(action) {
         url: 'http://localhost:3002/users',
         data: {
           userId,
-          isPay: false,
           carts: [],
         }
       });

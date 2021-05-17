@@ -125,6 +125,7 @@ function ProductDetailPage({
         notification.success({
           message: 'Cập nhật vào giỏ thành công',
           key,
+          placement: 'bottomRight',
           duration: 2
         });
       } else {
@@ -147,6 +148,7 @@ function ProductDetailPage({
         notification.success({
           message: 'Thêm vào giỏ thành công',
           key,
+          placement: 'bottomRight',
           duration: 2
         });
       }
@@ -175,6 +177,7 @@ function ProductDetailPage({
         notification.success({
           message: 'Cập nhật vào giỏ thành công',
           key,
+          placement: 'bottomRight',
           duration: 2
         });
       } else {
@@ -201,6 +204,7 @@ function ProductDetailPage({
         notification.success({
           message: 'Thêm vào giỏ thành công',
           key,
+          placement: 'bottomRight',
           duration: 2
         });
       }
@@ -229,6 +233,7 @@ function ProductDetailPage({
         notification.success({
           message: 'Cập nhật vào giỏ thành công',
           key,
+          placement: 'bottomRight',
           duration: 2
         });
       } else {
@@ -255,6 +260,7 @@ function ProductDetailPage({
         notification.success({
           message: 'Thêm vào giỏ thành công',
           key,
+          placement: 'bottomRight',
           duration: 2
         });
       }
@@ -288,6 +294,7 @@ function ProductDetailPage({
         notification.success({
           message: 'Cập nhật vào giỏ thành công',
           key,
+          placement: 'bottomRight',
           duration: 2
         });
       } else {
@@ -318,7 +325,8 @@ function ProductDetailPage({
         notification.success({
           message: 'Thêm vào giỏ thành công',
           key,
-          duration: 2
+          placement: 'bottomRight',
+          duration: 2,
         });
       }
     }
@@ -502,7 +510,7 @@ function ProductDetailPage({
               <Row >
                 <div className="detail-container__quantity__content">
                   <InputNumber
-                    onStep={(value) => console.log(value)}
+                    // onStep={(value) => console.log(value)}
                     min={1}
                     max={10}
                     defaultValue={1}

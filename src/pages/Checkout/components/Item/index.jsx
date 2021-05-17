@@ -11,9 +11,7 @@ function Item(props) {
         <>
             <div className="item-container">
                 <div className="item-content">
-
                     <ul className="checkout-cart-list">
-
                         <li style={{display: 'flex'}}><span className="checkout-cart-list__custom-text">{cartItem.productName}</span>{' x' + cartItem.productQuantity}</li>
                         <li>{productPrice.toLocaleString() + ' vnđ'}</li>
                     </ul>

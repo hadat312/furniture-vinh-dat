@@ -1,59 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Form, Input, Select, Tooltip, Button, Space, Typography, notification } from 'antd';
+import { Components } from 'antd/lib/date-picker/generatePicker';
+import { SmileOutlined } from '@ant-design/icons';
 // import Item from '../Checkout/component/Item'
-import Item from '../Checkout/components/Item';
+import history from '../../utils/history';
+import { ROUTERS } from '../../constants/router';
 import { connect } from 'react-redux';
-
 import {
     getProductListAction,
     getCartListAction,
-    addBillTaskAction
+    addBillTaskAction,
+    getOrderListAction,
+    addOrderAction,
 } from '../../redux/actions'
 
-import { SmileOutlined } from '@ant-design/icons';
-import { Form, Input, Select, Tooltip, Button, Space, Typography } from 'antd';
+
+import Item from '../Checkout/components/Item';
 
 import './checkout.css'
-import { Components } from 'antd/lib/date-picker/generatePicker';
 
 const { Option } = Select;
 
 
+function CheckOutPage({
+    cartList,
+    addBill,
+    getOrderList,
+    addOrder,
 
-function CheckOutPage(props) {
+}) {
+    const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
 
-    // const [grandTotal, setGrandTotal] = useState(0);
+    useEffect(() => {
+        getOrderList({
+            page: 1,
+            limit: 10,
+            userId: userInfoLocalStorage.id
 
-    const {
-        id,
-        image,
-        name,
-        description,
-        price,
-        discount,
-        getProductList,
-        productList,
-        getCartList,
-        cartList,
-        addBill,
-        userid
-
-    } = props;
+        });
+    }, []);
 
     const { Title } = Typography;
-
-    // useEffect(() => {
-    //     getCartList({
-    //         page: 1,
-    //         limit: 20,
-    //     });
-
-    //     getProductList({
-    //         page: 1,
-    //         limit: 20,
-    //     })
-    // }, []);
-
-    const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
 
     const [fillBill, setFillBill] = useState({
         firstName: "",
@@ -64,11 +51,11 @@ function CheckOutPage(props) {
         address: "",
         country: "",
         city: "",
-        userId: userInfoLocalStorage.id,
-        image: image,
-        id: id,
-        name: name,
-        price: price,
+        userId: userInfoLocalStorage.id
+        // image: image,
+        // id: id,
+        // name: name,
+        // price: price,
 
     })
 
@@ -82,6 +69,8 @@ function CheckOutPage(props) {
         country: "",
         city: "",
     })
+
+    let grandTotal = 0
 
     function handleChange(e) {
         const { name, value, checked, type } = e.target;
@@ -111,6 +100,7 @@ function CheckOutPage(props) {
             newCheckoutError.firstName = "Vui lòng không để trống";
             isValid = false;
         } else {
+            // isValid = true;
             newCheckoutError.firstName = "";
         }
 
@@ -118,6 +108,7 @@ function CheckOutPage(props) {
             newCheckoutError.lastName = "Vui lòng không để trống";
             isValid = false;
         } else {
+            // isValid = true;
             newCheckoutError.lastName = "";
         }
 
@@ -125,6 +116,7 @@ function CheckOutPage(props) {
             newCheckoutError.email = "Vui lòng không để trống";
             isValid = false;
         } else {
+            // isValid = true;
             newCheckoutError.email = "";
         }
 
@@ -132,21 +124,24 @@ function CheckOutPage(props) {
             newCheckoutError.phone = "Vui lòng không để trống";
             isValid = false;
         } else {
+            // isValid = true;
             newCheckoutError.phone = "";
         }
 
-        if (fillBill.company.trim().length === 0) {
-            newCheckoutError.company = "Vui lòng không để trống";
-            isValid = false;
-        } else {
-            newCheckoutError.company = "";
-        }
+        // if (fillBill.company.trim().length === 0) {
+        //     newCheckoutError.company = "Vui lòng không để trống";
+        //     isValid = false;
+        // } else {
+        //     isValid = true;
+        //     newCheckoutError.company = "";
+        // }
 
 
         if (fillBill.address.trim().length === 0) {
             newCheckoutError.address = "Vui lòng không để trống";
-            isValid = false;
+            // isValid = false;
         } else {
+            // isValid = true;
             newCheckoutError.address = "";
         }
 
@@ -155,18 +150,38 @@ function CheckOutPage(props) {
         //     newCheckoutError.country = "Vui lòng không để trống";
         //     isValid = false;
         // } else {
+        //     isValid = true;
         //     newCheckoutError.country = "";
         // }
 
-        if (fillBill.city.trim().length === 0) {
-            newCheckoutError.city = "Vui lòng không để trống";
-            isValid = false;
-        } else {
-            newCheckoutError.city = "";
-        }
+        // if (fillBill.city.trim().length === 0) {
+        //     newCheckoutError.city = "Vui lòng không để trống";
+        //     isValid = false;
+        // } else {
+        //     isValid = true;
+        //     newCheckoutError.city = "";
+        // }
 
         if (isValid) {
-            addBill(fillBill)
+            const ordersInfo = {
+                firstName: fillBill.firstName,
+                lastName: fillBill.lastName,
+                email: fillBill.email,
+                phone: fillBill.phone,
+                address: fillBill.address,
+                userId: fillBill.userId,
+                totalPrice: grandTotal,
+                carts: cartList.data
+            }
+            addOrder(ordersInfo);
+            const key = `open${Date.now()}`;
+            notification.success({
+                message: 'Đặt hàng thành công thành công',
+                key,
+                duration: 2
+            });
+
+            history.push(ROUTERS.HOME)
 
         } else {
             setCheckoutError({ ...newCheckoutError });
@@ -175,16 +190,14 @@ function CheckOutPage(props) {
 
 
 
-    let grandTotal = 0
+
     function renderCheckOut() {
         if (cartList.load) return <p>Đợi một chút nha...</p>;
 
         return (
             cartList.data.map((cartItem, cartIndex) => {
                 const productPrice = ((cartItem.productPrice + (cartItem.color.price || 0) + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount)) * cartItem.productQuantity;
-                console.log(cartItem.productId, ", total: ", productPrice)
                 grandTotal = grandTotal + productPrice;
-                console.log(cartItem.productId, ", grand total: ", grandTotal);
                 // if (cartItem.userId === userInfoLocalStorage.id
                 // ) {
                 // }
@@ -297,9 +310,13 @@ function CheckOutPage(props) {
 const mapStateToProps = (state) => {
     // const { productList } = state.productReducer;
     const { cartList } = state.cartReducer;
+    const { orderList } = state.orderReducer;
+    // console.log("🚀 ~ file: index.jsx ~ line 309 ~ mapStateToProps ~ orderList", orderList)
+    // console.log("🚀 ~ file: index.jsx ~ line 302 ~ mapStateToProps ~ orderList", orderList)
     return {
         // productList: productList,
         cartList: cartList,
+        orderList: orderList,
     }
 };
 
@@ -307,7 +324,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getProductList: (params) => dispatch(getProductListAction(params)),
         getCartList: (params) => dispatch(getCartListAction(params)),
-        addBill: (params) => dispatch(addBillTaskAction(params))
+        addBill: (params) => dispatch(addBillTaskAction(params)),
+        getOrderList: (params) => dispatch(getOrderListAction(params)),
+        addOrder: (params) => dispatch(addOrderAction(params)),
+
+
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CheckOutPage);

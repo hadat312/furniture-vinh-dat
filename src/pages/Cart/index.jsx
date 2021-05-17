@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { notification, Table, Divider } from 'antd';
+import { notification, Table, Divider, Button } from 'antd';
 import Item from './components/Item';
 import { connect } from 'react-redux';
 import {
@@ -22,7 +22,7 @@ function CardPage({
 }) {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-  const [selectionType, setSelectionType] = useState('checkbox');
+  // const [selectionType, setSelectionType] = useState('checkbox');
 
   const key = `open${Date.now()}`;
 
@@ -63,7 +63,26 @@ function CardPage({
   // };
 
   function onAddCheckOut() {
-    history.push(ROUTERS.CHECKOUT)
+    if (!userInfo) {
+      return notification.warning({
+        message: 'Chưa đăng nhập',
+        description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        key,
+        btn: (
+          <Button
+            type="primary"
+            onClick={() => {
+              notification.close(key);
+              history.push(ROUTERS.LOGIN);
+            }}
+          >
+            Đăng nhập ngay
+          </Button>
+        ),
+      });
+    } else {
+      history.push(ROUTERS.CHECKOUT)
+    }
   }
 
   function onDeleteCart(cartIndex) {
@@ -78,21 +97,13 @@ function CardPage({
     notification.success({
       message: 'xóa sản phẩm thành công',
       key,
+      placement: 'bottomRight',
       duration: 2
     });
   }
 
   function onUpdateQuantity(cartIndex, value, colorSelected, sizeSelected) {
-    // const newCart = cartList.data;
-    // newCart.splice(cartIndex, 1, {
-    //   productQuantity: value
-    // })
-    // editCart({
-    //   userId: userInfo.id,
-    //   carts: [
-    //     ...newCart,
-    //   ]
-    // })
+
 
     if (!colorSelected.id && !sizeSelected.id) { //ko có size và color
       const newCart = cartList.data;

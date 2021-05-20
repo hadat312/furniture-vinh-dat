@@ -34,9 +34,9 @@ export const addUserTaskAction = (params) => {
   }
 }
 
-export const editUserTaskAction = (params) => {
+export const editUserInfoAction = (params) => {
   return {
-    type: 'EDIT_USER_TASK',
+    type: 'EDIT_USER_INFO_REQUEST',
     payload: params,
   }
 }

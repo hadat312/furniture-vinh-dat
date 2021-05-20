@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Form, Input, Select, Tooltip, Button, Space, Typography, notification } from 'antd';
-import { Components } from 'antd/lib/date-picker/generatePicker';
-import { SmileOutlined } from '@ant-design/icons';
+// import Moment from 'react-moment';
 // import Item from '../Checkout/component/Item'
 import history from '../../utils/history';
 import { ROUTERS } from '../../constants/router';
@@ -18,6 +17,7 @@ import {
 import Item from '../Checkout/components/Item';
 
 import './checkout.css'
+import moment from 'moment';
 
 const { Option } = Select;
 
@@ -161,7 +161,7 @@ function CheckOutPage({
         //     isValid = true;
         //     newCheckoutError.city = "";
         // }
-
+        moment.locale('vi');
         if (isValid) {
             const ordersInfo = {
                 firstName: fillBill.firstName,
@@ -171,6 +171,8 @@ function CheckOutPage({
                 address: fillBill.address,
                 userId: fillBill.userId,
                 totalPrice: grandTotal,
+                date: moment().format('MMMM Do YYYY'),
+                time: moment().format('LT'),
                 carts: cartList.data
             }
             addOrder(ordersInfo);
@@ -180,7 +182,6 @@ function CheckOutPage({
                 key,
                 duration: 2
             });
-
             history.push(ROUTERS.HOME)
 
         } else {

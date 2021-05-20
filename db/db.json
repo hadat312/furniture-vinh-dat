@@ -1,15 +1,18 @@
 {
   "orders": [
     {
-      "firstName": "Hà",
-      "lastName": "Đạt",
+      "firstName": "Đạt",
+      "lastName": "Hà",
       "email": "hathucdat1@gmail.com",
-      "phone": "0774473993",
-      "address": "25, võ thị sáu, quy nhơn, bình định",
-      "totalPrice": 20286000,
+      "phone": "1224473993",
+      "address": "48 Cao thắng, Đà Nẵng",
+      "totalPrice": 8550000,
+      "date": "May 19th 2021",
+      "time": "12:49 PM",
       "userId": "vhrqDbQ",
       "carts": [
         {
+          "id": "845ab58b-5584-41d1-808d-0bde95b9d48d",
           "productId": "product05",
           "productQuantity": 1,
           "productName": "Sofa Miami 2 chỗ hiện đại",
@@ -20,6 +23,36 @@
           "size": {}
         },
         {
+          "id": "0119ba5b-18e5-4810-9981-f96950c91aad",
+          "productId": "product03",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
+          "productPrice": 9000000,
+          "productDiscount": 0.05,
+          "color": {},
+          "size": {
+            "id": "size06",
+            "sizeName": "3m*3m",
+            "price": 0
+          }
+        }
+      ],
+      "id": 1
+    },
+    {
+      "firstName": "Đạt",
+      "lastName": "Hà",
+      "email": "hathucdat1@gmail.com",
+      "phone": "1224473993",
+      "address": "48 Cao thắng, Đà Nẵng",
+      "totalPrice": 13636000,
+      "date": "May 19th 2021",
+      "time": "12:52 PM",
+      "userId": "vhrqDbQ",
+      "carts": [
+        {
+          "id": "94b53ca8-7be4-47f0-b257-d2595d4172f2",
           "productId": "product12",
           "productQuantity": 2,
           "productName": "Ghế Lazboy Larson 1PT528 – Red Thương hiệu Mỹ - Lazboy Bảo hành 10 năm",
@@ -38,80 +71,35 @@
           }
         }
       ],
-      "id": 1
-    },
-    {
-      "firstName": "Hà",
-      "lastName": "Đạt",
-      "email": "hathucdat1@gmail.com",
-      "phone": "0774473993",
-      "address": "25, võ thị sáu, quy nhơn, bình định",
-      "totalPrice": 9737500,
-      "userId": "vhrqDbQ",
-      "carts": [
-        {
-          "productId": "product01",
-          "productQuantity": 1,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
-          "productPrice": 10000000,
-          "productDiscount": 0.05,
-          "color": {
-            "id": "color01",
-            "colorName": "Trắng",
-            "price": 250000
-          },
-          "size": {
-            "id": "size01",
-            "sizeName": "80*150",
-            "price": 0
-          }
-        }
-      ],
       "id": 2
     },
     {
-      "firstName": "Hà",
-      "lastName": "Đạt",
+      "firstName": "Đạt",
+      "lastName": "Hà Thúc",
       "email": "hathucdat1@gmail.com",
-      "phone": "0774473993",
-      "address": "25, võ thị sáu, quy nhơn, bình định",
-      "totalPrice": 31112500,
+      "phone": "1224473993",
+      "address": "48 Cao thắng, Đà Nẵng",
+      "totalPrice": 2775000,
+      "date": "May 19th 2021",
+      "time": "12:54 PM",
       "userId": "vhrqDbQ",
       "carts": [
         {
-          "productId": "product01",
+          "id": "bf05653a-0195-4a9c-a959-179abbfc3f19",
+          "productId": "product13",
           "productQuantity": 1,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
-          "productPrice": 10000000,
-          "productDiscount": 0.05,
+          "productName": "Bench Jazz",
+          "productImage": "http://www.nhaxinh.com/photo/3791/bench-jazz.jpg",
+          "productPrice": 5000000,
+          "productDiscount": 0.5,
           "color": {
-            "id": "color01",
-            "colorName": "Trắng",
-            "price": 250000
+            "id": "color15",
+            "colorName": "Hồng",
+            "price": 550000
           },
           "size": {
-            "id": "size02",
-            "sizeName": "160*230",
-            "price": 1500000
-          }
-        },
-        {
-          "productId": "product01",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
-          "productPrice": 10000000,
-          "productDiscount": 0.05,
-          "color": {
-            "id": "color02",
-            "colorName": "Đen",
-            "price": 500000
-          },
-          "size": {
-            "id": "size01",
-            "sizeName": "80*150",
+            "id": "size19",
+            "sizeName": "0.5m*1m",
             "price": 0
           }
         }
@@ -119,60 +107,37 @@
       "id": 3
     },
     {
-      "firstName": "Hà",
-      "lastName": "Đạt",
-      "email": "hathucdat1@gmail.com",
-      "phone": "0774473993",
-      "address": "25, võ thị sáu, quy nhơn, bình định",
-      "totalPrice": 18945000,
-      "userId": "vhrqDbQ",
+      "firstName": "Vinh",
+      "lastName": "Huỳnh Xuân",
+      "email": "vinh4@gmail.com",
+      "phone": "0774474884",
+      "address": "348 Hà Huy Tập, Đà Nẵng",
+      "totalPrice": 9737500,
+      "date": "May 19th 2021",
+      "time": "1:53 PM",
+      "userId": "user02",
       "carts": [
         {
-          "productId": "product11",
+          "id": "d0a7813e-cae0-443c-8b0f-81bc766a2ed7",
+          "productId": "product01",
           "productQuantity": 1,
-          "productName": "Sofa Poppy góc phải vải màu xanhSofa Poppy góc phải vải màu xanh",
-          "productImage": "http://www.nhaxinh.com/photo/7160/sofa-goc-3-101543-1.jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0.05,
           "color": {
-            "id": "color13",
-            "colorName": "Xanh đậm",
-            "price": 550000
+            "id": "color01",
+            "colorName": "Trắng",
+            "price": 250000
           },
           "size": {
-            "id": "size17",
-            "sizeName": "0.5m*1.5m",
-            "price": 500000
-          }
-        }
-      ],
-      "id": 4
-    },
-    {
-      "firstName": "Hà",
-      "lastName": "Đạt",
-      "email": "hathucdat1@gmail.com",
-      "phone": "1224473993",
-      "address": "25, võ thị sáu, quy nhơn, bình định",
-      "totalPrice": 17100000,
-      "userId": "vhrqDbQ",
-      "carts": [
-        {
-          "productId": "product03",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 9000000,
-          "productDiscount": 0.05,
-          "color": {},
-          "size": {
-            "id": "size08",
-            "sizeName": "2m*3m9",
+            "id": "size01",
+            "sizeName": "80*150",
             "price": 0
           }
         }
       ],
-      "id": 5
+      "id": 4
     }
   ],
   "products": [
@@ -784,30 +749,12 @@
       "userPassword": "123123",
       "userEmail": "hathucdat1@gmail.com",
       "userName": "Hà Thúc Đạt",
-      "userPhoneNumber": "0776659332",
+      "userPhoneNumber": "0774473993",
       "userRole": "customer",
-      "carts": [
-        {
-          "productId": "product01",
-          "productQuantity": 1,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 10000000,
-          "productDiscount": 0.05,
-          "color": {
-            "id": "color01",
-            "colorName": "Trắng",
-            "price": 250000
-          },
-          "size": {
-            "id": "size01",
-            "sizeName": "80*150",
-            "price": 0
-          }
-        }
-      ],
+      "carts": [],
       "wishlist": [
         {
+          "id": "b1d056b9-8a37-4f8d-927a-2ab6f8c02d83",
           "productId": "product01",
           "productQuantity": 1,
           "productName": "Sofa Miami 2 chỗ hiện đại",
@@ -826,72 +773,9 @@
           }
         },
         {
-          "productId": "product12",
-          "productQuantity": 2,
-          "productName": "Ghế Lazboy Larson 1PT528 – Red Thương hiệu Mỹ - Lazboy Bảo hành 10 năm",
-          "productImage": "http://www.nhaxinh.com/photo/7127/ghe-lazboy-3-87432_-_copy.jpg",
-          "productPrice": 9000000,
-          "productDiscount": 0.3,
-          "color": {
-            "id": "color14",
-            "colorName": "Xanh nhạt",
-            "price": 550000
-          },
-          "size": {
-            "id": "size18",
-            "sizeName": "0.5m*1m",
-            "price": 190000
-          }
-        }
-      ],
-      "id": "vhrqDbQ"
-    },
-    {
-      "userPassword": "123123",
-      "userEmail": "vinh2@gmail.com",
-      "userName": "Xuân Vinh",
-      "userPhoneNumber": "0235146223",
-      "userRole": "customer",
-      "carts": [
-        {
-          "productId": "product01",
-          "productQuantity": 7,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 10000000,
-          "productDiscount": 0.05,
-          "color": {
-            "id": "color01",
-            "colorName": "Trắng",
-            "price": 250000
-          },
-          "size": {
-            "id": "size01",
-            "sizeName": "80*150",
-            "price": 0
-          }
-        },
-        {
-          "productId": "product01",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 10000000,
-          "productDiscount": 0.05,
-          "color": {
-            "id": "color02",
-            "colorName": "Đen",
-            "price": 500000
-          },
-          "size": {
-            "id": "size02",
-            "sizeName": "160*230",
-            "price": 1500000
-          }
-        },
-        {
+          "id": "0b8eb84a-969c-42ec-b6f5-4210564fbfb1",
           "productId": "product05",
-          "productQuantity": 3,
+          "productQuantity": 1,
           "productName": "Sofa Miami 2 chỗ hiện đại",
           "productImage": "http://lezada.reactdemo.hasthemes.com/assets/images/product/furniture/1.jpg",
           "productPrice": 7000000,
@@ -900,10 +784,11 @@
           "size": {}
         },
         {
+          "id": "a967be51-029f-4b93-b602-66296c076f70",
           "productId": "product07",
-          "productQuantity": 4,
+          "productQuantity": 1,
           "productName": "Ghế Sofa Miami 3",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productImage": "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
           "productPrice": 12000000,
           "productDiscount": 0.15,
           "color": {
@@ -914,38 +799,11 @@
           "size": {}
         },
         {
-          "productId": "product07",
-          "productQuantity": 6,
-          "productName": "Ghế Sofa Miami 3",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 12000000,
-          "productDiscount": 0.15,
-          "color": {
-            "id": "color09",
-            "colorName": "Xanh đậm",
-            "price": 550000
-          },
-          "size": {}
-        },
-        {
+          "id": "05dd91ec-a053-469b-bfc5-32457b6b6b3c",
           "productId": "product03",
           "productQuantity": 1,
           "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 9000000,
-          "productDiscount": 0.05,
-          "color": {},
-          "size": {
-            "id": "size08",
-            "sizeName": "2m*3m9",
-            "price": 0
-          }
-        },
-        {
-          "productId": "product03",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productImage": "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
           "productPrice": 9000000,
           "productDiscount": 0.05,
           "color": {},
@@ -954,96 +812,19 @@
             "sizeName": "3m*3m",
             "price": 0
           }
-        },
-        {
-          "productId": "product03",
-          "productQuantity": 3,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 9000000,
-          "productDiscount": 0.05,
-          "color": {},
-          "size": {
-            "id": "size07",
-            "sizeName": "3m*3m",
-            "price": 600000
-          }
-        },
-        {
-          "productId": "product13",
-          "productQuantity": 5,
-          "productName": "Bench Jazz",
-          "productImage": "http://www.nhaxinh.com/photo/3791/bench-jazz.jpg",
-          "productPrice": 5000000,
-          "productDiscount": 0.5,
-          "color": {
-            "id": "color15",
-            "colorName": "Hồng",
-            "price": 550000
-          },
-          "size": {
-            "id": "size19",
-            "sizeName": "0.5m*1m",
-            "price": 0
-          }
-        },
-        {
-          "productId": "product14",
-          "productQuantity": 1,
-          "productName": "Bench Jazz 2",
-          "productImage": "http://www.nhaxinh.com/photo/3791/bench-jazz.jpg",
-          "productPrice": 6000000,
-          "productDiscount": 0.25,
-          "color": {
-            "id": "color16",
-            "colorName": "Tía",
-            "price": 550000
-          },
-          "size": {
-            "id": "size20",
-            "sizeName": "0.5m*1m",
-            "price": 0
-          }
-        },
-        {
-          "productId": "product12",
-          "productQuantity": 1,
-          "productName": "Ghế Lazboy Larson 1PT528 – Red Thương hiệu Mỹ - Lazboy Bảo hành 10 năm",
-          "productImage": "http://www.nhaxinh.com/photo/7127/ghe-lazboy-3-87432_-_copy.jpg",
-          "productPrice": 9000000,
-          "productDiscount": 0.3,
-          "color": {
-            "id": "color14",
-            "colorName": "Xanh nhạt",
-            "price": 550000
-          },
-          "size": {
-            "id": "size18",
-            "sizeName": "0.5m*1m",
-            "price": 190000
-          }
         }
       ],
-      "wishlist": [
-        {
-          "productId": "product01",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 10000000,
-          "productDiscount": 0.05,
-          "color": {
-            "id": "color02",
-            "colorName": "Đen",
-            "price": 500000
-          },
-          "size": {
-            "id": "size01",
-            "sizeName": "80*150",
-            "price": 0
-          }
-        }
-      ],
+      "id": "vhrqDbQ",
+      "address": "25, Võ Thị Sáu, Quy Nhơn, Bình Định"
+    },
+    {
+      "userPassword": "123123",
+      "userEmail": "vinh2@gmail.com",
+      "userName": "Xuân Vinh",
+      "userPhoneNumber": "0235146223",
+      "userRole": "customer",
+      "carts": [],
+      "wishlist": [],
       "id": "AJZHuzo"
     },
     {

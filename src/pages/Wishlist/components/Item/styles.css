@@ -19,6 +19,9 @@
     border: 1px solid #e7e7e7;
 } */
 
+.product-thumbnail{
+    width: 150px;
+}
 
 .product-thumbnail img{
     width: auto;
@@ -63,7 +66,7 @@
     padding: 0px 1px;
 }
 
-.delete-product {
+.btn-remove {
     border:2px solid red;
     color:red;
     /* width: auto; */
@@ -74,9 +77,11 @@
     
 }
 
+.btn-remove{
+    margin-right: 10px;
+}
 
-
-.product-remove button:hover{
+.btn-remove:hover{
     content: '';
     border-color: red;
     color:white;  

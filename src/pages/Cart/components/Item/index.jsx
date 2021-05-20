@@ -23,7 +23,6 @@ function Item({
 
   function cong() {
     let newQuantity = quantity + 1;
-    console.log("cartIndex: ", cartIndex, ", quantity: " + newQuantity);
     onUpdateQuantity(cartIndex, newQuantity, cartItem.color, cartItem.size);
   }
 
@@ -31,10 +30,8 @@ function Item({
     let newQuantity = quantity - 1;
     if (newQuantity <= 1) {
       newQuantity = 1;
-      console.log("cartIndex: ", cartIndex, ", quantity: " + newQuantity);
       onUpdateQuantity(cartIndex, newQuantity, cartItem.color, cartItem.size);
     } else {
-      console.log("cartIndex: ", cartIndex, ", quantity: " + newQuantity);
       onUpdateQuantity(cartIndex, newQuantity, cartItem.color, cartItem.size);
     }
   }

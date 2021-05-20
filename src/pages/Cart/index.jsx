@@ -66,7 +66,7 @@ function CardPage({
     if (!userInfo) {
       return notification.warning({
         message: 'Chưa đăng nhập',
-        description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        description: 'Bạn cần đăng nhập để thực hiện thao tác này',
         key,
         btn: (
           <Button

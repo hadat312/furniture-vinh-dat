@@ -26,7 +26,7 @@ function* getCartListSaga(action) {
         type: "GET_CART_LIST_SUCCESS",
         payload: {
           data: newResult.data.cart,
-          orderId: newResult.data.id
+          // orderId: newResult.data.id
         },
       });
     } else {
@@ -35,7 +35,7 @@ function* getCartListSaga(action) {
         payload: {
           // get theo id(duy nhất) sẽ trả về 1 giá trị duy nhất => index = 0
           data: result.data[0].carts,
-          orderId: result.data[0].id
+          // orderId: result.data[0].id
         },
       });
     }

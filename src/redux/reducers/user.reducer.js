@@ -110,6 +110,40 @@ export default function userReducer(state = initialState, action) {
         },
       }
     }
+    case 'EDIT_USER_INFO_REQUEST': {
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          load: true
+        },
+      };
+    }
+    // case 'EDIT_USER_INFO_SUCCESS': {
+    //   const { id, data } = action.payload;
+    //   const newUserInfo = state.userInfo.data;
+    //   newUserInfo.splice(id, 1, data);
+    //   return {
+    //     ...state,
+    //     userInfo: {
+    //       ...state.userInfo,
+    //       data: newUserInfo,
+    //       load: false
+    //     },
+    //   };
+    // }
+    case 'EDIT_USER_INFO_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          error: error,
+          load: false
+        },
+      };
+    }
+
     default: {
       return state;
     }

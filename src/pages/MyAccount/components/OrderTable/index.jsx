@@ -1,222 +1,185 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Input, Button, Space, Tag } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, DeleteOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import { getOrderListAction } from '../../../../redux/actions';
 import './orderTable.css'
-function OrderTable(props) {
-  // const [searchText, setSearchText] = useState('');
-  // const [searchedColumn, setSearchedColumn] = useState('');
-  // const data = [
-  //   {
-  //     key: '1',
-  //     name: 'John Brown',
-  //     age: 32,
-  //     address: 'New York No. 1 Lake Park',
-  //   },
-  //   {
-  //     key: '2',
-  //     name: 'Joe Black',
-  //     age: 42,
-  //     address: 'London No. 1 Lake Park',
-  //   },
-  //   {
-  //     key: '3',
-  //     name: 'Jim Green',
-  //     age: 32,
-  //     address: 'Sidney No. 1 Lake Park',
-  //   },
-  //   {
-  //     key: '4',
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     address: 'London No. 2 Lake Park',
-  //   },
-  // ];
-  // getColumnSearchProps = dataIndex => ({
-  //   filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-  //     <div style={{ padding: 8 }}>
-  //       <Input
-  //         ref={node => {
-  //           this.searchInput = node;
-  //         }}
-  //         placeholder={`Search ${dataIndex}`}
-  //         value={selectedKeys[0]}
-  //         onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-  //         onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-  //         style={{ width: 188, marginBottom: 8, display: 'block' }}
-  //       />
-  //       <Space>
-  //         <Button
-  //           type="primary"
-  //           onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-  //           icon={<SearchOutlined />}
-  //           size="small"
-  //           style={{ width: 90 }}
-  //         >
-  //           Search
-  //         </Button>
-  //         <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-  //           Reset
-  //         </Button>
-  //         <Button
-  //           type="link"
-  //           size="small"
-  //           onClick={() => {
-  //             confirm({ closeDropdown: false });
-  //             this.setState({
-  //               searchText: selectedKeys[0],
-  //               searchedColumn: dataIndex,
-  //             });
-  //           }}
-  //         >
-  //           Filter
-  //         </Button>
-  //       </Space>
-  //     </div>
-  //   ),
-  //   filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
-  //   onFilter: (value, record) =>
-  //     record[dataIndex]
-  //       ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-  //       : '',
-  //   onFilterDropdownVisibleChange: visible => {
-  //     if (visible) {
-  //       setTimeout(() => this.searchInput.select(), 100);
-  //     }
-  //   },
-  //   render: text =>
-  //     this.state.searchedColumn === dataIndex ? (
-  //       <Highlighter
-  //         highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-  //         searchWords={[this.state.searchText]}
-  //         autoEscape
-  //         textToHighlight={text ? text.toString() : ''}
-  //       />
-  //     ) : (
-  //       text
-  //     ),
-  // });
+function OrderTable({
+  orderList,
+  getOrderList
+}) {
 
-  // function handleSearch(selectedKeys, confirm, dataIndex){
-  //   confirm();
-  //   setSearchText(selectedKeys[0]);
-  //   setSearchedColumn(dataIndex);
-  // }
-  // function handleReset(clearFilters) {
-  //   clearFilters();
-  //   setSearchText('');
-  // }
-  // const columns = [
-  //   {
-  //     title: 'Name',
-  //     dataIndex: 'name',
-  //     key: 'name',
-  //     width: '30%',
-  //     ...this.getColumnSearchProps('name'),
-  //   },
-  //   {
-  //     title: 'Age',
-  //     dataIndex: 'age',
-  //     key: 'age',
-  //     width: '20%',
-  //     ...this.getColumnSearchProps('age'),
-  //   },
-  //   {
-  //     title: 'Address',
-  //     dataIndex: 'address',
-  //     key: 'address',
-  //     ...this.getColumnSearchProps('address'),
-  //   },
-  // ];
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      date: "30/09/2020",
-      price: 80000,
-      address: 'New York No. 1 Lake Park',
-      // tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      date: "20/09/2019",
-      price: 1500000,
-      address: 'London No. 1 Lake Park',
-      // tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      date: "15/8/2020",
-      price: 2000000,
-      address: 'Sidney No. 1 Lake Park',
-      // tags: ['cool', 'teacher'],
-    },
-  ];
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-  const columns = [
-    {
-      title: 'Đơn hàng',
-      dataIndex: 'name',
-      key: 'name',
-      render: text => <a>{text}</a>,
-    },
-    {
-      title: 'Ngày tạo',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Địa chỉ',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Tổng cộng',
-      dataIndex: 'price',
-      key: 'price',
-      render: (text, record) => (
-        <Space size="middle">
-          <span>
-            {record.price.toLocaleString()} vnđ
-          </span>
-        </Space>
-      ),
-    },
-    // {
-    //   title: 'Tags',
-    //   key: 'tags',
-    //   dataIndex: 'tags',
-    //   render: tags => (
-    //     <>
-    //       {tags.map(tag => {
-    //         let color = tag.length > 5 ? 'geekblue' : 'green';
-    //         if (tag === 'loser') {
-    //           color = 'volcano';
-    //         }
-    //         return (
-    //           <Tag color={color} key={tag}>
-    //             {tag.toUpperCase()}
-    //           </Tag>
-    //         );
-    //       })}
-    //     </>
-    //   ),
-    // },
-    {
-      title: 'Hành động',
-      key: 'action',
-      render: (text, record) => (//record.address, record.name....
-        <Space size="middle">
+  useEffect(() => {
+    getOrderList({ userId: userInfo.id });
+  }, []);
 
-          <Button>Xem chi tiết</Button>
-        </Space>
-      ),
-    },
-  ];
+  const [selectionType, setSelectionType] = useState('checkbox');
+
+  // const rowSelection = {
+  //   onChange: (selectedRowKeys, selectedRows) => {
+  //     // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  //   },
+  //   getCheckboxProps: (record) => ({
+  //     disabled: record.name === 'Disabled User',
+  //     // Column configuration not to be checked
+  //     name: record.name,
+  //   }),
+  // };
+
+
+  function NestedTable() {
+    const orderListData = [];
+    orderList.data.forEach((orderListItem, orderIndex) => {
+      orderListData.push({
+        key: orderListItem.id,
+        id: orderListItem.id,
+        firstName: orderListItem.firstName,
+        lastName: orderListItem.lastName,
+        email: orderListItem.email,
+        phone: orderListItem.phone,
+        address: orderListItem.address,
+        date: orderListItem.date,
+        time: orderListItem.time,
+        totalPrice: orderListItem.totalPrice,
+      });
+    })
+
+    const render = (id) => {
+      const data = [];
+      orderList.data.forEach((orderListItem, orderIndex) => {
+        if (id === orderListItem.id) {
+          orderListItem.carts.forEach((cartsItem, cartsIndex) => {
+            const colorPrice = cartsItem.color.price || 0;
+            const sizePrice = cartsItem.size.price || 0;
+            const totalPrice = (cartsItem.productPrice + colorPrice + sizePrice) * cartsItem.productQuantity;
+            data.push({
+              key: cartsItem.id,
+              id: cartsItem.id,
+              productId: cartsItem.productId,
+              productImage: cartsItem.productImage,
+              productName: cartsItem.productName,
+              productQuantity: cartsItem.productQuantity,
+              productPrice: cartsItem.productPrice,
+              productDiscount: cartsItem.productDiscount,
+              colorId: cartsItem.color.id,
+              colorName: cartsItem.color.colorName || 'không có',
+              colorPrice: colorPrice,
+              sizeId: cartsItem.size.id,
+              sizeName: cartsItem.size.sizeName || 'không có',
+              sizePrice: sizePrice,
+              totalPrice: totalPrice * (1 - cartsItem.productDiscount),
+            });
+          })
+        }
+      })
+      const columns = [
+        { title: 'Tên sản phẩm', dataIndex: 'productName' },
+        { title: 'Màu', dataIndex: 'colorName' },
+        { title: 'Kích thước', dataIndex: 'sizeName' },
+        { title: 'Số lượng', dataIndex: 'productQuantity' },
+        {
+          title: 'Đơn giá',
+          dataIndex: 'productPrice',
+          render: (value) =>
+            <div>{value.toLocaleString() + ' vnđ'}</div>
+        },
+        {
+          title: 'Giảm giá',
+          dataIndex: 'productDiscount',
+          render: (value) =>
+            <div>{value * 100 + '%'}</div>
+        },
+        {
+          title: 'Tổng tiền',
+          dataIndex: 'totalPrice',
+          render: (value) =>
+            <div>{value.toLocaleString() + ' vnđ'}</div>
+        },
+      ];
+
+      return (
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+        />
+      );
+    };
+
+    const columns = [
+      { title: 'Họ', dataIndex: 'lastName', key: 'lastName' },
+      { title: 'Tên', dataIndex: 'firstName', key: 'firstName' },
+      { title: 'Email', dataIndex: 'email', key: 'email' },
+      { title: 'Số điện thoại', dataIndex: 'phone', key: 'phone' },
+      { title: 'Địa chỉ nhận hàng', dataIndex: 'address', key: 'address' },
+      { title: 'Ngày đặt hàng', dataIndex: 'date', key: 'date' },
+      { title: 'Giờ đặt hàng', dataIndex: 'time', key: 'time' },
+      {
+        title: 'Tổng tiền',
+        dataIndex: 'totalPrice',
+        render: (text) =>
+          <div>{text.toLocaleString() + ' vnđ'}</div>,
+        key: 'totalPrice'
+      },
+      {
+        title: 'Thao tác',
+        key: 'operation',
+        render: () =>
+          // <Tag color='red' style={{ cursor: "pointer" }}><DeleteOutlined /></Tag>
+          <Space justify="center">
+            <Button danger ><DeleteOutlined /></Button>
+          </Space>
+
+      },
+    ];
+
+
+    return (
+      <Table
+        className="components-table-demo-nested"
+        columns={columns}
+        expandable={{ expandedRowRender: item => render(item.id) }}
+        dataSource={orderListData}
+        pagination={false}
+      />
+    );
+  }
+
   return (
-    <Table columns={columns} dataSource={data} />
+    // <Table
+    //   rowSelection={{
+    //     type: selectionType,
+    //     ...rowSelection,
+    //   }}
+    //   columns={columns}
+    //   dataSource={orderList.data}
+    //   pagination={{ defaultCurrent: 1 }}
+    // />
+    // <Table
+    //   columns={columns}
+    //   expandable={{
+    //     expandedRowRender: record => <p style={{ margin: 0 }}>{record.date}</p>,
+    //     rowExpandable: record => record.name !== 'Not Expandable',
+    //   }}
+    //   dataSource={orderList}
+    // />
+    <NestedTable />
   );
 }
-export default OrderTable;
+const mapStateToProps = (state) => {
+  const { orderList } = state.orderReducer;
+  return {
+    orderList: orderList,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getOrderList: (params) => dispatch(getOrderListAction(params)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderTable);

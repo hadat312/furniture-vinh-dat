@@ -5,12 +5,14 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import history from '../../utils/history';
 import {
   getProductDetailAction,
+  getWishListAction,
   getCartListAction,
   addWishlistTaskAction,
   deleteWishlistTaskAction,
   addCartTaskAction,
   editCartTaskAction
 } from '../../redux/actions';
+import {v4} from 'uuid';
 // import Slider from "react-slick";
 import './productDetail.css';
 import { ROUTERS } from '../../constants/router';
@@ -20,6 +22,7 @@ function ProductDetailPage({
   wishlist,
   cartList,
   // getCartList,
+  getWishList,
   getProductDetail,
   addWishlistTask,
   deleteWishlistTask,
@@ -34,6 +37,7 @@ function ProductDetailPage({
 
   useEffect(() => {
     // getCartList();
+    getWishList();
     getProductDetail({ id: productId });
   }, [])
 
@@ -70,6 +74,7 @@ function ProductDetailPage({
   const oldPrice = productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0);
   const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount);
 
+  const key = `open${Date.now()}`;
 
   function toggleWishlist() {
     if (userInfo !== null) {
@@ -85,7 +90,7 @@ function ProductDetailPage({
     //chỉ có size
     //có cả 2
     //nếu không có cart và cả size
-    const key = `open${Date.now()}`;
+
     if (!userInfo) {
       return notification.warning({
         message: 'Chưa đăng nhập',
@@ -109,6 +114,7 @@ function ProductDetailPage({
       if (existProductIndex !== -1) {
         const newCart = cartList.data;
         newCart.splice(existProductIndex, 1, {
+          id: v4(),
           productId: productId,
           productQuantity: cartList.data[existProductIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -134,6 +140,7 @@ function ProductDetailPage({
           carts: [
             ...cartList.data,
             {
+              id: v4(),
               productId: productId,
               productQuantity: quantity,
               productName: productDetail.data.productName,
@@ -157,6 +164,7 @@ function ProductDetailPage({
       if (existSizeIndex !== -1) {
         const newCartList = cartList.data;
         newCartList.splice(existSizeIndex, 1, {
+          id: v4(),
           productId: productId,
           productQuantity: cartList.data[existSizeIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -186,6 +194,7 @@ function ProductDetailPage({
           carts: [
             ...cartList.data,
             {
+              id: v4(),
               productId: productId,
               productQuantity: quantity,
               productName: productDetail.data.productName,
@@ -213,6 +222,7 @@ function ProductDetailPage({
       if (existColorIndex !== -1) {
         const newCartList = cartList.data;
         newCartList.splice(existColorIndex, 1, {
+          id: v4(),
           productId: productId,
           productQuantity: cartList.data[existColorIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -242,6 +252,7 @@ function ProductDetailPage({
           carts: [
             ...cartList.data,
             {
+              id: v4(),
               productId: productId,
               productQuantity: quantity,
               productName: productDetail.data.productName,
@@ -270,6 +281,7 @@ function ProductDetailPage({
       if (existOptionIndex !== -1) {
         const newCartList = cartList.data;
         newCartList.splice(existOptionIndex, 1, {
+          id: v4(),
           productId: productId,
           productQuantity: cartList.data[existOptionIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -303,6 +315,7 @@ function ProductDetailPage({
           carts: [
             ...cartList.data,
             {
+              id: v4(),
               productId: productId,
               productQuantity: quantity,
               productName: productDetail.data.productName,
@@ -333,33 +346,194 @@ function ProductDetailPage({
   }
 
   function onAddWishlistTask() {
-    // if (userInfo !== null) {
-    //   addWishlistTask(productItem);
-    //   alert("Thêm vào danh sách yêu thích thành công!");
-    //   console.log("Thêm vào danh sách yêu thích thành công!");
-    // }
-    // else {
-    //   alert("Vui lòng đăng nhập để thực hiện thao tác này!");
-    //   console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
-    // }
+    const key = `open${Date.now()}`;
+    if (!userInfo) {
+      return notification.warning({
+        message: 'Chưa đăng nhập',
+        description: 'Bạn cần đăng nhập để thêm danh sách yêu thích',
+        key,
+        btn: (
+          <Button
+            type="primary"
+            onClick={() => {
+              notification.close(key);
+              history.push(ROUTERS.LOGIN);
+            }}
+          >
+            Đăng nhập ngay
+          </Button>
+        ),
+      });
+    }
+    if (!colorSelected.id && !sizeSelected.id) {
+      const existProductIndex = wishlist.data.findIndex((item) => item.productId === productId);
+      if (existProductIndex === -1) {
+        addWishlistTask({
+          userId: userInfo.id,
+          wishlist: [
+            ...wishlist.data,
+            {
+              id: v4(),
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {},
+              size: {}
+            }
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào danh sách yêu thích thành công',
+          key,
+          placement: 'bottomRight',
+          duration: 2
+        });
+      }
+    } else if (!colorSelected.id) { // nếu chỉ có size
+      const existSizeIndex = wishlist.data.findIndex((item) => item.size.id === sizeSelected.id);
+      if (existSizeIndex === -1) {
+        addWishlistTask({
+          userId: userInfo.id,
+          wishlist: [
+            ...wishlist.data,
+            {
+              id: v4(),
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {},
+              size: {
+                id: sizeSelected.id,
+                sizeName: sizeSelected.sizeName,
+                price: sizeSelected.price
+              }
+            }
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào danh sách yêu thích thành công',
+          key,
+          placement: 'bottomRight',
+          duration: 2
+        });
+      }
+    } else if (!sizeSelected.id) { // nếu chỉ có color
+      const existColorIndex = wishlist.data.findIndex((item) => item.color.id === colorSelected.id);
+      if (existColorIndex === -1) {
+        addWishlistTask({
+          userId: userInfo.id,
+          wishlist: [
+            ...wishlist.data,
+            {
+              id: v4(),
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {
+                id: colorSelected.id,
+                colorName: colorSelected.colorName,
+                price: colorSelected.price
+              },
+              size: {}
+            }
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào danh sách yêu thích thành công',
+          key,
+          placement: 'bottomRight',
+          duration: 2
+        });
+      }
+    }
+    else {//có cả color và size
+      const existOptionIndex = wishlist.data.findIndex((item) => item.color.id === colorSelected.id && item.size.id === sizeSelected.id);
+      if (existOptionIndex === -1) {
+        addWishlistTask({
+          userId: userInfo.id,
+          wishlist: [
+            ...wishlist.data,
+            {
+              id: v4(),
+              productId: productId,
+              productQuantity: quantity,
+              productName: productDetail.data.productName,
+              productImage: changeImage,
+              productPrice: productDetail.data.productPrice,
+              productDiscount: productDetail.data.productDiscount,
+              color: {
+                id: colorSelected.id,
+                colorName: colorSelected.colorName,
+                price: colorSelected.price
+              },
+              size: {
+                id: sizeSelected.id,
+                sizeName: sizeSelected.sizeName,
+                price: sizeSelected.price
+              }
+            }
+          ]
+        })
+        notification.success({
+          message: 'Thêm vào danh sách yêu thích thành công',
+          key,
+          placement: 'bottomRight',
+          duration: 2,
+        });
+      }
+    }
   }
 
-  function onDeleteWishlistTask(productId) {
-    // console.log("xóa thành công");
-    // if (userInfo !== null) {
-    //   wishlist.data.map((item) => {
-    //     if (productId === item._id) {
-    //       return deleteWishlistTask({ id: item.id });
-    //     }
-    //   })
-    //   alert("xóa khỏi danh sách yêu thích thành công!");
-    //   console.log("xóa khỏi danh sách yêu thích thành công!");
-    // }
-    // else {
-    //   console.log("Vui lòng đăng nhập để thực hiện thao tác này!");
-    //   alert("Vui lòng đăng nhập để thực hiện thao tác này!");
-    // }
+  function onDeleteWishlistTask() {
+    const newWishlist = wishlist.data;
+    wishlist.data.forEach((wishlistItem, wishlistIndex) => {
+      //check xem colorId và sizeId ở detail có === colorId, sizeId ở wishlist ko
+      // === thì xóa
+      if (wishlistItem.productId === productId
+        && wishlistItem.color.id === colorSelected.id
+        && wishlistItem.size.id === sizeSelected.id) {
+        newWishlist.splice(wishlistIndex, 1)
+        deleteWishlistTask({
+          userId: userInfo.id,
+          wishlist: [
+            ...newWishlist,
+          ]
+        })
+        notification.success({
+          message: 'xóa sản phẩm thành công',
+          key,
+          placement: 'bottomRight',
+          duration: 2
+        });
+      }
+
+    })
+
   }
+
+  // function checkExistWishlist(){
+  //   wishlist.data.forEach((wishlistItem, wishlistIndex) => {
+  //     //check xem colorId và sizeId ở detail có === colorId, sizeId ở wishlist ko
+  //     // === thì xóa
+  //     if (wishlistItem.productId === productId
+  //       && wishlistItem.color.id === colorSelected.id
+  //       && wishlistItem.size.id === sizeSelected.id) {
+  //       setIsAddWishlist(true)
+  //     }else{
+  //       setIsAddWishlist(false)
+  //     }
+
+  //   })
+  // }
 
   //COMMENT
   const ExampleComment = ({ children }) => (
@@ -473,6 +647,7 @@ function ProductDetailPage({
                 <Radio.Group
                   onChange={(e) => {
                     setColorSelected(e.target.value)
+                    // setIsAddWishlist(!isAddWishlist)
                   }}
                   value={colorSelected}
                 >
@@ -493,6 +668,7 @@ function ProductDetailPage({
                 <Radio.Group
                   onChange={(e) => {
                     setSizeSelected(e.target.value)
+                    // setIsAddWishlist(!isAddWishlist)
                   }}
 
                   value={sizeSelected}
@@ -527,21 +703,17 @@ function ProductDetailPage({
               <div className="detail-container__order">
                 <Button
                   className="detail-container__order__add-button"
-                  // onClick={checkIdAndAddTask}
                   onClick={onAddToCart}
                 >
                   Thêm vào giỏ hàng
                   </Button>
-                {/* <Button className="detail-container__order__wishlist-button">
-                  <AiOutlineHeart />
-                </Button> */}
                 <div>
                   {
                     isAddWishlist
                       ? <AiFillHeart
                         onClick={() => {
                           toggleWishlist()
-                          onDeleteWishlistTask(productId);
+                          onDeleteWishlistTask();
                         }}
                         className="main-container__card__add-to-wishlist"
                       />
@@ -619,6 +791,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getProductDetail: (params) => dispatch(getProductDetailAction(params)),
+    getWishList: (params) => dispatch(getWishListAction(params)),
     addWishlistTask: (params) => dispatch(addWishlistTaskAction(params)),
     deleteWishlistTask: (params) => dispatch(deleteWishlistTaskAction(params)),
     // getCartList: (params) => dispatch(getCartListAction(params)),

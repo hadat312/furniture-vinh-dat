@@ -9,6 +9,7 @@ function DefaultLayout(props) {
       exact={exact}
       path={path}
       render={(routeProps) => {
+      console.log("🚀 ~ file: index.jsx ~ line 12 ~ DefaultLayout ~ routeProps", routeProps)
         return (
           <>
             <Header/>

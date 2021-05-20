@@ -73,7 +73,21 @@ export default function cartReducer(state = initialState, action) {
         },
       };
     }
+
+    case 'ADD_WISH_LIST_TO_CART_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        cartList: {
+          ...state.cartList,
+          data: data,
+          load: false
+        },
+      };
+    }
+
     case 'ADD_CART_TASK_FAIL': {
+      
       return {
         ...state,
         cartList: {

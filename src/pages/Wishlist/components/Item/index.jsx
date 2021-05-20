@@ -1,65 +1,75 @@
-import { Button } from 'antd';
+import { notification } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import {addCartTaskAction} from '../../../../redux/actions'
-
+import { addCartTaskAction } from '../../../../redux/actions'
+import history from '../../../../utils/history';
 import './styles.css'
 
-function Item(props) {
-  const { productItem,
-    wishlistItem,
-    onDeleteWishlist,
-    addCart,
-    // id,
-    // image,
-    // price
-  } = props;
+function Item({
+  wishlistIndex,
+  wishlistItem,
+  onDeleteWishlist,
+  checkItemInCart
+}) {
 
+  const productPrice = (wishlistItem.productPrice + (wishlistItem.color.price || 0) + (wishlistItem.size.price || 0)) * (1 - wishlistItem.productDiscount);
 
-  const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo")) ||{};
+  // const cartColorId = cartItem.color.id || 0;
+  // const cartSizeId = cartItem.size.id || 0;
+  // const wishlistColorId = wishlistItem.color.id || 0;
+  // const wishlistSizeId = wishlistItem.size.id || 0;
+  // function checkItemInCart() {
+  //   if (
+  //     cartColorId === wishlistColorId
+  //     && cartSizeId === wishlistSizeId
+  //     && cartItem.productId === wishlistItem.productId
+  //   ) {
+  //     console.log("error");
+  //     // showError();
+  //     // onAddToCart(wishlistIndex, wishlistItem.color, wishlistItem.size);
+  //   } else {
+  //     console.log("add");
+  //   }
+  // }
 
-  const itemInfo = {
-    id: wishlistItem._id,
-    wishlistId: wishlistItem.id,
-    name: wishlistItem.name,
-    quantity: wishlistItem.quantity,
-    image: wishlistItem.image,
-    price: wishlistItem.price, 
-    userId: userInfoLocalStorage.id
-  }
-  console.log("🚀 ~ file: index.jsx ~ line 27 ~ Item ~ itemInfo", itemInfo)
-
-  function addCartTask() {
-    addCart(itemInfo);
-    console.log("thêm vào giỏ thành công");
-  }
   return (
     <>
-
       <tbody>
         <tr>
           <td className="product-thumbnail">
-            <img src={wishlistItem.image} alt="" />
-            {/* {console.log("🚀 ~ file: index.jsx ~ line 22 ~ Item ~ productItem.image", productItem.image)} */}
+            <img
+              style={{ cursor: 'pointer' }}
+              src={wishlistItem.productImage}
+              alt=""
+              onClick={() => history.push(`/product/${wishlistItem.productId}`)}
+            />
           </td>
-          <td className="product-name">{productItem.productName}</td>
+          <td
+            className="product-name"
+            style={{ width: 450, cursor: 'pointer' }}
+            onClick={() => history.push(`/product/${wishlistItem.productId}`)}
+          >
+            <div>{wishlistItem.productName}</div>
+            {wishlistItem.color.colorName && <div>Màu: {wishlistItem.color.colorName}</div>}
+            {wishlistItem.size.sizeName && <div>Kích thước: {wishlistItem.size.sizeName}</div>}
+          </td>
           <td className="product-price">
-            {wishlistItem.price
-              ? <div> {wishlistItem.price.toLocaleString()}</div>
-              : <div>{(productItem.productPrice * (1 - productItem.productDiscount)).toLocaleString()} vnđ</div>
-            }
+            <div>{productPrice.toLocaleString() + " vnđ"}</div>
           </td>
 
-          <td className="wishlist-remove">
+          <td className="wishlist-add">
             <button className="btn-add">
-              <span onClick={() => addCartTask()}>Thêm vào giỏ</span>
+              {
+
+              }
+              <span onClick={() => checkItemInCart(wishlistIndex, wishlistItem.productId, wishlistItem.color, wishlistItem.size)}>Thêm vào giỏ</span>
             </button>
           </td>
 
-          <td className="product-remove">
-            <button className="delete-product">
-              <span onClick={() => onDeleteWishlist(wishlistItem._id)}>X</span>
+          <td className="button-remove">
+            <button className="btn-remove">
+              <span onClick={() => onDeleteWishlist(wishlistIndex)}>X</span>
             </button>
           </td>
         </tr>
@@ -70,18 +80,18 @@ function Item(props) {
 
 
 const mapStateToProps = (state) => {
-  const { productList } = state.productReducer;
+  // const { productList } = state.productReducer;
   const { wishlist } = state.wishlistReducer;
   return {
-    productList: productList,
+    // productList: productList,1
     wishlist: wishlist,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
-    addCart: (params) => dispatch(addCartTaskAction(params)),
+
+    addCartTask: (params) => dispatch(addCartTaskAction(params)),
   };
 }
 

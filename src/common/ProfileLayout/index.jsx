@@ -3,12 +3,12 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Banner from '../Banner';
 import { connect } from 'react-redux';
-function PrivateLayout(props) {
+function ProfileLayout(props) {
   const { exact, path, component: Component, cartList, ...other } = props;
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  // if (!userInfo || cartList.data.length === 0) {
-  //   return <Redirect to="/" />;
-  // }
+  if (!userInfo) {
+    return <Redirect to="/" />;
+  }
   return (
     <Route
       exact={exact}
@@ -34,4 +34,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(PrivateLayout);
+export default connect(mapStateToProps)(ProfileLayout);

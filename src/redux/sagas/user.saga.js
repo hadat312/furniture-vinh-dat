@@ -15,13 +15,13 @@ function* registerSaga(action) {
         method: 'POST',
         url: 'http://localhost:3002/users',
         data: {
-          userPassword, 
+          userPassword,
           userEmail,
           userName,
           userPhoneNumber,
           userRole: "customer",
-          carts:[],
-          wishlist:[],
+          carts: [],
+          wishlist: [],
         }
       });
       // console.log("🚀 ~ file: user.saga.js ~ line 21 ~ function*registerSaga ~ result", result)
@@ -105,8 +105,55 @@ function* getUserInfoSaga(action) {
   }
 }
 
+function* editUserInfoSaga(action) {
+  try {
+    const { id, userEmail, userPassword, userName, userPhoneNumber, address, userRole } = action.payload;
+    const result = yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${id}`,
+      data: {
+        userEmail: userEmail,
+        userPassword: userPassword,
+        userName: userName,
+        userPhoneNumber: userPhoneNumber,
+        userRole: userRole,
+        address: address,
+      }
+    });
+
+    const userResult = yield axios({
+      method: 'GET',
+      url: `http://localhost:3002/users/${id}`,
+    });
+
+    yield put({
+      type: "GET_USER_INFO_SUCCESS",
+      payload: {
+        data: userResult.data,
+      },
+    });
+
+    yield put({
+      type: "EDIT_USER_INFO_SUCCESS",
+      payload: {
+        id: id,
+        data: result.data
+      }
+    });
+  } catch (e) {
+    yield put({
+      type: "EDIT_USER_INFO_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+
+}
+
 export default function* userSaga() {
-  yield takeEvery('ADD_REGISTER_REQUEST', registerSaga)
+  yield takeEvery('ADD_REGISTER_REQUEST', registerSaga);
   yield takeEvery('LOGIN_REQUEST', loginSaga);
   yield takeEvery('GET_USER_INFO_REQUEST', getUserInfoSaga);
+  yield takeEvery('EDIT_USER_INFO_REQUEST', editUserInfoSaga);
 }

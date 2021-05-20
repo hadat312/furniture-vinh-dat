@@ -6,7 +6,8 @@ import { ROUTERS } from './constants/router';
 //pages
 import HomeLayout from './common/HomeLayout';
 import DefaultLayout from './common/DefaultLayout';
-import PrivateLayout from './common/PrivateLayout';
+import ProfileLayout from './common/ProfileLayout';
+import PlaceOrderLayout from './common/PlaceOrderLayout';
 import ErrorLayout from './common/ErrorLayout';
 import HomePage from './pages/Home';
 import AboutPage from './pages/About'
@@ -105,12 +106,12 @@ function BrowserRouter(props) {
           path={ROUTERS.WISHLIST}
           component={WishlistPage}
         />
-        <PrivateLayout
+        <ProfileLayout
           exact
           path={ROUTERS.MY_ACCOUNT}
           component={MyAccountPage}
         />
-        <PrivateLayout
+        <PlaceOrderLayout
           exact
           path={ROUTERS.CHECKOUT}
           component={CheckOutPage}

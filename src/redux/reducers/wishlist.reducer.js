@@ -66,10 +66,7 @@ export default function wishlistReducer(state = initialState, action) {
         ...state,
         wishlist: {
           ...state.wishlist,
-          data: [
-            ...state.wishlist.data,
-            data
-           ],
+          data: data,
           load: false
         },
       };
@@ -89,32 +86,32 @@ export default function wishlistReducer(state = initialState, action) {
     case 'ADD_WISH_LIST_TO_CART_REQUEST': {
       return {
         ...state,
-        anotherwishlist: {
-          ...state.anotherwishlist,
+        wishlist: {
+          ...state.wishlist,
           load: true
         },
       };
     }
-    case 'ADD_WISH_LIST_TO_CART_SUCCESS': {
-      const { data } = action.payload;
-      return {
-        ...state,
-        anotherwishlist: {
-          ...state.anotherwishlist,
-          data: [
-            ...state.anotherwishlist.data,
-            data
-           ],
-          load: false
-        },
-      };
-    }
+    // case 'ADD_WISH_LIST_TO_CART_SUCCESS': {
+    //   const { data } = action.payload;
+    //   return {
+    //     ...state,
+    //     anotherwishlist: {
+    //       ...state.anotherwishlist,
+    //       data: [
+    //         ...state.anotherwishlist.data,
+    //         data
+    //       ],
+    //       load: false
+    //     },
+    //   };
+    // }
     case 'ADD_WISH_LIST_TO_CART_FAIL': {
       const { error } = action.payload;
       return {
         ...state,
-        anotherwishlist: {
-          ...state.anotherwishlist,
+        wishlist: {
+          ...state.wishlist,
           error: error,
           load: false
         },
@@ -132,13 +129,12 @@ export default function wishlistReducer(state = initialState, action) {
       };
     }
     case 'DELETE_WISH_LIST_TASK_SUCCESS': {
-      const id  = action.payload;
-      const newWishlist = state.wishlist.data.filter((wishlist) => wishlist.id !== id);
+      const { data } = action.payload;
       return {
         ...state,
         wishlist: {
           ...state.wishlist,
-          data: newWishlist,
+          data: data,
           load: false
         },
       };

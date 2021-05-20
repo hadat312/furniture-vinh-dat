@@ -27,7 +27,6 @@ function Header(props) {
   //     getUserInfo({ id: userInfo.id });
   //   }
   // }, [userInfo.data.carts]);
-  console.log("🚀 ~ file: index.jsx ~ line 15 ~ Header ~ cartList", cartList.data.length);
   const countCarts = cartList.data.length;
   const countWishlist = wishlist.data.length;
   const { Title } = Typography;

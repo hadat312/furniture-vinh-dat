@@ -20,6 +20,7 @@ function* getOrderListSaga(action) {
       type: "GET_ORDER_LIST_SUCCESS",
       payload: {
         data: result.data,
+        userId: userId,
       },
     });
   } catch (e) {
@@ -34,8 +35,7 @@ function* getOrderListSaga(action) {
 
 function* addOrderSaga(action) {
   try {
-    const { firstName, lastName, email, phone, address, totalPrice, userId, carts } = action.payload;
-    console.log("🚀 ~ file: order.saga.js ~ line 38 ~ function*addOrderSaga ~ action.payload", action.payload)
+    const { firstName, lastName, email, phone, address, totalPrice, date, time, userId, carts } = action.payload;
     const result = yield axios({
       method: 'POST',
       url: `http://localhost:3002/orders`,
@@ -46,6 +46,8 @@ function* addOrderSaga(action) {
         phone: phone,
         address: address,
         totalPrice: totalPrice,
+        date,
+        time,
         userId:userId,
         carts: carts,
       }

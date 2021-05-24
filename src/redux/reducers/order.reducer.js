@@ -103,37 +103,37 @@ export default function orderReducer(state = initialState, action) {
       };
     }
     //////// 
-    case 'DELETE_ORDER_REQUEST': {
-      return {
-        ...state,
-        cart: {
-          ...state.cart,
-          load: true
-        },
-      };
-    }
-    case 'DELETE_ORDER_SUCCESS': {
-      const { data } = action.payload;
-      return {
-        ...state,
-        orderList: {
-          ...state.orderList,
-          data: data,
-          load: false
-        },
-      };
-    }
-    case 'DELETE_ORDER_FAIL': {
-      const { error } = action.payload;
-      return {
-        ...state,
-        orderList: {
-          ...state.orderList,
-          error: error,
-          load: false
-        },
-      };
-    }
+    //case 'DELETE_ORDER_REQUEST': {
+    //   return {
+    //     ...state,
+    //     cart: {
+    //       ...state.cart,
+    //       load: true
+    //     },
+    //   };
+    // }
+    // case 'DELETE_ORDER_SUCCESS': {
+    //   const { data } = action.payload;
+    //   return {
+    //     ...state,
+    //     orderList: {
+    //       ...state.orderList,
+    //       data: data,
+    //       load: false
+    //     },
+    //   };
+    // }
+    // case 'DELETE_ORDER_FAIL': {
+    //   const { error } = action.payload;
+    //   return {
+    //     ...state,
+    //     orderList: {
+    //       ...state.orderList,
+    //       error: error,
+    //       load: false
+    //     },
+    //   };
+    // }
     default: {
       return state;
     }

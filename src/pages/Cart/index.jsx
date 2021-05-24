@@ -108,6 +108,7 @@ function CardPage({
     if (!colorSelected.id && !sizeSelected.id) { //ko có size và color
       const newCart = cartList.data;
       newCart.splice(cartIndex, 1, {
+        id: cartList.data[cartIndex].id,
         productId: cartList.data[cartIndex].productId,
         productQuantity: value,
         productName: cartList.data[cartIndex].productName,
@@ -125,6 +126,7 @@ function CardPage({
     else if (!colorSelected.id) { // nếu chỉ có size
       const newCartList = cartList.data;
       newCartList.splice(cartIndex, 1, {
+        id: cartList.data[cartIndex].id,
         productId: cartList.data[cartIndex].productId,
         productQuantity: value,
         productName: cartList.data[cartIndex].productName,
@@ -147,6 +149,7 @@ function CardPage({
     else if (!sizeSelected.id) { // nếu chỉ có color
       const newCartList = cartList.data;
       newCartList.splice(cartIndex, 1, {
+        id: cartList.data[cartIndex].id,
         productId: cartList.data[cartIndex].productId,
         productQuantity: value,
         productName: cartList.data[cartIndex].productName,
@@ -168,6 +171,7 @@ function CardPage({
     else {//có cả color và size
       const newCartList = cartList.data;
       newCartList.splice(cartIndex, 1, {
+        id: cartList.data[cartIndex].id,
         productId: cartList.data[cartIndex].productId,
         productQuantity: value,
         productName: cartList.data[cartIndex].productName,

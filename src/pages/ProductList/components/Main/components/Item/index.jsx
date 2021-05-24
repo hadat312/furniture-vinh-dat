@@ -376,7 +376,7 @@ function Item({
           hoverable
           cover={
             <img
-              src={productListItem.productImage}
+              src={productListItem.images[0].name}
               className="main-container__card__img"
               style={{
                 height: "250px"
@@ -407,13 +407,12 @@ function Item({
 
     );
   }
-
   function renderOneCard() {
     return (
       <Row gutter={[24, 8]}>
         <Col span={12}>
           <img
-            src={productListItem.productImage}
+            src={productListItem.productImage[0].name}
             className="main-container__card__img"
             style={{
               width: "100%",

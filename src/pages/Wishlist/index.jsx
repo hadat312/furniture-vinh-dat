@@ -40,38 +40,47 @@ function WishlistPage({
      * ...
      */
     let isExist = true;
-    cartList.data.map((cartItem, cartIndex) => {
-      if (colorSelected.id && sizeSelected.id && cartItem.color.id && cartItem.size.id) {
-        if (cartItem.color.id === colorSelected.id && cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
-          return isExist = true; // pass
-        } else {
-          return isExist = false; // pass
-        }
-      }
-      else if (!cartItem.size.id && !sizeSelected.id && colorSelected.id && cartItem.color.id) {
-        if (cartItem.color.id === colorSelected.id && wishlistId === cartItem.productId) {
-          return isExist = true; // pass
-        } else {
-          return isExist = false; // pass
-        }
-      }
-      else if (!cartItem.color.id && !colorSelected.id && cartItem.size.id && sizeSelected.id) {
-        if (cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
-          return isExist = true; // pass
-        } else {
-          return isExist = false; // pass
-        }
-      }
-      else if (!colorSelected.id && !sizeSelected.id && !cartItem.color.id && !cartItem.size.id) {
-        if (wishlistId === cartItem.productId) {
-          return isExist = true; // pass
-        } else {
-          return isExist = false; // pass
-        }
-      }
 
+    if (cartList.data.length > 0) {
 
-    })
+      console.log("tồn tại item trong cart");
+      cartList.data.forEach((cartItem, cartIndex) => {
+        if (colorSelected.id && sizeSelected.id && cartItem.color.id && cartItem.size.id) {
+          if (cartItem.color.id === colorSelected.id && cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
+            isExist = true; // pass
+          } else {
+            isExist = false; // pass
+          }
+        }
+        else if (!cartItem.size.id && !sizeSelected.id && colorSelected.id && cartItem.color.id) {
+          if (cartItem.color.id === colorSelected.id && wishlistId === cartItem.productId) {
+            isExist = true; // pass
+          } else {
+            isExist = false; // pass
+          }
+        }
+        else if (!cartItem.color.id && !colorSelected.id && cartItem.size.id && sizeSelected.id) {
+          if (cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
+            isExist = true; // pass
+          } else {
+            isExist = false; // pass
+          }
+        }
+        else if (!colorSelected.id && !sizeSelected.id && !cartItem.color.id && !cartItem.size.id) {
+          if (wishlistId === cartItem.productId) {
+            isExist = true; // pass
+          } else {
+            isExist = false; // pass
+          }
+        }
+      })
+    } else if (cartList.data.length === 0) {
+      console.log("ko tồn tại item trong cart");
+      isExist = false; // pass
+    }
+
+    console.log('isExist', isExist);
+
     if (isExist) {
       // console.log("error");
       showError();
@@ -108,6 +117,7 @@ function WishlistPage({
       });
     }
     const cartInfo = {
+      id: wishlist.data[wishlistIndex].id,
       productId: wishlist.data[wishlistIndex].productId,
       productQuantity: 1,
       productName: wishlist.data[wishlistIndex].productName,

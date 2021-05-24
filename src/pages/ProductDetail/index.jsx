@@ -12,7 +12,7 @@ import {
   addCartTaskAction,
   editCartTaskAction
 } from '../../redux/actions';
-import {v4} from 'uuid';
+import { v4 } from 'uuid';
 // import Slider from "react-slick";
 import './productDetail.css';
 import { ROUTERS } from '../../constants/router';
@@ -42,27 +42,37 @@ function ProductDetailPage({
   }, [])
 
 
+
   //chọn màu sắc và kích cỡ mặc định 
   useEffect(() => {
     if (productDetail.data.id) {
       setSizeSelected(productDetail.data.sizes[0] || {})
       setColorSelected(productDetail.data.colors[0] || {})
+      setChangeImage(productDetail.data.productImage[0] || {})
     }
   }, [productDetail.data])
 
   const { Title } = Typography;
 
-  const imageList = [
-    "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
-    "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
-    "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
-    "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
-    "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
-    "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg",
-    productDetail.data.productImage,
-  ];
-  const [changeImage, setChangeImage] = useState(productDetail.data.productImage);
+  // const imageList = [
+  //   "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
+  //   "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
+  //   "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
+  //   "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
+  //   "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
+  //   "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg",
+  //   // productDetail.data.productImage,
+  // ];
 
+  const imageList = [
+    ...productDetail.data.productImage
+  ]
+  
+  
+  // console.log("🚀 ~ file: index.jsx ~ line 68 ~ imageList", productDetail.data.productImage[0].name)
+
+
+  const [changeImage, setChangeImage] = useState(imageList);
 
 
   const [sizeSelected, setSizeSelected] = useState({});
@@ -93,6 +103,7 @@ function ProductDetailPage({
 
     if (!userInfo) {
       return notification.warning({
+
         message: 'Chưa đăng nhập',
         description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
         key,
@@ -114,7 +125,7 @@ function ProductDetailPage({
       if (existProductIndex !== -1) {
         const newCart = cartList.data;
         newCart.splice(existProductIndex, 1, {
-          id: v4(),
+          id: cartList.data[existProductIndex].id,
           productId: productId,
           productQuantity: cartList.data[existProductIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -164,7 +175,7 @@ function ProductDetailPage({
       if (existSizeIndex !== -1) {
         const newCartList = cartList.data;
         newCartList.splice(existSizeIndex, 1, {
-          id: v4(),
+          id: cartList.data[existSizeIndex].id,
           productId: productId,
           productQuantity: cartList.data[existSizeIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -222,7 +233,7 @@ function ProductDetailPage({
       if (existColorIndex !== -1) {
         const newCartList = cartList.data;
         newCartList.splice(existColorIndex, 1, {
-          id: v4(),
+          id: cartList.data[existColorIndex].id,
           productId: productId,
           productQuantity: cartList.data[existColorIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -275,13 +286,12 @@ function ProductDetailPage({
           duration: 2
         });
       }
-    }
-    else {//có cả color và size
+    }else {//có cả color và size
       const existOptionIndex = cartList.data.findIndex((item) => item.color.id === colorSelected.id && item.size.id === sizeSelected.id);
       if (existOptionIndex !== -1) {
         const newCartList = cartList.data;
         newCartList.splice(existOptionIndex, 1, {
-          id: v4(),
+          id: cartList.data[existOptionIndex].id,
           productId: productId,
           productQuantity: cartList.data[existOptionIndex].productQuantity + quantity,
           productName: productDetail.data.productName,
@@ -557,6 +567,20 @@ function ProductDetailPage({
     </Comment>
   );
 
+  function renderImageList() {
+    return imageList.map((imagesItem, imagesIndex) => {
+      return (
+        <div
+          key={imagesItem.id}
+          className="imageOption"
+          style={{ "backgroundImage": `url(${imagesItem.name})` }}
+          onMouseEnter={() => {
+            setChangeImage(imagesItem.name)
+          }}></div>
+      )
+    })
+  }
+
 
   function renderSizeOptions() {
     return productDetail.data.sizes.map((sizesItem) => {
@@ -585,19 +609,19 @@ function ProductDetailPage({
   }
 
 
-  function renderImageList() {
-    return imageList.map((item, index) => {
-      return (
-        <div
-          key={index}
-          className="imageOption"
-          style={{ "backgroundImage": `url(${item})` }}
-          onMouseEnter={() => {
-            setChangeImage(item)
-          }}></div>
-      )
-    })
-  }
+  // function renderImageList() {
+  //   return imageList.map((item, index) => {
+  //     return (
+  //       <div
+  //         key={index}
+  //         className="imageOption"
+  //         style={{ "backgroundImage": `url(${item})` }}
+  //         onMouseEnter={() => {
+  //           setChangeImage(item)
+  //         }}></div>
+  //     )
+  //   })
+  // }
   return (
     <div className="detail-container">
       <Row>
@@ -608,7 +632,7 @@ function ProductDetailPage({
             <div className="bg__container">
               <img
                 className="bg__container__lgImage"
-                src={changeImage} />
+                src={changeImage.name} />
             </div>
 
           </Row>

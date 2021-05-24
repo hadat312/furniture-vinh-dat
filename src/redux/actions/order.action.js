@@ -11,3 +11,10 @@ export const addOrderAction = (params)=> {
     payload: params,
   }
 }
+
+export const deleteOrderAction = (params)=> {
+  return {
+    type: 'DELETE_ORDER_REQUEST',
+    payload: params,
+  }
+}

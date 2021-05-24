@@ -7,6 +7,7 @@ import wishlistSaga from './wishlist.saga';
 import cartSaga from './cart.saga';
 import billSaga from './bill.saga';
 import orderSaga from './order.saga';
+import addressSaga from './address.saga';
 
 export default function* mySaga() {
   yield fork(userSaga);
@@ -16,4 +17,5 @@ export default function* mySaga() {
   yield fork(cartSaga);
   yield fork(billSaga);
   yield fork(orderSaga);
+  yield fork(addressSaga)
 }

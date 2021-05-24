@@ -37,5 +37,4 @@
 
 .bill-address__edit-btn:hover, .bill-address-confirm:hover, .bill-address-cancel:hover {
   font-weight: bold;
-  text-decoration: none;
 }

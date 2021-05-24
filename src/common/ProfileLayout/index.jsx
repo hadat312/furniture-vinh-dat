@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import Banner from '../Banner';
+import Sidebar from '../Sidebar';
 import { connect } from 'react-redux';
+import * as Style from './styles'
 function ProfileLayout(props) {
-  const { exact, path, component: Component, cartList, ...other } = props;
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  if (!userInfo) {
+  const { exact, path, component: Component, ...other } = props;
+  const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo'));
+  if (!userInfoLocalStorage) {
     return <Redirect to="/" />;
   }
   return (
@@ -16,9 +19,14 @@ function ProfileLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            <Header />
+            <Header {...routeProps} />
             <Banner />
-            <Component {...other} {...routeProps} />
+            <Style.Container>
+              <Sidebar {...routeProps} />
+              <Style.MainContainer>
+                <Component {...other} {...routeProps} />
+              </Style.MainContainer>
+            </Style.Container>
             <Footer />
           </>
         )
@@ -28,10 +36,10 @@ function ProfileLayout(props) {
 }
 
 const mapStateToProps = (state) => {
-  const { cartList } = state.cartReducer;
+  const { userInfo } = state.userReducer;
   return {
-    cartList
+    userInfo
   }
 };
 
-export default connect(mapStateToProps)(ProfileLayout);
+export default ProfileLayout;

@@ -5,3 +5,5 @@ export * from './wishlist.action';
 export * from './cart.action';
 export * from './bill.action';
 export * from './order.action';
+export * from './address.action';
+export * from './common.action';

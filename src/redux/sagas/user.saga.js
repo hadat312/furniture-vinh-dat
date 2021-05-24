@@ -22,6 +22,7 @@ function* registerSaga(action) {
           userRole: "customer",
           carts: [],
           wishlist: [],
+          address: [],
         }
       });
       // console.log("🚀 ~ file: user.saga.js ~ line 21 ~ function*registerSaga ~ result", result)
@@ -107,7 +108,7 @@ function* getUserInfoSaga(action) {
 
 function* editUserInfoSaga(action) {
   try {
-    const { id, userEmail, userPassword, userName, userPhoneNumber, address, userRole } = action.payload;
+    const { id, userEmail, gender, birthdayString, userPassword, userName, userPhoneNumber, address, userRole } = action.payload;
     const result = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/users/${id}`,
@@ -115,6 +116,8 @@ function* editUserInfoSaga(action) {
         userEmail: userEmail,
         userPassword: userPassword,
         userName: userName,
+        gender: gender,
+        birthday: birthdayString,
         userPhoneNumber: userPhoneNumber,
         userRole: userRole,
         address: address,

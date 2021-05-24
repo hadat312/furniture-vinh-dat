@@ -6,6 +6,8 @@ import cartReducer from './cart.reducer';
 import userReducer from './user.reducer';
 import billReducer from './bill.reducer';
 import orderReducer from './order.reducer';
+import addressReducer from './address.reducer';
+import commonReducer from './common.reducer';
 
 export default combineReducers({
   productReducer: productReducer,
@@ -15,6 +17,8 @@ export default combineReducers({
   cartReducer: cartReducer,
   billReducer: billReducer,
   orderReducer: orderReducer,
+  addressReducer: addressReducer,
+  commonReducer: commonReducer,
 })
 
 //data trả về ở reducer

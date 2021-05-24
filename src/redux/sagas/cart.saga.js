@@ -13,32 +13,32 @@ function* getCartListSaga(action) {
         _limit: limit,
       }
     });
-    if (result.data.length === 0) {
-      const newResult = yield axios({
-        method: 'POST',
-        url: 'http://localhost:3002/users',
-        data: {
-          userId,
-          carts: [],
-        }
-      });
-      yield put({
-        type: "GET_CART_LIST_SUCCESS",
-        payload: {
-          data: newResult.data.cart,
-          // orderId: newResult.data.id
-        },
-      });
-    } else {
-      yield put({
-        type: "GET_CART_LIST_SUCCESS",
-        payload: {
-          // get theo id(duy nhất) sẽ trả về 1 giá trị duy nhất => index = 0
-          data: result.data[0].carts,
-          // orderId: result.data[0].id
-        },
-      });
-    }
+    // if (result.data.length === 0) {
+    //   const newResult = yield axios({
+    //     method: 'POST',
+    //     url: 'http://localhost:3002/users',
+    //     data: {
+    //       userId,
+    //       carts: [],
+    //     }
+    //   });
+    //   yield put({
+    //     type: "GET_CART_LIST_SUCCESS",
+    //     payload: {
+    //       data: newResult.data.cart,
+    //       // orderId: newResult.data.id
+    //     },
+    //   });
+    // } else {
+    yield put({
+      type: "GET_CART_LIST_SUCCESS",
+      payload: {
+        // get theo id(duy nhất) sẽ trả về 1 giá trị duy nhất => index = 0
+        data: result.data[0].carts,
+        // orderId: result.data[0].id
+      },
+    });
+    // }
   } catch (e) {
     yield put({
       type: "GET_CART_LIST_FAIL",

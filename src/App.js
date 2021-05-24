@@ -5,6 +5,7 @@ import {
   getUserInfoAction,
   getCartListAction,
 } from './redux/actions';
+
 import './App.css';
 
 function App({ getUserInfo, getCartList }) {

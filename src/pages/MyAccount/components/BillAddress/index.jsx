@@ -10,30 +10,56 @@ function BillAddress({ userInfo, getUserInfo }) {
   useEffect(() => {
     getUserInfo({ id: UserInfoLocalStorage.id });
   }, [])
+
+  function renderUserInformation() {
+    if (userInfo.load) return <p>Loading...</p>;
+    else {
+      return (
+        <>
+        <div>
+
+        
+          <Row className="custom-row">
+            <Col>Họ và Tên: <span className="text-bold">{userInfo.data.userName}</span></Col>
+          </Row>
+          <Row className="custom-row">
+            <Col>Email: <span className="text-bold">{userInfo.data.userEmail}</span></Col>
+          </Row>
+          <Row className="custom-row">
+            <Col>
+              {
+                userInfo.data.gender
+                  ? <Col>Giới tính: <span className="text-bold">{userInfo.data.gender === 'Male' ? 'Nam' : userInfo.data.gender === 'Female' ? 'Nữ' : 'Khác'}</span></Col>
+
+                  : <Col>Giới tính: <span className="text-bold">Chưa cập nhật</span></Col>
+              }
+            </Col>
+          </Row>
+          <Row className="custom-row">
+            <Col>
+              {
+                userInfo.data.birthday
+                  ? <Col>Ngày sinh: <span className="text-bold"> {userInfo.data.birthday}</span></Col>
+                  : <Col>Ngày sinh: <span className="text-bold">Chưa cập nhật</span></Col>
+              }
+            </Col>
+          </Row>
+          <Row className="custom-row">
+            <Col>
+              {
+                userInfo.data.userPhoneNumber
+                  ? <Col>Số điện thoại: <span className="text-bold">{userInfo.data.userPhoneNumber}</span></Col>
+                  : <Col>Số điện thoại: <span className="text-bold">Chưa cập nhật</span></Col>
+              }
+            </Col>
+          </Row>
+          </div>
+        </>
+      );
+    }
+  }
   return (
-    <>
-      <Row className="custom-row">
-        <Col>Họ và Tên: <span className="text-bold">{userInfo.data.userName}</span></Col>
-      </Row>
-      <Row className="custom-row">
-        <Col>
-          {
-            userInfo.data.address
-              ? <span>Địa chỉ: {userInfo.data.address}</span>
-              : <span>Chưa cập nhật địa chỉ</span>
-          }
-        </Col>
-      </Row>
-      <Row className="custom-row">
-        <Col>
-          {
-            userInfo.data.userPhoneNumber
-              ? <span>Số điện thoại: {userInfo.data.userPhoneNumber}</span>
-              : <span>Chưa cập nhật số điện thoại</span>
-          }
-        </Col>
-      </Row>
-    </>
+    renderUserInformation()
   );
 }
 

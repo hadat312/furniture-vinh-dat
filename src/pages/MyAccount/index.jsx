@@ -1,285 +1,241 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Radio, Card, Typography, Row, Col, Input, Form, Modal, notification } from 'antd';
-import { AiOutlineEdit } from "react-icons/ai";
-import history from '../../utils/history';
-import { REGEX } from '../../constants/validate';
-import { ROUTERS } from '../../constants/router';
+import {
+  Typography,
+  Row,
+  Col,
+  Input,
+  Form,
+  Modal,
+  notification,
+  Menu,
+  Breadcrumb,
+  Layout,
+  Space,
+  Button,
+  Card,
+  Radio,
+  DatePicker
+} from 'antd';
+import { AiOutlineEdit, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { connect } from 'react-redux';
+
 import {
   getUserInfoAction,
   editUserInfoAction
 } from '../../redux/actions';
-import OrderTable from './components/OrderTable';
+
 import BillAddress from './components/BillAddress';
+
 import './myAccount.css';
-const { TabPane } = Tabs;
+
 function ProfilePage({
   userInfo,
   getUserInfo,
   editUser,
 }) {
   const UserInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
+  const [checkName, setCheckName] = useState(false);
+  const [checkEmail, setCheckEmail] = useState(false);
+  const [checkPhone, setCheckPhone] = useState(false);
+  const [editForm] = Form.useForm();
 
-  useEffect(() => {
-    getUserInfo({ id: UserInfoLocalStorage.id });
-  }, [])
-
-  // useEffect(() => {
-  //   if (UserInfoLocalStorage === null) {
-  //     history.push(`/`);
-  //   }
-  // }, [UserInfoLocalStorage])
+  const { Header, Content, Footer, Sider } = Layout;
+  const [collapsed, setCollapsed] = useState(false);
 
   const { Title } = Typography;
   const [isEdit, setIsEdit] = useState(false);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [editForm] = Form.useForm();
+  const layout = {
+    labelCol: { span: 7 },
+    wrapperCol: { span: 16 },
+  };
 
-  const [checkName, setCheckName] = useState("");
-  const [checkPhone, setCheckPhone] = useState("");
-  const [checkEmail, setCheckEmail] = useState("");
+  useEffect(() => {
+    getUserInfo({ id: UserInfoLocalStorage.id });
+  }, [])
+
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const onOk = () => {
+  let birthdayString = '';
+  const dateFormatList = 'DD/MM/YYYY';
 
-    editForm.submit();
-    setIsModalVisible(false);
-
-  };
-
-  const onCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  // function renderBillAddressView() {
-  //   return (
-  //     <>
-  //       <Row className="custom-row">
-  //         <Col>Họ và Tên: <span className="text-bold">{userInfo.data.userName}</span></Col>
-  //       </Row>
-  //       <Row className="custom-row">
-  //         <Col>
-  //           {
-  //             userInfo.data.address
-  //               ? <span>Địa chỉ: {userInfo.data.address}</span>
-  //               : <span>Vui lòng cập nhật địa chỉ tại [<span style={{ fontWeight: "bold" }}>Chi Tiết Tài Khoản</span>]</span>
-  //           }
-  //         </Col>
-  //       </Row>
-  //       <Row className="custom-row">
-  //         <Col>
-  //           {
-  //             userInfo.data.userPhoneNumber
-  //               ? <span>Địa chỉ: {userInfo.data.userPhoneNumber}</span>
-  //               : <span>Vui lòng cập nhật địa chỉ tại [<span style={{ fontWeight: "bold" }}>Chi Tiết Tài Khoản</span>]</span>
-  //           }
-  //         </Col>
-  //       </Row>
-  //     </>
-  //   );
-  // }
+  function onChange(date, dateString) {
+    birthdayString = dateString.trim();
+    // console.log("birthdayString: ", birthdayString, "date: ", date, "dateString: ", dateString);
+  }
 
   function showNotification() {
     const key = `open${Date.now()}`;
     return notification.success({
-      message: 'Cập nhật thành công!',
+      message: 'Chỉnh sửa hồ sơ thành công!',
       key,
       placement: 'bottomRight',
       duration: 2
     });
   }
 
-  function onSubmit(values) {
-    console.log(editForm.getFieldValue());
-    let isValid = true;
-
-    const newRegisterError = {
-      fullName: "",
-      phoneNumber: "",
-      email: "",
-      confirmEmail: "",
-      pwd: "",
-      confirmPwd: "",
-      acceptTerms: false,
-    }
-    let abc = '';
-    //Validate Full Name
-    if (values.length === 0) {
-      isValid = false;
-      abc = "Enter full name!";
-    } else {
-      if (values.length <= 5) {
-        isValid = false;
-        abc = "Sorry, Your full name must be greater than 5 characters";
-      }
-      else {
-        isValid = true;
-        abc = "";
-      }
-
-      //Validate Phone Number
-      // let phoneNumberRegEx = /((09|03|07|08|05)+([0-9]{8})\b)/g; //RegEx VN phone number
-
-      if (!REGEX.PHONE_NUMBER_REGEX.test(values.value)) {
-        newRegisterError.phoneNumber = "Sorry, Your phone number not valid!";
-        isValid = false;
-      } else {
-        newRegisterError.phoneNumber = "";
-      }
-
-      if (isValid) {
-        // editUser({ id: userInfo.data.id, ...values });
-        console.log("abc");
-        setIsEdit(false);
-      } else {
-        console.log(abc);
-      }
-    }
-  }
-
   function billAddressEdit() {
     return (
-      <Modal title="Basic Modal" visible={isModalVisible}
-        onOk={onOk}
-        onCancel={onCancel}
+      <Modal title={<Title level={4}>Chỉnh sửa hồ sơ</Title>} visible={isModalVisible}
+        okText={<span><AiOutlineCheck/> Xác nhận</span>}
+        cancelText={<span><AiOutlineClose/> Hủy bỏ</span>}
+        onCancel={() => setIsModalVisible(false)}
+        onOk={() => {
+          editForm
+            .validateFields()
+            .then(values => {
+              // editForm.resetFields();
+              console.log('Success:', values);
+              setIsModalVisible(false);
+              const changeProfile = {
+                ...values,
+                birthdayString,
+              }
+              editUser({ id: userInfo.data.id, ...changeProfile });
+              showNotification();
+            })
+            .catch(info => {
+              console.log('Failed:', info.values);
+            });
+        }}
       >
         <Form
           form={editForm}
-          layout="vertical"
+          // layout="horizontal"
+          {...layout}
           name="basic"
           initialValues={{
             userName: userInfo.data.userName,
-            userPhoneNumber: userInfo.data.userPhoneNumber,
-            address: userInfo.data.address || '',
+            userPhoneNumber: userInfo.data.userPhoneNumber || '',
+            userEmail: userInfo.data.userEmail,
+            gender: userInfo.data.gender || '',
           }}
-          onFinish={(values) => onSubmit(values)}
         >
           <Form.Item
-            label={<span className="text-bold">Tên</span>}
+            label={<span>Tên</span>}
             name="userName"
             rules={[
               { required: true, message: 'Không được để trống!' },
               { min: 4, message: 'Phải lớn hơn 4 ký tự' },
-              { max: 8, message: 'Phải nhỏ hơn 8 ký tự' },
+              { max: 20, message: 'Phải nhỏ hơn 8 ký tự' },
             ]}
             hasFeedback
           >
-            <Input onChange={(e) => onSubmit(e.target.value)} />
+            <Input className="text-bold" />
           </Form.Item>
 
           <Form.Item
-            label={<span className="text-bold">Địa chỉ</span>}
-            name="address"
-            rules={[{ required: true, message: 'Không được để trống!' }]}
-            hasFeedback
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={<span className="text-bold">Số điện thoại</span>}
-            name="userPhoneNumber"
+            label="Email"
+            name="userEmail"
             rules={[
-              // { required: true, message: 'Không được để trống!' },
+              { required: true, message: 'Không được để trống!' },
               {
                 validator(_, value) {
                   if (!value) {
-                    return Promise.reject(new Error('Không được để trống!'));
-                  } else {
-                    if (REGEX.PHONE_NUMBER_REGEX.test(value)) {
-                      return Promise.resolve();
-                    }
-
-                    return Promise.reject(new Error('Số điện thoại không đúng định dạng!'));
+                    return Promise.reject('Không được để trống!');
                   }
-                },
-              },
+                  else if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value)) {
+                    return Promise.reject('Email không đúng định dạng!');
+                  } else {
+                    return Promise.resolve();
+                  }
+                }
+              }
 
             ]}
             hasFeedback
           >
-            <Input />
+            <Input className="text-bold" />
+          </Form.Item>
+
+          <Form.Item
+            name="gender"
+            label="Giới tính"
+            rules={[
+              {
+                required: true,
+                message: 'Vui lòng chọn giới tính!',
+              },
+            ]}
+          >
+            <Radio.Group>
+              <Radio value="Male">{<span className="text-bold">Nam</span>}</Radio>
+              <Radio value="Female">{<span className="text-bold">Nữ</span>}</Radio>
+              <Radio value="Other">{<span className="text-bold">Khác</span>}</Radio>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item
+            name="birthday"
+            label="Ngày sinh"
+          >
+            <DatePicker format={dateFormatList} style={{ width: '100%' }} onChange={onChange} placeholder="Nhập ngày, tháng, năm sinh" />
+          </Form.Item>
+
+
+          <Form.Item
+            label="Số điện thoại"
+            name="userPhoneNumber"
+            rules={[
+              {
+                required: true,
+                validator(_, value) {
+                  if (!value) {
+                    return Promise.reject('Không được để trống!');
+                  }
+                  else if (!/((09|03|07|08|05)+([0-9]{8})\b)/g.test(value)) {
+                    return Promise.reject('Số điện thoại không đúng định dạng!');
+                  } else {
+                    return Promise.resolve();
+                  }
+                }
+              }
+            ]}
+            hasFeedback
+          >
+            <Input className="text-bold" />
           </Form.Item>
         </Form>
+
       </Modal >
     )
   }
 
   return (
-    <Row className="profile-container">
-      <Col span={4}></Col>
-      <Col span={16}>
-        <Tabs
-          defaultActiveKey="1"
-          // type="card"
-          size={"Large"}
-          style={{ marginBottom: 16 }}>
-          <TabPane
-            tab={<span className="tab-title text-bold">Dashboard</span>}
-            key="1">
-            <div className="site-card-border-less-wrapper">
-              <Row>
-                <Col span={24}>
-                  <Card title={
-                    <Title level={5}>Dashboard</Title>
-                  } bordered={true}>
-                    <p>Xin chào, <span style={{ fontWeight: "bold" }}>{userInfo.data.userName}</span> (Nếu không phải <span style={{ fontWeight: "bold" }}>{userInfo.data.userName}</span> ! Vui lòng <a style={{ fontWeight: "bold" }} onClick={() => history.push(ROUTERS.CUSTOMER_LOGIN)}>Logout!</a>)</p>
-                    <p>Từ bảng điều khiển. Bạn có thể dễ dàng kiểm tra & xem đơn hàng hiện tại của bạn, quản lý shipping, địa chỉ hóa đơn và chỉnh sửa chi tiết tài khoản cũng như mật khẩu của bạn.</p>
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          </TabPane>
-          <TabPane tab={<span className="tab-title text-bold">Đơn Hàng</span>} key="2">
-            <Row>
-              <Col span={24}>
-                <Card title={
-                  <Title level={5}>Đơn hàng</Title>
-                } bordered={true}>
-                  <OrderTable />
-                </Card>
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tab={<span className="tab-title text-bold">Địa Chỉ Thanh Toán</span>} key="3">
-            <Row>
-              <Col span={24}>
-                <Card title={
-                  <Title level={5}>Địa chỉ thanh toán</Title>
-                } bordered={true}>
-                  <BillAddress />
-                  <Row className="custom-row">
-                    <Col>
-                      <a
-                        className="bill-address__edit-btn"
-                        onClick={showModal}>
-                        <AiOutlineEdit /> Sửa địa chỉ
-                      </a>
-                      {billAddressEdit()}
-                    </Col>
-                  </Row>
+    <Row>
+      <Col span={12}>
+        <Card title={
+          <Title level={4}>Hồ sơ của tôi</Title>
+        } bordered={true}>
+          <BillAddress />
+          <Row className="custom-row">
+            <Col>
+              <Button
+                type="primary"
+                ghost
+                className="bill-address__edit-btn"
+                onClick={showModal}
+              >
+                <AiOutlineEdit />
+                 Chỉnh sửa hồ sơ
+              </Button>
+              {billAddressEdit()}
+            </Col>
+          </Row>
 
-                </Card>
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tab={<span className="tab-title text-bold">Chi Tiết Tài Khoản</span>} key="4">
-            <Row>
-              <Col span={24}>
-                <Card title={
-                  <Title level={5}>Chi tiết tài khoản</Title>
-                } bordered={true}>
-
-                </Card>
-              </Col>
-            </Row>
-          </TabPane>
-        </Tabs>
+        </Card>
       </Col>
-      <Col span={4}></Col>
+      <Col span={12}>
+        <Card title={
+          <Title level={4}>Đổi ảnh đại diện</Title>
+        } bordered={true}>
+          
+        </Card>
+      </Col>
     </Row>
   );
 }

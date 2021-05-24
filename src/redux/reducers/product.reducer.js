@@ -9,6 +9,7 @@ const initialState = {
       itemCategory: {},
       sizes: [],
       colors: [],
+      productImage: [],
     },
     load: false,
     error: '',

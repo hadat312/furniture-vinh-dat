@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Input, Button, Space, Tag } from 'antd';
+import { Table, Input, Button, Space, Tag, Typography, Card, Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { SearchOutlined, DeleteOutlined } from '@ant-design/icons';
+import { SearchOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { getOrderListAction } from '../../../../redux/actions';
-import './orderTable.css'
-function OrderTable({
+import {
+  getOrderListAction,
+  deleteOrderAction
+} from '../../redux/actions';
+import * as Style from './styles';
+function OrderPage({
   orderList,
-  getOrderList
+  getOrderList,
+  deleteOrder,
 }) {
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+
+  const { Title } = Typography;
 
   useEffect(() => {
     getOrderList({ userId: userInfo.id });
@@ -28,24 +35,45 @@ function OrderTable({
   //     name: record.name,
   //   }),
   // };
+  const { confirm } = Modal;
+
+  function showDeleteConfirm(text) {
+    confirm({
+      title: 'Bạn chắc chắn muốn xóa đơn hàng này?',
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Xóa',
+      okType: 'danger',
+      cancelText: 'Hủy bỏ',
+      onOk() {
+        deleteOrder({ id: text, userId: userInfo.id })
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
 
 
   function NestedTable() {
-    const orderListData = [];
-    orderList.data.forEach((orderListItem, orderIndex) => {
-      orderListData.push({
-        key: orderListItem.id,
-        id: orderListItem.id,
-        firstName: orderListItem.firstName,
-        lastName: orderListItem.lastName,
-        email: orderListItem.email,
-        phone: orderListItem.phone,
-        address: orderListItem.address,
-        date: orderListItem.date,
-        time: orderListItem.time,
-        totalPrice: orderListItem.totalPrice,
-      });
-    })
+    const orderListData = orderList.data.map((orderItem) => {
+      return {
+        ...orderItem,
+        key: orderItem.id,
+      }
+    });
+    // orderList.data.forEach((orderListItem, orderIndex) => {
+    //   orderListData.push({
+    //     key: orderListItem.id,
+    //     id: orderListItem.id,
+    //     userName: orderListItem.userName,
+    //     email: orderListItem.email,
+    //     phone: orderListItem.phone,
+    //     address: orderListItem.address,
+    //     date: orderListItem.date,
+    //     time: orderListItem.time,
+    //     totalPrice: orderListItem.totalPrice,
+    //   });
+    // })
 
     const render = (id) => {
       const data = [];
@@ -75,9 +103,17 @@ function OrderTable({
           })
         }
       })
+
+
       const columns = [
-        { title: 'Tên sản phẩm', dataIndex: 'productName' },
-        { title: 'Màu', dataIndex: 'colorName' },
+        {
+          title: 'Tên sản phẩm',
+          dataIndex: 'productName',
+          render: (value) =>
+            <Style.CustomText>{value.toLocaleString() + ' vnđ'}</Style.CustomText>,
+          width: '30%'
+        },
+        { title: 'Màu', dataIndex: 'colorName', width: '10%' },
         { title: 'Kích thước', dataIndex: 'sizeName' },
         { title: 'Số lượng', dataIndex: 'productQuantity' },
         {
@@ -109,14 +145,23 @@ function OrderTable({
       );
     };
 
+    console.log('orderList: ', orderListData);
+
     const columns = [
-      { title: 'Họ', dataIndex: 'lastName', key: 'lastName' },
-      { title: 'Tên', dataIndex: 'firstName', key: 'firstName' },
-      { title: 'Email', dataIndex: 'email', key: 'email' },
-      { title: 'Số điện thoại', dataIndex: 'phone', key: 'phone' },
-      { title: 'Địa chỉ nhận hàng', dataIndex: 'address', key: 'address' },
-      { title: 'Ngày đặt hàng', dataIndex: 'date', key: 'date' },
-      { title: 'Giờ đặt hàng', dataIndex: 'time', key: 'time' },
+      {
+        title: 'Tên khách hàng',
+        dataIndex: 'userName',
+      },
+      // { title: 'Email', dataIndex: 'email', key: 'email' },
+      { title: 'Số điện thoại', dataIndex: 'phone' },
+      {
+        title: 'Địa chỉ nhận hàng',
+        dataIndex: 'address',
+        width: '20%'
+      },
+      // { title: 'Mã vùng', dataIndex: 'regionCode', width: '15%' },
+      { title: 'Ngày đặt hàng', dataIndex: 'date' },
+      { title: 'Giờ đặt hàng', dataIndex: 'time' },
       {
         title: 'Tổng tiền',
         dataIndex: 'totalPrice',
@@ -125,12 +170,12 @@ function OrderTable({
         key: 'totalPrice'
       },
       {
-        title: 'Thao tác',
+        title: 'Hành động',
         key: 'operation',
-        render: () =>
+        render: (text) =>
           // <Tag color='red' style={{ cursor: "pointer" }}><DeleteOutlined /></Tag>
           <Space justify="center">
-            <Button danger ><DeleteOutlined /></Button>
+            <Button danger onClick={() => showDeleteConfirm(text.id)}><DeleteOutlined /></Button>
           </Space>
 
       },
@@ -140,33 +185,28 @@ function OrderTable({
     return (
       <Table
         className="components-table-demo-nested"
+        loading={orderList.load}
         columns={columns}
         expandable={{ expandedRowRender: item => render(item.id) }}
         dataSource={orderListData}
-        pagination={false}
       />
     );
   }
 
   return (
-    // <Table
-    //   rowSelection={{
-    //     type: selectionType,
-    //     ...rowSelection,
-    //   }}
-    //   columns={columns}
-    //   dataSource={orderList.data}
-    //   pagination={{ defaultCurrent: 1 }}
-    // />
-    // <Table
-    //   columns={columns}
-    //   expandable={{
-    //     expandedRowRender: record => <p style={{ margin: 0 }}>{record.date}</p>,
-    //     rowExpandable: record => record.name !== 'Not Expandable',
-    //   }}
-    //   dataSource={orderList}
-    // />
-    <NestedTable />
+    <>
+      <Card
+        title={
+          <Title level={4}>Địa chỉ của tôi</Title>
+        }
+        bordered={true}
+      >
+        <Style.MainOrders>
+          <NestedTable />
+        </Style.MainOrders>
+
+      </Card>
+    </>
   );
 }
 const mapStateToProps = (state) => {
@@ -179,7 +219,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getOrderList: (params) => dispatch(getOrderListAction(params)),
+    deleteOrder: (params) => dispatch(deleteOrderAction(params)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderTable);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderPage);

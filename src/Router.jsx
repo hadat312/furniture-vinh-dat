@@ -16,6 +16,9 @@ import ProductListPage from './pages/ProductList';
 import CartPage from './pages/Cart';
 import WishlistPage from './pages/Wishlist';
 import MyAccountPage from './pages/MyAccount';
+import AddressPage from './pages/Address';
+import ChangePasswordPage from './pages/ChangePassword';
+import OrderPage from './pages/Order';
 import CheckOutPage from './pages/Checkout'
 import OrderTrackingPage from './pages/OrderTracking';
 import ErrorPage from './pages/Error';
@@ -108,8 +111,23 @@ function BrowserRouter(props) {
         />
         <ProfileLayout
           exact
+          path={ROUTERS.ADDRESS}
+          component={AddressPage}
+        />
+        <ProfileLayout
+          exact
           path={ROUTERS.MY_ACCOUNT}
           component={MyAccountPage}
+        />
+        <ProfileLayout
+          exact
+          path={ROUTERS.CHANGE_PASSWORD}
+          component={ChangePasswordPage}
+        />
+        <ProfileLayout
+          exact
+          path={ROUTERS.MY_ORDER}
+          component={OrderPage}
         />
         <PlaceOrderLayout
           exact

@@ -10,7 +10,7 @@ function HomeLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            <Header/>
+            <Header {...routeProps}/>
             <Component {...other} {...routeProps} />
             <Footer/>
           </>

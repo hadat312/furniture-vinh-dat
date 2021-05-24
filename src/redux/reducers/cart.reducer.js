@@ -99,8 +99,8 @@ export default function cartReducer(state = initialState, action) {
     case 'EDIT_CART_TASK_REQUEST': {
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           load: true
         },
       };
@@ -133,8 +133,8 @@ export default function cartReducer(state = initialState, action) {
       const { error } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           error: error,
           load: false
         },
@@ -143,8 +143,8 @@ export default function cartReducer(state = initialState, action) {
     case 'DELETE_CART_TASK_REQUEST': {
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           load: true
         },
       };
@@ -176,8 +176,8 @@ export default function cartReducer(state = initialState, action) {
       const { error } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           error: error,
           load: false
         },

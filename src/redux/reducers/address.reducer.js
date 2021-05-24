@@ -26,7 +26,50 @@ export default function addressReducer(state = initialState, action) {
 
 
     //ADDRESS
-    
+    case 'GET_ADDRESS_REQUEST': {
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          load: true,
+        },
+      }
+    }
+    case 'GET_ADDRESS_SUCCESS': {
+      const { data, userId } = action.payload;
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          userId: userId,
+          data: data,
+          load: false,
+        },
+      }
+    }
+    case 'GET_USER_INFO_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          data: data.address,
+          load: false,
+        },
+      }
+    }
+    case 'GET_ADDRESS_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          load: false,
+          error: error,
+        },
+      }
+    }
+
     case 'ADD_ADDRESS_REQUEST': {
       return {
         ...state,
@@ -172,6 +215,59 @@ export default function addressReducer(state = initialState, action) {
         },
       }
     }
+
+    case 'EDIT_ADDRESS_REQUEST': {
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          load: true
+        },
+      };
+    }
+    case 'EDIT_ADDRESS_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          data: data,
+          load: false
+        },
+      };
+    }
+    case 'EDIT_ADDRESS_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          error: error,
+          load: false
+        },
+      };
+    }
+    case 'DELETE_CART_TASK_REQUEST': {
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          load: true
+        },
+      };
+    }
+    case 'DELETE_CART_TASK_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        address: {
+          ...state.address,
+          data: data,
+          load: false
+        },
+      };
+    }
+
     default: {
       return state;
     }

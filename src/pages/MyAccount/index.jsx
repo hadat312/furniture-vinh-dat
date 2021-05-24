@@ -172,6 +172,12 @@ function ProfilePage({
           <Form.Item
             name="birthday"
             label="Ngày sinh"
+            rules={[
+              {
+                required: true,
+                message: 'Vui lòng chọn ngày sinh!',
+              },
+            ]}
           >
             <DatePicker format={dateFormatList} style={{ width: '100%' }} onChange={onChange} placeholder="Nhập ngày, tháng, năm sinh" />
           </Form.Item>

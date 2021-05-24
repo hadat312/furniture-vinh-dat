@@ -33,3 +33,17 @@ export const addAddressAction = (params) => {
     payload: params,
   }
 }
+
+export const editAddressAction = (params) => {
+  return {
+    type: 'EDIT_ADDRESS_REQUEST',
+    payload: params,
+  }
+}
+
+export const deleteAddressAction = (params) => {
+  return {
+    type: 'DELETE_ADDRESS_REQUEST',
+    payload: params,
+  }
+}

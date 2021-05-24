@@ -23,7 +23,7 @@ function* getAddressSaga(action) {
         }
       });
       yield put({
-        type: "GET_CART_LIST_SUCCESS",
+        type: "GET_ADDRESS_SUCCESS",
         payload: {
           data: newResult.data.cart,
           // orderId: newResult.data.id
@@ -31,7 +31,7 @@ function* getAddressSaga(action) {
       });
     } else {
       yield put({
-        type: "GET_CART_LIST_SUCCESS",
+        type: "GET_ADDRESS_SUCCESS",
         payload: {
           // get theo id(duy nhất) sẽ trả về 1 giá trị duy nhất => index = 0
           data: result.data[0].carts,
@@ -41,7 +41,7 @@ function* getAddressSaga(action) {
     }
   } catch (e) {
     yield put({
-      type: "GET_CART_LIST_FAIL",
+      type: "GET_ADDRESS_FAIL",
       payload: {
         error: e.error
       },
@@ -126,7 +126,6 @@ function* getWardSaga(action) {
 function* addAddressSaga(action) {
   try {
     const { userId, address } = action.payload;
-    // console.log("🚀 ~ file: address.saga.js ~ line 81 ~ function*addAddressSaga ~ action.payload", action.payload)
     const result = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/users/${userId}`,
@@ -134,7 +133,6 @@ function* addAddressSaga(action) {
         address: address,
       }
     });
-    console.log("🚀 ~ file: address.saga.js ~ line 88 ~ function*addAddressSaga ~ result", result.data)
     yield put({
       type: "ADD_ADDRESS_SUCCESS",
       payload: {
@@ -151,10 +149,65 @@ function* addAddressSaga(action) {
   }
 }
 
+function* editAddressSaga(action) {
+  try {
+    const { userId, address } = action.payload;
+    const editResult = yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
+      data: {
+        address: address
+      }
+    });
+    yield put({ type: "GET_ADDRESS_REQUEST" });
+    yield put({
+      type: "EDIT_ADDRESS_SUCCESS",
+      payload: {
+        data: editResult.data.address,
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: "EDIT_ADDRESS_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+function* deleteAddressSaga(action) {
+  try {
+    const { userId, address } = action.payload;
+    const result = yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
+      data: {
+        address: address
+      }
+    });
+    yield put({
+      type: "DELETE_CART_TASK_SUCCESS",
+      payload: {
+        data: result.data.address,
+      }
+    });
+  } catch (e) {
+    yield put({
+      type: "DELETE_CART_TASK_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
 export default function* addressSaga() {
   yield takeEvery('GET_ADDRESS_REQUEST', getAddressSaga)
   yield takeEvery('GET_CITY_REQUEST', getCitySaga);
   yield takeEvery('GET_DISTRICT_REQUEST', getDistrictSaga);
   yield takeEvery('GET_WARD_REQUEST', getWardSaga);
   yield takeEvery('ADD_ADDRESS_REQUEST', addAddressSaga);
+  yield takeEvery('EDIT_ADDRESS_REQUEST', editAddressSaga);
+  yield takeEvery('DELETE_ADDRESS_REQUEST', deleteAddressSaga);
 }

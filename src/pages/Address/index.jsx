@@ -14,7 +14,9 @@ import {
   getCityAction,
   getDistrictAction,
   getWardAction,
-  addAddressAction
+  addAddressAction,
+  editAddressAction,
+  deleteAddressAction,
 } from '../../redux/actions';
 
 import {
@@ -59,6 +61,8 @@ function AddressPage({
   getDistrict,
   getWard,
   addAddress,
+  editAddress,
+  deleteAddress,
 }) {
 
   const layout = {
@@ -77,9 +81,9 @@ function AddressPage({
 
   const [editForm] = Form.useForm();
 
-  
+
   const { confirm } = Modal;
-  
+
   const [isSelected, setIsSelected] = useState(false);
   const [cityCode, setCityCode] = useState('');
   const [districtCode, setDistrictCode] = useState('');
@@ -129,15 +133,36 @@ function AddressPage({
     });
   }
 
+  function showDeleteAddressNotification() {
+    const key = `open${Date.now()}`;
+    return notification.success({
+      message: 'Xóa địa chỉ nhận hàng thành công!',
+      key,
+      placement: 'bottomRight',
+      duration: 2
+    });
+  }
+
   function showDeleteConfirm(text) {
     confirm({
+      
       title: 'Bạn chắc chắn muốn xóa địa chỉ này?',
       icon: <ExclamationCircleOutlined />,
       okText: 'Xóa',
       okType: 'danger',
       cancelText: 'Hủy bỏ',
       onOk() {
-        // deleteOrder({ id: text, userId: userInfo.id })
+
+        const newAddress = address.data;
+        newAddress.splice(addressSelected.index, 1)
+        deleteAddress({
+          userId: userId.id,
+          address: [
+            ...newAddress,
+          ]
+        })
+
+        showDeleteAddressNotification()
       },
       onCancel() {
         console.log('Cancel');
@@ -146,11 +171,13 @@ function AddressPage({
   }
 
   function onEditProduct(text) {
+    //bỏ disabled district và ward
+    setIsSelected(true)
     setIsShowModify(true);
     setAddressSelect(text);
   }
 
-  function onCreateProduct() {
+  function onAddAddress() {
     setIsShowModify(true);
     setAddressSelect({});
   }
@@ -187,7 +214,13 @@ function AddressPage({
     console.log(`Ward ${wardCode}`);
   }
 
+  function onFocusDistrict() {
 
+  }
+
+  function onFocusWard() {
+
+  }
 
 
   function onBlur() {
@@ -223,34 +256,20 @@ function AddressPage({
     })
   }
 
-
-  // const tableData = [];
-  // function addressData() {
-  //   address.data.forEach((addressItem, addressIndex) => {
-  //     tableData.push({
-  //       key: addressItem.id,
-  //       id: addressItem.id,
-  //       userName: addressItem.userName,
-  //       addressCode: addressItem.addressCode,
-  //       regionCode: addressItem.regionCode,
-  //       userPhoneNumber: addressItem.userPhoneNumber,
-  //     })
-  //   })
-  //   return tableData;
-  // }
-
-  const tableData = address.data.map((addressItem) => {
+  const addressDataTable = address.data.map((addressItem, addressIndex) => {
     return {
       ...addressItem,
+      regionCode: addressItem.wardName + ', ' + addressItem.districtName + ', ' + addressItem.cityName,
       key: addressItem.id,
+      index: addressIndex
     }
   });
 
   const columns = [
-    { title: 'Tên', dataIndex: 'userName', width:'15%'},
-    { title: 'Địa chỉ', dataIndex: 'addressCode', width:'25%' },
-    { title: 'Mã vùng', dataIndex: 'regionCode', width:'35%' },
-    { title: 'Số điện thoại', dataIndex: 'userPhoneNumber'},
+    { title: 'Tên', dataIndex: 'userName', width: '15%' },
+    { title: 'Địa chỉ', dataIndex: 'addressCode', width: '25%' },
+    { title: 'Mã vùng', dataIndex: 'regionCode', width: '35%' },
+    { title: 'Số điện thoại', dataIndex: 'userPhoneNumber' },
     {
       title: 'Hành động',
       key: 'operation',
@@ -262,8 +281,7 @@ function AddressPage({
 
     },
   ];
-
-
+  // console.log('addressSelected: ', addressSelected);
   return (
     <>
       <Card
@@ -273,7 +291,7 @@ function AddressPage({
             <Button
               type="primary"
               ghost
-              onClick={() => onCreateProduct()}
+              onClick={() => onAddAddress()}
               className="address__add-btn"
             >
               <AiOutlinePlus />
@@ -287,15 +305,16 @@ function AddressPage({
           <Table
             loading={userInfo.load}
             columns={columns}
-          dataSource={tableData}
+            dataSource={addressDataTable}
           />
         </Style.MainAddress>
       </Card>
 
       {/* MODAL */}
-      <Modal title={<Title level={4}>{addressSelected.id ? "Chỉnh sửa địa chỉ" : "Thêm địa chỉ"}</Title>} visible={isShowModify}
-
-
+      <Modal
+        title={<Title level={4}>{addressSelected.id ? "Chỉnh sửa địa chỉ" : "Thêm địa chỉ"}</Title>}
+        visible={isShowModify}
+        centered
         okText={<span><AiOutlineCheck /> Xác nhận</span>}
         cancelText={<span><AiOutlineClose /> Hủy bỏ</span>}
         onCancel={() => setIsShowModify(false)}
@@ -304,12 +323,28 @@ function AddressPage({
             .validateFields()
             .then(values => {
               if (addressSelected.id) {
-                const changeProfile = {
-                  ...values,
-                }
-                // editUser({ id: userInfo.data.id, ...changeProfile });
-                showAddAddressNotification();
-                console.log('Edit Success:', values);
+
+                // const changeAddress = {
+                //   userName: values.userName,
+                //   addressCode: values.addressCode,
+                //   regionCode: wardName + ', ' + districtName + ', ' + cityName,
+                //   userPhoneNumber: values.userPhoneNumber,
+                // }
+
+                const changeAddress = address.data;
+                changeAddress.splice(addressSelected.index, 1, {
+                  id: addressSelected.id,
+                  userName: values.userName,
+                  addressCode: values.addressCode,
+                  cityName: cityName,
+                  districtName: districtName,
+                  wardName: wardName,
+                  userPhoneNumber: values.userPhoneNumber,
+                })
+
+                editAddress({ userId: userId.id, address: changeAddress })
+                showEditAddressNotification();
+                console.log('Edit Success:', changeAddress);
               } else {
                 addAddress({
                   userId: userId.id,
@@ -318,23 +353,22 @@ function AddressPage({
                     {
                       id: v4(),
                       userName: values.userName,
-                      addressCode: values.address,
-                      regionCode: wardName + ', ' + districtName + ', ' + cityName,
+                      addressCode: values.addressCode,
+                      cityName: cityName,
+                      districtName: districtName,
+                      wardName: wardName,
                       userPhoneNumber: values.userPhoneNumber,
                     }
                   ]
                 })
-                // console.log('addressCode: ' + values.address + ', region code: ', wardName + ', ' + districtName + ', ' + cityName);
-                showEditAddressNotification();
+                showAddAddressNotification();
                 console.log('Add Success:', values);
               }
-              // editForm.resetFields();
-              // console.log('Success:', values);
               setIsShowModify(false);
 
             })
             .catch(info => {
-              console.log('Failed:', info.values);
+              console.log('asdasd Failed:', info.values);
             });
         }}
       >
@@ -350,8 +384,15 @@ function AddressPage({
           //   gender: userInfo.data.gender || '',
           // }}
           initialValues={addressSelected.id
-            ? { ...addressSelected }
-            : {}
+            ? {
+              ...addressSelected,
+              city: addressSelected.cityName,
+              district: addressSelected.districtName,
+              ward: addressSelected.wardName,
+            }
+            : {
+
+            }
           }
         >
           <Form.Item
@@ -369,7 +410,7 @@ function AddressPage({
 
           <Form.Item
             label="Địa chỉ nhận hàng"
-            name="address"
+            name="addressCode"
             rules={[
               {
                 validator(_, value) {
@@ -403,7 +444,6 @@ function AddressPage({
 
             <Select
               showSearch
-              style={{ width: 200 }}
               placeholder="Chọn tỉnh/thành phố"
               optionFilterProp="children"
               onChange={onChangeSelectedCity}
@@ -430,11 +470,10 @@ function AddressPage({
           >
             <Select
               showSearch
-              style={{ width: 200 }}
               placeholder="Chọn quận/huyện"
               optionFilterProp="children"
               onChange={onChangeSelectedDistrict}
-              // onFocus={onFocusDistrict}
+              onFocus={onFocusDistrict}
               onBlur={onBlur}
               onSearch={onSearch}
               filterOption={(input, option) =>
@@ -458,11 +497,10 @@ function AddressPage({
           >
             <Select
               showSearch
-              style={{ width: 200 }}
               placeholder="Chọn xã/phường"
               optionFilterProp="children"
               onChange={onChangeSelectedWard}
-              // onFocus={onFocusWard}
+              onFocus={onFocusWard}
               onBlur={onBlur}
               onSearch={onSearch}
               filterOption={(input, option) =>
@@ -528,6 +566,8 @@ const mapDispatchToProps = (dispatch) => {
     getDistrict: (params) => dispatch(getDistrictAction(params)),
     getWard: (params) => dispatch(getWardAction(params)),
     addAddress: (params) => dispatch(addAddressAction(params)),
+    editAddress: (params) => dispatch(editAddressAction(params)),
+    deleteAddress: (params) => dispatch(deleteAddressAction(params)),
 
   };
 }

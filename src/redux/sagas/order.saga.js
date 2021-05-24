@@ -51,7 +51,6 @@ function* addOrderSaga(action) {
         carts: carts,
       }
     });
-    console.log("result: " + result);
     yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/users/${userId}`,

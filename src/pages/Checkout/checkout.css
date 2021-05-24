@@ -74,11 +74,11 @@ body,h1,h2,h3,h4,h5,h6{
     
 }
 
-/* ANT SELECT */
+/* ANT SELECT
 .ant-select{
-    width: 400px!important;
-    margin: 0px 20px 15px !important;
-}
+    width: 400p;
+    margin: 0px 20px 15p;
+} */
 
 
 /* Main - Right */

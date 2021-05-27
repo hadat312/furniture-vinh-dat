@@ -20,7 +20,7 @@ function ProfileLayout(props) {
         return (
           <>
             <Header {...routeProps} />
-            <Banner />
+            <Banner {...routeProps}/>
             <Style.Container>
               <Sidebar {...routeProps} />
               <Style.MainContainer>

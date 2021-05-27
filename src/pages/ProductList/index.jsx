@@ -9,20 +9,19 @@ import {
 import Main from './components/Main';
 import './productList.css';
 
-function ProductListPage(props) {
-
+function ProductListPage({
+  getSubCategories,
+  getItemCategories,
+  getProductList,
+  subCategories,
+  itemCategories,
+  productList,
+  match,
+  location,
+}) {
   const list = [];
   const { Title } = Typography;
-  const {
-    getSubCategories,
-    getItemCategories,
-    getProductList,
-    subCategories,
-    itemCategories,
-    productList,
-    categoryId
-  } = props;
-
+  let categoryId = match.params.id;
   const [itemInRow, setItemInRow] = useState(6);
   const [itemCategorySelected, setItemCategorySelected] = useState(undefined);
   useEffect(() => {
@@ -143,45 +142,41 @@ function ProductListPage(props) {
   }
 
   return (
-
     <div className="product-container">
-      <div className="product-container__shop-header">
+      {/* <div className="product-container__shop-header">
         <div className="shop-header__content">
-          <Row>
-            <Col span={12} className="content__format">
-              <div className="d-flex" style={{ fontSize: "30px" }}>
-                {/* BUTTON HIỂN THỊ 4 SẢN PHẨM TRÊN 1 HÀNG*/}
-                <Button
-                  focusable
-                  className="content__format__button-4-item"
-                  onClick={() => {
-                    setItemInRow(6);
-                  }}>
-                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h4V5H3v4zm0 5h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zM8 9h4V5H8v4zm5-4v4h4V5h-4zm5 9h4v-4h-4v4zM3 19h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zm5 0h4v-4h-4v4zm0-14v4h4V5h-4z"></path></svg>
-                </Button>
-                {/* BUTTON HIỂN THỊ 1 SẢN PHẨM TRÊN 1 HÀNG*/}
-                <Button
-                  className="content__format__button-1-item"
-                  onClick={() => {
-                    setItemInRow(24);
-                  }}>
-                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"></path></svg>
-                </Button>
-              </div>
-            </Col>
-          </Row>
         </div>
       </div>
       <div >
-        {/* {getItemCategoryId()} */}
 
-      </div>
+      </div> */}
+      {/* {getItemCategoryId()} */}
       <div className="product-container__shop-body">
         <Row>
           <Col span={2}></Col>
           <Col span={4} className="">
             <div className="shop-body__sideBar">
+
               <Space direction="vertical">
+                <div className="d-flex" style={{ fontSize: "30px" }}>
+                  {/* BUTTON HIỂN THỊ 4 SẢN PHẨM TRÊN 1 HÀNG*/}
+                  <Button
+                    focusable
+                    className="content__format__button-4-item"
+                    onClick={() => {
+                      setItemInRow(6);
+                    }}>
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h4V5H3v4zm0 5h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zM8 9h4V5H8v4zm5-4v4h4V5h-4zm5 9h4v-4h-4v4zM3 19h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zm5 0h4v-4h-4v4zm0-14v4h4V5h-4z"></path></svg>
+                  </Button>
+                  {/* BUTTON HIỂN THỊ 1 SẢN PHẨM TRÊN 1 HÀNG*/}
+                  <Button
+                    className="content__format__button-1-item"
+                    onClick={() => {
+                      setItemInRow(24);
+                    }}>
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"></path></svg>
+                  </Button>
+                </div>
                 <Input.Search
                   onChange={(e) => onSearch(e)}
                   placeholder="Tìm kiếm..."
@@ -224,6 +219,7 @@ function ProductListPage(props) {
             <div className="shop-body__main">
               {/* HIỂN THỊ SẢN PHẨM */}
               <Main
+                categoryId={categoryId}
                 itemInRow={itemInRow}
                 productList={productList}
                 handleShowMore={handleShowMore}

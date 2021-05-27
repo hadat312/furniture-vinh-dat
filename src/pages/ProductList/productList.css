@@ -3,23 +3,23 @@
 
 /* NUMBER OF PAGES NAD FILTER */
 
-.product-container__shop-header {
+/* .product-container__shop-header {
   position: relative;
   height: 80px;
   border-bottom: 1px solid gray;
-}
+} */
 
-.content__number-of-pages {
+/* .content__number-of-pages {
   position: relative;
-}
+} */
 
 /* number of pages */
 
-.content__number-of-pages div {
+/* .content__number-of-pages div {
   position: absolute;
   top: 50%;
   transform: translate(0%, -50%);
-}
+} */
 
 /* filter */
 

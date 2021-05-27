@@ -116,6 +116,17 @@ export default function cartReducer(state = initialState, action) {
         },
       };
     }
+    case 'ADD_ORDER_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        cartList: {
+          ...state.cartList,
+          data: [],
+          load: false
+        },
+      };
+    }
     // case 'EDIT_CART_TASK_SUCCESS': {
     //   const { id, data } = action.payload;
     //   const newCart = state.cart.data;

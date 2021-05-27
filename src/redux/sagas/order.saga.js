@@ -35,7 +35,19 @@ function* getOrderListSaga(action) {
 
 function* addOrderSaga(action) {
   try {
-    const { userName, email, phone, address, totalPrice, date, time, userId, carts } = action.payload;
+    const {
+      userName,
+      email,
+      phone,
+      addressName,
+      cityName,
+      districtName,
+      wardName,
+      totalPrice,
+      date,
+      time,
+      userId,
+      carts } = action.payload;
     const result = yield axios({
       method: 'POST',
       url: `http://localhost:3002/orders`,
@@ -43,11 +55,14 @@ function* addOrderSaga(action) {
         userName: userName,
         email: email,
         phone: phone,
-        address: address,
+        addressName: addressName,
+        cityName: cityName,
+        districtName: districtName,
+        wardName: wardName,
         totalPrice: totalPrice,
         date,
         time,
-        userId:userId,
+        userId: userId,
         carts: carts,
       }
     });

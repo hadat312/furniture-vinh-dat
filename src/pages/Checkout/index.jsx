@@ -227,10 +227,14 @@ function CheckOutPage({
     if (isValid) {
       moment.locale('vi');
       const ordersInfo = {
+        status: "Đang giao",
         userName: fillBill.userName,
         email: fillBill.email,
         phone: fillBill.phone,
-        address: fillBill.address + ', ' +  wardName + ', ' + districtName + ', ' + cityName,
+        addressName: fillBill.address,
+        cityName: cityName,
+        districtName: districtName,
+        wardName: wardName,
         userId: fillBill.userId,
         totalPrice: grandTotal,
         date: moment().format('MMMM Do YYYY'),
@@ -407,7 +411,7 @@ function CheckOutPage({
                   </label>
                   <Select
                     showSearch
-                    style={{ width: 200 }}
+                    style={{ width: 400 }}
                     placeholder="Chọn tỉnh/thành phố"
                     optionFilterProp="children"
                     onChange={onChangeSelectedCity}
@@ -430,7 +434,7 @@ function CheckOutPage({
                   </label>
                   <Select
                     showSearch
-                    style={{ width: 200 }}
+                    style={{ width: 400 }}
                     placeholder="Chọn quận/huyện"
                     optionFilterProp="children"
                     onChange={onChangeSelectedDistrict}
@@ -453,7 +457,7 @@ function CheckOutPage({
                   </label>
                   <Select
                     showSearch
-                    style={{ width: 200 }}
+                    style={{ width: 400 }}
                     placeholder="Chọn xã/phường"
                     optionFilterProp="children"
                     onChange={onChangeSelectedWard}

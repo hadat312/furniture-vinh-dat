@@ -50,17 +50,18 @@ export default function orderReducer(state = initialState, action) {
         },
       };
     }
-    case 'ADD_ORDER_SUCCESS': {
-      const { data } = action.payload;
-      return {
-        ...state,
-        orderList: {
-          ...state.orderList,
-          data: data,
-          load: false
-        },
-      };
-    }
+    //khi vào trang profile thì nó chạy useEffect mounting, get orderList luôn, 
+    // case 'ADD_ORDER_SUCCESS': {
+    //   const { data } = action.payload;
+    //   return {
+    //     ...state,
+    //     orderList: {
+    //       ...state.orderList,
+    //       data: [data],
+    //       load: false
+    //     },
+    //   };
+    // }
     case 'ADD_ORDER_FAIL': {
       return {
         ...state,

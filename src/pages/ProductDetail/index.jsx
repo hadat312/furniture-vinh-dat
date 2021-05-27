@@ -72,7 +72,7 @@ function ProductDetailPage({
   // console.log("🚀 ~ file: index.jsx ~ line 68 ~ imageList", productDetail.data.productImage[0].name)
 
 
-  const [changeImage, setChangeImage] = useState(imageList);
+  const [changeImage, setChangeImage] = useState( productDetail.data.productImage);
 
 
   const [sizeSelected, setSizeSelected] = useState({});
@@ -82,7 +82,7 @@ function ProductDetailPage({
   const [isAddWishlist, setIsAddWishlist] = useState(false);
 
   const oldPrice = productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0);
-  const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount);
+  const newPrice = (productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0)) * (1 - productDetail.data.productDiscount || 0);
 
   const key = `open${Date.now()}`;
 
@@ -632,7 +632,7 @@ function ProductDetailPage({
             <div className="bg__container">
               <img
                 className="bg__container__lgImage"
-                src={changeImage.name} />
+                src={changeImage} />
             </div>
 
           </Row>

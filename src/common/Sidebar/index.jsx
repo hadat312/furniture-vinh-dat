@@ -9,6 +9,7 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 import history from '../../utils/history';
+import { ROUTERS } from '../../constants/router';
 import { connect } from 'react-redux';
 import {
   getUserInfoAction,
@@ -30,15 +31,15 @@ function Sidebar({userInfo, getUserInfo}) {
 
   const SIDEBAR_ITEMS = [
     {
-      path: '/account/profile',
+      path: '/profile',
       title: 'Hồ sơ'
     },
     {
-      path: '/account/address',
+      path: '/address',
       title: 'Địa chỉ'
     },
     {
-      path: '/account/change-password',
+      path: '/change-password',
       title: 'Đổi mật khẩu'
     },
 
@@ -82,7 +83,7 @@ function Sidebar({userInfo, getUserInfo}) {
         <SubMenu key="sub1" title="Tổng quan về tài khoản">
           {renderSidebarItems()}
         </SubMenu>
-        <Menu.Item key="3" onClick={() => history.push('/account/orders')}>Lịch sử giao dịch</Menu.Item>
+        <Menu.Item key="3" onClick={() => history.push(ROUTERS.MY_ORDER)}>Lịch sử giao dịch</Menu.Item>
       </Menu>
     </Style.SidebarContainer>
   );

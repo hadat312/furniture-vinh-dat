@@ -1,68 +1,57 @@
 {
   "orders": [
     {
-      "userName": "Ngọc Hổ",
+      "status": "Đang giao hàng",
+      "userName": "Xuân Vinh",
       "email": "hathucdat1@gmail.com",
       "phone": "0774473993",
-      "address": "25, võ thị sáu, quy nhơn, bình định, Phường Nhơn Bình, Thành Phố Qui Nhơn, Tỉnh Bình Định",
-      "totalPrice": 12512500,
+      "addressName": "15 Cao Thắng",
+      "cityName": "Thành phố Hồ Chí Minh",
+      "districtName": "Quận 10",
+      "wardName": "Phường 03",
+      "totalPrice": 11732500,
       "date": "May 24th 2021",
-      "time": "2:06 PM",
+      "time": "6:11 PM",
       "userId": "OHrYsut",
       "carts": [
         {
-          "id": "2f5d7b22-584b-4187-b6f7-0b0cd31106fc",
-          "productId": "product01",
+          "id": "3fce8fad-7b03-490d-a9a9-17acb6e1b540",
+          "productId": "product02",
           "productQuantity": 1,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 10000000,
+          "productName": "Ghế Sofa Miami chỗ hiện đại",
+          "productImage": "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg",
+          "productPrice": 12000000,
           "productDiscount": 0.05,
           "color": {
-            "id": "color01",
-            "colorName": "Trắng",
-            "price": 250000
+            "id": "color03",
+            "colorName": "Nâu",
+            "price": 350000
           },
           "size": {
-            "id": "size01",
-            "sizeName": "80*150",
-            "price": 0
-          }
-        },
-        {
-          "id": "905eaf68-ea49-4d6e-8fc7-7208eb8e8eb7",
-          "productId": "product13",
-          "productQuantity": 1,
-          "productName": "Bench Jazz",
-          "productImage": "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
-          "productPrice": 5000000,
-          "productDiscount": 0.5,
-          "color": {
-            "id": "color15",
-            "colorName": "Hồng",
-            "price": 550000
-          },
-          "size": {
-            "id": "size19",
-            "sizeName": "0.5m*1m",
+            "id": "size03",
+            "sizeName": "2m*2m9",
             "price": 0
           }
         }
       ],
-      "id": 6
+      "id": 1
     },
     {
-      "userName": "Ngọc Hổ",
-      "email": "honn@gmail.com",
+      "status": "Đã giao hàng",
+      "userName": "Xuân Vinh",
+      "email": "hathucdat1@gmail.com",
       "phone": "0774473993",
-      "address": "348 Hà Huy Tập, Đà Nẵng, Phường Hòa Khê, Quận Thanh Khê, Thành phố Đà Nẵng",
-      "totalPrice": 15368000,
+      "addressName": "25, võ thị sáu, quy nhơn, bình định",
+      "cityName": "Thành phố Hồ Chí Minh",
+      "districtName": "Quận 10",
+      "wardName": "Phường 03",
+      "totalPrice": 8550000,
       "date": "May 24th 2021",
-      "time": "2:17 PM",
+      "time": "7:51 PM",
       "userId": "OHrYsut",
       "carts": [
         {
-          "id": "b4ff2324-1529-4033-8e9e-f7b38bcd956a",
+          "id": "fc514946-777b-4b28-b3a2-65f8e375da7b",
           "productId": "product03",
           "productQuantity": 1,
           "productName": "Sofa Miami 2 chỗ hiện đại",
@@ -75,28 +64,145 @@
             "sizeName": "3m*3m",
             "price": 0
           }
-        },
+        }
+      ],
+      "id": 2
+    },
+    {
+      "status": "Đang giao hàng",
+      "userName": "Hà Thúc Đạt",
+      "email": "hathucdat3@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu, quy nhơn, bình định",
+      "cityName": "Thành phố Hà Nội",
+      "districtName": "Quận Bắc Từ Liêm",
+      "wardName": "Phường Cổ Nhuế 2",
+      "totalPrice": 8550000,
+      "date": "May 24th 2021",
+      "time": "7:53 PM",
+      "userId": "OHrYsut",
+      "carts": [
         {
-          "id": "4d67d4a2-bcdf-4c93-8e13-f9ca5507bae3",
-          "productId": "product12",
+          "id": "0b7dd7b6-cc22-4703-8ac7-d92f3b346643",
+          "productId": "product03",
           "productQuantity": 1,
-          "productName": "Ghế Lazboy Larson 1PT528 – Red Thương hiệu Mỹ - Lazboy Bảo hành 10 năm",
-          "productImage": "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg",
           "productPrice": 9000000,
-          "productDiscount": 0.3,
-          "color": {
-            "id": "color14",
-            "colorName": "Xanh nhạt",
-            "price": 550000
-          },
+          "productDiscount": 0.05,
+          "color": {},
           "size": {
-            "id": "size18",
-            "sizeName": "0.5m*1m",
-            "price": 190000
+            "id": "size06",
+            "sizeName": "3m*3m",
+            "price": 0
           }
         }
       ],
-      "id": 7
+      "id": 3
+    },
+    {
+      "status": "Đã giao hàng",
+      "userName": "Xuân Vinh",
+      "email": "hathucdat3@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu, quy nhơn, bình định",
+      "cityName": "Thành phố Hồ Chí Minh",
+      "districtName": "Quận 10",
+      "wardName": "Phường 03",
+      "totalPrice": 8550000,
+      "date": "May 24th 2021",
+      "time": "7:54 PM",
+      "userId": "OHrYsut",
+      "carts": [
+        {
+          "id": "cd17dade-7cd3-4756-84ae-600edb50eba8",
+          "productId": "product03",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
+          "productPrice": 9000000,
+          "productDiscount": 0.05,
+          "color": {},
+          "size": {
+            "id": "size06",
+            "sizeName": "3m*3m",
+            "price": 0
+          }
+        }
+      ],
+      "id": 4
+    },
+    {
+      "status": "Đang giao hàng",
+      "userName": "Ngọc Hổ",
+      "email": "hathucdat1@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu, quy nhơn, bình định",
+      "cityName": "Thành phố Hà Nội",
+      "districtName": "Quận Ba Đình",
+      "wardName": "Phường Cống Vị",
+      "totalPrice": 9737500,
+      "date": "May 24th 2021",
+      "time": "7:57 PM",
+      "userId": "OHrYsut",
+      "carts": [
+        {
+          "id": "e4ffac7b-d6a0-4579-be62-af858b03ab39",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0.05,
+          "color": {
+            "id": "color01",
+            "colorName": "Trắng",
+            "price": 250000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "80*150",
+            "price": 0
+          }
+        }
+      ],
+      "id": 5
+    },
+    {
+      "status": "Đang giao hàng",
+      "userName": "Ngọc Hổ",
+      "email": "hathucdat1@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu, quy nhơn, bình định",
+      "cityName": "Thành phố Hà Nội",
+      "districtName": "Quận Ba Đình",
+      "wardName": "Phường Cống Vị",
+      "totalPrice": 9737500,
+      "date": "May 24th 2021",
+      "time": "8:01 PM",
+      "userId": "OHrYsut",
+      "carts": [
+        {
+          "id": "e4ffac7b-d6a0-4579-be62-af858b03ab39",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0.05,
+          "color": {
+            "id": "color01",
+            "colorName": "Trắng",
+            "price": 250000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "80*150",
+            "price": 0
+          }
+        }
+      ],
+      "id": 6
     }
   ],
   "products": [
@@ -1281,7 +1387,7 @@
       "userRole": "customer",
       "carts": [
         {
-          "id": "6a80d7cb-0b08-4c06-8e11-37ae5da6d3d5",
+          "id": "e4ffac7b-d6a0-4579-be62-af858b03ab39",
           "productId": "product01",
           "productQuantity": 1,
           "productName": "Sofa Miami 2 chỗ hiện đại",
@@ -1300,11 +1406,14 @@
           }
         },
         {
-          "id": "00d9a1a0-9e91-4ece-a396-f4c945c2722c",
+          "id": "d3f59a60-e5dd-4070-9fc1-46f36b4ff07b",
           "productId": "product03",
           "productQuantity": 1,
           "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg",
+          "productImage": {
+            "id": 1,
+            "name": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg"
+          },
           "productPrice": 9000000,
           "productDiscount": 0.05,
           "color": {},
@@ -1313,17 +1422,6 @@
             "sizeName": "3m*3m",
             "price": 0
           }
-        },
-        {
-          "id": "c6bbfa8f-945e-41ae-899d-10c9e14a436c",
-          "productId": "product05",
-          "productQuantity": 1,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
-          "productPrice": 7000000,
-          "productDiscount": 0.05,
-          "color": {},
-          "size": {}
         }
       ],
       "wishlist": [
@@ -1390,21 +1488,12 @@
       ],
       "address": [
         {
-          "id": "0e0453e2-2186-4bc9-af2c-3f32eec897a7",
-          "userName": "Hà Thúc Đạt",
-          "addressCode": "16 Lê Lợi",
-          "cityName": "Thành phố Hải Phòng",
-          "districtName": "Quận Kiến An",
-          "wardName": "Phường Nam Sơn",
-          "userPhoneNumber": "0774473993"
-        },
-        {
-          "id": "4a377e5e-37e7-4494-878e-f5efa69ae462",
-          "userName": "Nguyễn Ngọc Hổ",
-          "addressCode": "111 Hà Huy Tập, Đà Nẵng",
-          "cityName": "Thành phố Đà Nẵng",
-          "districtName": "Quận Thanh Khê",
-          "wardName": "Phường Hòa Khê",
+          "id": "b27c79d1-31d4-4cfa-9742-1d4544261c16",
+          "userName": "Quốc Dương",
+          "addressName": "05 Trần Thị Kỷ",
+          "cityName": "Thành phố Hồ Chí Minh",
+          "districtName": "Quận 2",
+          "wardName": "Phường An Phú",
           "userPhoneNumber": "0774473993"
         }
       ],

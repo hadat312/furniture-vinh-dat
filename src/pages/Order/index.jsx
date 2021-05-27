@@ -23,6 +23,10 @@ function OrderPage({
     getOrderList({ userId: userInfo.id });
   }, []);
 
+  // useEffect(() => {
+  //   getOrderList({ userId: userInfo.id });
+  // }, [orderList.data]);
+
   const [selectionType, setSelectionType] = useState('checkbox');
 
   // const rowSelection = {
@@ -58,6 +62,8 @@ function OrderPage({
     const orderListData = orderList.data.map((orderItem) => {
       return {
         ...orderItem,
+        regionName: orderItem.addressName + ', ' + orderItem.wardName + ', ' + orderItem.districtName + ', ' + orderItem.cityName,
+        dateTime: orderItem.date + ', ' + orderItem.time,
         key: orderItem.id,
       }
     });
@@ -156,12 +162,23 @@ function OrderPage({
       { title: 'Số điện thoại', dataIndex: 'phone' },
       {
         title: 'Địa chỉ nhận hàng',
-        dataIndex: 'address',
+        dataIndex: 'regionName',
         width: '20%'
       },
       // { title: 'Mã vùng', dataIndex: 'regionCode', width: '15%' },
-      { title: 'Ngày đặt hàng', dataIndex: 'date' },
-      { title: 'Giờ đặt hàng', dataIndex: 'time' },
+      { title: 'Ngày đặt hàng', dataIndex: 'dateTime' },
+      {
+        title: 'Trạng thái',
+        dataIndex: 'status',
+        render: (text) =>
+          <div>
+            {
+              text === "Đang giao hàng"
+                ? <Tag style={{ fontSize: 15 }} color="gold">{text}</Tag>
+                : <Tag style={{ fontSize: 15 }} color="green">{text}</Tag>
+            }
+          </div>
+      },
       {
         title: 'Tổng tiền',
         dataIndex: 'totalPrice',
@@ -210,6 +227,7 @@ function OrderPage({
   );
 }
 const mapStateToProps = (state) => {
+  console.log("🚀 ~ file: index.jsx ~ line 218 ~ mapStateToProps ~ state", state)
   const { orderList } = state.orderReducer;
   return {
     orderList: orderList,

@@ -1,4 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import Banner from '../Banner';
@@ -11,10 +11,10 @@ function DefaultLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            <Header {...routeProps}/>
-            <Banner/>
+            <Header {...routeProps} />
+            <Banner {...routeProps} />
             <Component {...other} {...routeProps} />
-            <Footer/>
+            <Footer />
           </>
         )
       }}

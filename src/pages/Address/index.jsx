@@ -77,12 +77,16 @@ function AddressPage({
   const { Option } = Select;
 
   const [isShowModify, setIsShowModify] = useState(false);
-  const [isShowCreateOption, setIsShowCreateOption] = useState(false);
+  // const [isShowCreateOption, setIsShowCreateOption] = useState(false);
 
   const [editForm] = Form.useForm();
 
 
   const { confirm } = Modal;
+
+  const [changeCityName, setChangeCityName] = useState('');
+  const [changeDistrictName, setChangeDistrictName] = useState('');
+  const [changeWardName, setChangeWardName] = useState('');
 
   const [isSelected, setIsSelected] = useState(false);
   const [cityCode, setCityCode] = useState('');
@@ -90,8 +94,8 @@ function AddressPage({
   const [wardCode, setWardCode] = useState('');
 
   const [cityName, setCityName] = useState('Chưa chọn mã vùng');
-  const [districtName, setDistrictName] = useState('');
-  const [wardName, setWardName] = useState('');
+  const [districtName, setDistrictName] = useState('Chưa chọn mã vùng');
+  const [wardName, setWardName] = useState('Chưa chọn mã vùng');
 
   useEffect(() => {
     getCity();
@@ -144,8 +148,8 @@ function AddressPage({
   }
 
   function showDeleteConfirm(text) {
+    console.log('delete: ', text);
     confirm({
-      
       title: 'Bạn chắc chắn muốn xóa địa chỉ này?',
       icon: <ExclamationCircleOutlined />,
       okText: 'Xóa',
@@ -154,7 +158,7 @@ function AddressPage({
       onOk() {
 
         const newAddress = address.data;
-        newAddress.splice(addressSelected.index, 1)
+        newAddress.splice(text.index, 1)
         deleteAddress({
           userId: userId.id,
           address: [
@@ -171,8 +175,15 @@ function AddressPage({
   }
 
   function onEditProduct(text) {
-    //bỏ disabled district và ward
-    setIsSelected(true)
+    city.data.map((cityItem, cityIndex) => {
+      if (cityItem.name === addressSelected.cityName) {
+        return (
+          setChangeCityName(cityItem.code)
+        );
+      }
+    })
+
+    // setIsSelected(true)
     setIsShowModify(true);
     setAddressSelect(text);
   }
@@ -214,21 +225,29 @@ function AddressPage({
     console.log(`Ward ${wardCode}`);
   }
 
-  function onFocusDistrict() {
+  function onFocusCity() {
+    console.log('focus', changeCityName);
+  }
 
+  function onFocusDistrict() {
+    console.log('focus', changeDistrictName);
   }
 
   function onFocusWard() {
-
+    console.log('focus', changeWardName);
   }
 
 
   function onBlur() {
-    // console.log('blur');
+    console.log('blur');
   }
 
   function onSearch(val) {
     // console.log('search:', val);
+  }
+
+  function onClear() {
+    console.log('clear');
   }
 
   function renderCity() {
@@ -259,7 +278,7 @@ function AddressPage({
   const addressDataTable = address.data.map((addressItem, addressIndex) => {
     return {
       ...addressItem,
-      regionCode: addressItem.wardName + ', ' + addressItem.districtName + ', ' + addressItem.cityName,
+      regionName: addressItem.wardName + ', ' + addressItem.districtName + ', ' + addressItem.cityName,
       key: addressItem.id,
       index: addressIndex
     }
@@ -267,8 +286,8 @@ function AddressPage({
 
   const columns = [
     { title: 'Tên', dataIndex: 'userName', width: '15%' },
-    { title: 'Địa chỉ', dataIndex: 'addressCode', width: '25%' },
-    { title: 'Mã vùng', dataIndex: 'regionCode', width: '35%' },
+    { title: 'Địa chỉ', dataIndex: 'addressName', width: '25%' },
+    { title: 'Mã vùng', dataIndex: 'regionName', width: '35%' },
     { title: 'Số điện thoại', dataIndex: 'userPhoneNumber' },
     {
       title: 'Hành động',
@@ -276,7 +295,7 @@ function AddressPage({
       render: (text) =>
         <Space justify="center">
           <Button type="primary" ghost onClick={() => onEditProduct(text)}><AiOutlineEdit /></Button>
-          <Button danger onClick={() => showDeleteConfirm(text.id)}><AiOutlineDelete /></Button>
+          <Button danger onClick={() => showDeleteConfirm(text)}><AiOutlineDelete /></Button>
         </Space>
 
     },
@@ -326,8 +345,8 @@ function AddressPage({
 
                 // const changeAddress = {
                 //   userName: values.userName,
-                //   addressCode: values.addressCode,
-                //   regionCode: wardName + ', ' + districtName + ', ' + cityName,
+                //   addressName: values.addressName,
+                //   regionName: wardName + ', ' + districtName + ', ' + cityName,
                 //   userPhoneNumber: values.userPhoneNumber,
                 // }
 
@@ -335,7 +354,7 @@ function AddressPage({
                 changeAddress.splice(addressSelected.index, 1, {
                   id: addressSelected.id,
                   userName: values.userName,
-                  addressCode: values.addressCode,
+                  addressName: values.addressName,
                   cityName: cityName,
                   districtName: districtName,
                   wardName: wardName,
@@ -353,7 +372,7 @@ function AddressPage({
                     {
                       id: v4(),
                       userName: values.userName,
-                      addressCode: values.addressCode,
+                      addressName: values.addressName,
                       cityName: cityName,
                       districtName: districtName,
                       wardName: wardName,
@@ -372,6 +391,7 @@ function AddressPage({
             });
         }}
       >
+        {console.log('selected: ', addressSelected)}
         <Form
           form={editForm}
           // layout="horizontal"
@@ -386,7 +406,7 @@ function AddressPage({
           initialValues={addressSelected.id
             ? {
               ...addressSelected,
-              city: addressSelected.cityName,
+              city: changeCityName,
               district: addressSelected.districtName,
               ward: addressSelected.wardName,
             }
@@ -410,7 +430,7 @@ function AddressPage({
 
           <Form.Item
             label="Địa chỉ nhận hàng"
-            name="addressCode"
+            name="addressName"
             rules={[
               {
                 validator(_, value) {
@@ -447,9 +467,12 @@ function AddressPage({
               placeholder="Chọn tỉnh/thành phố"
               optionFilterProp="children"
               onChange={onChangeSelectedCity}
-              // onFocus={onFocus}
+              onFocus={onFocusCity}
               onBlur={onBlur}
               onSearch={onSearch}
+              // value={cityName}
+              // defaultValue={changeCityName}
+              onClear={onClear}
               filterOption={(input, option) =>
                 option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -476,6 +499,7 @@ function AddressPage({
               onFocus={onFocusDistrict}
               onBlur={onBlur}
               onSearch={onSearch}
+              // value={districtName}
               filterOption={(input, option) =>
                 option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -503,6 +527,7 @@ function AddressPage({
               onFocus={onFocusWard}
               onBlur={onBlur}
               onSearch={onSearch}
+              // value={wardName}
               filterOption={(input, option) =>
                 //option: lấy tất cả option
                 option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0

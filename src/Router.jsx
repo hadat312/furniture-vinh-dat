@@ -58,7 +58,7 @@ function BrowserRouter(props) {
           path={ROUTERS.LOGIN}
           component={LoginPage}
         />
-        <DefaultLayout
+        {/* <DefaultLayout
           exact
           path={ROUTERS.LIVING_ROOM}
           categoryId={"category01"}
@@ -92,6 +92,11 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.DECORATING_GOODS}
           categoryId={"category06"}
+          component={ProductListPage}
+        /> */}
+        <DefaultLayout
+          exact
+          path={ROUTERS.PRODUCT}
           component={ProductListPage}
         />
         <DefaultLayout

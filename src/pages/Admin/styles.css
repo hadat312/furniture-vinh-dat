@@ -58,7 +58,7 @@ body,h1,h2,h3,h4,h5,h6{
     align-items: center;
     font-size: 38px;
     font-weight: 600;
-    color: #333;    
+    color: orange;    
 }
 
 .navbar{
@@ -149,6 +149,7 @@ body,h1,h2,h3,h4,h5,h6{
     align-items: center;
     color: #f9f4f6;
     margin-bottom: 30px;
+    border-bottom: 1px solid lightgray;
 }
 
 .sidebar-img {
@@ -178,25 +179,13 @@ body,h1,h2,h3,h4,h5,h6{
     font-size: 18px;
 } */
 
-.sidebar-menu > h2{
-    color: #3ea175;
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    padding: 0px 10px;
-    font-weight: 700;
-}
-
-.sidebar-menu a:hover{
-    text-decoration: none;
-    color: #333;
-}
 
 .sidebar-link{
     color: #f3f4f6;
     padding: 10px;
     border-radius: 3px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .active-menu-link{
@@ -208,10 +197,11 @@ body,h1,h2,h3,h4,h5,h6{
     color: #333  !important;
 }
 
-.sidebar-link > a {
+.sidebar-link > span {
     text-decoration: none;
     color: #333;
     font-weight: 700;
+    
 }
 
 .sidebar-link > i {
@@ -272,6 +262,29 @@ body,h1,h2,h3,h4,h5,h6{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 30px;
     margin: 20px 0;
+}
+
+.admin-table{
+    width:100%
+}
+
+.admin-table thead{
+    width:100%;
+    border-bottom: 1px solid #ededed;
+}
+
+.admin-table th{
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: uppercase;
+    color:#333;
+    background-color: #FFF;
+    padding:10px 8px
+}
+
+.admin-table tr{
+    border:1px solid #e7e7e7;
 }
 
 .card{

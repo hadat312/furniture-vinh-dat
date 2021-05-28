@@ -5,8 +5,13 @@
 
 .product-container__shop-header {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right:0px;
   height: 80px;
   border-bottom: 1px solid gray;
+  max-width: 1400px;
 }
 
 .content__number-of-pages {

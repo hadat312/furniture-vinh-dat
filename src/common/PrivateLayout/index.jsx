@@ -16,8 +16,8 @@ function PrivateLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            <Header />
-            <Banner />
+            <Header {...routeProps} />
+            <Banner {...routeProps}/>
             <Component {...other} {...routeProps} />
             <Footer />
           </>

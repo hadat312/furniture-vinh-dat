@@ -11,10 +11,10 @@ function DefaultLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            <Header/>
-            <Banner/>
-            <Component {...other} {...routeProps} />
-            <Footer/>
+            <Header {...routeProps}/>
+            <Banner {...routeProps}/>
+            <Component {...other} {...routeProps}  />
+            <Footer />
           </>
         )
       }}

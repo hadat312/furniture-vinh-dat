@@ -6,7 +6,8 @@ import { ROUTERS } from './constants/router';
 //pages
 import HomeLayout from './common/HomeLayout';
 import DefaultLayout from './common/DefaultLayout';
-import PrivateLayout from './common/PrivateLayout';
+import ProfileLayout from './common/ProfileLayout';
+import PlaceOrderLayout from './common/PlaceOrderLayout';
 import ErrorLayout from './common/ErrorLayout';
 import HomePage from './pages/Home';
 import AboutPage from './pages/About'
@@ -15,12 +16,20 @@ import ProductListPage from './pages/ProductList';
 import CartPage from './pages/Cart';
 import WishlistPage from './pages/Wishlist';
 import MyAccountPage from './pages/MyAccount';
+import AddressPage from './pages/Address';
+import ChangePasswordPage from './pages/ChangePassword';
+import OrderPage from './pages/Order';
 import CheckOutPage from './pages/Checkout'
 import OrderTrackingPage from './pages/OrderTracking';
 import ErrorPage from './pages/Error';
-import AdminPage from './pages/Admin';
-import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register'
+import LoginPage from './pages/Login';
+
+
+import AdminPage from './pages/Admin';
+import AdminUserPage from './pages/AdminUser';
+import AdminProduct from './pages/AdminPro';
+import SubCategoryAdmin from './pages/SubcategoryManagement'
 
 function BrowserRouter(props) {
   return (
@@ -43,6 +52,29 @@ function BrowserRouter(props) {
           component={AdminPage}
         />
 
+        <HomeLayout
+          exact
+          path={ROUTERS.ADMIN_USER}
+          component={AdminUserPage}
+        />
+
+        {/* <HomeLayout
+          exact
+          path={ROUTERS.ADMIN_PRODUCT}
+          component={AdminProductPage}
+        /> */}
+        <HomeLayout
+          exact
+          path={ROUTERS.ADMIN_PRODUCT}
+          component={AdminProduct}
+        />
+
+        <HomeLayout
+          exact
+          path={ROUTERS.ADMIN_SUBCATEGORY}
+          component={SubCategoryAdmin}
+        />
+
         <Route
           exact
           path={ROUTERS.REGISTER}
@@ -54,7 +86,7 @@ function BrowserRouter(props) {
           path={ROUTERS.LOGIN}
           component={LoginPage}
         />
-        <DefaultLayout
+        {/* <DefaultLayout
           exact
           path={ROUTERS.LIVING_ROOM}
           categoryId={"category01"}
@@ -89,12 +121,8 @@ function BrowserRouter(props) {
           path={ROUTERS.DECORATING_GOODS}
           categoryId={"category06"}
           component={ProductListPage}
-        />
-        <DefaultLayout
-          exact
-          path={ROUTERS.PRODUCT_DETAIL}
-          component={DetailPage}
-        />
+        /> */}
+
         <DefaultLayout
           exact
           path={ROUTERS.CART}
@@ -105,12 +133,33 @@ function BrowserRouter(props) {
           path={ROUTERS.WISHLIST}
           component={WishlistPage}
         />
-        <PrivateLayout
+
+        <ProfileLayout
+          exact
+          path={ROUTERS.ADDRESS}
+          component={AddressPage}
+        />
+
+        <ProfileLayout
           exact
           path={ROUTERS.MY_ACCOUNT}
           component={MyAccountPage}
         />
-        <PrivateLayout
+
+        <ProfileLayout
+          exact
+          path={ROUTERS.CHANGE_PASSWORD}
+          component={ChangePasswordPage}
+        />
+
+        <ProfileLayout
+          exact
+          path={ROUTERS.MY_ORDER}
+          component={OrderPage}
+        />
+
+
+        <PlaceOrderLayout
           exact
           path={ROUTERS.CHECKOUT}
           component={CheckOutPage}
@@ -124,6 +173,18 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.ERROR}
           component={ErrorPage}
+        />
+
+        <DefaultLayout
+          exact
+          path={ROUTERS.PRODUCT}
+          component={ProductListPage}
+        />
+
+        <DefaultLayout
+          exact
+          path={ROUTERS.PRODUCT_DETAIL}
+          component={DetailPage}
         />
       </Switch>
     </Router>

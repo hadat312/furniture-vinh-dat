@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { notification, Table, Divider, Button } from 'antd';
 import Item from './components/Item';
 import { connect } from 'react-redux';
@@ -7,10 +8,13 @@ import {
   getCartListAction,
   deleteCartTaskAction,
   editCartTaskAction,
+  clearCartTaskAction
 
 } from '../../redux/actions';
 import { ROUTERS } from '../../constants/router';
 import history from '../../utils/history';
+
+import cart from '../../images/cart.svg';
 
 import './cart.css';
 function CardPage({
@@ -18,7 +22,8 @@ function CardPage({
   getCartList,
   cartList,
   deleteCart,
-  editCart
+  editCart,
+  clearCart
 }) {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -62,11 +67,35 @@ function CardPage({
   //   }),
   // };
 
+
+  function handleClearCartTask() {
+    if (userInfo) {
+      clearCart({ userId: userInfo.id })
+    } else {
+      return notification.warning({
+        message: 'Chưa đăng nhập',
+        description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        key,
+        btn: (
+          <Button
+            type="primary"
+            onClick={() => {
+              notification.close(key);
+              history.push(ROUTERS.LOGIN);
+            }}
+          >
+            Đăng nhập ngay
+          </Button>
+        ),
+      });
+    }
+  }
+
   function onAddCheckOut() {
     if (!userInfo) {
       return notification.warning({
         message: 'Chưa đăng nhập',
-        description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        description: 'Bạn cần đăng nhập để thực hiên',
         key,
         btn: (
           <Button
@@ -104,7 +133,6 @@ function CardPage({
 
   function onUpdateQuantity(cartIndex, value, colorSelected, sizeSelected) {
 
-
     if (!colorSelected.id && !sizeSelected.id) { //ko có size và color
       const newCart = cartList.data;
       newCart.splice(cartIndex, 1, {
@@ -117,12 +145,14 @@ function CardPage({
         color: {},
         size: {}
       })
+        console.log("🚀 ~ file: index.jsx ~ line 148 ~ onUpdateQuantity ~ cartIndex", cartIndex)
       editCart({
         userId: userInfo.id,
         carts: newCart,
       })
     }
     else if (!colorSelected.id) { // nếu chỉ có size
+      console.log("🚀 ~ file: index.jsx ~ line 154 ~ onUpdateQuantity ~ colorSelected", colorSelected)
       const newCartList = cartList.data;
       newCartList.splice(cartIndex, 1, {
         productId: cartList.data[cartIndex].productId,
@@ -228,28 +258,46 @@ function CardPage({
           pagination={{ defaultCurrent: 1 }}
         />
       </div> */}
-      <table className="cart-table-container container">
-        <thead>
-          <tr>
-            <th className="cart-name" colSpan="2">Product</th>
-            <th className="cart-price"> Price</th>
-            <th className="cart-quantity" >Quantity</th>
-            <th className="cart-subtotal" colSpan="2" >Total</th>
-          </tr>
-        </thead>
-        {renderCart()}
-      </table>
 
-      <div className="cart-coupon_area container">
-        <div className="cart-content">
-          <div className="cart-coupon_code">
-            <button className="btn-clear">CART CLEAR</button>
-            <button className="btn-checkout"
-              onClick={onAddCheckOut}
-            >View Checkout</button>
-          </div>
+      {cartList.data.length === 0 ? (
+        <div className="empty-cart-container">
+          <img src={cart} alt="" />
+          <h3 className="empty-cart_title">No items found in Cart</h3>
+          <button className="btn-shopping" onClick={() =>  history.push(ROUTERS.LIVING_ROOM) }>
+            Show Now
+          </button>
         </div>
-      </div>
+      )
+        : (
+          <>
+            <table className="cart-table-container container">
+              <thead>
+                <tr>
+                  <th className="cart-name" colSpan="2">Product</th>
+                  <th className="cart-price"> Price</th>
+                  <th className="cart-quantity" >Quantity</th>
+                  <th className="cart-subtotal" colSpan="2" >Total</th>
+                </tr>
+              </thead>
+              {renderCart()}
+            </table>
+
+            <div className="cart-coupon_area container">
+              <div className="cart-content">
+                <div className="cart-coupon_code">
+                  <button className="btn-clear" onClick={() => handleClearCartTask()}>CART CLEAR</button>
+                  <button className="btn-checkout"
+                    onClick={onAddCheckOut}
+                  >View Checkout</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )
+      }
+
+
+
     </>
   );
 }
@@ -265,6 +313,7 @@ const mapDispatchToProps = (dispatch) => {
     getCartList: (params) => dispatch(getCartListAction(params)),
     deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
     editCart: (params) => dispatch(editCartTaskAction(params)),
+    clearCart: (params) => dispatch(clearCartTaskAction(params)),
   };
 }
 

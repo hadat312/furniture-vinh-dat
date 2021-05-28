@@ -21,7 +21,7 @@ function Item({
 
   itemInRow,
   productListItem,
-
+  categoryId,
   // wishlist,
   // cartList,
 
@@ -345,9 +345,6 @@ function Item({
   function renderFourCard() {
     return (
       <>
-        <div>
-          {productListItem.productDiscount * 100} %
-        </div>
         {/* <div>
           {
             isAddWishlist
@@ -368,36 +365,47 @@ function Item({
 
           }
         </div> */}
-        <Card
-          style={{
-            width: 250
-          }}
-          className="main-container__card"
-          hoverable
-          cover={
-            <img
-              src={productListItem.productImage}
-              className="main-container__card__img"
-              style={{
-                height: "250px"
-              }}
+        <Col span={6}>
+          <Card
+            style={{
+              // width: 250
+            }}
+            className="main-container__card"
+            hoverable
+            cover={
+              <>{
+                productListItem.productDiscount > 0 && (
+                  <div className="main-container__card__discount" style={{ width: '50px', height: '50px' }}>
+                    {-productListItem.productDiscount * 100} %
+                  </div>
+                )
+              }
 
-            />
-          }
-          onClick={() => { history.push(`/product/${productListItem.id}`) }}
-        >
+                <img
+                  src={productListItem.productImage[0]}
+                  className="main-container__card__img"
+                  style={{
+                    height: "250px"
+                  }}
+                />
+              </>
+            }
+            onClick={() => { history.push(`/home/${categoryId}/${productListItem.id}`) }}
+          >
 
-          <div className="card__container">
-            <Meta
-              title={productListItem.productName}
-              className="main-container__card__title" />
+            <div className="card__container">
+              <Meta
+                title={<span className="main-container__card__title">{productListItem.productName}</span>}
+              />
 
-            <div className="main-container__card__price">
-              <span className="main-container__card__price__old">{originPrice} vnđ</span>
-              <span className="main-container__card__price__current">{initialPrice} vnđ</span>
+              <div className="main-container__card__price">
+                <span className="main-container__card__price__old">{originPrice} vnđ</span>
+                <span className="main-container__card__price__current">{initialPrice} vnđ</span>
+              </div>
             </div>
-          </div>
-        </Card >
+          </Card >
+        </Col >
+
         {/* <div className="main-container__card__add-to-card">
           <a
             onClick={() => onAddToCart()}
@@ -407,14 +415,13 @@ function Item({
 
     );
   }
-
   function renderOneCard() {
     return (
-      <Row gutter={[24, 8]}>
+      <>
         <Col span={12}>
           <img
-            src={productListItem.productImage}
-            className="main-container__card__img"
+            src={productListItem.productImage[0].name}
+            // className="main-container__card__img"
             style={{
               width: "100%",
               height: "auto"
@@ -469,21 +476,18 @@ function Item({
 
           </Row>
         </Col>
-      </Row>
+      </>
+
     );
   }
   return (
     // 1-24 4-6
     <>
-      <Col
-        span={itemInRow}
-      >
-        {
-          itemInRow === 6
-            ? renderFourCard()
-            : renderOneCard()}
-
-      </Col >
+      {
+        itemInRow === 6
+          ? renderFourCard()
+          : renderOneCard()
+      }
     </>
   );
 }

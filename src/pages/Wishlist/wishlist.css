@@ -7,66 +7,52 @@ body,h1,h2,h3,h4,h5,h6{
     padding: 0px;
 }
 
-
-
-.cart-table{
-    /* border: 1px solid ; */
-    width:100%;
-    margin-top: 50px ;
-}
-
-
-.cart-table th{
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #333;
-    background: #FFF;
-    padding: 10px 8px;
-}
-
-
-.cart-table thead{
-    width: 100%;
-    border-bottom: 1px solid #ededed;
-}
-
-
-.cart-table tr{
-    border: 1px solid #ededed;
-}
-
-/*  Cart Coupon */
-
-
-.cart-purpot{
-    margin: 25px 0px;
-    padding: 25px 0px;
-}
-
-.cart-coupon_code{
+.empty-wishlist_container{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.empty-wishlist_container img{
+    width: auto;
+    height: 300px;
+}
+
+.empty-wishlist_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #333;
+}
+
+.btn-shopping{
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #333;
+    color: white;
+    font-size: 20px;
+    margin: 20px 0px;
+    padding: 0.5em 1em;
+    border: 1px solid #333;
+}
+
+.btn-shopping:hover {
+    background:#e7e7e7;
+    color: #333;
+    transition: all ease-in 300ms;
+}
+
+.btn-wishlist_zone {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 
-/* .cart-coupon_code input{
-    outline: none;
-    overflow: hidden;
-    background: none;
-    width: 300px;
-    height: 50px;
-    border-bottom: 2px solid #333;
-    border-top-style: none ;
-    border-left-style: none;
-    border-right-style: none;
-    border-left-style: none;    
-} */
-
-
-.btn-checkout , .btn-clear{
+.btn-clear_wishlist{
     letter-spacing: 1px;
     text-transform: uppercase;
     background: #333;
@@ -74,15 +60,57 @@ body,h1,h2,h3,h4,h5,h6{
     font-size: 20px;
     padding: 0.5em 2em;
     border: 1px solid #333;
-    
 }
 
-
-.btn-checkout:hover, .btn-clear:hover{
-    background:#e7e7e7;
+.btn-clear_wishlist:hover{
+    background: white;
     color: #333;
     transition: all ease-in 300ms;
 }
+
+
+
+
+.wishlist-table-container{
+    /* border: 1px solid ; */
+    width:100%;
+    margin-top: 50px ;
+}
+
+.wishlist-table-container th{
+    padding: 10px 8px;
+    font-size: 15px;
+    line-height: 24px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #333;
+    background: #FFF;
+}
+
+.product-title{
+    text-align: center;
+}
+
+
+.wishlist-table-container thead{
+    width: 100%;
+    border-bottom: 1px solid #ededed;
+}
+
+.wishlist-table-container{
+
+    border:1px solid #ededed
+}
+
+
+
+
+
+/*  Cart Coupon */
+
+
+
 
 /* Footer - Space */
 
@@ -127,7 +155,6 @@ body,h1,h2,h3,h4,h5,h6{
 .footer-useful_dropdown{
     margin-right: 100px;
 }
-
 
 
 .footer-list_title{

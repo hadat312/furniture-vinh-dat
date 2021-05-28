@@ -1,0 +1,54 @@
+.user-id{
+    width: auto;
+    height: 50px;
+}
+
+
+.user-remove button{
+    border:2px solid #333;
+    color:#333;
+    /* width: auto; */
+    width: 35px;
+    height: 35px;
+    outline: none;
+    background: white;
+}
+
+.user-remove button:hover{
+    content: '';
+    border-color: red;
+    color:red;
+    transition: all ease-in-out 500ms;
+    /* background: red; */
+    /* color:white;   */
+}
+
+
+
+ 
+.btn-edit {
+    width: auto;
+    height: 35px;
+    outline: none;
+    color: white;
+    background: #08979c;
+    font-size: 18px;
+    border-radius: 8px;
+} 
+
+.user-edit i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+.user-item td{
+    margin-left: 20px;
+    padding: 0px 10px;
+}
+
+.user-item{
+    text-align: center;
+}
+

@@ -12,8 +12,10 @@ function* addBillTaskSaga(action) {
       company,
       address,
       country,
-      city,
       userId,
+      city,
+      district,
+      ward
     } = action.payload
     const result = yield axios({
       method: 'POST',
@@ -26,9 +28,10 @@ function* addBillTaskSaga(action) {
         company: company,
         address: address,
         country: country,
-        city: city,
         userId: userId,
-
+        city: city,
+        district: district,
+        ward:ward
       }
     });
     yield put({

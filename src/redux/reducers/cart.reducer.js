@@ -73,7 +73,21 @@ export default function cartReducer(state = initialState, action) {
         },
       };
     }
+
+    case 'ADD_WISH_LIST_TO_CART_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        cartList: {
+          ...state.cartList,
+          data: data,
+          load: false
+        },
+      };
+    }
+
     case 'ADD_CART_TASK_FAIL': {
+      
       return {
         ...state,
         cartList: {
@@ -85,8 +99,8 @@ export default function cartReducer(state = initialState, action) {
     case 'EDIT_CART_TASK_REQUEST': {
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           load: true
         },
       };
@@ -98,6 +112,17 @@ export default function cartReducer(state = initialState, action) {
         cartList: {
           ...state.cartList,
           data: data,
+          load: false
+        },
+      };
+    }
+    case 'ADD_ORDER_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        cartList: {
+          ...state.cartList,
+          data: [],
           load: false
         },
       };
@@ -119,8 +144,8 @@ export default function cartReducer(state = initialState, action) {
       const { error } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           error: error,
           load: false
         },
@@ -129,8 +154,8 @@ export default function cartReducer(state = initialState, action) {
     case 'DELETE_CART_TASK_REQUEST': {
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
           load: true
         },
       };
@@ -162,8 +187,38 @@ export default function cartReducer(state = initialState, action) {
       const { error } = action.payload;
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        cartList: {
+          ...state.cartList,
+          error: error,
+          load: false
+        },
+      };
+    }
+
+    case 'CLEAR_CART_TASK_REQUEST': {
+      return {
+        ...state,
+        cartList: {
+          ...state.cartList,
+          load: true
+        },
+      };
+    }
+    case 'CLEAR_CART_TASK_SUCCESS': {
+      return {
+        ...state,
+        cartList:{
+          data:[],
+          load:false
+        },
+      }
+    }
+    case 'CLEAR_CART_TASK_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        cartList: {
+          ...state.cartList,
           error: error,
           load: false
         },

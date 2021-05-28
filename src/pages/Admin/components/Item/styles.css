@@ -1,0 +1,23 @@
+.user-id{
+    width: auto;
+    height: 50px;
+}
+
+.user-remove button{
+    border:2px solid #333;
+    color:#333;
+    /* width: auto; */
+    width: 35px;
+    height: 35px;
+    outline: none;
+    background: white;
+}
+
+.user-remove button:hover{
+    content: '';
+    border-color: red;
+    color:red;
+    transition: all ease-in-out 500ms;
+    /* background: red; */
+    /* color:white;   */
+}

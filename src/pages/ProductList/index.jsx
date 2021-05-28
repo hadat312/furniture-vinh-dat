@@ -10,7 +10,6 @@ import Main from './components/Main';
 import './productList.css';
 
 function ProductListPage(props) {
-
   const list = [];
   const { Title } = Typography;
   const {
@@ -20,11 +19,14 @@ function ProductListPage(props) {
     subCategories,
     itemCategories,
     productList,
-    categoryId
+    match,
   } = props;
+
+  const categoryId = match.params.id;
 
   const [itemInRow, setItemInRow] = useState(6);
   const [itemCategorySelected, setItemCategorySelected] = useState(undefined);
+
   useEffect(() => {
     getSubCategories({
       categoryId: categoryId //get SubCategories theo categoryId
@@ -32,7 +34,7 @@ function ProductListPage(props) {
     getItemCategories();
     getProductList({
       page: 1,
-      limit: 4,
+      limit: 8,    // Thay doi Limit
       categoryId: categoryId
     });
   }, []);
@@ -44,7 +46,7 @@ function ProductListPage(props) {
     getItemCategories();
     getProductList({
       page: 1,
-      limit: 4,
+      limit: 8,
       categoryId: categoryId
     });
   }, [categoryId]);
@@ -87,6 +89,7 @@ function ProductListPage(props) {
       categoryId: categoryId
     });
   }
+
 
   //get sản phẩm theo itemCategoryId
   function onFilterItemCategory(id) {
@@ -145,11 +148,10 @@ function ProductListPage(props) {
   return (
 
     <div className="product-container">
-      <div className="product-container__shop-header">
+      <div className="product-container__shop-header" >
         <div className="shop-header__content">
-          <Row>
-            <Col span={12} className="content__format">
-              <div className="d-flex" style={{ fontSize: "30px" }}>
+            <div span={12} className="content__format">
+              <div className="d-flex justify-content-end" style={{ fontSize: "30px" }}>
                 {/* BUTTON HIỂN THỊ 4 SẢN PHẨM TRÊN 1 HÀNG*/}
                 <Button
                   focusable
@@ -168,14 +170,10 @@ function ProductListPage(props) {
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"></path></svg>
                 </Button>
               </div>
-            </Col>
-          </Row>
+            </div>
         </div>
       </div>
-      <div >
-        {/* {getItemCategoryId()} */}
-
-      </div>
+    
       <div className="product-container__shop-body">
         <Row>
           <Col span={2}></Col>
@@ -224,6 +222,7 @@ function ProductListPage(props) {
             <div className="shop-body__main">
               {/* HIỂN THỊ SẢN PHẨM */}
               <Main
+                categoryId={categoryId}
                 itemInRow={itemInRow}
                 productList={productList}
                 handleShowMore={handleShowMore}

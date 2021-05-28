@@ -58,25 +58,18 @@ function* getWishlistSaga(action) {
 
 function* addWishlistTaskSaga(action) {
   try {
-    const { wishlistId, options } = action.payload;
+    const { userId, wishlist } = action.payload;
     const result = yield axios({
-      method: 'POST',
-      url: 'http://localhost:3002/wishlist',
-      // data: {
-      //   _id: id,
-      //   image: image,
-      //   name: name,
-      //   size: size,
-      //   color: color,
-      //   quantity: quantity,
-      //   price: price,
-      //   userId: userId
-      // }
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
+      data:{
+        wishlist: wishlist,
+      }
     });
     yield put({
       type: "ADD_WISH_LIST_TASK_SUCCESS",
       payload: {
-        data: result.data
+        data: result.data.wishlist,
       },
     });
   } catch (e) {
@@ -89,21 +82,76 @@ function* addWishlistTaskSaga(action) {
   }
 }
 
-
-function* deleteWishlistTaskSaga(action) {
+function* addWishlistToCartSaga(action) {
   try {
-    const { id } = action.payload;
-    yield axios({
-      method: 'DELETE',
-      url: `http://localhost:3002/wishlist/${id}`,
+    const { userId, wishlist } = action.payload;
+    const result = yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
+      data: {
+        wishlist: wishlist
+      }
     });
     yield put({
       type: "DELETE_WISH_LIST_TASK_SUCCESS",
-      payload: id
+      payload: {
+        data: result.data.wishlist,
+      }
     });
   } catch (e) {
     yield put({
       type: "DELETE_WISH_LIST_TASK_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+
+function* deleteWishlistTaskSaga(action) {
+  try {
+    const { userId, wishlist } = action.payload;
+    const result = yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
+      data: {
+        wishlist: wishlist
+      }
+    });
+    yield put({
+      type: "DELETE_WISH_LIST_TASK_SUCCESS",
+      payload: {
+        data: result.data.wishlist,
+      }
+    });
+  } catch (e) {
+    yield put({
+      type: "DELETE_WISH_LIST_TASK_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+function* clearWishListTaskSaga(action) {
+  try {
+    const { userId } = action.payload;
+    const result =yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/users/${userId}`,
+      data:{
+        wishlist: []
+      }
+    });
+    yield put({
+      type: "CLEAR_WISH_LIST_TASK_SUCCESS",
+      payload: result.data.wishlist
+    });
+  } catch (e) {
+    yield put({
+      type: "CLEAR_WISH_LIST_TASK_FAIL",
       payload: {
         error: e.error
       },
@@ -116,4 +164,7 @@ export default function* wishlistSaga() {
   yield takeEvery('ADD_WISH_LIST_TASK_REQUEST', addWishlistTaskSaga);
   yield takeEvery('DELETE_WISH_LIST_TASK_REQUEST', deleteWishlistTaskSaga);
 
+  yield takeEvery('ADD_WISH_LIST_TO_CART_REQUEST', addWishlistToCartSaga);
+
+  yield takeEvery('CLEAR_WISH_LIST_TASK_REQUEST',clearWishListTaskSaga)
 }

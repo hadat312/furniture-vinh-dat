@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-
-import './styles.css';
+import Item from './components/Item';
+import history from '../../utils/history'
 import logo1 from '../../images/logo1.jpg'
 
-import {getUserInfoAction} from '../../redux/actions'
+import './styles.css';
+
+import {
+    getUserInfoAction,
+    getUserListAction,
+    deleteUserListAction
+} from '../../redux/actions'
 
 
 function AdminPage(props) {
@@ -17,20 +23,43 @@ function AdminPage(props) {
     // const toggle = () => {
     //     setIsCollapsed(!isCollapsed)
     // }
-    const { userInfo,getUserInfo } = props;
+    const { userInfo, getUserInfo, userList, getUserList, deleteUserList } = props;
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if (userInfo && userInfo.id) {
-          getUserInfo({ id: userInfo.id });
+        const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
+        if (userInfoLocalStorage && userInfoLocalStorage.id) {
+            getUserInfo({ id: userInfoLocalStorage.id });
         }
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        getUserList({
+            page: 1,
+            limit: 20,
+        })
+    }, []);
+
 
     const [isShowToggle, setIsShowToggle] = useState(true);
+
+
+    function renderUserList() {
+        if (userList.load) return <p>Loading...</p>
+        return userList.data.map((userListItem, userListIndex) => {
+            return (
+                <Item
+                    key={userListItem.id}
+                    userListItem={userListItem}
+                />
+            )
+        })
+    }
+   
+
     return (
         <>
             <div className="dashboard-container">
-                <h1 className="dashboard-title">React Dashboard</h1>
+                <h1 className="dashboard-title">Manager</h1>
 
                 <div className="navbar">
                     {/* <div className="nav-icon">
@@ -97,73 +126,22 @@ function AdminPage(props) {
                     <div className="sidebar-menu">
                         <div className="sidebar-link active-menu-link">
                             <i className="fa fa-home text-lightblue"></i>
-                            <a href="#">Dashboard</a>
+                            <span >Dashboard</span>
                         </div>
-                        <h2>MNG</h2>
+
                         <div className="sidebar-link">
                             <i className="fa fa-user-secret text-lightblue"></i>
-                            <a href="#">Admin Management</a>
+                            <span onClick={() => history.push('/admin/user')} >Quản Lý Tài Khoản</span>
                         </div>
-                        <div className="sidebar-link">
-                            <i className="fa fa-building text-lightblue"></i>
-                            <a href="#">Comapny Management</a>
-                        </div>
-                        <div className="sidebar-link">
-                            <i className="fa fa-wrench text-lightblue"></i>
-                            <a href="#">Employee Management</a>
-                        </div>
-                        <div className="sidebar-link">
-                            <i className="fa fa-archive text-lightblue"></i>
-                            <a href="#">Warehouse</a>
-                        </div>
+
                         <div className="sidebar-link">
                             <i className="fa fa-handshake text-lightblue"></i>
-                            <a href="#">Contracts</a>
-                        </div>
-                        <h2>LEAVE</h2>
-                        <div className="sidebar-link">
-                            <i className="fa fa-question text-lightblue"></i>
-                            <a href="#">Requests</a>
-                        </div>
-                        <div className="sidebar-link">
-                            <i className="fa fa-sign text-lightblue"></i>
-                            <a href="#">Leave Policy</a>
-                        </div>
-                        <div className="sidebar-link">
-                            <i className="fa fa-calendar-check text-lightblue"></i>
-                            <a href="#">Special Days</a>
-                        </div>
-                        <div className="sidebar-link">
-                            <i className="fa fa-file text-lightblue"></i>
-                            <a href="#">Apply for leave</a>
-                        </div>
-
-                        <h2>PAYROLL</h2>
-                        <div className="sidebar-link">
-                            <i class="fa fa-credit-card text-lightblue" aria-hidden="true"></i>
-                            <a href="#">Payroll</a>
-                        </div>
-
-                        <div className="sidebar-link">
-                            <i className="fa fa-briefcase text-lightblue"></i>
-                            <a href="#">Paygrade</a>
-                        </div>
-
-                        <div className="sidebar-logout">
-                            <i className="fa fa-power-off"></i>
-                            <a href="#">Log out</a>
+                            <span onClick={() => history.push('/admin/product')}>Quản Lý Sản Phẩm</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="main-container">
-                    {/* <div className="main-title">
-                        <img src=" " alt="" />
-                        <div className="main-greeting">
-                            <h1>Hello Vinh</h1>
-                            <p>Welcome to your admin dashboard</p>
-                        </div>
-                    </div> */}
 
                     <div className="main-cards">
 
@@ -231,7 +209,7 @@ function AdminPage(props) {
 
                                 <div className="card3">
                                     <h1>Users</h1>
-                                    <p>3900</p>
+                                    <p>{userList.data.length}</p>
                                 </div>
 
                                 <div className="card4">
@@ -252,16 +230,20 @@ function AdminPage(props) {
 
 
 const mapStateToProps = (state) => {
-  const { userInfo } = state.userReducer;
-  return {
-    userInfo: userInfo,
-  }
+    const { userInfo, userList } = state.userReducer;
+    return {
+        userInfo: userInfo,
+        userList: userList,
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    getUserInfo: (params) => dispatch(getUserInfoAction(params)),
-  };
+    return {
+        getUserInfo: (params) => dispatch(getUserInfoAction(params)),
+
+        getUserList: (params) => dispatch(getUserListAction(params)),
+        deleteUserList: (params) => dispatch(deleteUserListAction(params)),
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);

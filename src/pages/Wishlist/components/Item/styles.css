@@ -63,7 +63,7 @@
     padding: 0px 1px;
 }
 
-.delete-product {
+.btn-remove {
     border:2px solid red;
     color:red;
     /* width: auto; */
@@ -75,8 +75,7 @@
 }
 
 
-
-.product-remove button:hover{
+.btn-remove button:hover{
     content: '';
     border-color: red;
     color:white;  
@@ -143,13 +142,16 @@ hr{
     text-transform: uppercase;
     background: #333;
     color: white;
-    font-size: 20px;
-    padding: 0.5em 2em;
+    font-size: 15px;
+    font-weight: 600
+    /* padding: 0.5em 2em; */;
+    padding:0.8em;
+    width: 150px;
     border: 1px solid #333;
 }
 
 .btn-add:hover{
-    background:#e7e7e7;
+    background:white;
     color: #333;
     transition: all ease-in 300ms;
 }

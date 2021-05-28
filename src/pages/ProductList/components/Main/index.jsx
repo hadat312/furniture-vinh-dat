@@ -11,9 +11,10 @@ function Main(props) {
   const {
     itemInRow,
     productList,
-    handleShowMore
+    handleShowMore,
+    categoryId,
   } = props;
-
+  // console.log("main-categoryId: ", categoryId);
   // get data từ localStorage để kiểm tra
 
   // console.log(productList.data[0].colors[1].price);
@@ -24,6 +25,7 @@ function Main(props) {
       return (
         <Item
           key={productListItem.id}
+          categoryId={categoryId}
           productListItem={productListItem}
           itemInRow={itemInRow}
         />
@@ -46,7 +48,7 @@ function Main(props) {
 
   return (
     <div className="main-container">
-      <Row gutter={[8, 32]}>
+      <Row gutter={[24, 24]}>
         {/* 1-24 4-6 */}
         {renderProductList()}
       </Row>

@@ -39,7 +39,6 @@ function Item({
     }
   }
 
-
   return (
     <>
       <tbody>
@@ -54,7 +53,7 @@ function Item({
           </td>
           <td
             className="product-name"
-            style={{ width: 250, cursor: 'pointer' }}
+            style={{ width: 250, cursor: 'pointer' , marginLeft:30}}
             onClick={() => history.push(`/product/${cartItem.productId}`)}
           >
             <div>{cartItem.productName}</div>

@@ -1,0 +1,10 @@
+{
+    "id": "user01",
+    "userName": "Đạt",
+    "userEmail": "hadat123@gmail.com",
+    "userPassword": "123456",
+    "userPhoneNumber": "0123465789",
+    "userRole": "admin",
+    "carts": [],
+    "wishlist": []
+  },

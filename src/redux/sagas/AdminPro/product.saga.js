@@ -51,7 +51,7 @@ function* getCategoryListAdminSaga(action) {
 
 function* createProductAdminSaga(action) {
   try {
-    const {productName,categoryId,productPrice } = action.payload;
+    const { productName, categoryId, productPrice } = action.payload;
     const createResult = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/products',
@@ -80,7 +80,7 @@ function* createProductAdminSaga(action) {
 
 function* editProductAdminSaga(action) {
   try {
-    const { id, productName, categoryId,productPrice } = action.payload;
+    const { id, productName, categoryId, productPrice } = action.payload;
     const editResult = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/products/${id}`,
@@ -158,35 +158,6 @@ function* createOptionAdminSaga(action) {
   }
 }
 
-function* createOptionColorAdminSaga(action) {
-  try {
-    const { productId, colorName, price } = action.payload;
-    const result = yield axios({
-      method: 'POST',
-      url: 'http://localhost:3002/colors',
-      data: {
-        productId,
-        colorName,
-        price,
-      }
-    });
-    yield put({
-      type: "ADMIN/CREATE_COLOR_OPTION_SUCCESS",
-      payload: {
-        data: result.data,
-      },
-    });
-    yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
-  } catch (e) {
-    yield put({
-      type: "ADMIN/CREATE_COLOR_OPTION_FAIL",
-      payload: {
-        error: e.error
-      },
-    });
-  }
-}
-
 function* editOptionAdminSaga(action) {
   try {
     const { id, productId, sizeName, price } = action.payload;
@@ -240,6 +211,91 @@ function* deleteOptionAdminSaga(action) {
   }
 }
 
+// Color
+
+function* createOptionColorAdminSaga(action) {
+  try {
+    const { productId, colorName, price } = action.payload;
+    const result = yield axios({
+      method: 'POST',
+      url: 'http://localhost:3002/colors',
+      data: {
+        productId,
+        colorName,
+        price,
+      }
+    });
+    yield put({
+      type: "ADMIN/CREATE_COLOR_OPTION_SUCCESS",
+      payload: {
+        data: result.data,
+      },
+    });
+    yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
+  } catch (e) {
+    yield put({
+      type: "ADMIN/CREATE_COLOR_OPTION_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+// DELETE and Edit Color Option
+function* editColorOptionAdminSaga(action) {
+  try {
+    const { id, productId, colorName, price } = action.payload;
+    const result = yield axios({
+      method: 'PATCH',
+      url: `http://localhost:3002/colors/${id}`,
+      data: {
+        productId,
+        colorName,
+        price,
+      }
+    });
+    yield put({
+      type: "ADMIN/EDIT_COLOR_OPTION_SUCCESS",
+      payload: {
+        data: result.data,
+      },
+    });
+    yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
+  } catch (e) {
+    yield put({
+      type: "ADMIN/EDIT_COLOR_OPTION_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+function* deleteColorOptionAdminSaga(action) {
+  try {
+    const { id } = action.payload;
+    yield axios({
+      method: 'DELETE',
+      url: `http://localhost:3002/colors/${id}`,
+    });
+    yield put({
+      type: "ADMIN/DELETE_COLOR_OPTION_SUCCESS",
+      payload: {
+        data: { id },
+      },
+    });
+    yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
+  } catch (e) {
+    yield put({
+      type: "ADMIN/DELETE_COLOR_OPTION_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
 export default function* adminProductSaga() {
   yield takeEvery('ADMIN/GET_PRODUCT_LIST_REQUEST', getProductListAdminSaga);
   yield takeEvery('ADMIN/GET_CATEGORY_LIST_REQUEST', getCategoryListAdminSaga);
@@ -251,5 +307,9 @@ export default function* adminProductSaga() {
   yield takeEvery('ADMIN/DELETE_OPTION_REQUEST', deleteOptionAdminSaga);
 
   // Create Option Color
-  yield takeEvery('ADMIN/CREATE_COLOR_OPTION_REQUEST',   createOptionColorAdminSaga);
+  yield takeEvery('ADMIN/CREATE_COLOR_OPTION_REQUEST', createOptionColorAdminSaga);
+  // Delete Option Color
+  yield takeEvery('ADMIN/DELETE_COLOR_OPTION_REQUEST', deleteColorOptionAdminSaga);
+  // Edit Option Color
+  yield takeEvery('ADMIN/EDIT_COLOR_OPTION_REQUEST', editColorOptionAdminSaga)
 }

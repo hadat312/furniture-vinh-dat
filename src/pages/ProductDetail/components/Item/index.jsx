@@ -47,7 +47,7 @@ function Item(props) {
 
           <div className="comment-side-right">
             <div className="comment-opinion">
-              <Rate allowHalf defaultValue={commentItem.rate} />
+              <Rate allowHalf disabled defaultValue={commentItem.rate} />
               {renderShow()}
             </div>
 

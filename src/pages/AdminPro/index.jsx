@@ -40,22 +40,28 @@ import {
 } from '../../redux/actions';
 
 
-import ProductOption from './ProductOption';
+import SizeOption from './SizeOption';
+
+import ColorOption from './ColorOption'
 
 import './styles.css';
 
 
 import logo1 from '../../images/logo1.jpg'
+import { ROUTERS } from '../../constants/router';
 
 function AdminProduct(props) {
     const [isShowModify, setIsShowModify] = useState(false);
+
     // {} là create / Object có data là edit
     const [isOptionForm, setIsOptionForm] = useState(false);
     const [isShowCreateOption, setIsShowCreateOption] = useState(false);
 
     // Show Create Option Color
     const [isColorOptionForm, setIsColorOptionForm] = useState(false);
+    console.log("🚀 ~ file: index.jsx ~ line 62 ~ AdminProduct ~ isColorOptionForm", isColorOptionForm)
     const [isShowCreateColor, setIsShowCreateColor] = useState(false);
+    const [isShowModifyColor, setIsShowModifyColor] = useState(false);
 
     const [productForm] = Form.useForm();
 
@@ -77,7 +83,6 @@ function AdminProduct(props) {
         productSelected,
     } = props;
 
-
     useEffect(() => {
         getProductListAdmin();
         getCategoryListAdmin();
@@ -88,6 +93,13 @@ function AdminProduct(props) {
             setIsShowCreateOption(false)
         }
     }, [isShowModify]);
+
+    //  Show Create Option Color
+    useEffect(() => {
+        if (isShowModifyColor) {
+            setIsShowCreateColor(false)
+        }
+    }, [isShowModifyColor])
 
     useEffect(() => {
         productForm.resetFields();
@@ -186,9 +198,19 @@ function AdminProduct(props) {
         let minValue = 0;
         let maxValue = 0;
         productItem.sizes.forEach((option) => {
-            if (option.price > maxValue) maxValue = option.price;
-            if (option.price < minValue) minValue = option.price;
+            productItem.colors.forEach((anotherOption) => {
+
+                if (option.price > maxValue && anotherOption.price > maxValue) maxValue = option.price + anotherOption.price;
+                if (option.price < minValue && anotherOption.price < minValue) minValue = option.price + anotherOption.price;
+            })
         })
+
+        // productItem.colors.forEach((anotherOption) => {
+        //     // console.log("🚀 ~ file: index.jsx ~ line 196 ~ productItem.colors.forEach ~ anotherOption", anotherOption)
+        //     if(anotherOption.price > maxValue) maxValue=anotherOption.price;
+        //     if(anotherOption.price < minValue) minValue=anotherOption.price;
+        // })
+
 
         return {
             ...productItem,
@@ -228,7 +250,7 @@ function AdminProduct(props) {
                 >
                     <Form.Item
                         name="sizeName"
-                        label="Tùy chọn"
+                        label="Kích Thước"
                         rules={[{ required: true, message: 'Bạn chưa điền tên của tùy chọn' }]}
                     >
                         <Input placeholder="Tùy chọn" />
@@ -257,9 +279,8 @@ function AdminProduct(props) {
 
     function renderProductOptionItems() {
         return productSelected.sizes.map((sizeOptionItem, sizeOptionIndex) => {
-            console.log("🚀 ~ file: index.jsx ~ line 259 ~ returnproductSelected.sizes.map ~ sizeOptionItem", sizeOptionItem)
             return (
-                <ProductOption
+                <SizeOption
                     key={sizeOptionIndex}
                     sizeOptionItem={sizeOptionItem}
                     productId={productSelected.id}
@@ -271,7 +292,7 @@ function AdminProduct(props) {
     function renderProductOptionForm() {
         return (
             <div style={{ marginTop: 16 }}>
-                <h4>Danh sách tùy chọn</h4>
+                <h4>Danh sách kích thước</h4>
                 {
                     productSelected.id &&
                     productSelected.sizes.length > 0 &&
@@ -307,7 +328,7 @@ function AdminProduct(props) {
                             ...values,
                             setColorSelect,
                         })
-                        setIsShowCreateOption(false);
+                        setIsShowCreateColor(false);
                     }}
                 >
                     <Form.Item
@@ -330,7 +351,7 @@ function AdminProduct(props) {
                     </Form.Item>
                     <Row justify="end">
                         <Space>
-                            <Button onClick={() => setIsShowCreateOption(false)}>Hủy</Button>
+                            <Button onClick={() => setIsShowCreateColor(false)}>Hủy</Button>
                             <Button type="primary" htmlType="submit">Thêm</Button>
                         </Space>
                     </Row>
@@ -340,11 +361,12 @@ function AdminProduct(props) {
     }
 
     function renderColorOptionItems() {
-        return colorSelected.sizes.map((colorItem, colorIndex) => {
+        return colorSelected.colors.map((colorItem, colorIndex) => {
+            // console.log("🚀 ~ file: index.jsx ~ line 348 ~ returncolorSelected.sizes.map ~ colorItem", colorItem)
             return (
-                <ProductOption
+                <ColorOption
                     key={colorIndex}
-                    optionItem={colorItem}
+                    colorItem={colorItem}
                     productId={colorSelected.id}
                 />
             )
@@ -353,20 +375,20 @@ function AdminProduct(props) {
     function renderColorOptionForm() {
         return (
             <div style={{ marginTop: 16 }}>
-                <h4>Danh sách tùy chọn</h4>
+                <h4>Danh sách màu sắc</h4>
                 {
                     colorSelected.id &&
                     colorSelected.colors.length > 0 &&
                     renderColorOptionItems()
                 }
-                {isShowCreateOption
+                {isShowCreateColor
                     ? renderCreateOptionColor()
                     : (
                         <Button
                             type="dashed"
                             block
                             icon={<PlusOutlined />}
-                            onClick={() => setIsShowCreateOption(true)}
+                            onClick={() => setIsShowCreateColor(true)}
                         >
                             Thêm tùy chọn
                         </Button>
@@ -378,7 +400,7 @@ function AdminProduct(props) {
 
     return (
         <>
-            <Row justify="space-between" align="center" style={{ marginTop: 16 }}>
+            <Row justify="space-between" align="center" style={{ marginTop: 130 }}>
                 <img src={logo1} alt="Bodhi Logo Brand" style={{ width: "auto", height: "50px" }} />
                 <Button type="primary" onClick={() => handleCreateProduct()}>
                     <PlusOutlined /> Thêm Mới
@@ -386,7 +408,7 @@ function AdminProduct(props) {
             </Row>
 
             <Row justify="center" style={{ marginBottom: 16 }}>
-                <h3>Danh sách sản phẩm</h3>
+                <h3 >Danh sách sản phẩm</h3>
             </Row>
 
             <div className="admin-area_container">
@@ -394,17 +416,17 @@ function AdminProduct(props) {
                     <div className="sidebar-admin-user-menu">
                         <div className="side-admin-user-link">
                             <i className="fa fa-home text-lightblue"></i>
-                            <span onClick={() => history.push('/admin')}>Dashboard</span>
+                            <span onClick={() => { history.push(ROUTERS.ADMIN) }}>Dashboard</span>
                         </div>
 
                         <div className="side-admin-user-link  active-admin-user-link">
                             <i className="fa fa-user-secret text-lightblue"></i>
-                            <span >Quản Lý Tài Khoản</span>
+                            <span onClick={() => history.push(ROUTERS.ADMIN_USER)}>Quản Lý Tài Khoản</span>
                         </div>
 
                         <div className="side-admin-user-link">
                             <i className="fa fa-handshake text-lightblue"></i>
-                            <span onClick={() => history.push('/admin/product')}>Quản Lý Sản Phẩm</span>
+                            <span >Quản Lý Sản Phẩm</span>
                         </div>
                     </div>
                 </div>
@@ -456,7 +478,7 @@ function AdminProduct(props) {
                                     </div>
                                 )
                             },
-                            rowExpandable: (record) => record.sizes.length > 0
+                            rowExpandable: (record) => record.sizes.length > 0 || record.colors.length > 0
                             // rowExpandable: (record) => record.colors.length > 0
                         }}
                     />

@@ -21,3 +21,5 @@ export * from './User/common.action'
 
 export * from './AdminPro/common.action';
 export * from './AdminPro/product.action';
+
+export * from './AdminCoupon/coupon.action';

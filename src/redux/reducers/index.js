@@ -12,12 +12,16 @@ import checkoutReducer from './checkout.reducer';
 import addressReducer from './address.reducer'
 import commentReducer from './comment.reducer'
 
+
 // User 
 import commonAddressReducer from './User/common.reducer'
 
 // Amin Area
 import adminCommonReducer from './AdminPro/common.reducer'
 import adminProductReducer from './AdminPro/product.reducer'
+
+
+import adminCouponReducer from './AdminCoupon/coupon.reducer'
 
 export default combineReducers({
   productReducer: productReducer,
@@ -38,6 +42,8 @@ export default combineReducers({
   // Amin Area
   adminCommonReducer:adminCommonReducer,
   adminProductReducer:adminProductReducer,
+
+  adminCouponReducer:adminCouponReducer,
 })
 
 //data trả về ở reducer

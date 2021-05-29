@@ -1,46 +1,6 @@
 {
-  "comment": [
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "asd",
-      "rate": 3,
-      "date": "May 28th 2021",
-      "time": "5:13 PM",
-      "id": 1
-    },
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "kia",
-      "rate": 5,
-      "date": "May 28th 2021",
-      "time": "5:20 PM",
-      "id": 2
-    },
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "as",
-      "rate": 1,
-      "date": "May 28th 2021",
-      "time": "5:25 PM",
-      "id": 3
-    },
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "ya",
-      "rate": 4,
-      "date": "May 28th 2021",
-      "time": "5:28 PM",
-      "id": 4
-    }
-  ],
+  "coupon": [],
+  "comment": [],
   "orders": [
     {
       "email": "sieuquaydn33@gmail.com",
@@ -1053,12 +1013,6 @@
       "productId": "product02"
     },
     {
-      "id": "size06",
-      "sizeName": "3m*3m",
-      "price": 0,
-      "productId": "product03"
-    },
-    {
       "id": "size07",
       "sizeName": "3m*3m",
       "price": 600000,
@@ -1149,10 +1103,22 @@
       "productId": "product15"
     },
     {
-      "productId": "product05",
+      "productId": "product01",
       "sizeName": "4m*8m2",
-      "price": 500000,
-      "id": "wpfdT7I"
+      "price": 200000,
+      "id": "WEXFRpv"
+    },
+    {
+      "productId": "product05",
+      "sizeName": "8m7",
+      "price": 800000,
+      "id": "g9qXA7C"
+    },
+    {
+      "productId": "product05",
+      "sizeName": "4m9",
+      "price": 400000,
+      "id": "XrRoeD1"
     }
   ],
   "colors": [
@@ -1247,10 +1213,10 @@
       "productId": "product15"
     },
     {
-      "productId": "product04",
+      "productId": "product05",
       "colorName": "Xanh",
-      "price": 100000,
-      "id": "i5GHgFU"
+      "price": 500000,
+      "id": "3EOpKhJ"
     }
   ],
   "categories": [
@@ -1461,14 +1427,16 @@
   "users": [
     {
       "id": "user01",
-      "userName": "Đạt",
-      "userEmail": "hadat123@gmail.com",
+      "userName": "datg",
+      "userEmail": "tuan1@gmail.com",
       "userPassword": "123456",
-      "userPhoneNumber": "123",
+      "userPhoneNumber": "0935415273",
       "userRole": "admin",
       "carts": [],
       "wishlist": [],
-      "address": []
+      "address": [],
+      "gender": "Male",
+      "birthday": "05/05/2021"
     },
     {
       "userPassword": "123456789",

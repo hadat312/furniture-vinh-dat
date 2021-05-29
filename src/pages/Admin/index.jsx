@@ -11,7 +11,7 @@ import {
     getUserListAction,
     deleteUserListAction
 } from '../../redux/actions'
-
+import { ROUTERS } from '../../constants/router';
 
 function AdminPage(props) {
     // const { Header, Content, Footer, Sider } = Layout;
@@ -131,12 +131,12 @@ function AdminPage(props) {
 
                         <div className="sidebar-link">
                             <i className="fa fa-user-secret text-lightblue"></i>
-                            <span onClick={() => history.push('/admin/user')} >Quản Lý Tài Khoản</span>
+                            <span onClick={() => history.push(ROUTERS.ADMIN_USER)} >Quản Lý Tài Khoản</span>
                         </div>
 
                         <div className="sidebar-link">
                             <i className="fa fa-handshake text-lightblue"></i>
-                            <span onClick={() => history.push('/admin/product')}>Quản Lý Sản Phẩm</span>
+                            <span onClick={() => history.push(ROUTERS.ADMIN_PRODUCT)}>Quản Lý Sản Phẩm</span>
                         </div>
                     </div>
                 </div>

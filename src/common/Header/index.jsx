@@ -68,7 +68,7 @@ function Header({
   }, []);
   const countCarts = cartList.data.length;
   const countWishlist = wishlist.data.length;
-  
+
   const { Title } = Typography;
 
   const [isShowSearchBar, setIsShowSearchBar] = useState(false);
@@ -92,6 +92,33 @@ function Header({
 
     })
   }
+
+  // Render dropdown Admin
+
+  // function renderShow() {
+  //   return userInfo.data.map((userItem, userIndex) => {
+  //     console.log("🚀 ~ file: index.jsx ~ line 98 ~ returnuserInfo.data.map ~ userInfo", userInfo)
+  //     if (userItem.userRole === "admin") {
+  //       return (
+  //         <>
+  //           <p className="user-info">{`Xin chào: ${userInfo.data.userName}`}</p>
+  //           <li className="btn-into" onClick={() => history.push(ROUTERS.ADMIN)}>Quản LÝ</li>
+  //           <li className="btn-into" onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</li>
+  //           <li className="btn-into" onClick={() => handleLogout()}>Đăng Xuất </li>
+  //         </>
+  //       )
+  //     }else if(userItem.userRole === "customer"){
+  //       return (
+  //         <>
+  //         <p className="user-info">{`Xin chào: ${userInfo.data.userName}`}</p>
+  //         <li className="btn-into" onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</li>
+  //         <li className="btn-into" onClick={() => handleLogout()}>Đăng Xuất </li>
+  //       </>
+  //       )
+  //     }return  <li className="btn-into" onClick={() => history.push(ROUTERS.LOGIN)}>Đăng Nhập </li>
+  //   })
+  // }
+  
 
   return (
     <>
@@ -155,6 +182,7 @@ function Header({
                     </>
                     : <div className="btn-into" onClick={() => history.push(ROUTERS.LOGIN)}>Đăng nhập</div>
                   }
+                  {/* {renderShow()} */}
                 </p>
               </div>
             </div>

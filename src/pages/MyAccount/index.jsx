@@ -65,7 +65,6 @@ function ProfilePage({
 
   function onChange(date, dateString) {
     birthdayString = dateString.trim();
-    // console.log("birthdayString: ", birthdayString, "date: ", date, "dateString: ", dateString);
   }
 
   function showNotification() {
@@ -235,6 +234,7 @@ function ProfilePage({
 
         </Card>
       </Col>
+
       <Col span={12}>
         <Card title={
           <Title level={4}>Đổi ảnh đại diện</Title>

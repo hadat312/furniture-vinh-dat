@@ -17,7 +17,7 @@ import {
   deleteOptionAdminAction,
 } from '../../redux/actions'
 
-function ProductOption({
+function SizeOption({
   sizeOptionItem,
   editOptionAdmin,
   deleteOptionAdmin,
@@ -29,7 +29,7 @@ function ProductOption({
   if (isEditForm) {
     return (
       <Card
-        title="Cập nhật"
+        title="Cập nhật kích thước"
         size="small"
         style={{ marginBottom: 8 }}
       >
@@ -45,10 +45,10 @@ function ProductOption({
             setIsEditForm(false);
           }}
         >
-          <Form.Item name="title" label="Tùy chọn">
-            <Input placeholder="Tùy chọn" />
+          <Form.Item name="sizeName" label="Tùy chọn">
+            <Input placeholder="Cập nhật kích thước" />
           </Form.Item>
-          <Form.Item name="productPrice" label="Giá thêm">
+          <Form.Item name="price" label="Giá thêm">
             <InputNumber
               formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               placeholder="Giá thêm"
@@ -102,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductOption);
+export default connect(mapStateToProps, mapDispatchToProps)(SizeOption);

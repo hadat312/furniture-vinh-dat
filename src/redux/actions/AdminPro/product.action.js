@@ -43,13 +43,6 @@ export function createOptionAdminAction(params) {
   }
 }
 
-export function createOptionColorAction(params) {
-  console.log("🚀 ~ file: product.action.js ~ line 48 ~ createOptionColorAction ~ params", params)
-  return {
-    type: 'ADMIN/CREATE_COLOR_OPTION_REQUEST',
-    payload: params,
-  }
-}
 
 export function editOptionAdminAction(params) {
   return {
@@ -64,3 +57,31 @@ export function deleteOptionAdminAction(params) {
     payload: params,
   }
 }
+
+// Colors option
+
+
+export function createOptionColorAction(params) {
+  return {
+    type: 'ADMIN/CREATE_COLOR_OPTION_REQUEST',
+    payload: params,
+  }
+}
+
+
+export function editColorOptionAdminAction(params) {
+  return {
+    type: 'ADMIN/EDIT_COLOR_OPTION_REQUEST',
+    payload: params,
+  }
+}
+
+export function deleteColorOptionAdminAction(params) {
+  return {
+    type: 'ADMIN/DELETE_COLOR_OPTION_REQUEST',
+    payload: params,
+  }
+}
+
+
+

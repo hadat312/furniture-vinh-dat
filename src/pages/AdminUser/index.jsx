@@ -7,6 +7,7 @@ import { Input, Space, Col, Modal, Button, Pagination, Row } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 
 import logo1 from '../../images/logo1.jpg'
+import { ROUTERS } from '../../constants/router';
 
 import {
     deleteUserListAction,
@@ -91,7 +92,7 @@ function AdminUserPage(props) {
         <>
             <div className="admin-user_area">
                 <div className="admin-user-header ">
-                    <h1>Manager</h1>
+                <img src={logo1} alt="Bodhi Logo Brand" style={{ width: "auto", height: "50px" }} />
                     <Input.Search
                         onChange={(e) => setSearchKey(e.target.value)}
                         placeholder="Search..." style={{ width: 400 }}
@@ -103,7 +104,7 @@ function AdminUserPage(props) {
                         <div className="sidebar-admin-user-menu">
                             <div className="sidebar-admin-user-link">
                                 <i className="fa fa-home text-lightblue"></i>
-                                <span onClick={() => history.push('/admin')}>Dashboard</span>
+                                <span onClick={() => history.push(ROUTERS.ADMIN)}>Dashboard</span>
                             </div>
 
                             <div className="sidebar-admin-user-link  active-admin-user-link">
@@ -113,7 +114,7 @@ function AdminUserPage(props) {
 
                             <div className="sidebar-admin-user-link ">
                                 <i className="fa fa-handshake text-lightblue "></i>
-                                <span onClick={() => history.push('/admin/product')}>Quản Lý Sản Phẩm</span>
+                                <span onClick={() => history.push(ROUTERS.ADMIN_PRODUCT)}>Quản Lý Sản Phẩm</span>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 export const ROUTERS = {
-  HOME: '/',
-  ABOUT: '/about',
+  HOME: '/home',
+  ABOUT: '/home/about',
   // LIVING_ROOM: '/phong-khach',
   // DINING_ROOM: '/phong-an',
   // BED_ROOM: '/phong-ngu',
@@ -28,5 +28,6 @@ export const ROUTERS = {
   ADMIN: '/home/admin',
   ADMIN_USER: '/home/admin/user',
   ADMIN_PRODUCT : '/home/admin/product',
+  ADMIN_COUPON : '/home/admin/coupon',
   ADMIN_SUBCATEGORY: '/home/admin/category',
 }

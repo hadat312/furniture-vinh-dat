@@ -1,7 +1,7 @@
 const initialState = {
   productSelected: {},
 
-  colorSelected:{},
+  colorSelected: {},
 };
 
 export default function commonProductReducer(state = initialState, action) {
@@ -46,27 +46,6 @@ export default function commonProductReducer(state = initialState, action) {
       }
     }
 
-    // case 'ADMIN/SET_COLOR_SELECTED': {
-    //   return {
-    //     ...state,
-    //     colorSelected: action.payload,
-    //   }
-    // }
-
-    // case 'ADMIN/CREATE_COLOR_OPTION_SUCCESS': {
-    //   const { data } = action.payload;
-    //   return {
-    //     ...state,
-    //     colorSelected: {
-    //       ...state.colorSelected,
-    //       colors: [
-    //         ...state.colorSelected.colors,
-    //         data,
-    //       ]
-    //     }
-    //   }
-    // }
-
     case 'ADMIN/EDIT_OPTION_SUCCESS': {
       const { data } = action.payload;
       const newProductOptions = state.productSelected.sizes;
@@ -90,6 +69,34 @@ export default function commonProductReducer(state = initialState, action) {
         productSelected: {
           ...state.productSelected,
           sizes: newProductOptions,
+        }
+      }
+    }
+
+    // Color
+    case 'ADMIN/EDIT_COLOR_OPTION_SUCCESS': {
+      const { data } = action.payload;
+      const newColorOption = state.colorSelected.colors;
+      const colorOptionIndex = newColorOption.findIndex((item) => item.id === data.id);
+      newColorOption.splice(colorOptionIndex, 1, data);
+      return {
+        ...state,
+        colorSelected: {
+          ...state.colorSelected,
+          colors: newColorOption,
+        }
+      }
+    }
+    case 'ADMIN/DELETE_COLOR_OPTION_SUCCESS': {
+      const { data } = action.payload;
+      const newColorOption = state.colorSelected.colors;
+      const colorOptionIndex = newColorOption.findIndex((item) => item.id === data.id);
+      newColorOption.splice(colorOptionIndex, 1);
+      return {
+        ...state,
+        colorSelected: {
+          ...state.colorSelected,
+          colors: newColorOption,
         }
       }
     }

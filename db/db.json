@@ -111,6 +111,64 @@
         }
       ],
       "id": 6
+    },
+    {
+      "status": "Đang giao",
+      "userName": "Ngọc Hổ",
+      "email": "hathucdat7@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu",
+      "cityName": "Thành phố Hồ Chí Minh",
+      "districtName": "Quận 12",
+      "wardName": "Phường Thạnh Lộc",
+      "totalPrice": 49632500,
+      "date": "30 tháng 5 năm 2021",
+      "time": "11:35",
+      "userId": "4XpnfQe",
+      "carts": [
+        {
+          "id": "5bf28248-8fd4-444c-aefd-b95a3f190369",
+          "productId": "product18",
+          "productQuantity": 1,
+          "productName": "Ghế Coque",
+          "productImage": "http://nhaxinh.com/photo/5184/500-san-pham-nha-xinh_(62).jpg",
+          "productPrice": 20000000,
+          "productDiscount": 0.1,
+          "color": {},
+          "size": {}
+        },
+        {
+          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
+          "productId": "product22",
+          "productQuantity": 1,
+          "productName": "Ghế Milia",
+          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
+          "productPrice": 20000000,
+          "productDiscount": 0.1,
+          "color": {},
+          "size": {}
+        },
+        {
+          "id": "8fb43f7e-1d02-41fb-8a46-478303deffe0",
+          "productId": "product02",
+          "productQuantity": 1,
+          "productName": "Ghế Sofa Miami chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 12000000,
+          "productDiscount": 0.05,
+          "color": {
+            "id": "color03",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size05",
+            "sizeName": "1m*2m9",
+            "price": 2000000
+          }
+        }
+      ],
+      "id": 7
     }
   ],
   "products": [
@@ -1520,49 +1578,7 @@
       "userPhoneNumber": "0774473993",
       "userRole": "customer",
       "id": "4XpnfQe",
-      "carts": [
-        {
-          "id": "5bf28248-8fd4-444c-aefd-b95a3f190369",
-          "productId": "product18",
-          "productQuantity": 1,
-          "productName": "Ghế Coque",
-          "productImage": "http://nhaxinh.com/photo/5184/500-san-pham-nha-xinh_(62).jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        },
-        {
-          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
-          "productId": "product22",
-          "productQuantity": 1,
-          "productName": "Ghế Milia",
-          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        },
-        {
-          "id": "8fb43f7e-1d02-41fb-8a46-478303deffe0",
-          "productId": "product02",
-          "productQuantity": 1,
-          "productName": "Ghế Sofa Miami chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 12000000,
-          "productDiscount": 0.05,
-          "color": {
-            "id": "color03",
-            "colorName": "Nâu",
-            "price": 350000
-          },
-          "size": {
-            "id": "size05",
-            "sizeName": "1m*2m9",
-            "price": 2000000
-          }
-        }
-      ],
+      "carts": [],
       "wishlist": [
         {
           "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",

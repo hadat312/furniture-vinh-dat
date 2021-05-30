@@ -78,42 +78,6 @@
     },
     {
       "status": "Đang giao",
-      "userName": "Xuân Vinh",
-      "email": "hathucdat3@gmail.com",
-      "phone": "0774473993",
-      "addressName": "25, võ thị sáu, quy nhơn, bình định",
-      "cityName": "Thành phố Cần Thơ",
-      "districtName": "Quận Ninh Kiều",
-      "wardName": "Phường An Hòa",
-      "totalPrice": 5439000,
-      "date": "30 tháng 5 năm 2021",
-      "time": "10:40",
-      "userId": "4XpnfQe",
-      "carts": [
-        {
-          "id": "946bad17-08c3-4c7e-b004-13c55c28b561",
-          "productId": "product06",
-          "productQuantity": 1,
-          "productName": "Sofa Miami 1",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 3000000,
-          "productDiscount": 0.02,
-          "color": {
-            "id": "color07",
-            "colorName": "Xanh da trời",
-            "price": 550000
-          },
-          "size": {
-            "id": "size11",
-            "sizeName": "2m*3m9",
-            "price": 2000000
-          }
-        }
-      ],
-      "id": 6
-    },
-    {
-      "status": "Đang giao",
       "userName": "Ngọc Hổ",
       "email": "hathucdat7@gmail.com",
       "phone": "0774473993",

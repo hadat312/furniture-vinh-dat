@@ -6,25 +6,26 @@ import history from '../../../../utils/history';
 import { ROUTERS } from '../../../../constants/router'
 import { connect } from 'react-redux';
 
-import './styles.css';
 
-
-function Item(props) {
-  const { categoryItem } = props;
+function Item({
+  categoryItem,
+  fontWeightBold,
+}) {
 
   return (
     <>
-      <ul className="header-ád">
-        <li className="header-ád-dropdown">
-          <a className="menu-item"
-            onClick={() => {
-              history.push(`/home/${categoryItem.id}`)
-            }}
-          >
-            {categoryItem.categoryName}
-          </a>
-        </li>
-      </ul>
+      <li>
+        <a
+          style={{
+            fontWeight: `${fontWeightBold}`
+          }}
+          onClick={() => {
+            history.push(`/home/${categoryItem.id}`)
+          }}
+        >
+          {categoryItem.categoryName.toUpperCase()}
+        </a>
+      </li>
     </>
   )
 }

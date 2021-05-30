@@ -36,33 +36,6 @@ function* getProductListSaga(action) {
   }
 }
 
-function* getProductDetailSaga(action) {
-  try {
-    const { id } = action.payload;
-    const result = yield axios({
-      method: 'GET',
-      url: `http://localhost:3002/products/${id}?_embed=colors&_embed=images`,
-      params: {
-        _embed: 'sizes',
-        _expand: 'itemCategory',
-      }
-    });
-    yield put({
-      type: "GET_PRODUCT_DETAIL_SUCCESS",
-      payload: {
-        data: result.data
-      }
-    });
-  } catch (e) {
-    yield put({
-      type: "GET_PRODUCT_DETAIL_FAIL",
-      payload: {
-        error: e.error
-      },
-    });
-  }
-}
-
 export default function* productSaga() {
   yield takeEvery('GET_PRODUCT_LIST_REQUEST', getProductListSaga);
   yield takeEvery('GET_PRODUCT_DETAIL_REQUEST', getProductDetailSaga);

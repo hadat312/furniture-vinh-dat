@@ -4,64 +4,113 @@
       "userName": "khelahni",
       "userId": "4XpnfQe",
       "productId": "product01",
-      "comment": "asd",
-      "rate": 3,
-      "date": "May 28th 2021",
-      "time": "5:13 PM",
-      "id": 1
-    },
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "kia",
-      "rate": 5,
-      "date": "May 28th 2021",
-      "time": "5:20 PM",
-      "id": 2
-    },
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "as",
-      "rate": 1,
-      "date": "May 28th 2021",
-      "time": "5:25 PM",
-      "id": 3
-    },
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "ya",
-      "rate": 4,
-      "date": "May 28th 2021",
-      "time": "5:28 PM",
-      "id": 4
+      "comment": "cùi",
+      "rate": 3.5,
+      "date": "28 tháng 5 năm 2021",
+      "time": "7:25 PM",
+      "id": 5
     }
   ],
   "orders": [
     {
-      "email": "sieuquaydn33@gmail.com",
-      "phone": "0935415275",
-      "address": "soos 2, Phường 01, Quận 10, Thành phố Hồ Chí Minh",
-      "totalPrice": 11732500,
-      "userId": "sM79IW2",
-      "carts": [],
+      "status": "Đang giao",
+      "userName": "Xuân Vinh",
+      "email": "hathucdat3@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu",
+      "cityName": "Thành phố Hà Nội",
+      "districtName": "Quận Bắc Từ Liêm",
+      "wardName": "Phường Liên Mạc",
+      "totalPrice": 5439000,
+      "date": "28 tháng 5 năm 2021",
+      "time": "7:30 PM",
+      "userId": "4XpnfQe",
+      "carts": [
+        {
+          "id": "946bad17-08c3-4c7e-b004-13c55c28b561",
+          "productId": "product06",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 1",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 3000000,
+          "productDiscount": 0.02,
+          "color": {
+            "id": "color07",
+            "colorName": "Xanh da trời",
+            "price": 550000
+          },
+          "size": {
+            "id": "size11",
+            "sizeName": "2m*3m9",
+            "price": 2000000
+          }
+        }
+      ],
       "id": 1
     },
     {
+      "status": "Đang giao",
+      "userName": "Xuân Vinh",
+      "email": "hathucdat3@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu",
+      "cityName": "Thành phố Hồ Chí Minh",
+      "districtName": "Quận 11",
+      "wardName": "Phường 01",
+      "totalPrice": 18000000,
+      "date": "28 tháng 5 năm 2021",
+      "time": "8:16 PM",
+      "userId": "4XpnfQe",
+      "carts": [
+        {
+          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
+          "productId": "product22",
+          "productQuantity": 1,
+          "productName": "Ghế Milia",
+          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
+          "productPrice": 20000000,
+          "productDiscount": 0.1,
+          "color": {},
+          "size": {}
+        }
+      ],
       "id": 2
     },
     {
-      "email": "sieuquaydn33@gmail.com",
-      "phone": "0935415375",
-      "address": "Số 2 , Phường 01, Quận 10, Thành phố Hồ Chí Minh",
-      "totalPrice": 46000000,
-      "userId": "sM79IW2",
-      "carts": [],
-      "id": 3
+      "status": "Đang giao",
+      "userName": "Xuân Vinh",
+      "email": "hathucdat3@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu, quy nhơn, bình định",
+      "cityName": "Thành phố Cần Thơ",
+      "districtName": "Quận Ninh Kiều",
+      "wardName": "Phường An Hòa",
+      "totalPrice": 5439000,
+      "date": "30 tháng 5 năm 2021",
+      "time": "10:40",
+      "userId": "4XpnfQe",
+      "carts": [
+        {
+          "id": "946bad17-08c3-4c7e-b004-13c55c28b561",
+          "productId": "product06",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 1",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 3000000,
+          "productDiscount": 0.02,
+          "color": {
+            "id": "color07",
+            "colorName": "Xanh da trời",
+            "price": 550000
+          },
+          "size": {
+            "id": "size11",
+            "sizeName": "2m*3m9",
+            "price": 2000000
+          }
+        }
+      ],
+      "id": 6
     }
   ],
   "products": [
@@ -229,11 +278,11 @@
     {
       "id": "product09",
       "productImage": [
+        "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
         "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
-        "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
         "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
         "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg"
       ],
@@ -249,9 +298,9 @@
     {
       "id": "product10",
       "productImage": [
+        "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "http://lezada.reactdemo.hasthemes.com/assets/images/product/furniture/1.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
-        "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
         "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
         "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
@@ -269,8 +318,8 @@
     {
       "id": "product11",
       "productImage": [
-        "http://www.nhaxinh.com/photo/7160/sofa-goc-3-101543-1.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
+        "http://www.nhaxinh.com/photo/7160/sofa-goc-3-101543-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
         "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
@@ -1025,12 +1074,6 @@
       "productDiscount": 0.1,
       "categoryId": "category02",
       "itemCategoryId": "itemCategory24"
-    },
-    {
-      "productName": "asd",
-      "categoryId": "category01",
-      "productPrice": 500000,
-      "id": "DmgJWsT"
     }
   ],
   "sizes": [
@@ -1474,31 +1517,12 @@
       "userPassword": "123456789",
       "userEmail": "khelahni@gmail.com",
       "userName": "khelahni",
-      "userPhoneNumber": "012541",
+      "userPhoneNumber": "0774473993",
       "userRole": "customer",
       "id": "4XpnfQe",
       "carts": [
         {
-          "id": "0c55c9db-20b6-48d1-bd5d-5b03b1da3b42",
-          "productId": "product06",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 1",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 3000000,
-          "productDiscount": 0.02,
-          "color": {
-            "id": "color07",
-            "colorName": "Xanh da trời",
-            "price": 550000
-          },
-          "size": {
-            "id": "size11",
-            "sizeName": "2m*3m9",
-            "price": 2000000
-          }
-        },
-        {
-          "id": "a3a42b6f-76b9-4cd7-94af-8850b7f64d48",
+          "id": "5bf28248-8fd4-444c-aefd-b95a3f190369",
           "productId": "product18",
           "productQuantity": 1,
           "productName": "Ghế Coque",
@@ -1507,6 +1531,36 @@
           "productDiscount": 0.1,
           "color": {},
           "size": {}
+        },
+        {
+          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
+          "productId": "product22",
+          "productQuantity": 1,
+          "productName": "Ghế Milia",
+          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
+          "productPrice": 20000000,
+          "productDiscount": 0.1,
+          "color": {},
+          "size": {}
+        },
+        {
+          "id": "8fb43f7e-1d02-41fb-8a46-478303deffe0",
+          "productId": "product02",
+          "productQuantity": 1,
+          "productName": "Ghế Sofa Miami chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 12000000,
+          "productDiscount": 0.05,
+          "color": {
+            "id": "color03",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size05",
+            "sizeName": "1m*2m9",
+            "price": 2000000
+          }
         }
       ],
       "wishlist": [
@@ -1552,7 +1606,19 @@
           }
         }
       ],
-      "address": []
+      "address": [
+        {
+          "id": "03f3e0a4-59fb-4317-8a32-ca01369e5f68",
+          "userName": "Hà Thúc Đạt",
+          "addressName": "05 Trần Thị Kỷ",
+          "cityName": "Thành phố Hồ Chí Minh",
+          "districtName": "Quận 10",
+          "wardName": "Phường 03",
+          "userPhoneNumber": "0774471111"
+        }
+      ],
+      "gender": "Female",
+      "birthday": "08/06/1998"
     },
     {
       "userPassword": "123456",

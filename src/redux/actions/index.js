@@ -13,6 +13,8 @@ export * from './address.action';
 
 export * from './comment.action'
 
+export * from './searchResult.action';
+
 // User Area
 export * from './User/common.action'
 

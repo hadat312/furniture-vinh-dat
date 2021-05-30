@@ -13,7 +13,6 @@ function OrderPage({
   getOrderList,
   deleteOrder,
 }) {
-  console.log("🚀 ~ file: index.jsx ~ line 16 ~ orderList", orderList)
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 

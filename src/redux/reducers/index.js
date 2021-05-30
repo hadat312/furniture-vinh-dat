@@ -12,6 +12,8 @@ import checkoutReducer from './checkout.reducer';
 import addressReducer from './address.reducer'
 import commentReducer from './comment.reducer'
 
+import searchResultsReducer from './searchResult.reducer'
+
 // User 
 import commonAddressReducer from './User/common.reducer'
 
@@ -32,6 +34,7 @@ export default combineReducers({
   addressReducer:addressReducer,
   commentReducer:commentReducer,
 
+  searchResultsReducer: searchResultsReducer,
   // User
   commonAddressReducer:commonAddressReducer,
 

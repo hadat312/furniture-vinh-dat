@@ -14,19 +14,24 @@ import {
   Button,
   Card,
   Radio,
-  DatePicker
+  DatePicker,
+  Avatar,
+  Upload,
+  message
 } from 'antd';
-import { AiOutlineEdit, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineCheck, AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { connect } from 'react-redux';
 
 import {
   getUserInfoAction,
   editUserInfoAction
 } from '../../redux/actions';
+import 'moment/locale/vi';
 
 import BillAddress from './components/BillAddress';
 
 import './myAccount.css';
+import moment from 'moment';
 
 function ProfilePage({
   userInfo,
@@ -47,6 +52,9 @@ function ProfilePage({
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+
   const layout = {
     labelCol: { span: 7 },
     wrapperCol: { span: 16 },
@@ -55,6 +63,8 @@ function ProfilePage({
   useEffect(() => {
     getUserInfo({ id: UserInfoLocalStorage.id });
   }, [])
+
+
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -78,11 +88,11 @@ function ProfilePage({
     });
   }
 
-  function billAddressEdit() {
+  function profileEdit() {
     return (
       <Modal title={<Title level={4}>Chỉnh sửa hồ sơ</Title>} visible={isModalVisible}
-        okText={<span><AiOutlineCheck/> Xác nhận</span>}
-        cancelText={<span><AiOutlineClose/> Hủy bỏ</span>}
+        okText={<span><AiOutlineCheck /> Xác nhận</span>}
+        cancelText={<span><AiOutlineClose /> Hủy bỏ</span>}
         onCancel={() => setIsModalVisible(false)}
         onOk={() => {
           editForm
@@ -113,6 +123,8 @@ function ProfilePage({
             userPhoneNumber: userInfo.data.userPhoneNumber || '',
             userEmail: userInfo.data.userEmail,
             gender: userInfo.data.gender || '',
+            birthday: moment(userInfo.data.birthday, dateFormatList)
+            
           }}
         >
           <Form.Item
@@ -211,12 +223,48 @@ function ProfilePage({
     )
   }
 
+  function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  function beforeUpload(file) {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('Bạn chỉ có thể tải lên ảnh có định dạng JPG/PNG!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Ảnh phải nhỏ hơn 2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+  }
+
+  function onChangeImage(info) {
+    if (info.file.status === 'uploading') {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, imageUrl =>
+        setLoading(false),
+        setImageUrl(imageUrl)
+        // this.setState({
+        //   imageUrl,
+        //   loading: false,
+        // }),
+      );
+    }
+  };
+
   return (
     <Row>
       <Col span={12}>
         <Card title={
-          <Title level={4}>Hồ sơ của tôi</Title>
-        } bordered={true}>
+          <Title style={{ textAlign: 'center' }} level={4}>Hồ sơ của tôi</Title>
+        } bordered={false}>
           <BillAddress />
           <Row className="custom-row">
             <Col>
@@ -229,7 +277,7 @@ function ProfilePage({
                 <AiOutlineEdit />
                  Chỉnh sửa hồ sơ
               </Button>
-              {billAddressEdit()}
+              {profileEdit()}
             </Col>
           </Row>
 
@@ -237,9 +285,21 @@ function ProfilePage({
       </Col>
       <Col span={12}>
         <Card title={
-          <Title level={4}>Đổi ảnh đại diện</Title>
-        } bordered={true}>
-          
+          <Title style={{ textAlign: 'center' }} level={4}>Đổi ảnh đại diện</Title>
+        } bordered={false}>
+          <div className="change-avatar-container">
+            <div className="change-avatar-container__avatar">
+              <Avatar
+                size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 150 }}
+                src=""
+              />
+            </div>
+            <div className="change-avatar-container__link">
+              <Upload listType='picture' beforeUpload={beforeUpload} onChange={(value) => onChangeImage(value)} maxCount={1}>
+                <Button icon={<AiOutlineUpload />}>Click to Upload</Button>
+              </Upload>
+            </div>
+          </div>
         </Card>
       </Col>
     </Row>

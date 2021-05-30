@@ -1,43 +1,31 @@
 /*  */
+
 /* SHOP HEADER */
 
 /* NUMBER OF PAGES NAD FILTER */
 
 .product-container__shop-header {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  right:0px;
   height: 80px;
-  border-bottom: 1px solid gray;
-  max-width: 1400px;
-}
-
-.content__number-of-pages {
-  position: relative;
-}
-
-/* number of pages */
-
-.content__number-of-pages div {
-  position: absolute;
-  top: 50%;
-  transform: translate(0%, -50%);
+  border-bottom: 1px solid #874d00;
 }
 
 /* filter */
 
-.content__format div {
+.content__format {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  right: 13%;
+  transform: translateX(4px);
+  width: 1400px;
+  height: 80px;
+  /* display: flex;
   position: absolute;
   top: 50%;
   left: 100%;
-  transform: translate(-100%, -50%);
-}
-
-.content__format {
-  text-align: end;
-  height: 80px;
+  transform: translate(-100%, -50%); */
 }
 
 .content__filter div {

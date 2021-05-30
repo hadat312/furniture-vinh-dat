@@ -3,28 +3,42 @@ import { Router, Switch, Route } from 'react-router-dom';
 import history from './utils/history';
 import { ROUTERS } from './constants/router';
 
-//pages
+//layout
 import HomeLayout from './common/HomeLayout';
+
 import DefaultLayout from './common/DefaultLayout';
+
 import ProfileLayout from './common/ProfileLayout';
+
 import PlaceOrderLayout from './common/PlaceOrderLayout';
+
 import ErrorLayout from './common/ErrorLayout';
+
+//pages
 import HomePage from './pages/Home';
+
 import AboutPage from './pages/About'
-import DetailPage from './pages/ProductDetail';
+
+import SearchProductListPage from './pages/SearchProductList';
 import ProductListPage from './pages/ProductList';
+import DetailPage from './pages/ProductDetail';
+
 import CartPage from './pages/Cart';
 import WishlistPage from './pages/Wishlist';
+
 import MyAccountPage from './pages/MyAccount';
 import AddressPage from './pages/Address';
 import ChangePasswordPage from './pages/ChangePassword';
 import OrderPage from './pages/Order';
+
 import CheckOutPage from './pages/Checkout'
+
 import OrderTrackingPage from './pages/OrderTracking';
+
 import ErrorPage from './pages/Error';
+
 import RegisterPage from './pages/Register'
 import LoginPage from './pages/Login';
-
 
 import AdminPage from './pages/Admin';
 import AdminUserPage from './pages/AdminUser';
@@ -58,11 +72,6 @@ function BrowserRouter(props) {
           component={AdminUserPage}
         />
 
-        {/* <HomeLayout
-          exact
-          path={ROUTERS.ADMIN_PRODUCT}
-          component={AdminProductPage}
-        /> */}
         <HomeLayout
           exact
           path={ROUTERS.ADMIN_PRODUCT}
@@ -86,42 +95,6 @@ function BrowserRouter(props) {
           path={ROUTERS.LOGIN}
           component={LoginPage}
         />
-        {/* <DefaultLayout
-          exact
-          path={ROUTERS.LIVING_ROOM}
-          categoryId={"category01"}
-          component={ProductListPage}
-        />
-        <DefaultLayout
-          exact
-          path={ROUTERS.DINING_ROOM}
-          categoryId={"category02"}
-          component={ProductListPage}
-        />
-        <DefaultLayout
-          exact
-          path={ROUTERS.BED_ROOM}
-          categoryId={"category03"}
-          component={ProductListPage}
-        />
-        <DefaultLayout
-          exact
-          path={ROUTERS.WORK_ROOM}
-          categoryId={"category04"}
-          component={ProductListPage}
-        />
-        <DefaultLayout
-          exact
-          path={ROUTERS.KITCHEN_CABINETS}
-          categoryId={"category05"}
-          component={ProductListPage}
-        />
-        <DefaultLayout
-          exact
-          path={ROUTERS.DECORATING_GOODS}
-          categoryId={"category06"}
-          component={ProductListPage}
-        /> */}
 
         <DefaultLayout
           exact
@@ -164,15 +137,22 @@ function BrowserRouter(props) {
           path={ROUTERS.CHECKOUT}
           component={CheckOutPage}
         />
-        <DefaultLayout
+        {/* <DefaultLayout
           exact
           path={ROUTERS.ORDER_TRACKING}
           component={OrderTrackingPage}
-        />
+        /> */}
         <ErrorLayout
           exact
           path={ROUTERS.ERROR}
           component={ErrorPage}
+        />
+
+        <DefaultLayout
+          exact
+          path={ROUTERS.SEARCH_RESULTS}
+          component={SearchProductListPage}
+          
         />
 
         <DefaultLayout

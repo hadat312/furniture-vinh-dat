@@ -54,7 +54,7 @@ function ProductDetailPage({
   addComment,
   match
 }) {
-  console.log("🚀 ~ file: index.jsx ~ line 43 ~ commentList", commentList)
+  // console.log("🚀 ~ file: index.jsx ~ line 43 ~ commentList", commentList)
 
   const productId = match.params.id;
 
@@ -139,6 +139,7 @@ function ProductDetailPage({
 
         message: 'Chưa đăng nhập',
         description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        placement: 'bottomRight',
         key,
         btn: (
           <Button
@@ -745,7 +746,7 @@ function ProductDetailPage({
         </Col>
         <Col span={8} className="detail-container__content">
           <Row className="detail-container__rate">
-            <Rate allowHalf defaultValue={4.5} />
+            <Rate allowHalf disabled  defaultValue={4.5} />
             <span className="ant-rate-text">( {5} khách hàng đánh giá )</span>
           </Row>
           <Row className="detail-container__title">
@@ -905,7 +906,7 @@ function ProductDetailPage({
           <Title level={3} className="detail-review__container__title">NHẬN XÉT VÀ ĐÁNH GIÁ</Title>
           <p className="detail-review-place-comment">Viết đánh giá</p>
           <div className="detail-review__container__rate">
-            <Rate onChange={(e) => { setRate(e) }} />
+            <Rate allowHalf onChange={(e) => { setRate(e) }} />
             <p className="detail-review__container__enjoy">Chọn mức độ hài lòng</p>
           </div>
         </div>

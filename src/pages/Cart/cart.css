@@ -127,6 +127,12 @@ body,h1,h2,h3,h4,h5,h6{
     transition: all ease-in 300ms;
 }
 
+.cart-voucher{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
 /* Footer - Space */
 
 .footer-bg{

@@ -46,6 +46,7 @@ export const deleteUserListAction = (params) => {
 }
 
 export const editUserListAction = (params) =>{
+console.log("🚀 ~ file: user.action.js ~ line 49 ~ editUserListAction ~ params", params)
   return{
     type: 'EDIT_USER_LIST_REQUEST',
     payload: params,

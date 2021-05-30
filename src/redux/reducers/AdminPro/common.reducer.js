@@ -2,9 +2,11 @@ const initialState = {
   productSelected: {},
 
   colorSelected: {},
+
+  voucherSelected: {},
 };
 
-export default function commonProductReducer(state = initialState, action) {
+export default function adminCommonReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADMIN/SET_PRODUCT_SELECTED': {
       return {
@@ -98,6 +100,14 @@ export default function commonProductReducer(state = initialState, action) {
           ...state.colorSelected,
           colors: newColorOption,
         }
+      }
+    }
+
+    //voucher
+    case 'ADMIN/SET_VOUCHER_SELECTED': {
+      return {
+        ...state,
+        voucherSelected: action.payload,
       }
     }
     default: {

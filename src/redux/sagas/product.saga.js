@@ -6,7 +6,7 @@ function* getProductListSaga(action) {
     const { more, page, limit, categoryId, itemCategoryId, searchKey, sort, order } = action.payload;
     const result = yield axios({
       method: 'GET',
-      url: 'http://localhost:3002/products?_embed=colors&_embed=images',
+      url: 'http://localhost:3002/products?_embed=colors',
       params: {
         _page: page,
         _limit: limit,
@@ -41,7 +41,7 @@ function* getProductDetailSaga(action) {
     const { id } = action.payload;
     const result = yield axios({
       method: 'GET',
-      url: `http://localhost:3002/products/${id}?_embed=colors&_embed=images`,
+      url: `http://localhost:3002/products/${id}?_embed=colors`,
       params: {
         _embed: 'sizes',
         _expand: 'itemCategory',

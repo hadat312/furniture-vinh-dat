@@ -1,5 +1,16 @@
 {
-  "coupon": [],
+  "voucher": [
+    {
+      "voucherName": "Free Ship",
+      "voucherPrice": "150000",
+      "id": 1
+    },
+    {
+      "voucherName": "20%",
+      "voucherPrice": "150000",
+      "id": 2
+    }
+  ],
   "comment": [],
   "orders": [
     {
@@ -991,6 +1002,18 @@
       "categoryId": "category01",
       "productPrice": 500000,
       "id": "DmgJWsT"
+    },
+    {
+      "productName": "asd",
+      "categoryId": "category03",
+      "productPrice": 2000000,
+      "id": "L6ktbk9"
+    },
+    {
+      "productName": "bca",
+      "categoryId": "category03",
+      "productPrice": 500000,
+      "id": "helxERi"
     }
   ],
   "sizes": [
@@ -1217,6 +1240,12 @@
       "colorName": "Xanh",
       "price": 500000,
       "id": "3EOpKhJ"
+    },
+    {
+      "productId": "product05",
+      "colorName": "Tím",
+      "price": 100000,
+      "id": "MNYL25g"
     }
   ],
   "categories": [
@@ -1427,16 +1456,70 @@
   "users": [
     {
       "id": "user01",
-      "userName": "datg",
-      "userEmail": "tuan1@gmail.com",
+      "userName": "dat123",
+      "userEmail": "sieuquaydn33@gmail.com",
       "userPassword": "123456",
-      "userPhoneNumber": "0935415273",
+      "userPhoneNumber": "0935415372",
       "userRole": "admin",
-      "carts": [],
+      "carts": [
+        {
+          "id": "05133b7a-5ebc-4c7c-bd76-fbc4b36c5581",
+          "productId": "product02",
+          "productQuantity": 1,
+          "productName": "Ghế Sofa Miami chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 12000000,
+          "productDiscount": 0.05,
+          "color": {
+            "id": "color03",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size03",
+            "sizeName": "2m*2m9",
+            "price": 0
+          }
+        },
+        {
+          "id": "8daa23c2-c826-4ecc-8a34-884ab13962e5",
+          "productId": "product03",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 9000000,
+          "productDiscount": 0.05,
+          "color": {},
+          "size": {
+            "id": "size07",
+            "sizeName": "3m*3m",
+            "price": 600000
+          }
+        }
+      ],
       "wishlist": [],
-      "address": [],
+      "address": [
+        {
+          "id": "127cd4b7-7af8-4624-8624-66e3f2b80511",
+          "userName": "asasdasd",
+          "addressName": "so 2 askdasd",
+          "cityName": "Thành phố Hồ Chí Minh",
+          "districtName": "Quận 11",
+          "wardName": "Phường 02",
+          "userPhoneNumber": "0935415354"
+        },
+        {
+          "id": "5b80b0bd-1cf8-4452-88fc-c5352f62bb23",
+          "userName": "dat123",
+          "addressName": "sod asd as",
+          "cityName": "Thành phố Hồ Chí Minh",
+          "districtName": "Quận 1",
+          "wardName": "Phường Bến Nghé",
+          "userPhoneNumber": "0935415375"
+        }
+      ],
       "gender": "Male",
-      "birthday": "05/05/2021"
+      "birthday": "01/05/2021"
     },
     {
       "userPassword": "123456789",

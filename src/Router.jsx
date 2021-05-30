@@ -29,7 +29,7 @@ import LoginPage from './pages/Login';
 import AdminPage from './pages/Admin';
 import AdminUserPage from './pages/AdminUser';
 import AdminProduct from './pages/AdminPro';
-import AdminCoupon from './pages/AdminCoupon'
+import AdminVoucher from  './pages/AdminVoucher'
 import SubCategoryAdmin from './pages/SubcategoryManagement'
 
 function BrowserRouter(props) {
@@ -64,7 +64,7 @@ function BrowserRouter(props) {
           path={ROUTERS.ADMIN_PRODUCT}
           component={AdminProductPage}
         /> */}
-        <HomeLayout
+        <Route
           exact
           path={ROUTERS.ADMIN_PRODUCT}
           component={AdminProduct}
@@ -78,8 +78,8 @@ function BrowserRouter(props) {
 
         <HomeLayout
           exact
-          path={ROUTERS.ADMIN_COUPON}
-          component={AdminCoupon}
+          path={ROUTERS.ADMIN_VOUCHER}
+          component={AdminVoucher}
         />
 
         <Route

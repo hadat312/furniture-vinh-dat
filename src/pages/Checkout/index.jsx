@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Form, Input, Select, Tooltip, Button, Space, Typography, notification } from 'antd';
 // import Moment from 'react-moment';
 // import Item from '../Checkout/component/Item'
+import 'moment/locale/vi'
 import history from '../../utils/history';
 import { ROUTERS } from '../../constants/router';
 import { connect } from 'react-redux';
@@ -225,7 +226,6 @@ function CheckOutPage({
     //     newCheckoutError.city = "";
     // }
     if (isValid) {
-      moment.locale('vi');
       const ordersInfo = {
         status: "Đang giao",
         userName: fillBill.userName,
@@ -237,7 +237,7 @@ function CheckOutPage({
         wardName: wardName,
         userId: fillBill.userId,
         totalPrice: grandTotal,
-        date: moment().format('MMMM Do YYYY'),
+        date: moment().format('LL'),
         time: moment().format('LT'),
         carts: cartList.data
       }

@@ -34,7 +34,7 @@ function ProductListPage(props) {
     getItemCategories();
     getProductList({
       page: 1,
-      limit: 8,    // Thay doi Limit
+      limit: 4,    // Thay doi Limit
       categoryId: categoryId
     });
   }, []);
@@ -46,7 +46,7 @@ function ProductListPage(props) {
     getItemCategories();
     getProductList({
       page: 1,
-      limit: 8,
+      limit: 4,
       categoryId: categoryId
     });
   }, [categoryId]);
@@ -150,8 +150,7 @@ function ProductListPage(props) {
     <div className="product-container">
       <div className="product-container__shop-header" >
         <div className="shop-header__content">
-            <div span={12} className="content__format">
-              <div className="d-flex justify-content-end" style={{ fontSize: "30px" }}>
+            <div className="content__format">
                 {/* BUTTON HIỂN THỊ 4 SẢN PHẨM TRÊN 1 HÀNG*/}
                 <Button
                   focusable
@@ -169,7 +168,6 @@ function ProductListPage(props) {
                   }}>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"></path></svg>
                 </Button>
-              </div>
             </div>
         </div>
       </div>

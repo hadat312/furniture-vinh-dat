@@ -39,3 +39,14 @@
   font-weight: bold;
   text-decoration: none;
 }
+
+.change-avatar-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-avatar-container__avatar, .change-avatar-container__link{
+  padding: 8px;
+}

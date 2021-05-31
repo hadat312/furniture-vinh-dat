@@ -24,7 +24,7 @@ export const ROUTERS = {
 
   ADMIN: '/home/admin',
   ADMIN_USER: '/home/admin/user',
-  ADMIN_COUPON : '/home/admin/coupon',
+  ADMIN_VOUCHER : '/home/admin/voucher',
   ADMIN_PRODUCT : '/home/admin/product/',
   ADMIN_SUBCATEGORY: '/home/admin/category/',
   HOME: '/home/',

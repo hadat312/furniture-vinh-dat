@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { notification, Table, Divider, Button } from 'antd';
+import { notification, Table, Divider, Button, Select, Form } from 'antd';
 import Item from './components/Item';
 import { connect } from 'react-redux';
 import {
@@ -8,7 +8,10 @@ import {
   getCartListAction,
   deleteCartTaskAction,
   editCartTaskAction,
-  clearCartTaskAction
+  clearCartTaskAction,
+  getVoucherAdminAction,
+
+
 
 } from '../../redux/actions';
 import { ROUTERS } from '../../constants/router';
@@ -23,49 +26,50 @@ function CardPage({
   cartList,
   deleteCart,
   editCart,
-  clearCart
+  clearCart,
+  voucherList,
+  getVoucher,
+  getProductList,
+
 }) {
+
+  useEffect(() => {
+    getProductList({});
+  }, [])
+
+  useEffect(() => {
+    getVoucher();
+  }, [])
+
+  // useEffect(() => {
+  //   if (voucherList.data.id) {
+  //     setVoucherSelected(voucherList.data[0] || {})
+  //   }
+  // }, [voucherList.data])
+
+
+
+
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   // const [selectionType, setSelectionType] = useState('checkbox');
 
+  const [voucherSelected, setVoucherSelected] = useState(0);
+  console.log("🚀 ~ file: index.jsx ~ line 53 ~ voucherSelected", voucherSelected)
+
   const key = `open${Date.now()}`;
 
-  // const columns = [
-  //   {
-  //     title: 'Product',
-  //     dataIndex: 'productImage',
-  //     // render: (text) => <a> <img src={`${text}`} /></a>,
-  //   },
-  //   {
-  //     dataIndex: 'productName',
-  //     render: (text) => 
-  //       <div>{text}</div>
-  //   },
-  //   {
-  //     title: 'Price',
-  //     dataIndex: 'productPrice',
-  //   },
-  //   {
-  //     title: 'Quantity',
-  //     dataIndex: 'productQuantity',
-  //   },
-  //   {
-  //     title: 'Total',
-  //     // dataIndex: 'productQuantity',
-  //   }
-  // ];
-
-  // const rowSelection = {
-  //   onChange: (selectedRowKeys, selectedRows) => {
-  //     // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  //   },
-  //   getCheckboxProps: (record) => ({
-  //     disabled: record.name === 'Disabled User',
-  //     // Column configuration not to be checked
-  //     name: record.name,
-  //   }),
-  // };
+  // console.log('voucherSelected: ', voucherList.data[0].voucherName || {})
+  function renderVoucherList() {
+    if (voucherList.load) return <p>Loading...</p>
+    return voucherList.data.map((voucherListItem, voucherListIndex) => {
+      return (
+        <Select.Option key={voucherListIndex} value={voucherListItem.id} >
+          {voucherListItem.voucherName}
+        </Select.Option>
+      )
+    })
+  }
 
 
   function handleClearCartTask() {
@@ -145,14 +149,14 @@ function CardPage({
         color: {},
         size: {}
       })
-        console.log("🚀 ~ file: index.jsx ~ line 148 ~ onUpdateQuantity ~ cartIndex", cartIndex)
+      // console.log("🚀 ~ file: index.jsx ~ line 148 ~ onUpdateQuantity ~ cartIndex", cartIndex)
       editCart({
         userId: userInfo.id,
         carts: newCart,
       })
     }
     else if (!colorSelected.id) { // nếu chỉ có size
-      console.log("🚀 ~ file: index.jsx ~ line 154 ~ onUpdateQuantity ~ colorSelected", colorSelected)
+      // console.log("🚀 ~ file: index.jsx ~ line 154 ~ onUpdateQuantity ~ colorSelected", colorSelected)
       const newCartList = cartList.data;
       newCartList.splice(cartIndex, 1, {
         productId: cartList.data[cartIndex].productId,
@@ -221,30 +225,59 @@ function CardPage({
       })
     }
   }
+
+  let grandTotal = 0;
+
+  let grandCount = 0;
+
   function renderCart() {
     if (cartList.load) return <p>Loading...</p>;
     return (
       cartList.data.map((cartItem, cartIndex) => {
-        return (
-          <>
-            <Item
-              key={cartItem.productId}
-              cartItem={cartItem}
-              cartIndex={cartIndex}
-              onDeleteCart={onDeleteCart}
-              onUpdateQuantity={onUpdateQuantity}
 
-            // image={cartItem.image}
-            // priceInProductDetail={cartItem.price}
-            // quantity={cartItem.quantity}
-            // color={cartItem.color}
-            />
-            {/* <hr /> */}
-          </>
-        );
+        const productPrice = ((cartItem.productPrice + (cartItem.color.price || 0)
+          + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount)) * cartItem.productQuantity;
+        grandTotal = (grandTotal + productPrice);
+
+        grandCount = grandCount + cartItem.productQuantity;
+
+        return productList.data.map((productListItem, productListIndex) => {
+          if (productListItem.id === cartItem.productId) {
+            return (
+              <>
+                <Item
+                  key={cartItem.productId}
+                  cartItem={cartItem}
+                  cartIndex={cartIndex}
+                  onDeleteCart={onDeleteCart}
+                  onUpdateQuantity={onUpdateQuantity}
+                  productListCategoryId = {productListItem.categoryId}
+                // image={cartItem.image}
+                // priceInProductDetail={cartItem.price}
+                // quantity={cartItem.quantity}
+                // color={cartItem.color}
+                />
+                {/* <hr /> */}
+              </>
+            );
+          }
+        })
       })
     );
   }
+
+  function onChangePrice(values) {
+    return voucherList.data.map((voucherItem, voucherIndex) => {
+      if (values === voucherItem.id) {
+        return (
+          setVoucherSelected(voucherItem.voucherPrice)
+        )
+      }
+    })
+  }
+
+
+
   return (
     <>
       {/* <div className="cart-table-container container">
@@ -263,7 +296,7 @@ function CardPage({
         <div className="empty-cart-container">
           <img src={cart} alt="" />
           <h3 className="empty-cart_title">No items found in Cart</h3>
-          <button className="btn-shopping" onClick={() =>  history.push(ROUTERS.LIVING_ROOM) }>
+          <button className="btn-shopping" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
             Show Now
           </button>
         </div>
@@ -283,6 +316,25 @@ function CardPage({
             </table>
 
             <div className="cart-coupon_area container">
+              <div>Tạm tính: ({grandCount} sản phẩm)</div>
+              <div className="cart-voucher">
+                <Form
+                >
+                  <Form.Item name="voucherId">
+                    <Select
+                      // defaultValue={voucherSelected}
+                      placeholder="Chọn hoặc nhập mã khuyến mãi"
+                      style={{ width: "300px" }}
+                      onChange={onChangePrice}
+                    >
+                      {renderVoucherList()}
+                    </Select>
+                  </Form.Item>
+                </Form>
+                <div className="cart-discount">Giảm Giá:{parseInt(voucherSelected).toLocaleString() + "VND"}</div>
+                <div className="cart-total">Thành Tiền: {parseFloat(grandTotal - voucherSelected).toLocaleString() + "VND"} </div>
+              </div>
+
               <div className="cart-content">
                 <div className="cart-coupon_code">
                   <button className="btn-clear" onClick={() => handleClearCartTask()}>CART CLEAR</button>
@@ -302,9 +354,13 @@ function CardPage({
   );
 }
 const mapStateToProps = (state) => {
+  const { productList } = state.productReducer
   const { cartList } = state.cartReducer;
+  const { voucherList } = state.adminVoucherReducer
   return {
     cartList: cartList,
+    voucherList: voucherList,
+    productList: productList
   }
 };
 
@@ -314,6 +370,9 @@ const mapDispatchToProps = (dispatch) => {
     deleteCart: (params) => dispatch(deleteCartTaskAction(params)),
     editCart: (params) => dispatch(editCartTaskAction(params)),
     clearCart: (params) => dispatch(clearCartTaskAction(params)),
+
+    getVoucher: (params) => dispatch(getVoucherAdminAction(params)),
+    getProductList: (params) => dispatch(getProductListAction(params)),
   };
 }
 

@@ -3,12 +3,14 @@ import axios from 'axios';
 
 function* getProductListAdminSaga(action) {
   try {
+    // const {categoryId} = action.payload
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/products?_embed=colors',
       params: {
         _expand: 'category',
         _embed: 'sizes',
+        // ...categoryId && { categoryId },
       }
     });
     yield put({
@@ -51,7 +53,16 @@ function* getCategoryListAdminSaga(action) {
 
 function* createProductAdminSaga(action) {
   try {
-    const { productName, categoryId, productPrice } = action.payload;
+    const {
+      productSpecificationsLength,
+      productSpecificationsHeight, 
+      productSpecificationsWidth,
+      productDescription,
+      productStorageInstruction,
+      productName, 
+      categoryId,
+       productPrice 
+      } = action.payload;
     const createResult = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/products',
@@ -59,6 +70,11 @@ function* createProductAdminSaga(action) {
         productName,
         categoryId,
         productPrice,
+        productSpecificationsLength,
+        productSpecificationsHeight,
+        productSpecificationsWidth,
+        productDescription,
+        productStorageInstruction
       }
     });
     yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });

@@ -1,10 +1,13 @@
 import { Button, notification } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import history from '../../../../utils/history';
 import { connect } from 'react-redux';
 
-import { editCartTaskAction, deleteCartTaskAction } from '../../../../redux/actions';
-
+import {
+  editCartTaskAction,
+  deleteCartTaskAction,
+  
+} from '../../../../redux/actions';
 
 import './styles.css';
 
@@ -14,8 +17,11 @@ function Item({
   onUpdateQuantity,
   cartItem,
   cartIndex,
-  editCart
+  editCart,
+  productListCategoryId
 }) {
+  console.log("🚀 ~ file: index.jsx ~ line 23 ~ productListCategoryId", productListCategoryId)
+
 
   const [quantity, setQuantity] = useState(cartItem.productQuantity);
   // const productPrice = 0;
@@ -39,6 +45,8 @@ function Item({
     }
   }
 
+  
+
   return (
     <>
       <tbody>
@@ -48,12 +56,12 @@ function Item({
               style={{ cursor: 'pointer' }}
               src={cartItem.productImage} a
               lt=""
-              onClick={() => history.push(`/product/${cartItem.productId}`)}
+            onClick={() => history.push(`/home/${productListCategoryId}/${cartItem.productId}`)}
             />
           </td>
           <td
             className="product-name"
-            style={{ width: 250, cursor: 'pointer' , marginLeft:30}}
+            style={{ width: 250, cursor: 'pointer', marginLeft: 30 }}
             onClick={() => history.push(`/product/${cartItem.productId}`)}
           >
             <div>{cartItem.productName}</div>
@@ -107,6 +115,7 @@ function Item({
     </>
   );
 }
+
 
 const mapDispatchToProps = (dispatch) => {
   return {

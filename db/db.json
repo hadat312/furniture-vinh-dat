@@ -1,53 +1,7 @@
 {
   "comment": [
-    {
-      "userName": "khelahni",
-      "userId": "4XpnfQe",
-      "productId": "product01",
-      "comment": "cùi",
-      "rate": 3.5,
-      "date": "28 tháng 5 năm 2021",
-      "time": "7:25 PM",
-      "id": 5
-    }
   ],
   "orders": [
-    {
-      "status": "Đang giao",
-      "userName": "Xuân Vinh",
-      "email": "hathucdat3@gmail.com",
-      "phone": "0774473993",
-      "addressName": "25, võ thị sáu",
-      "cityName": "Thành phố Hà Nội",
-      "districtName": "Quận Bắc Từ Liêm",
-      "wardName": "Phường Liên Mạc",
-      "totalPrice": 5439000,
-      "date": "28 tháng 5 năm 2021",
-      "time": "7:30 PM",
-      "userId": "4XpnfQe",
-      "carts": [
-        {
-          "id": "946bad17-08c3-4c7e-b004-13c55c28b561",
-          "productId": "product06",
-          "productQuantity": 1,
-          "productName": "Sofa Miami 1",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 3000000,
-          "productDiscount": 0.02,
-          "color": {
-            "id": "color07",
-            "colorName": "Xanh da trời",
-            "price": 550000
-          },
-          "size": {
-            "id": "size11",
-            "sizeName": "2m*3m9",
-            "price": 2000000
-          }
-        }
-      ],
-      "id": 1
-    },
     {
       "status": "Đang giao",
       "userName": "Xuân Vinh",
@@ -147,14 +101,14 @@
         "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
         "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg"
       ],
-      "productName": "Sofa Miami 2 chỗ hiện đại",
+      "productName": "Ghế Sofa",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       "productDetailDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishiner including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       "productDescription": "Tên sản phẩm: GHẾ TRANG ĐIỂM GỖ OCHU - STOOL - NATURAL - Thông số sản phẩm   •    Màu sắc :  Natural  •   Màu sắc :  Natural   •    Chất liệu :  Gỗ cao su nhập khẩu, bề mặt sơn phủ 3 lớp PU  •    Xuất xứ : Việt Nam ( đạt tiêu chuẩn xuất khẩu ) - Công dụng  •    Một chiếc ghế gỗ đơn giản này sẽ mang lại công dụng như:  •    Dùng để ngồi làm việc kết hợp với bàn làm việc để tạo ra một không gian làm việc tốt hơn  •     Còn dùng để decor cho căn phòng nhờ màu sắc và form dáng thiết kế hiện đại ",
       "productStorageInstruction": "Hướng dẫn bảo quản - 1. Vệ sinh Đánh bóng đồ gỗ nội thất đúng cách.  Nội thất gỗ sáng bóng sẽ mang đến vẻ đẹp tươi mới, bừng sáng cho cả căn phòng. Vì thế các gia chủ hãy chú ý những điều sau nếu muốn giữ độ bóng cho nội thất: Đánh bóng cho đồ nội thất gỗ hàng tuần và ít nhất 3, 4 lần trong một năm.  Không đánh bóng quá mức và vệ sinh lớp đánh bóng thừa trước khi khô.  Không đánh bóng quá mức và vệ sinh lớp đánh bóng thừa trước khi khô.   Sử dụng dầu đánh bóng nguyên chất, không pha trộn. Làm sạch nội thất gỗ tự nhiên.  Trong quá trình lau chùi bụi bẩn, làm sạch, các gia chủ lưu ý sử dụng vải mềm hoặc chổi lông vũ để tránh trầy xước. Chú ý những khe hở, góc kẹt của nội thất trong quá trình vệ sinh. Tránh để nước chưa khô, còn tồn đọng gây ẩm mốc.",
       "productPrice": 10000000,
       "productDiscount": 0,
-      "categoryId": "category01",
+      "categoryId": "category02",
       "itemCategoryId": "itemCategory01"
     },
     {
@@ -1328,22 +1282,18 @@
       "categoryName": "Phòng Ăn"
     },
     {
-      "id": "category03",
+      "id":"category03",
       "categoryName": "Phòng Ngủ"
     },
     {
       "id": "category04",
-      "categoryName": "Phòng Làm Việc"
-    },
-    {
-      "id": "category05",
-      "categoryName": "Tủ Bếp"
+      "categoryName":"Phòng "
     },
     {
       "id": "category06",
       "categoryName": "Hàng Trang Trí"
     }
-  ],
+    ],
   "subCategories": [
     {
       "id": "subCategory01",

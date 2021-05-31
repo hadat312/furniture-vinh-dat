@@ -120,17 +120,21 @@ body,h1,h2,h3,h4,h5,h6{
     
 }
 
-
 .btn-checkout:hover, .btn-clear:hover{
     background:#e7e7e7;
     color: #333;
     transition: all ease-in 300ms;
 }
 
-.cart-voucher{
+/* .cart-voucher{
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+} */
+
+.cart-total{
+    padding:5px;
+
 }
 
 /* Footer - Space */

@@ -9,7 +9,7 @@ import {
   deleteCartTaskAction,
   editCartTaskAction,
   clearCartTaskAction,
-  getVoucherAdminAction
+  getVoucherAdminAction,
 
 
 
@@ -28,31 +28,38 @@ function CardPage({
   editCart,
   clearCart,
   voucherList,
-  getVoucher
+  getVoucher,
+  getProductList,
+
 }) {
-  // console.log("🚀 ~ file: index.jsx ~ line 33 ~ voucherList", voucherList)
- 
+
+  useEffect(() => {
+    getProductList({});
+  }, [])
+
   useEffect(() => {
     getVoucher();
   }, [])
- 
+
   // useEffect(() => {
   //   if (voucherList.data.id) {
   //     setVoucherSelected(voucherList.data[0] || {})
   //   }
   // }, [voucherList.data])
 
-  
+
+
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   // const [selectionType, setSelectionType] = useState('checkbox');
 
-  const [voucherSelected, setVoucherSelected] = useState({});
+  const [voucherSelected, setVoucherSelected] = useState(0);
+  console.log("🚀 ~ file: index.jsx ~ line 53 ~ voucherSelected", voucherSelected)
 
   const key = `open${Date.now()}`;
 
-// console.log('voucherSelected: ', voucherList.data[0].voucherName || {})
+  // console.log('voucherSelected: ', voucherList.data[0].voucherName || {})
   function renderVoucherList() {
     if (voucherList.load) return <p>Loading...</p>
     return voucherList.data.map((voucherListItem, voucherListIndex) => {
@@ -218,30 +225,59 @@ function CardPage({
       })
     }
   }
+
+  let grandTotal = 0;
+
+  let grandCount = 0;
+
   function renderCart() {
     if (cartList.load) return <p>Loading...</p>;
     return (
       cartList.data.map((cartItem, cartIndex) => {
-        return (
-          <>
-            <Item
-              key={cartItem.productId}
-              cartItem={cartItem}
-              cartIndex={cartIndex}
-              onDeleteCart={onDeleteCart}
-              onUpdateQuantity={onUpdateQuantity}
 
-            // image={cartItem.image}
-            // priceInProductDetail={cartItem.price}
-            // quantity={cartItem.quantity}
-            // color={cartItem.color}
-            />
-            {/* <hr /> */}
-          </>
-        );
+        const productPrice = ((cartItem.productPrice + (cartItem.color.price || 0)
+          + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount)) * cartItem.productQuantity;
+        grandTotal = (grandTotal + productPrice);
+
+        grandCount = grandCount + cartItem.productQuantity;
+
+        return productList.data.map((productListItem, productListIndex) => {
+          if (productListItem.id === cartItem.productId) {
+            return (
+              <>
+                <Item
+                  key={cartItem.productId}
+                  cartItem={cartItem}
+                  cartIndex={cartIndex}
+                  onDeleteCart={onDeleteCart}
+                  onUpdateQuantity={onUpdateQuantity}
+                  productListCategoryId = {productListItem.categoryId}
+                // image={cartItem.image}
+                // priceInProductDetail={cartItem.price}
+                // quantity={cartItem.quantity}
+                // color={cartItem.color}
+                />
+                {/* <hr /> */}
+              </>
+            );
+          }
+        })
       })
     );
   }
+
+  function onChangePrice(values) {
+    return voucherList.data.map((voucherItem, voucherIndex) => {
+      if (values === voucherItem.id) {
+        return (
+          setVoucherSelected(voucherItem.voucherPrice)
+        )
+      }
+    })
+  }
+
+
+
   return (
     <>
       {/* <div className="cart-table-container container">
@@ -280,22 +316,23 @@ function CardPage({
             </table>
 
             <div className="cart-coupon_area container">
+              <div>Tạm tính: ({grandCount} sản phẩm)</div>
               <div className="cart-voucher">
-                <p>Tạm tính {cartList.data.length} sản phẩm</p>
                 <Form
                 >
                   <Form.Item name="voucherId">
-                    <Select 
-                    // defaultValue={voucherSelected}
-                    placeholder="Chọn hoặc nhập mã khuyến mãi" 
-                    style={{ width: "300px" }}
+                    <Select
+                      // defaultValue={voucherSelected}
+                      placeholder="Chọn hoặc nhập mã khuyến mãi"
+                      style={{ width: "300px" }}
+                      onChange={onChangePrice}
                     >
                       {renderVoucherList()}
                     </Select>
                   </Form.Item>
                 </Form>
-                <h6>Giảm Giá:{voucherList.data.voucherPrice} </h6>
-                <h6>Thành Tiền: </h6>
+                <div className="cart-discount">Giảm Giá:{parseInt(voucherSelected).toLocaleString() + "VND"}</div>
+                <div className="cart-total">Thành Tiền: {parseFloat(grandTotal - voucherSelected).toLocaleString() + "VND"} </div>
               </div>
 
               <div className="cart-content">
@@ -317,11 +354,13 @@ function CardPage({
   );
 }
 const mapStateToProps = (state) => {
+  const { productList } = state.productReducer
   const { cartList } = state.cartReducer;
   const { voucherList } = state.adminVoucherReducer
   return {
     cartList: cartList,
-    voucherList: voucherList
+    voucherList: voucherList,
+    productList: productList
   }
 };
 
@@ -333,6 +372,7 @@ const mapDispatchToProps = (dispatch) => {
     clearCart: (params) => dispatch(clearCartTaskAction(params)),
 
     getVoucher: (params) => dispatch(getVoucherAdminAction(params)),
+    getProductList: (params) => dispatch(getProductListAction(params)),
   };
 }
 

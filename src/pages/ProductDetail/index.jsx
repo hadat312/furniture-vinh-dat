@@ -78,6 +78,8 @@ function ProductDetailPage({
     }
   }, [productDetail.data])
 
+console.log('data: ', productDetail.data)
+
   const { Title } = Typography;
 
   // const imageList = [

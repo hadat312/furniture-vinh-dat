@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import history from '../../utils/history'
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import {
     Row,
@@ -51,19 +53,6 @@ import logo1 from '../../images/logo1.jpg'
 import { ROUTERS } from '../../constants/router';
 
 function AdminProduct(props) {
-    const [isShowModify, setIsShowModify] = useState(false);
-
-    // {} là create / Object có data là edit
-    const [isOptionForm, setIsOptionForm] = useState(false);
-    const [isShowCreateOption, setIsShowCreateOption] = useState(false);
-
-    // Show Create Option Color
-    const [isColorOptionForm, setIsColorOptionForm] = useState(false);
-    const [isShowCreateColor, setIsShowCreateColor] = useState(false);
-    const [isShowModifyColor, setIsShowModifyColor] = useState(false);
-
-    const [productForm] = Form.useForm();
-
     const {
         getCategoryListAdmin,
         getProductListAdmin,
@@ -81,6 +70,27 @@ function AdminProduct(props) {
         setProductSelect,
         productSelected,
     } = props;
+    const [isShowModify, setIsShowModify] = useState(false);
+
+    // {} là create / Object có data là edit
+    const [isOptionForm, setIsOptionForm] = useState(false);
+    const [isShowCreateOption, setIsShowCreateOption] = useState(false);
+
+    // Show Create Option Color
+    const [isColorOptionForm, setIsColorOptionForm] = useState(false);
+    const [isShowCreateColor, setIsShowCreateColor] = useState(false);
+    const [isShowModifyColor, setIsShowModifyColor] = useState(false);
+
+    const [productForm] = Form.useForm();
+
+    const [dataDescription, setDataDescription] = useState('');
+
+    const [dataStorageInstruction, setDataStorageInstruction] = useState('');
+
+
+    // useEffect(() => {
+    //     getProductListAdmin({ categoryId: categoryId })
+    // }, [categoryId])
 
     useEffect(() => {
         getProductListAdmin();
@@ -132,11 +142,16 @@ function AdminProduct(props) {
         if (productSelected.id) {
             editProductAdmin({ id: productSelected.id, ...values });
         }
-         if (colorSelected.id) {
+        if (colorSelected.id) {
             editProductAdmin({ id: colorSelected.id, ...values })
         }
         else {
-            createProductAdmin(values)
+            const newProduct = {
+                ...values,
+                productDescription: dataDescription,
+                productStorageInstruction: dataStorageInstruction
+            }
+            createProductAdmin(newProduct)
         }
         setIsShowModify(false);
     }
@@ -177,7 +192,6 @@ function AdminProduct(props) {
                 return (
                     <Space>
                         <Button type="primary" ghost onClick={() => handleEditProduct(record)}>
-                            {console.log("🚀 ~ file: index.jsx ~ line 201 ~ AdminProduct ~ record", record)}
                             <EditOutlined />
                         </Button>
                         <Popconfirm
@@ -233,6 +247,18 @@ function AdminProduct(props) {
             )
         })
     }
+
+    function renderProductId() {
+        return productList.data.map((productListItem, productIndex) => {
+            return (
+                <Select.Option key={productIndex} value={productListItem.id}>
+                    {productListItem.productName}
+                </Select.Option>
+            )
+        })
+    }
+
+    // function 
 
     function renderCreateOptionForm() {
         return (
@@ -398,6 +424,33 @@ function AdminProduct(props) {
         )
     }
 
+    function onChange(values) {          // Render Category Name
+
+    }
+
+    function onChangeLength(value) {     // Onchange Chiều Dài trong mô tả sản phẩm
+        console.log('changedLength', value);
+    }
+
+    function onChangeHeight(value) {    // Onchange Chiều Cao trong mô tả sản phẩm
+        console.log('changedHeight', value);
+    }
+
+    function onChangeWidth(value) {   // Onchange Chiều Rộng trong mô tả sản phẩm
+        console.log('changedWidth', value);
+    }
+
+    function onChangeDescriptionEditor(event, editor) {  // Onchange Description
+        const data = editor.getData();
+        setDataDescription(data);
+        // console.log({ data });
+    }
+
+    function onChangeProductStorageInstruction(even, editor) {   // Onchange Product Storage Instruction
+        const data = editor.getData();
+        setDataStorageInstruction(data)
+    }
+
     return (
         <>
             <Row justify="space-between" align="center" style={{ marginTop: 130 }}>
@@ -508,11 +561,15 @@ function AdminProduct(props) {
                             <Form.Item name="productName" label="Tên sản phẩm">
                                 <Input placeholder="Tên sản phẩm" />
                             </Form.Item>
+
                             <Form.Item name="categoryId" label="Loại sản phẩm">
-                                <Select placeholder="Loại sản phẩm">
+                                <Select placeholder="Loại sản phẩm" onChange={onChange} >
                                     {renderCategoryOptions()}
                                 </Select>
                             </Form.Item>
+
+
+
                             <Form.Item name="productPrice" label="Giá gốc">
                                 <InputNumber
                                     formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -520,6 +577,7 @@ function AdminProduct(props) {
                                     style={{ width: '100%' }}
                                 />
                             </Form.Item>
+                            
                             {productSelected.id && (
                                 <>
                                     <Row justify="space-between">
@@ -529,6 +587,72 @@ function AdminProduct(props) {
                                 </>
                             )}
                         </Form>
+
+                            <Form
+                                form={productForm}
+                                layout="vertical"
+                                // name="productForm"
+                                initialValues={{
+                                    productSpecificationsLength: 100,
+                                    productSpecificationsHeight: 100,
+                                    productSpecificationsWidth: 100,
+                                }}
+                            >
+                                <Form.Item name="productSpecificationsLength" label="Thông số chiều Dài (cm)">
+                                    <InputNumber min={100} max={400} onChange={onChangeLength} />
+                                </Form.Item>
+
+                                <Form.Item name="productSpecificationsHeight" label="Thông số chiều Cao">
+                                    <InputNumber min={100} max={400} onChange={onChangeHeight} />
+                                </Form.Item>
+
+                                <Form.Item name="productSpecificationsWidth" label="Thông số chiều Rộng">
+                                    <InputNumber min={100} max={400} onChange={onChangeWidth} />
+                                </Form.Item>
+                            </Form>
+
+                            <div>
+                                <h6>Mô Tả Sản Phẩm</h6>
+                                <CKEditor
+
+                                    editor={ClassicEditor}
+                                    // data="<p>Hello from CKEditor 5!</p>"
+                                    // onReady={editor => {
+                                    //     // You can store the "editor" and use when it is needed.
+                                    //     console.log('Editor is ready to use!', editor);
+                                    // }}
+                                    onChange={(event, editor) => onChangeDescriptionEditor(event, editor)}
+                                    onBlur={(event, editor) => {
+                                        console.log('Blur.', editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log('Focus.', editor);
+                                    }}
+                                />
+                            </div>
+
+                            <div>
+                                <h6>Hướng Dẫn Bảo Quản</h6>
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    // data="<p>Hello from CKEditor 5!</p>"
+                                    // onReady={editor => {
+                                    //     // You can store the "editor" and use when it is needed.
+                                    //     console.log('Editor is ready to use!', editor);
+                                    // }}
+                                    onChange={(event, editor) => onChangeProductStorageInstruction(event, editor)}
+                                    onBlur={(event, editor) => {
+                                        console.log('Blur.', editor);
+                                    }}
+                                    onFocus={(event, editor) => {
+                                        console.log('Focus.', editor);
+                                    }}
+                                />
+                            </div>
+
+
+
+
 
                         {isOptionForm && productSelected.id && renderProductOptionForm()}
 

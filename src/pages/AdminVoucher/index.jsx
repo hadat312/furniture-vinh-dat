@@ -284,7 +284,6 @@ function AdminVoucher(props) {
               name="basic"
               initialValues={
                 voucherSelected.id
-               
                 // remember: true,
               }
               onFinish={(values) => {

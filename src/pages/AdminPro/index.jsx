@@ -59,7 +59,6 @@ function AdminProduct(props) {
 
     // Show Create Option Color
     const [isColorOptionForm, setIsColorOptionForm] = useState(false);
-    console.log("🚀 ~ file: index.jsx ~ line 62 ~ AdminProduct ~ isColorOptionForm", isColorOptionForm)
     const [isShowCreateColor, setIsShowCreateColor] = useState(false);
     const [isShowModifyColor, setIsShowModifyColor] = useState(false);
 
@@ -133,7 +132,7 @@ function AdminProduct(props) {
         if (productSelected.id) {
             editProductAdmin({ id: productSelected.id, ...values });
         }
-        else if (colorSelected.id) {
+         if (colorSelected.id) {
             editProductAdmin({ id: colorSelected.id, ...values })
         }
         else {
@@ -178,6 +177,7 @@ function AdminProduct(props) {
                 return (
                     <Space>
                         <Button type="primary" ghost onClick={() => handleEditProduct(record)}>
+                            {console.log("🚀 ~ file: index.jsx ~ line 201 ~ AdminProduct ~ record", record)}
                             <EditOutlined />
                         </Button>
                         <Popconfirm

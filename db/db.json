@@ -1526,12 +1526,11 @@
   "users": [
     {
       "id": "user01",
-      "userName": "Đạt",
       "userEmail": "hadat123@gmail.com",
       "userPassword": "123456",
       "userPhoneNumber": "123",
-      "userRole": "admin",
-      "carts": [],
+      "carts": [
+      ],
       "wishlist": [],
       "address": []
     },

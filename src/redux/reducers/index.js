@@ -22,7 +22,7 @@ import adminCommonReducer from './AdminPro/common.reducer'
 import adminProductReducer from './AdminPro/product.reducer'
 
 
-import adminCouponReducer from './AdminCoupon/coupon.reducer'
+import adminVoucherReducer from './AdminVoucher/voucher.reducer';
 
 export default combineReducers({
   productReducer: productReducer,
@@ -45,7 +45,7 @@ export default combineReducers({
   adminCommonReducer:adminCommonReducer,
   adminProductReducer:adminProductReducer,
 
-  adminCouponReducer:adminCouponReducer,
+  adminVoucherReducer:adminVoucherReducer,
 })
 
 //data trả về ở reducer

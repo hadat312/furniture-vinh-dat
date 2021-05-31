@@ -41,7 +41,7 @@ function* getProductDetailSaga(action) {
     const { id } = action.payload;
     const result = yield axios({
       method: 'GET',
-      url: `http://localhost:3002/products/${id}?_embed=colors&_embed=images`,
+      url: `http://localhost:3002/products/${id}?_embed=colors`,
       params: {
         _embed: 'sizes',
         _expand: 'itemCategory',

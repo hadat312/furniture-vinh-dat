@@ -3,7 +3,6 @@ import axios from 'axios';
 
 function* getCommentSaga(action) {
   try {
-    // const { productId } = action.payload;
     const { productId } = action.payload
     const result = yield axios({
       method: 'GET',

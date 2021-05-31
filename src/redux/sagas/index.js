@@ -18,7 +18,8 @@ import commentSaga from './comment.saga'
 
 import adminProductSaga from './AdminPro/product.saga';
 
-import couponSaga from './AdminCoupon/coupon.saga';
+import voucherSaga from './AdminVoucher/voucher.saga'
+
 
 export default function* mySaga() {
   yield fork(userSaga);
@@ -37,5 +38,6 @@ export default function* mySaga() {
   // Admin Area
   yield fork(adminProductSaga);
 
-  yield fork (couponSaga);
+  yield fork(voucherSaga);
+
 }

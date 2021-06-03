@@ -11,6 +11,9 @@ import {
 } from '../../redux/actions';
 import { ROUTERS } from '../../constants/router';
 import history from '../../utils/history';
+import { AiOutlineHeart } from "react-icons/ai";
+
+import './wishlist.css';
 function WishlistPage({
   cartList,
   wishlist,
@@ -281,35 +284,42 @@ function WishlistPage({
       })
     );
   }
+
   return (
     <>
-      {wishlist.data.length === 0
-        ? (
-          <p>No item</p>
-        )
-
-
-        : (
-          <>
-            <table className="cart-table-container container" style={{ marginBottom: 50 }}>
-              <thead>
-                <tr>
-                  <th className="product-name" colSpan="2">Product</th>
-                  <th className="product-price" colSpan="3"> Price</th>
-                </tr>
-              </thead>
-              {renderWishlist()}
-            </table>
-
-            <button className="btn-clear" onClick={() => handleClearWishlistTask()}>WishList CLEAR</button>
-          </>
-
-        )
-
-
-
+      {
+        wishlist.data.length === 0
+          ? (
+            <div className="empty-wishlist-container">
+              <AiOutlineHeart className="empty-wishlist-container__heart-icon" />
+              <div className="empty-wishlist-container__title">
+                <p>Chưa có danh mục yêu thích</p>
+                <p>Thêm sản phẩm vào danh sách yêu thích để hiển thị ở đây.</p>
+              </div>
+              <button className="btn-shopping" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
+                Tiếp tục mua sắm
+          </button>
+            </div>
+          )
+          : (
+            <>
+              <div className="wishlist-container">
+                <table className="wishlist-container__wishlist-table-container">
+                  <thead>
+                    <tr>
+                      <th className="wishlist-table-container__product-name" colSpan="2">Tên sản phẩm</th>
+                      <th className="wishlist-table-container__product-price" colSpan="3">Giá tiền</th>
+                    </tr>
+                  </thead>
+                  {renderWishlist()}
+                </table>
+                <div className="wishlist-container__btn">
+                  <button className="wishlist-container__btn__btn-clear" onClick={() => handleClearWishlistTask()}>XÓA TOÀN BỘ</button>
+                </div>
+              </div>
+            </>
+          )
       }
-
     </>
   );
 }

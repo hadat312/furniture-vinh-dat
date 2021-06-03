@@ -391,7 +391,7 @@ function AddressPage({
             });
         }}
       >
-        {console.log('selected: ', addressSelected)}
+        {/* {console.log('selected: ', addressSelected)} */}
         <Form
           form={editForm}
           // layout="horizontal"

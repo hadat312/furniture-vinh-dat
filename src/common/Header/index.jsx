@@ -41,6 +41,7 @@ import {
   getSubCategoriesAction,
   getItemCategoriesAction,
   getProductListAction,
+  getSearchResultsAction,
   addSearchResultsAction,
 }
   from '../../redux/actions'
@@ -48,20 +49,20 @@ import {
 import * as Style from './styles';
 import './header.css';
 function Header({
-  // searchResultList,
+  getSearchKey,
+  setGetSearchKey,
+
+  searchResultList,
   userInfo,
   getUserInfo,
   cartList,
   wishlist,
   getCategories,
-  getSubCategories,
-  getItemCategories,
   categories,
-  // subCategories,
-  // itemCategories,
-  categoryId,
+  // categoryId,
   productList,
   getProductList,
+  getSearchResults,
   addSearchResults
 }) {
 
@@ -71,26 +72,8 @@ function Header({
     if (userInfoLocalStorage && userInfoLocalStorage.id) {
       getUserInfo({ id: userInfoLocalStorage.id });
     }
-    getCategories({
-      page: 1,
-      limit: 20
-    })
-    // getSubCategories({
-    //   page: 1,
-    //   limit: 20,
-    //   categoryId: categoryId
-    // });
-    // getItemCategories({
-    //   page: 1,
-    //   limit: 20,
-    //   categoryId: categoryId
-    // });
-
-    getProductList({
-      page: 1,
-      limit: 4,
-      categoryId: categoryId
-    });
+    getCategories()
+    // getProductList({})
   }, []);
   const countCarts = cartList.data.length;
   const countWishlist = wishlist.data.length;
@@ -100,6 +83,8 @@ function Header({
   const [isShowSearchBar, setIsShowSearchBar] = useState(false);
   const [isShowDrawer, setIsShowDrawer] = useState(false);
 
+  // const [getSearchKey, setGetSearchKey] = useState('');
+
   function handleLogout() {
     localStorage.clear();
     window.location.reload();
@@ -107,21 +92,23 @@ function Header({
 
   function onSearch(e) {
     const searchKey = e.target.value;
-    getProductList({
+    
+    getSearchResults({
       // page: 1,
-      // limit: 10,
+      limit: 10,
       // categoryId: categoryId,
       searchKey: searchKey,
     })
   }
 
-  function OnEnter(e) {
-    console.log('e.target.value = ' + e.target.value);
-    addSearchResults(productList.data)
-    // searchResults = e.target.value;
-    history.push(ROUTERS.SEARCH_RESULTS);
+  function onEnter(e) {
+    // addSearchResults(productList.data)
+    if(e.key === 'Enter'){
+      console.log('onEnter: ', e.target.value);
+      setGetSearchKey(e.target.value);
+      history.push(ROUTERS.SEARCH_RESULTS);
+    }
   }
-  // console.log('product: ', productList.data);
 
   function optionUser() {
     if (userInfoLocalStorage && userInfoLocalStorage.id) {
@@ -200,14 +187,13 @@ function Header({
 
   function renderSearchResults() {
     return (
-      productList.data.map((productItem, productIndex) => {
+      searchResultList.data.map((searchResultItem, searchResultIndex) => {
         return (
-          <Menu.Item key={'dropdown-search-results-' + productIndex}>
-            <div
-              className="btn-into"
-              onClick={() => history.push(`/home/${productItem.categoryId}/${productItem.id}`)}>
-              {productItem.productName}
-            </div>
+          <Menu.Item
+            key={'dropdown-search-results-' + searchResultIndex}
+            onClick={() => history.push(`/home/${searchResultItem.categoryId}/${searchResultItem.id}`)}
+          >
+            {searchResultItem.productName}
           </Menu.Item>
         )
       })
@@ -242,7 +228,8 @@ function Header({
                         className="header__search__input-search"
                         placeholder="Nhập tên sản phẩm..."
                         onChange={(e) => onSearch(e)}
-                        onPressEnter={(e) => { OnEnter(e) }}
+                        // onPressEnter={(e) => onEnter(e)}
+                        onKeyDown={(e)=>onEnter(e)}
                       />
                     </Dropdown>
                   </div>
@@ -404,7 +391,8 @@ const mapDispatchToProps = (dispatch) => {
     getSubCategories: (params) => dispatch(getSubCategoriesAction(params)),
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
     getProductList: (params => dispatch(getProductListAction(params))),
-    addSearchResults: (params) => dispatch(addSearchResultsAction(params))
+    addSearchResults: (params) => dispatch(addSearchResultsAction(params)),
+    getSearchResults: (params) => dispatch(getSearchResultsAction(params))
   };
 
 }

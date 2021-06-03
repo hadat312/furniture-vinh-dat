@@ -159,14 +159,16 @@ function* deleteUserListSaga(action) {
 function* editUserListSaga(action) {
   console.log("🚀 ~ file: user.saga.js ~ line 148 ~ function*editUserListSaga ~ action", action)
   try {
-    const { id, userName, userEmail, userPhoneNumber } = action.payload;
+    const { id, userName, userEmail, userPhoneNumber, userRole, userImage } = action.payload;
     const result = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/users/${id}`,
       data: {
         userName: userName,
         userEmail: userEmail,
-        userPhoneNumber: userPhoneNumber
+        userPhoneNumber: userPhoneNumber,
+        userRole: userRole,
+        userImage: userImage,
       }
     });
     yield put({ type: "GET_USER_LIST_REQUEST" });

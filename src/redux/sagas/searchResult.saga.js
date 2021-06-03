@@ -1,7 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* getProductListSaga(action) {
+function* getSearchResultsListSaga(action) {
   try {
     const { more, page, limit, categoryId, itemCategoryId, searchKey, sort, order } = action.payload;
     const result = yield axios({
@@ -19,7 +19,7 @@ function* getProductListSaga(action) {
       }
     });
     yield put({
-      type: "GET_PRODUCT_LIST_SUCCESS",
+      type: "GET_SEARCH_RESULTS_REQUEST_SUCCESS",
       payload: {
         data: result.data,
         page,
@@ -28,7 +28,7 @@ function* getProductListSaga(action) {
     });
   } catch (e) {
     yield put({
-      type: "GET_PRODUCT_LIST_FAIL",
+      type: "GET_SEARCH_RESULTS_REQUEST_FAIL",
       payload: {
         error: e.error
       },
@@ -36,7 +36,7 @@ function* getProductListSaga(action) {
   }
 }
 
-export default function* productSaga() {
-  yield takeEvery('GET_PRODUCT_LIST_REQUEST', getProductListSaga);
-  yield takeEvery('GET_PRODUCT_DETAIL_REQUEST', getProductDetailSaga);
+export default function* searchResultSaga() {
+  yield takeEvery('GET_SEARCH_RESULTS_REQUEST', getSearchResultsListSaga);
+  // yield takeEvery('GET_PRODUCT_DETAIL_REQUEST', getProductDetailSaga);
 }

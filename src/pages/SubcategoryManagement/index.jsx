@@ -22,7 +22,6 @@ import './styles.css'
 
 function CategoryManagementPage(props) {
     const { getSubCategories, subCategories } = props;
-    console.log("🚀 ~ file: index.jsx ~ line 15 ~ CategoryManagementPage ~ subCategories", subCategories)
 
     useEffect(() => {
         getSubCategories();

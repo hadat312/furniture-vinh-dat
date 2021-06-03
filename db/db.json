@@ -1,5 +1,35 @@
 {
   "comment": [
+    {
+      "userName": "khelahni",
+      "userId": "4XpnfQe",
+      "productId": "product01",
+      "comment": "Mới mua nên chưa biết thế nào, cứ cho 5 sao đã",
+      "rate": 5,
+      "date": "28 tháng 5 năm 2021",
+      "time": "19:25",
+      "id": 5
+    },
+    {
+      "userName": "vinhjr",
+      "userId": "OPakzv5",
+      "productId": "product01",
+      "comment": "Tạm được",
+      "rate": 3,
+      "date": "tháng 6 2 2021",
+      "time": "17:50",
+      "id": 6
+    },
+    {
+      "userName": "vinhjr",
+      "userId": "OPakzv5",
+      "productId": "product01",
+      "comment": "asd",
+      "rate": 2,
+      "date": "tháng 6 2 2021",
+      "time": "19:44",
+      "id": 7
+    }
   ],
   "orders": [
     {
@@ -103,8 +133,8 @@
       ],
       "productName": "Ghế Sofa",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "productDetailDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishiner including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "productDescription": "Tên sản phẩm: GHẾ TRANG ĐIỂM GỖ OCHU - STOOL - NATURAL - Thông số sản phẩm   •    Màu sắc :  Natural  •   Màu sắc :  Natural   •    Chất liệu :  Gỗ cao su nhập khẩu, bề mặt sơn phủ 3 lớp PU  •    Xuất xứ : Việt Nam ( đạt tiêu chuẩn xuất khẩu ) - Công dụng  •    Một chiếc ghế gỗ đơn giản này sẽ mang lại công dụng như:  •    Dùng để ngồi làm việc kết hợp với bàn làm việc để tạo ra một không gian làm việc tốt hơn  •     Còn dùng để decor cho căn phòng nhờ màu sắc và form dáng thiết kế hiện đại ",
+      "productDetailDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <p>when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishiner including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p> when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "productDescription": "<strong>Tên sản phẩm: GHẾ TRANG ĐIỂM GỖ OCHU - STOOL - NATURAL</strong><br/> <Strong> - Thông số sản phẩm</Strong>   <br/>•    Màu sắc :  Natural  <br/>  •   Chất liệu :  Gỗ cao su nhập khẩu, bề mặt sơn phủ 3 lớp PU <br/> •    Xuất xứ : Việt Nam ( đạt tiêu chuẩn xuất khẩu )<br/> <Strong>- Công dụng</Strong> <br/> •    Một chiếc ghế gỗ đơn giản này sẽ mang lại công dụng như: <br/> •    Dùng để ngồi làm việc kết hợp với bàn làm việc để tạo ra một không gian làm việc tốt hơn <br/> •     Còn dùng để decor cho căn phòng nhờ màu sắc và form dáng thiết kế hiện đại ",
       "productStorageInstruction": "Hướng dẫn bảo quản - 1. Vệ sinh Đánh bóng đồ gỗ nội thất đúng cách.  Nội thất gỗ sáng bóng sẽ mang đến vẻ đẹp tươi mới, bừng sáng cho cả căn phòng. Vì thế các gia chủ hãy chú ý những điều sau nếu muốn giữ độ bóng cho nội thất: Đánh bóng cho đồ nội thất gỗ hàng tuần và ít nhất 3, 4 lần trong một năm.  Không đánh bóng quá mức và vệ sinh lớp đánh bóng thừa trước khi khô.  Không đánh bóng quá mức và vệ sinh lớp đánh bóng thừa trước khi khô.   Sử dụng dầu đánh bóng nguyên chất, không pha trộn. Làm sạch nội thất gỗ tự nhiên.  Trong quá trình lau chùi bụi bẩn, làm sạch, các gia chủ lưu ý sử dụng vải mềm hoặc chổi lông vũ để tránh trầy xước. Chú ý những khe hở, góc kẹt của nội thất trong quá trình vệ sinh. Tránh để nước chưa khô, còn tồn đọng gây ẩm mốc.",
       "productPrice": 10000000,
       "productDiscount": 0,
@@ -1054,6 +1084,18 @@
   ],
   "sizes": [
     {
+      "id": "size01",
+      "sizeName": "1m*1m9",
+      "price": 0,
+      "productId": "product01"
+    },
+    {
+      "id": "size02",
+      "sizeName": "2m*3m9",
+      "price": 0,
+      "productId": "product01"
+    },
+    {
       "id": "size03",
       "sizeName": "2m*2m9",
       "price": 0,
@@ -1176,98 +1218,128 @@
   ],
   "colors": [
     {
+      "id": "color01",
+      "colorName": "Nâu",
+      "colorCode": "#874d00",
+      "price": 350000,
+      "productId": "product01"
+    },
+    {
+      "id": "color05",
+      "colorName": "Trắng",
+      "colorCode": "#fff",
+      "price": 200000,
+      "productId": "product01"
+    },
+    {
       "id": "color03",
       "colorName": "Nâu",
+      "colorCode": "#874d00",
       "price": 350000,
       "productId": "product02"
     },
     {
       "id": "color04",
       "colorName": "Đỏ",
+      "colorCode": "#f5222d",
       "price": 300000,
       "productId": "product02"
     },
     {
       "id": "color05",
       "colorName": "Trắng",
+      "colorCode": "#fff",
       "price": 300000,
       "productId": "product04"
     },
     {
       "id": "color06",
       "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 400000,
       "productId": "product04"
     },
     {
       "id": "color07",
       "colorName": "Xanh da trời",
+      "colorCode": "#13c2c2",
       "price": 550000,
       "productId": "product06"
     },
     {
       "id": "color08",
-      "colorName": "Xanh lam",
+      "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 150000,
       "productId": "product07"
     },
     {
       "id": "color09",
-      "colorName": "Xanh đậm",
+      "colorName": "Đỏ",
+      "colorCode": "#f5222d",
       "price": 550000,
       "productId": "product07"
     },
     {
       "id": "color10",
       "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 500000,
       "productId": "product08"
     },
     {
       "id": "color11",
       "colorName": "Xanh da trời",
+      "colorCode": "#13c2c2",
       "price": 550000,
       "productId": "product09"
     },
     {
       "id": "color12",
-      "colorName": "Xanh lam",
+      "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 360000,
       "productId": "product10"
     },
     {
       "id": "color13",
-      "colorName": "Xanh đậm",
+      "colorName": "Hồng",
+      "colorCode": "#ffadd2",
       "price": 550000,
       "productId": "product11"
     },
     {
       "id": "color14",
-      "colorName": "Xanh nhạt",
+      "colorName": "Vàng",
+      "colorCode": "#ffec3d",
       "price": 550000,
       "productId": "product12"
     },
     {
       "id": "color15",
       "colorName": "Hồng",
+      "colorCode": "#ffadd2",
       "price": 550000,
       "productId": "product13"
     },
     {
       "id": "color16",
       "colorName": "Tía",
+      "colorCode": "#531dab",
       "price": 550000,
       "productId": "product14"
     },
     {
       "id": "color17",
       "colorName": "Vàng",
+      "colorCode": "#ffec3d",
       "price": 550000,
       "productId": "product15"
     },
     {
       "productId": "product04",
-      "colorName": "Xanh",
+      "colorName": "Xanh da trời",
+      "colorCode": "#13c2c2",
       "price": 100000,
       "id": "i5GHgFU"
     }
@@ -1491,30 +1563,7 @@
       "userPhoneNumber": "0774473993",
       "userRole": "customer",
       "id": "4XpnfQe",
-      "carts": [],
-      "wishlist": [
-        {
-          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
-          "productId": "product22",
-          "productQuantity": 1,
-          "productName": "Ghế Milia",
-          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        },
-        {
-          "id": "5bf28248-8fd4-444c-aefd-b95a3f190369",
-          "productId": "product18",
-          "productQuantity": 1,
-          "productName": "Ghế Coque",
-          "productImage": "http://nhaxinh.com/photo/5184/500-san-pham-nha-xinh_(62).jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        },
+      "carts": [
         {
           "id": "946bad17-08c3-4c7e-b004-13c55c28b561",
           "productId": "product06",
@@ -1535,6 +1584,27 @@
           }
         }
       ],
+      "wishlist": [
+        {
+          "id": "dc395d19-2b1d-4cbd-95b0-48175b09cae7",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0,
+          "color": {
+            "id": "color01",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "1m*1m9",
+            "price": 0
+          }
+        }
+      ],
       "address": [
         {
           "id": "03f3e0a4-59fb-4317-8a32-ca01369e5f68",
@@ -1546,8 +1616,8 @@
           "userPhoneNumber": "0774471111"
         }
       ],
-      "gender": "Female",
-      "birthday": "08/06/1998"
+      "gender": "Male",
+      "birthday": ""
     },
     {
       "userPassword": "123456",
@@ -1555,8 +1625,48 @@
       "userName": "vinhjr",
       "userPhoneNumber": "0934511541",
       "userRole": "customer",
-      "carts": [],
-      "wishlist": [],
+      "carts": [
+        {
+          "id": "f253e4c7-dbe1-45a6-a70c-3a2fdeb25233",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0,
+          "color": {
+            "id": "color01",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "1m*1m9",
+            "price": 0
+          }
+        }
+      ],
+      "wishlist": [
+        {
+          "id": "f253e4c7-dbe1-45a6-a70c-3a2fdeb25233",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0,
+          "color": {
+            "id": "color01",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "1m*1m9",
+            "price": 0
+          }
+        }
+      ],
       "address": [],
       "id": "OPakzv5"
     },

@@ -6,42 +6,28 @@ import {
   getProductListAction
 } from '../../../../redux/actions';
 import Item from './components/Item';
-function Main(props) {
-  const {
-    itemInRow,
-    productList,
-    handleShowMore,
-    categoryId,
-  } = props;
+function Main({
+  itemInRow,
+  searchResultList,
+  handleShowMore,
+  categoryId,
+}) {
   // console.log("main-categoryId: ", categoryId);
   // get data từ localStorage để kiểm tra
 
   // console.log(productList.data[0].colors[1].price);
 
-  function renderProductList() {
-    if (productList.load) return <p>Loading...</p>;
-    return productList.data.map((productListItem, productListIndex) => {
+  function renderSearchResult() {
+    if (searchResultList.load) return <p>Loading...</p>;
+    return searchResultList.data.map((searchResultItem, searchResultIndex) => {
       return (
         <Item
-          key={productListItem.id}
+          key={searchResultItem.id}
           categoryId={categoryId}
-          productListItem={productListItem}
+          searchResultItem={searchResultItem}
           itemInRow={itemInRow}
         />
       );
-      // return (
-      //   <Item
-      //     key={productListItem.id}
-      //     colorId={""}
-      //     sizeId={""}
-      //     colorName={""}
-      //     sizeName={""}
-      //     initialColorPrice={0}
-      //     initialSizePrice={0}
-      //     productListItem={productListItem}
-      //     itemInRow={itemInRow}
-      //   />
-      // );
     })
   }
 
@@ -49,11 +35,11 @@ function Main(props) {
     <div className="main-container">
       <Row gutter={[24, 24]}>
         {/* 1-24 4-6 */}
-        {renderProductList()}
+        {renderSearchResult()}
       </Row>
       <div className="d-flex justify-content-center mt-5">
         {/* nếu tổng số sản phẩm(length) là chẵn =>  hiện button [Show more]*/}
-        {productList.data.length % 4 === 0 && (
+        {searchResultList.data.length % 4 === 0 && (
           <Button onClick={handleShowMore}>Show more</Button>
         )}
       </div>

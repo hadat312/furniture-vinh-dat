@@ -18,7 +18,7 @@ import { ROUTERS } from '../../constants/router';
 import history from '../../utils/history';
 
 import cart from '../../images/cart.svg';
-
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import './cart.css';
 function CardPage({
   productList,
@@ -280,76 +280,48 @@ function CardPage({
 
   return (
     <>
-      {/* <div className="cart-table-container container">
-        <Table
-          rowSelection={{
-            type: selectionType,
-            ...rowSelection,
-          }}
-          columns={columns}
-          dataSource={cartList.data}
-          pagination={{ defaultCurrent: 1 }}
-        />
-      </div> */}
-
-      {cartList.data.length === 0 ? (
-        <div className="empty-cart-container">
-          <img src={cart} alt="" />
-          <h3 className="empty-cart_title">No items found in Cart</h3>
-          <button className="btn-shopping" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
-            Show Now
-          </button>
-        </div>
-      )
-        : (
-          <>
-            <table className="cart-table-container container">
-              <thead>
-                <tr>
-                  <th className="cart-name" colSpan="2">Product</th>
-                  <th className="cart-price"> Price</th>
-                  <th className="cart-quantity" >Quantity</th>
-                  <th className="cart-subtotal" colSpan="2" >Total</th>
-                </tr>
-              </thead>
-              {renderCart()}
-            </table>
-
-            <div className="cart-coupon_area container">
-              <div>Tạm tính: ({grandCount} sản phẩm)</div>
-              <div className="cart-voucher">
-                <Form
-                >
-                  <Form.Item name="voucherId">
-                    <Select
-                      // defaultValue={voucherSelected}
-                      placeholder="Chọn hoặc nhập mã khuyến mãi"
-                      style={{ width: "300px" }}
-                      onChange={onChangePrice}
-                    >
-                      {renderVoucherList()}
-                    </Select>
-                  </Form.Item>
-                </Form>
-                <div className="cart-discount">Giảm Giá:{parseInt(voucherSelected).toLocaleString() + "VND"}</div>
-                <div className="cart-total">Thành Tiền: {parseFloat(grandTotal - voucherSelected).toLocaleString() + "VND"} </div>
+      {
+        cartList.data.length === 0
+          ? (
+            <div className="empty-cart-container">
+              <AiOutlineShoppingCart className="empty-cart-container__cart-icon" />
+              <div className="empty-cart-container__title">
+                <p>Không có sản phẩm nào trong giỏ hàng</p>
               </div>
+              <button className="btn-shopping" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
+                Tiếp tục mua sắm
+              </button>
+            </div>
+          )
+          : (
+            <>
+              <div className="cart-container">
+                <table className="cart-container__cart-table-container">
+                  <thead>
+                    <tr>
+                      <th className="cart-table-container__cart-name" colSpan="2">Tên sản phẩm</th>
+                      <th className="cart-table-container__cart-price">Giá tiền</th>
+                      <th className="cart-table-container__cart-quantity" >Số lượng</th>
+                      <th className="cart-table-container__cart-subtotal" colSpan="2" >Tổng cộng</th>
+                    </tr>
+                  </thead>
+                  {renderCart()}
+                </table>
 
-              <div className="cart-content">
-                <div className="cart-coupon_code">
-                  <button className="btn-clear" onClick={() => handleClearCartTask()}>CART CLEAR</button>
-                  <button className="btn-checkout"
-                    onClick={onAddCheckOut}
-                  >View Checkout</button>
+                <div className="cart-coupon_area">
+                  <div className="cart-content">
+                    <div className="cart-coupon_code">
+                      <button className="btn-clear" onClick={() => handleClearCartTask()}>XÓA TOÀN BỘ</button>
+                      <button className="btn-checkout"
+                        onClick={onAddCheckOut}
+                      >XÁC NHẬN GIỎ HÀNG</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        )
+            </>
+          )
       }
-
-
-
     </>
   );
 }

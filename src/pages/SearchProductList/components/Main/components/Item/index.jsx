@@ -18,7 +18,7 @@ function Item({
   // sizeName,
   // initialColorPrice,
   // initialSizePrice,
-
+  searchResultItem,
   itemInRow,
   productListItem,
   categoryId,
@@ -30,6 +30,7 @@ function Item({
   // addCartTask,
   // editCartTask,
 }) {
+  console.log("🚀 ~ file: index.jsx ~ line 33 ~ categoryId", categoryId)
 
   const { Meta } = Card;
 
@@ -44,18 +45,18 @@ function Item({
   let originPrice = 0;
   let initialPrice = 0;
 
-  if (productListItem.colors.length === 0 && productListItem.sizes.length === 0) {
-    originPrice = productListItem.productPrice.toLocaleString();
-    initialPrice = (productListItem.productPrice * (1 - productListItem.productDiscount)).toLocaleString();
-  } else if (productListItem.colors.length === 0) {
-    originPrice = ((productListItem.productPrice + productListItem.sizes[0].price)).toLocaleString();
-    initialPrice = ((productListItem.productPrice + productListItem.sizes[0].price) * (1 - productListItem.productDiscount)).toLocaleString();
-  } else if (productListItem.sizes.length === 0) {
-    originPrice = ((productListItem.productPrice + productListItem.colors[0].price)).toLocaleString();
-    initialPrice = ((productListItem.productPrice + productListItem.colors[0].price) * (1 - productListItem.productDiscount)).toLocaleString();
+  if (searchResultItem.colors.length === 0 && searchResultItem.sizes.length === 0) {
+    originPrice = searchResultItem.productPrice.toLocaleString();
+    initialPrice = (searchResultItem.productPrice * (1 - searchResultItem.productDiscount)).toLocaleString();
+  } else if (searchResultItem.colors.length === 0) {
+    originPrice = ((searchResultItem.productPrice + searchResultItem.sizes[0].price)).toLocaleString();
+    initialPrice = ((searchResultItem.productPrice + searchResultItem.sizes[0].price) * (1 - searchResultItem.productDiscount)).toLocaleString();
+  } else if (searchResultItem.sizes.length === 0) {
+    originPrice = ((searchResultItem.productPrice + searchResultItem.colors[0].price)).toLocaleString();
+    initialPrice = ((searchResultItem.productPrice + searchResultItem.colors[0].price) * (1 - searchResultItem.productDiscount)).toLocaleString();
   } else {
-    originPrice = ((productListItem.productPrice + productListItem.colors[0].price + productListItem.sizes[0].price)).toLocaleString();
-    initialPrice = ((productListItem.productPrice + productListItem.colors[0].price + productListItem.sizes[0].price) * (1 - productListItem.productDiscount)).toLocaleString();
+    originPrice = ((searchResultItem.productPrice + searchResultItem.colors[0].price + searchResultItem.sizes[0].price)).toLocaleString();
+    initialPrice = ((searchResultItem.productPrice + searchResultItem.colors[0].price + searchResultItem.sizes[0].price) * (1 - searchResultItem.productDiscount)).toLocaleString();
   }
 
   function renderFourCard() {
@@ -70,15 +71,15 @@ function Item({
             hoverable
             cover={
               <>{
-                productListItem.productDiscount > 0 && (
+                searchResultItem.productDiscount > 0 && (
                   <div className="main-container__card__discount" style={{ width: '50px', height: '50px' }}>
-                    {-productListItem.productDiscount * 100} %
+                    {-searchResultItem.productDiscount * 100} %
                   </div>
                 )
               }
 
                 <img
-                  src={productListItem.productImage[0]}
+                  src={searchResultItem.productImage[0]}
                   className="main-container__card__img"
                   style={{
                     height: "250px"
@@ -86,12 +87,12 @@ function Item({
                 />
               </>
             }
-            onClick={() => { history.push(`/home/${categoryId}/${productListItem.id}`) }}
+            onClick={() => { history.push(`/home/${searchResultItem.categoryId}/${searchResultItem.id}`) }}
           >
 
             <div className="card__container">
               <Meta
-                title={<span className="main-container__card__title">{productListItem.productName}</span>}
+                title={<span className="main-container__card__title">{searchResultItem.productName}</span>}
               />
 
               <div className="main-container__card__price">
@@ -110,7 +111,7 @@ function Item({
       <>
         <Col span={12}>
           <img
-            src={productListItem.productImage[0]}
+            src={searchResultItem.productImage[0]}
             // className="main-container__card__img"
             style={{
               width: "100%",
@@ -121,7 +122,7 @@ function Item({
         <Col span={12}>
           <Row style={marginBot}>
             <Title level={2}>
-              {productListItem.productName}
+              {searchResultItem.productName}
             </Title>
           </Row>
           <Row style={marginBot} className="d-flex align-items-center">
@@ -129,13 +130,13 @@ function Item({
             <span className="main-container__card__price__current">{initialPrice} vnđ</span>
           </Row>
           <Row style={marginBot, { textAlign: "justify" }}>
-            <p>{productListItem.productShortDescription}</p>
+            <p>{searchResultItem.productShortDescription}</p>
           </Row>
           <Row>
             <Button
               type="primary"
               className="view-detail-btn"
-              onClick={() => { history.push(`/product/${productListItem.id}`) }}
+              onClick={() => { history.push(`/product/${searchResultItem.id}`) }}
             >
               Xem chi tiết
             </Button>

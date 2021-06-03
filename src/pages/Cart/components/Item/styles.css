@@ -27,7 +27,6 @@
     width: auto;
     height: 150px;
     margin: 0px  30px 0px 20px;
-    padding:0px 20px;
 }
 
  /* .minus-btn,.plus-btn{
@@ -41,9 +40,11 @@
     margin:0px 5px;
 } */
 
-.plust-cart-minus:hover , .minus-btn:hover, .plus-btn:hover{
-    transition: all ease-in-out 500ms;
-    color: orange;
+.minus-btn:hover, .plus-btn:hover{
+    transition: all 0.3s;
+    background-color:whitesmoke;
+    color: black;
+    border: 1px solid black;
  
 }
 
@@ -58,13 +59,13 @@
     width: 26px;
     border-radius: 5px;
     font-size: 15px;
-    font-weight: 600;
+    /* font-weight: 600; */
     background-color: #333;
-    outline: none;
+    /* outline: none; */
     color:white;
     font-size: 18px;
     margin:0px 5px;
-    padding: 0px 1px;
+    /* padding: 0px 1px; */
 }
 
 .delete-product {

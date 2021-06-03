@@ -3,46 +3,73 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getItemCategoriesAction,
-  getProductListAction
+  getProductListAction,
+  getAllCommentAction
+  
 } from '../../../../redux/actions';
 import Item from './components/Item';
 import './main.css';
 function Main(props) {
   const {
+
     itemInRow,
     productList,
     handleShowMore,
     categoryId,
+    getAllComment,
+    commentList
   } = props;
+  useEffect(() => {
+    getAllComment();
+  }, [])
   // console.log("main-categoryId: ", categoryId);
   // get data từ localStorage để kiểm tra
 
   // console.log(productList.data[0].colors[1].price);
+  useEffect(() => {
+    getAllComment();
+  }, [])
+
+  /*{ 
+    let totalRate = 0;
+let count =0;
+function renderAverageRate(){
+  return productDetail.data.map((productDetailItem) => {
+    return commentList.data.map((commentItem) => {
+      if(commentItem.productId === productDetailItem.id){
+        totalRate = totalRate + commentItem.rate;
+        count = count + 1;
+      }
+    })
+  })
+}
+
+// rate = {count !== 0 ? Math.ceil(totalRate / count ) : 0}
+   } */
+
+
 
   function renderProductList() {
     if (productList.load) return <p>Loading...</p>;
     return productList.data.map((productListItem, productListIndex) => {
+      let totalRate = 0;
+      let count = 0;
+      commentList.data.map((commentListItem) => {
+        if (productListItem.id === commentListItem.productId) {
+          totalRate = totalRate + commentListItem.rate
+          count = count + 1
+        }
+      })
       return (
         <Item
           key={productListItem.id}
           categoryId={categoryId}
           productListItem={productListItem}
           itemInRow={itemInRow}
+          averageRate={count !== 0 ? Math.ceil(totalRate / count) : 0}
+          count={count}
         />
       );
-      // return (
-      //   <Item
-      //     key={productListItem.id}
-      //     colorId={""}
-      //     sizeId={""}
-      //     colorName={""}
-      //     sizeName={""}
-      //     initialColorPrice={0}
-      //     initialSizePrice={0}
-      //     productListItem={productListItem}
-      //     itemInRow={itemInRow}
-      //   />
-      // );
     })
   }
 
@@ -65,15 +92,21 @@ function Main(props) {
 
 const mapStateToProps = (state) => {
   const { itemCategories } = state.categoriesReducer;
+  const { commentList } = state.commentReducer;
   return {
     itemCategories: itemCategories,
+    commentList: commentList
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
+
+    getAllComment: (params) => dispatch(getAllCommentAction(params)),
   };
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

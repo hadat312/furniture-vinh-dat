@@ -37,7 +37,7 @@ function ProductListPage(props) {
       limit: 4,    // Thay doi Limit
       categoryId: categoryId
     });
-  }, []);
+  }, [categoryId]);
 
   useEffect(() => {
     getSubCategories({

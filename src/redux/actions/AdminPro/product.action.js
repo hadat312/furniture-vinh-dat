@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+
 export function getProductListAdminAction(params) {
   return {
     type: 'ADMIN/GET_PRODUCT_LIST_REQUEST',
@@ -9,6 +11,14 @@ export function getCategoryListAdminAction(params) {
   return {
     type: 'ADMIN/GET_CATEGORY_LIST_REQUEST',
     payload: params,
+  }
+}
+
+// Get Category theo Search Key
+export function getCategoryListSearchKey(params) {
+  return{
+    type: 'ADMIN/GET_CATEGORY_SEARCHKEY_REQUEST',
+    payload:params
   }
 }
 

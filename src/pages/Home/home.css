@@ -110,6 +110,7 @@ body,h1,h2,h3,h4,h5,h6{
 
 .banner-standard{
     display: flex;
+
     overflow: hidden;
 }
 
@@ -120,7 +121,7 @@ body,h1,h2,h3,h4,h5,h6{
     overflow: hidden;
 }
 
-.banner-img > h3 {
+/* .banner-img > h3 {
     position: absolute;
     top: 100px;
     left:20px;
@@ -136,17 +137,17 @@ body,h1,h2,h3,h4,h5,h6{
     left:20px;
     text-decoration: underline;
     cursor: pointer;
-}
+} */
 
 
  .banner-img > img {
     cursor: pointer; 
-    max-width: 100%;
+    max-width:  100%;
     cursor: pointer;
 } 
 
  .banner-img > img:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
     transition: .8s;
     /* overflow: hidden; */
 } 

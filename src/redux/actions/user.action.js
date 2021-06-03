@@ -12,6 +12,11 @@ export const loginAction = (params) => {
   }
 }
 
+export const addUserListAction = (params) => {
+  return {
+    type:'ADD_USER_LIST_'
+  }
+}
 
 export const getUserInfoAction = (params) => {
   return {
@@ -46,58 +51,16 @@ export const deleteUserListAction = (params) => {
 }
 
 export const editUserListAction = (params) =>{
-console.log("🚀 ~ file: user.action.js ~ line 49 ~ editUserListAction ~ params", params)
   return{
     type: 'EDIT_USER_LIST_REQUEST',
     payload: params,
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const logoutTaskAction = (params) => {
-  return {
-    type: 'LOGOUT',
-    payload: params,
-  }
-}
-
 export const addUserTaskAction = (params) => {
+console.log("🚀 ~ file: user.action.js ~ line 61 ~ addUserTaskAction ~ params", params)
   return {
-    type: 'ADD_USER_TASK',
-    payload: params,
-  }
-}
-
-export const editUserTaskAction = (params) => {
-  return {
-    type: 'EDIT_USER_TASK',
-    payload: params,
-  }
-}
-
-export const deleteUserTaskAction = (params) => {
-  return {
-    type: 'DELETE_USER_TASK',
-    payload: params,
-  }
-}
-
-export const getUserTaskDetailAction = (params) => {
-  return {
-    type: 'GET_USER_TASK_DETAIL',
+    type: 'ADD_USER_TASK_REQUEST',
     payload: params,
   }
 }

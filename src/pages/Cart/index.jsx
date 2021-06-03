@@ -10,9 +10,6 @@ import {
   editCartTaskAction,
   clearCartTaskAction,
   getVoucherAdminAction,
-
-
-
 } from '../../redux/actions';
 import { ROUTERS } from '../../constants/router';
 import history from '../../utils/history';
@@ -49,11 +46,13 @@ function CardPage({
 
 
 
-
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   // const [selectionType, setSelectionType] = useState('checkbox');
 
+  // const [voucherSelected, setVoucherSelected] = useState({});
+
+  // console.log('voucherSelected: ', voucherList.data[0].voucherName || {})
   const [voucherSelected, setVoucherSelected] = useState(0);
   console.log("🚀 ~ file: index.jsx ~ line 53 ~ voucherSelected", voucherSelected)
 
@@ -251,7 +250,7 @@ function CardPage({
                   cartIndex={cartIndex}
                   onDeleteCart={onDeleteCart}
                   onUpdateQuantity={onUpdateQuantity}
-                  productListCategoryId = {productListItem.categoryId}
+                  productListCategoryId={productListItem.categoryId}
                 // image={cartItem.image}
                 // priceInProductDetail={cartItem.price}
                 // quantity={cartItem.quantity}
@@ -308,7 +307,34 @@ function CardPage({
                   {renderCart()}
                 </table>
 
-                <div className="cart-coupon_area">
+                <div className="cart-coupon_area container">
+                  <div className="cart-voucher-space">
+                    <div className="cart-voucher-left">
+
+                    </div>
+
+                    <div className="cart-voucher-right">
+                      <p>Tạm tính {cartList.data.length} sản phẩm</p>
+                      <Form
+                      >
+                        <Form.Item name="voucherId">
+                          <Select
+                            // defaultValue={voucherSelected}
+                            placeholder="Chọn hoặc nhập mã khuyến mãi"
+                            style={{ width: "300px" }}
+                            onChange={onChangePrice}
+                          >
+                            {renderVoucherList()}
+                          </Select>
+                        </Form.Item>
+                      </Form>
+                      {/* <h6>Giảm Giá:{voucherList.data.voucherPrice} </h6>
+                <h6>Thành Tiền: </h6> */}
+                      <div className="cart-discount">Giảm Giá:{parseInt(voucherSelected).toLocaleString() + "VND"}</div>
+                      <div className="cart-total">Thành Tiền: {parseFloat(grandTotal - voucherSelected).toLocaleString() + "VND"} </div>
+                    </div>
+                  </div>
+
                   <div className="cart-content">
                     <div className="cart-coupon_code">
                       <button className="btn-clear" onClick={() => handleClearCartTask()}>XÓA TOÀN BỘ</button>

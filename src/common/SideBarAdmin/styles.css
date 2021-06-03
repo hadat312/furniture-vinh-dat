@@ -1,0 +1,28 @@
+/* #components-layout-demo-responsive .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.site-layout-sub-header-background {
+  background: #fff;
+}
+
+.site-layout-background {
+  background: #fff;
+} */
+
+*{
+  box-sizing: border-box;
+}
+
+body,h1,h2,h3,h4,h5,h6{
+  margin:0px;
+  padding:0px;
+}
+
+.logo img {
+  width: auto;
+  height: 50px;
+}
+

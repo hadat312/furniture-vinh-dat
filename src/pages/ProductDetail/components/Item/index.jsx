@@ -18,8 +18,7 @@ import {
 import './styles.css'
 
 import { UserOutlined } from "react-icons/ai";
-function Item({ commentItem }) {
-
+function Item({ commentItem, averageRate }) {
   const { Title } = Typography;
   function renderShow() {
     if (commentItem.rate >= 5) {
@@ -36,6 +35,7 @@ function Item({ commentItem }) {
 
   return (
     <>
+     
       <div className="comment-container">
         <div className="comment-content">
           <div className="comment-side-left">
@@ -46,13 +46,13 @@ function Item({ commentItem }) {
                 // icon={<UserOutlined />}
                 src="https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png"
               />
-              <div className="comment-user">{commentItem.userName}</div>
+              <div className="comment-user" style={{color:"#333"}}>{commentItem.userName}</div>
             </div>
           </div>
 
           <div className="comment-side-right">
             <div className="comment-opinion">
-              <Rate allowHalf disabled defaultValue={commentItem.rate} />
+              <Rate  disabled defaultValue={commentItem.rate} />
               {renderShow()}
             </div>
 

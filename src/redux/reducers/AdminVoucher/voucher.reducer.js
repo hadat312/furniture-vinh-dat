@@ -25,7 +25,10 @@ export default function adminVoucherReducer(state = initialState, action) {
         ...state,
         voucherList: {
           ...state.voucherList,
-          data: data,
+          data: [
+            ...state.voucherList.data,
+            data,
+          ],
           load: false,
         },
       }

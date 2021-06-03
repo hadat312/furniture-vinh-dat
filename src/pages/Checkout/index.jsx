@@ -247,7 +247,7 @@ function CheckOutPage({
         message: 'Đặt hàng thành công thành công',
         key,
         duration: 2
-     } );
+      });
       history.push(ROUTERS.HOME)
 
     } else {

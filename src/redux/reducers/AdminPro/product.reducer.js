@@ -77,6 +77,39 @@ export default function adminProductReducer(state = initialState, action) {
         },
       }
     }
+
+    case 'ADMIN/GET_CATEGORY_SEARCHKEY_REQUEST': {
+      return {
+        ...state,
+        categoryList: {
+          ...state.categoryList,
+          load: true,
+        },
+      }
+    }
+
+    case 'ADMIN/GET_CATEGORY_SEARCHKEY_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        categoryList: {
+          ...state.categoryList,
+          data: data,
+          load: false,
+        },
+      }
+    }
+    case 'ADMIN/GET_CATEGORY_SEARCHKEY_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        categoryList: {
+          ...state.categoryList,
+          load: false,
+          error: error,
+        },
+      }
+    }
     default: {
       return state;
     }

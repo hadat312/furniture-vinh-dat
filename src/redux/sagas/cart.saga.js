@@ -3,12 +3,12 @@ import axios from 'axios';
 
 function* getCartListSaga(action) {
   try {
-    const { userId, page, limit } = action.payload;
+    const { page, limit } = action.payload;
     const result = yield axios({
       method: 'GET',
-      url: `http://localhost:3002/users`,
+      url: `http://localhost:3002`,
       params: {
-        id: userId,
+        // id: userId,
         _page: page,
         _limit: limit,
       }

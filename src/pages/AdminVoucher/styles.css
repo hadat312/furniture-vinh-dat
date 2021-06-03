@@ -8,10 +8,10 @@ body,h1,h2,h3,h4,h5,h6{
 }
 
 .admin-area_container{
-  display: flex;
+  width: 100%;
 
 }
-
+/* 
 .admin-side_left{
   width: 300px;
 }
@@ -45,4 +45,4 @@ body,h1,h2,h3,h4,h5,h6{
 
 .admin-side-right{
   width: calc(100% - 400px);
-}
+} */

@@ -10,11 +10,11 @@ function Item(props) {
 
     return (
         <>
-            <div className="product-item-container" onClick={() => history.push(`/product/${productListItem.id}`)}>
+            <div className="product-item-container" onClick={() => history.push(`/home/${productListItem.categoryId}/${productListItem.id}`)}>
                 <div className="product-item-image">
                     <img src={productListItem.productImage[0]} />
                     <div className="text-discount">
-                        {productListItem.productDiscount}
+                        {-productListItem.productDiscount * 100} %
                     </div>
                     <div className="text_new">New</div>
                 </div>

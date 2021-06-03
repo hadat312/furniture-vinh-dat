@@ -1,15 +1,14 @@
 
 .admin-user-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 100px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.admin-user-header h1{
-    color: orange;
-    font-size: 38px;
-    font-weight: 600;
+.admin-logo-brand{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -72,12 +71,12 @@
     line-height: 24px;
     text-transform: uppercase;
     color: black;
-    background-color: #e7e7e7e7;
+    background-color: #C7C2B3;
     padding:10px 8px
 }
 
 .admin-user_table tr{
-    border:1px solid #e7e7e7;
+    border:1px solid #C7C2B3;
 }
 
 .admin-user_container{

@@ -14,6 +14,7 @@ import PlaceOrderLayout from './common/PlaceOrderLayout';
 
 import ErrorLayout from './common/ErrorLayout';
 
+import AdminLayout from './common/AdminLayout';
 //pages
 import HomePage from './pages/Home';
 
@@ -26,10 +27,12 @@ import DetailPage from './pages/ProductDetail';
 import CartPage from './pages/Cart';
 import WishlistPage from './pages/Wishlist';
 
+
 import MyAccountPage from './pages/MyAccount';
 import AddressPage from './pages/Address';
 import ChangePasswordPage from './pages/ChangePassword';
 import OrderPage from './pages/Order';
+
 
 import CheckOutPage from './pages/Checkout'
 
@@ -43,7 +46,7 @@ import LoginPage from './pages/Login';
 import AdminPage from './pages/Admin';
 import AdminUserPage from './pages/AdminUser';
 import AdminProduct from './pages/AdminPro';
-import AdminVoucher from  './pages/AdminVoucher'
+import AdminVoucher from './pages/AdminVoucher'
 import SubCategoryAdmin from './pages/SubcategoryManagement'
 
 function BrowserRouter(props) {
@@ -67,7 +70,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
         />
 
-        <HomeLayout
+        <AdminLayout
           exact
           path={ROUTERS.ADMIN}
           component={AdminPage}
@@ -75,7 +78,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
         />
 
-        <HomeLayout
+        <AdminLayout
           exact
           path={ROUTERS.ADMIN_USER}
           component={AdminUserPage}
@@ -88,15 +91,14 @@ function BrowserRouter(props) {
           path={ROUTERS.ADMIN_PRODUCT}
           component={AdminProductPage}
         /> */}
-        <Route
+        <AdminLayout
           exact
           path={ROUTERS.ADMIN_PRODUCT}
           component={AdminProduct}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
         />
-
-        <HomeLayout
+        <AdminLayout
           exact
           path={ROUTERS.ADMIN_SUBCATEGORY}
           component={SubCategoryAdmin}
@@ -104,7 +106,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
         />
 
-        <HomeLayout
+        <AdminLayout
           exact
           path={ROUTERS.ADMIN_VOUCHER}
           component={AdminVoucher}

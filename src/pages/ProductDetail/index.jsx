@@ -32,7 +32,8 @@ import {
   editCartTaskAction,
   getCommentAction,
   addCommentAction,
-  getUserInfoAction
+  getUserInfoAction,
+  getProductListAction
 } from '../../redux/actions';
 
 import moment from 'moment';
@@ -65,7 +66,8 @@ function ProductDetailPage({
   commentList,
   getComment,
   addComment,
-  match
+  match,
+  
 }) {
 
   const productId = match.params.id;
@@ -79,6 +81,8 @@ function ProductDetailPage({
     getComment({ productId: productId })
   }, [productId])
 
+  
+
 
 
   //chọn màu sắc và kích cỡ mặc định 
@@ -90,7 +94,8 @@ function ProductDetailPage({
     }
   }, [productDetail.data])
 
-console.log('data: ', productDetail.data)
+
+  // console.log('data: ', productDetail.data)
 
   const { Title } = Typography;
 
@@ -122,7 +127,7 @@ console.log('data: ', productDetail.data)
   })
 
   //rate of comment
-  const [rate, setRate] = useState()
+  const [rate, setRate] = useState(0)
 
   const key = `open${Date.now()}`;
 
@@ -131,7 +136,6 @@ console.log('data: ', productDetail.data)
       setIsAddWishlist(!isAddWishlist);
     }
   }
-
 
 
   function onAddToCart() {
@@ -639,7 +643,6 @@ console.log('data: ', productDetail.data)
     });
   }
 
-
   moment.locale('vi');
   const commentContent = {
     comment: fillText.comment,
@@ -670,8 +673,15 @@ console.log('data: ', productDetail.data)
           </Button>
         ),
       });
+    }if(rate === 0  ){
+      return notification.warning({
+        message: 'Bạn cần chọn đánh giá',
+        // description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        key,
+      });
+    }else{
+      addComment(commentContent)
     }
-    addComment(commentContent)
   }
 
   function renderComment() {
@@ -687,6 +697,15 @@ console.log('data: ', productDetail.data)
       })
     )
   }
+
+  function getAvgRate() {
+    let avgRate = 0;
+    commentList.data.map((commentListItem) => {
+      avgRate = avgRate + commentListItem.rate
+    })
+    return Math.ceil(avgRate / commentList.data.length)
+  }
+
 
   const settings = {
     // dots: true,
@@ -723,8 +742,8 @@ console.log('data: ', productDetail.data)
 
           <div className="detail-container__content">
             <div className="detail-container__rate">
-              <Rate disabled defaultValue={4}/>
-              <span className="ant-rate-text">( {2} khách hàng đánh giá )</span>
+              <Rate disabled value={getAvgRate()}/>
+              <span className="ant-rate-text">( {commentList.data.length} khách hàng đánh giá )</span>
             </div>
             <div className="detail-container__title">
               <Title level={2}>
@@ -899,12 +918,14 @@ const mapStateToProps = (state) => {
   const { productDetail } = state.productReducer;
   const { userInfo } = state.userReducer;
   const { commentList } = state.commentReducer;
+  const { productList } = state.productReducer
   return {
     productDetail,
     wishlist,
     cartList,
     userInfo,
     commentList,
+    productList
   }
 };
 
@@ -923,6 +944,7 @@ const mapDispatchToProps = (dispatch) => {
     addComment: (params) => dispatch(addCommentAction(params)),
 
     getUserInfo: (params) => dispatch(getUserInfoAction(params)),
+    getProductList: (params => dispatch(getProductListAction(params))),
   };
 }
 

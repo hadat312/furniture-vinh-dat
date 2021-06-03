@@ -15,14 +15,14 @@ function* registerSaga(action) {
         method: 'POST',
         url: 'http://localhost:3002/users',
         data: {
-          userPassword, 
+          userPassword,
           userEmail,
           userName,
           userPhoneNumber,
           userRole: "customer",
-          carts:[],
-          wishlist:[],
-          addresss:[],
+          carts: [],
+          wishlist: [],
+          addresss: [],
         }
       });
       // console.log("🚀 ~ file: user.saga.js ~ line 21 ~ function*registerSaga ~ result", result)
@@ -159,16 +159,14 @@ function* deleteUserListSaga(action) {
 function* editUserListSaga(action) {
   console.log("🚀 ~ file: user.saga.js ~ line 148 ~ function*editUserListSaga ~ action", action)
   try {
-    const { id, userName, userEmail, userPhoneNumber, userRole, userImage } = action.payload;
+    const { id, userName, userEmail, userPhoneNumber } = action.payload;
     const result = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/users/${id}`,
       data: {
         userName: userName,
         userEmail: userEmail,
-        userPhoneNumber: userPhoneNumber,
-        userRole: userRole,
-        userImage: userImage,
+        userPhoneNumber: userPhoneNumber
       }
     });
     yield put({ type: "GET_USER_LIST_REQUEST" });
@@ -235,7 +233,40 @@ function* editUserInfoSaga(action) {
       },
     });
   }
+}
 
+function* addUserTaskSaga(action) {
+  try {
+    const {userPhoneNumber, userEmail ,userName, userRoleName, userPassword} = action.payload;
+    const result = yield axios({
+      method: 'POST',
+      url: 'http://localhost:3002/users',
+      data: {
+        userPassword:userPassword,
+        userEmail:userEmail,
+        userName:userName,
+        userPhoneNumber:userPhoneNumber,
+        userRole:userRoleName,
+        carts: [],
+        wishlist: [],
+        addresss: [],
+      }
+    });
+    yield put({
+      type: 'ADD_USER_TASK_SUCCESS',
+      payload: {
+        data: result.data,
+      },
+    });
+  } catch (e) {
+  yield put({
+    type: "ADD_USER_TASK_FAIL",
+    payload: {
+      error: e.error
+    },
+  });
+}
+  
 }
 
 
@@ -248,5 +279,7 @@ export default function* userSaga() {
   yield takeEvery('GET_USER_LIST_REQUEST', getUserListSaga);
   yield takeEvery('EDIT_USER_LIST_REQUEST', editUserListSaga);
 
-  yield takeEvery('EDIT_USER_INFO_REQUEST',editUserInfoSaga)
+  yield takeEvery('EDIT_USER_INFO_REQUEST', editUserInfoSaga);
+
+  yield takeEvery('ADD_USER_TASK_REQUEST',addUserTaskSaga);
 }

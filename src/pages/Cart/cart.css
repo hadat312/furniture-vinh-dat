@@ -137,7 +137,34 @@ body,h1,h2,h3,h4,h5,h6{
     color: #333;
     transition: all ease-in 300ms;
 }
+
 .cart-voucher-space{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    
+}
+
+.cart-total, .cart-discount{
+    font-size: 17px;
+    font-weight: 700;
+    color:#333;
+    padding: 12px 12px 5px 10px;
+}
+
+.cart-voucher-right{
+    background: #F7F7F7;
+    padding:40px;
+}
+/* Footer - Space */
+
+.footer-bg{
+    background: #f8f8f8;
+}
+
+
+.footer-purpot{
     display: flex;
     justify-content: space-between;
     align-items: center;

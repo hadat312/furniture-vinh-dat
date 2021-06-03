@@ -3,14 +3,14 @@ import axios from 'axios';
 
 function* getProductListAdminSaga(action) {
   try {
-    // const {categoryId} = action.payload
+    const {searchKey} =action.payload
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/products?_embed=colors',
       params: {
         _expand: 'category',
         _embed: 'sizes',
-        // ...categoryId && { categoryId },
+        ...searchKey && {q: searchKey}
       }
     });
     yield put({
@@ -51,6 +51,32 @@ function* getCategoryListAdminSaga(action) {
   }
 }
 
+function* getCategorySearchKey(action) {
+  try {
+    const {searchKey} = action.payload
+    const result = yield axios({
+      method: 'GET',
+      url: 'http://localhost:3002/categories',
+      params:{
+        ...searchKey && {q: searchKey},
+      }
+    });
+    yield put({
+      type: "ADMIN/GET_CATEGORY_SEARCHKEY_SUCCESS",
+      payload: {
+        data: result.data,
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: "ADMIN/GET_CATEGORY_SEARCHKEY_FAIL",
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
 function* createProductAdminSaga(action) {
   try {
     const {
@@ -61,7 +87,8 @@ function* createProductAdminSaga(action) {
       productStorageInstruction,
       productName, 
       categoryId,
-       productPrice 
+       productPrice,
+       productDiscount
       } = action.payload;
     const createResult = yield axios({
       method: 'POST',
@@ -74,7 +101,8 @@ function* createProductAdminSaga(action) {
         productSpecificationsHeight,
         productSpecificationsWidth,
         productDescription,
-        productStorageInstruction
+        productStorageInstruction,
+        productDiscount,
       }
     });
     yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
@@ -96,14 +124,15 @@ function* createProductAdminSaga(action) {
 
 function* editProductAdminSaga(action) {
   try {
-    const { id, productName, categoryId, productPrice } = action.payload;
+    const { id, productName, categoryId, productPrice,productDiscount } = action.payload;
     const editResult = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/products/${id}`,
       data: {
         productName,
         categoryId,
-        productPrice
+        productPrice,
+        productDiscount
       }
     });
     yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
@@ -321,6 +350,8 @@ export default function* adminProductSaga() {
   yield takeEvery('ADMIN/CREATE_OPTION_REQUEST', createOptionAdminSaga);
   yield takeEvery('ADMIN/EDIT_OPTION_REQUEST', editOptionAdminSaga);
   yield takeEvery('ADMIN/DELETE_OPTION_REQUEST', deleteOptionAdminSaga);
+
+  yield takeEvery('ADMIN/GET_CATEGORY_SEARCHKEY_REQUEST',getCategorySearchKey)
 
   // Create Option Color
   yield takeEvery('ADMIN/CREATE_COLOR_OPTION_REQUEST', createOptionColorAdminSaga);

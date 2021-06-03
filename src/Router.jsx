@@ -13,8 +13,8 @@ import ProfileLayout from './common/ProfileLayout';
 import PlaceOrderLayout from './common/PlaceOrderLayout';
 
 import ErrorLayout from './common/ErrorLayout';
-import AdminLayout from './common/AdminLayout';
 
+import AdminLayout from './common/AdminLayout';
 //pages
 import HomePage from './pages/Home';
 
@@ -46,7 +46,7 @@ import LoginPage from './pages/Login';
 import AdminPage from './pages/Admin';
 import AdminUserPage from './pages/AdminUser';
 import AdminProduct from './pages/AdminPro';
-import AdminVoucher from  './pages/AdminVoucher'
+import AdminVoucher from './pages/AdminVoucher'
 import SubCategoryAdmin from './pages/SubcategoryManagement'
 
 function BrowserRouter(props) {
@@ -98,7 +98,6 @@ function BrowserRouter(props) {
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
         />
-
         <AdminLayout
           exact
           path={ROUTERS.ADMIN_SUBCATEGORY}

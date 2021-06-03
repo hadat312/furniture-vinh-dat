@@ -31,6 +31,7 @@ function Item({
   // addCartTask,
   // editCartTask,
 }) {
+  console.log("🚀 ~ file: index.jsx ~ line 35 ~ averageRate", averageRate)
 
   const { Meta } = Card;
 
@@ -129,7 +130,11 @@ function Item({
           <Row style={marginBot} className="d-flex align-items-center">
             <span className="main-container__card__price__old mr-2">{originPrice} vnđ</span>
             <span className="main-container__card__price__current">{initialPrice} vnđ</span>
+<<<<<<< HEAD
             <Rate  disabled value={averageRate} />
+=======
+           
+>>>>>>> 36db4ff (update 6/3)
           </Row>
           <Row style={marginBot, { textAlign: "justify" }}>
             <p>{productListItem.productShortDescription}</p>

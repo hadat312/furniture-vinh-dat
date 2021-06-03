@@ -19,6 +19,9 @@ function Main(props) {
     getAllComment,
     commentList
   } = props;
+  useEffect(() => {
+    getAllComment();
+  }, [])
   // console.log("main-categoryId: ", categoryId);
   // get data từ localStorage để kiểm tra
 
@@ -26,6 +29,25 @@ function Main(props) {
   useEffect(() => {
     getAllComment();
   }, [])
+
+  /*{ 
+    let totalRate = 0;
+let count =0;
+function renderAverageRate(){
+  return productDetail.data.map((productDetailItem) => {
+    return commentList.data.map((commentItem) => {
+      if(commentItem.productId === productDetailItem.id){
+        totalRate = totalRate + commentItem.rate;
+        count = count + 1;
+      }
+    })
+  })
+}
+
+// rate = {count !== 0 ? Math.ceil(totalRate / count ) : 0}
+   } */
+
+
 
   function renderProductList() {
     if (productList.load) return <p>Loading...</p>;
@@ -84,5 +106,7 @@ const mapDispatchToProps = (dispatch) => {
     getAllComment: (params) => dispatch(getAllCommentAction(params)),
   };
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

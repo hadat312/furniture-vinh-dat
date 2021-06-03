@@ -9,10 +9,17 @@ body,h1,h2,h3,h4,h5,h6{
 
 .admin-area_container{
     display: flex;
-
 }
 
+.logo-brand{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 
 .admin-side_left{
+    background: chartreuse;
     width: 300px;
 }
 .sidebar-admin-user-menu{
@@ -45,4 +52,4 @@ body,h1,h2,h3,h4,h5,h6{
 
 .admin-side-right{
     width: calc(100% - 400px);
-}
+} */

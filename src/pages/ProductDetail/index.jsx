@@ -81,6 +81,8 @@ function ProductDetailPage({
     getComment({ productId: productId })
   }, [productId])
 
+  
+
 
 
   //chọn màu sắc và kích cỡ mặc định 
@@ -92,7 +94,8 @@ function ProductDetailPage({
     }
   }, [productDetail.data])
 
-console.log('data: ', productDetail.data)
+
+  // console.log('data: ', productDetail.data)
 
   const { Title } = Typography;
 
@@ -640,7 +643,6 @@ console.log('data: ', productDetail.data)
     });
   }
 
-
   moment.locale('vi');
   const commentContent = {
     comment: fillText.comment,
@@ -916,12 +918,14 @@ const mapStateToProps = (state) => {
   const { productDetail } = state.productReducer;
   const { userInfo } = state.userReducer;
   const { commentList } = state.commentReducer;
+  const { productList } = state.productReducer
   return {
     productDetail,
     wishlist,
     cartList,
     userInfo,
     commentList,
+    productList
   }
 };
 

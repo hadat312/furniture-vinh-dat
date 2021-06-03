@@ -18,8 +18,7 @@ import {
 import './styles.css'
 
 import { UserOutlined } from "react-icons/ai";
-function Item({ commentItem }) {
-
+function Item({ commentItem, averageRate }) {
   const { Title } = Typography;
   function renderShow() {
     if (commentItem.rate >= 5) {
@@ -36,6 +35,7 @@ function Item({ commentItem }) {
 
   return (
     <>
+     
       <div className="comment-container">
         <div className="comment-content">
           <div className="comment-side-left">

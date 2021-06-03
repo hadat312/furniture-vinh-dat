@@ -209,9 +209,7 @@ function AdminUserPage(props) {
                     {...layout}
                     form={productForm}
                     name="basic"
-                    initialValues={{
-                        remember: true
-                    }}
+                    initialValues={{ remember: true }}
                 >
                     <Form.Item
                         label="Tên thành viên"

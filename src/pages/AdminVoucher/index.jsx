@@ -40,7 +40,21 @@ import {
 import logo1 from '../../images/logo1.jpg'
 
 import './styles.css'
-function AdminVoucher(props) {
+function AdminVoucher({
+  getProductListAdmin,
+  getCategoryListAdmin,
+  categoryList,
+  productList,
+
+  editVoucherAdmin,
+  deleteVoucherAdmin,
+  voucherList,
+  createVoucher,
+  getVoucherAdmin,
+  voucherSelected,
+  setVoucherSelect,
+}) {
+  console.log("🚀 ~ file: index.jsx ~ line 57 ~ voucherList", voucherList)
 
   useEffect(() => {
     getProductListAdmin();
@@ -53,51 +67,35 @@ function AdminVoucher(props) {
 
   // const [isShowEditVoucher, setIsShowEditVoucher] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // console.log("🚀 ~ file: index.jsx ~ line 55 ~ AdminVoucher ~ isModalVisible", isModalVisible)
 
   const [productForm] = Form.useForm();
 
   const [editForm] = Form.useForm();
 
-  const {
-    getProductListAdmin,
-    getCategoryListAdmin,
-    categoryList,
-    productList,
 
-    editVoucherAdmin,
-    deleteVoucherAdmin,
-    voucherList,
-    createVoucher,
-    getVoucherAdmin,
-    voucherSelected,
-    setVoucherSelect,
-  } = props;
+  // function renderCategoryOptions() {
+  //   return categoryList.data.map((categoryItem, categoryIndex) => {
+  //     return (
+  //       <Select.Option key={categoryIndex} value={categoryItem.id}>
+  //         {categoryItem.categoryName}
+  //       </Select.Option>
+  //     )
+  //   })
+  // }
 
-
-  function renderCategoryOptions() {
-    return categoryList.data.map((categoryItem, categoryIndex) => {
-      return (
-        <Select.Option key={categoryIndex} value={categoryItem.id}>
-          {categoryItem.categoryName}
-        </Select.Option>
-      )
-    })
-  }
-
-  function renderProductOptions() {
-    return categoryList.data.map((categoryItem, categoryIndex) => {
-      return productList.data.map((productListItem, productListIndex) => {
-        if (categoryItem.id === productListItem.categoryId) {
-          return (
-            <Select.Option key={productListIndex} value={productListItem.id}>
-              {productListItem.productName}
-            </Select.Option>
-          )
-        }
-      })
-    })
-  }
+  // function renderProductOptions() {
+  //   return categoryList.data.map((categoryItem, categoryIndex) => {
+  //     return productList.data.map((productListItem, productListIndex) => {
+  //       if (categoryItem.id === productListItem.categoryId) {
+  //         return (
+  //           <Select.Option key={productListIndex} value={productListItem.id}>
+  //             {productListItem.productName}
+  //           </Select.Option>
+  //         )
+  //       }
+  //     })
+  //   })
+  // }
 
 
   function handleCreateVoucher() {
@@ -135,27 +133,24 @@ function AdminVoucher(props) {
   //  Table Colums
   const tableColumns = [
     {
-      title: 'Tên mã khuyễn mãi',
+      title: 'Tên mã khuyến mãi',
       dataIndex: 'voucherName',
       key: 'productName',
     },
     {
       title: 'Giá khuyễn mãi',
       dataIndex: 'voucherPrice',
+      render: (_, record) => <div>{parseInt(record.voucherPrice).toLocaleString()}</div>
       // key: 'productImage',
     },
 
-    // {
-    //   title: 'Loại sản phẩm',
-    //   dataIndex: 'categoryName',
-    //   key: 'categoryName',
-    // },
 
     {
       title: 'Hành động',
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => {
+        console.log("🚀 ~ file: index.jsx ~ line 152 ~ record", record)
         return (
           <Space>
             <Button type="primary" ghost
@@ -183,136 +178,105 @@ function AdminVoucher(props) {
       ...voucherListItem,
       key: voucherListItem.id,
       voucherName: voucherListItem.voucherName,
-      voucherPrice: (voucherListItem.voucherPrice.toLocaleString())
+      voucherPrice: voucherListItem.voucherPrice
     }
   })
 
-  console.log('voucherSelected: ', voucherSelected)
 
   return (
 
     <>
-      <Row justify="space-between" align="center" style={{ marginTop: 130 }}>
+      <Row justify="space-between" align="center">
         <img src={logo1} alt="Bodhi Logo Brand" style={{ width: "auto", height: "50px" }} />
         <Button type="primary" onClick={() => handleCreateVoucher()}>
           <PlusOutlined /> Thêm Mã Khuyến Mãi
         </Button>
       </Row>
       <div className="admin-area_container">
-        <div className="admin-side_left">
-          <div className="sidebar-admin-user-menu">
-            <div className="side-admin-user-link">
-              <i className="fa fa-home text-lightblue"></i>
-              <span onClick={() => { history.push(ROUTERS.ADMIN) }}>Dashboard</span>
-            </div>
+        <Table
+          style={{ width: "100%", }}
+          loading={voucherList.load}
+          columns={tableColumns}
+          dataSource={tableData}
+        // expandable={{
+        //   expandedRowRender: (record) => {
+        //     return (
+        //       <div>
 
-            <div className="side-admin-user-link  active-admin-user-link">
-              <i className="fa fa-user-secret text-lightblue"></i>
-              <span onClick={() => history.push(ROUTERS.ADMIN_USER)}>Quản Lý Tài Khoản</span>
-            </div>
-
-            <div className="side-admin-user-link">
-              <i className="fa fa-handshake text-lightblue"></i>
-              <span onClick={() => history.push(ROUTERS.ADMIN_PRODUCT)} >Quản Lý Sản Phẩm</span>
-            </div>
-
-            <div className="side-admin-user-link">
-              <i className="fa fa-handshake text-lightblue"></i>
-              <span >Quản Lý Mã Khuyến Mãi</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="admin-side-right">
-          <Table
-            loading={voucherList.load}
-            columns={tableColumns}
-            dataSource={tableData}
-          // expandable={{
-          //   expandedRowRender: (record) => {
-          //     return (
-          //       <div>
-
-          //       </div>
-          //     )
-          //   },
-          //   // rowExpandable: (record) => record.sizes.length > 0 || record.colors.length > 0
-          // }}
-          />
-          <Drawer
-            title="Thêm mã Khuyên Mãi"
-            width={500}
-            visible={isShowModify}
-            onClose={() => setIsShowModify(false)}
-            footer={(
-              <Row justify="end">
-                <Space>
-                  <Button>Hủy</Button>
-                  <Button type="primary" onClick={() => handleSubmitForm()}>Lưu</Button>
-                </Space>
-              </Row>
-            )}
+        //       </div>
+        //     )
+        //   },
+        //   // rowExpandable: (record) => record.sizes.length > 0 || record.colors.length > 0
+        // }}
+        />
+        <Drawer
+          title="Thêm mã Khuyên Mãi"
+          width={500}
+          visible={isShowModify}
+          onClose={() => setIsShowModify(false)}
+          footer={(
+            <Row justify="end">
+              <Space>
+                <Button>Hủy</Button>
+                <Button type="primary" onClick={() => handleSubmitForm()}>Lưu</Button>
+              </Space>
+            </Row>
+          )}
+        >
+          <Form
+            form={productForm}
+            layout="vertical"
+            name="productForm"
           >
-            <Form
-              form={productForm}
-              layout="vertical"
-              name="productForm"
+            <Form.Item name="voucherName" label="Tên mã khuyến mãi">
+              <Input placeholder="Tên mã khuyến mãi" />
+            </Form.Item>
+
+
+            <Form.Item name="voucherPrice" label="Giá khuyễn mãi">
+              <InputNumber
+                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                placeholder="Giá khuyến mãi"
+                style={{ width: '100%' }}
+              />
+            </Form.Item>
+          </Form>
+        </Drawer>
+
+        <Modal
+          title="Chỉnh sữa mã khuyến mãi"
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}>
+          <Form
+            // {...layout}
+            form={editForm}
+            name="basic"
+            initialValues={
+              voucherSelected.id
+              && {...voucherSelected}
+            }
+            onFinish={(values) => {
+              editVoucherAdmin({ id: voucherSelected.id, ...values })
+            }}
+          >
+            <Form.Item
+              label="Voucher Name"
+              name="voucherName"
             >
-              <Form.Item name="voucherName" label="Tên mã khuyến mãi">
-                <Input placeholder="Tên mã khuyến mãi" />
-              </Form.Item>
-
-
-              <Form.Item name="voucherPrice" label="Giá khuyễn mãi">
-                <InputNumber
-                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  placeholder="Giá khuyến mãi"
-                  style={{ width: '100%' }}
-                />
-              </Form.Item>
-            </Form>
-          </Drawer>
-
-          <Modal
-            title="Chỉnh sữa mã khuyến mãi"
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}>
-            <Form
-              // {...layout}
-              form={editForm}
-              name="basic"
-              initialValues={
-                voucherSelected.id
-               
-                // remember: true,
-              }
-              onFinish={(values) => {
-                editVoucherAdmin({ id: voucherSelected.id, ...values })
-              }}
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Voucher Price"
+              name="voucherPrice"
             >
-              <Form.Item
-                label="Voucher Name"
-                name="voucherName"
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="Voucher Price"
-                name="voucherPrice"
-              >
-                <Input />
-              </Form.Item>
-            </Form>
+              <Input />
+            </Form.Item>
+          </Form>
 
-
-          </Modal>
-
-
-
-        </div>
-
+        </Modal>
       </div>
+
 
     </>
   )

@@ -2,44 +2,125 @@
   "voucher": [
     {
       "voucherName": "Free Ship",
-      "voucherPrice": "150000",
+      "voucherPrice": "300000",
       "id": 1
     },
     {
       "voucherName": "20%",
       "voucherPrice": "150000",
       "id": 2
-    }
-  ],
-  "comment": [],
-  "orders": [
-    {
-      "email": "sieuquaydn33@gmail.com",
-      "phone": "0935415275",
-      "address": "soos 2, Phường 01, Quận 10, Thành phố Hồ Chí Minh",
-      "totalPrice": 11732500,
-      "userId": "sM79IW2",
-      "carts": [],
-      "id": 1
     },
     {
+      "voucherName": "giảm 30% ",
+      "voucherPrice": "500000",
+      "id": 3
+    }
+  ],
+  "comment": [
+    {
+      "userName": "datha",
+      "userId": "user01",
+      "productId": "product01",
+      "comment": "oke",
+      "rate": 3,
+      "date": "tháng 6 3 2021",
+      "time": "18:15",
+      "id": 1
+    }
+  ],
+  "orders": [
+    {
+      "status": "Đang giao",
+      "userName": "Xuân Vinh",
+      "email": "hathucdat3@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu",
+      "cityName": "Thành phố Hồ Chí Minh",
+      "districtName": "Quận 11",
+      "wardName": "Phường 01",
+      "totalPrice": 18000000,
+      "date": "28 tháng 5 năm 2021",
+      "time": "8:16 PM",
+      "userId": "4XpnfQe",
+      "carts": [
+        {
+          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
+          "productId": "product22",
+          "productQuantity": 1,
+          "productName": "Ghế Milia",
+          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
+          "productPrice": 20000000,
+          "productDiscount": 0.1,
+          "color": {},
+          "size": {}
+        }
+      ],
       "id": 2
     },
     {
-      "email": "sieuquaydn33@gmail.com",
-      "phone": "0935415375",
-      "address": "Số 2 , Phường 01, Quận 10, Thành phố Hồ Chí Minh",
-      "totalPrice": 46000000,
-      "userId": "sM79IW2",
-      "carts": [],
-      "id": 3
+      "status": "Đang giao",
+      "userName": "Ngọc Hổ",
+      "email": "hathucdat7@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu",
+      "cityName": "Thành phố Hồ Chí Minh",
+      "districtName": "Quận 12",
+      "wardName": "Phường Thạnh Lộc",
+      "totalPrice": 49632500,
+      "date": "30 tháng 5 năm 2021",
+      "time": "11:35",
+      "userId": "4XpnfQe",
+      "carts": [
+        {
+          "id": "5bf28248-8fd4-444c-aefd-b95a3f190369",
+          "productId": "product18",
+          "productQuantity": 1,
+          "productName": "Ghế Coque",
+          "productImage": "http://nhaxinh.com/photo/5184/500-san-pham-nha-xinh_(62).jpg",
+          "productPrice": 20000000,
+          "productDiscount": 0.1,
+          "color": {},
+          "size": {}
+        },
+        {
+          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
+          "productId": "product22",
+          "productQuantity": 1,
+          "productName": "Ghế Milia",
+          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
+          "productPrice": 20000000,
+          "productDiscount": 0.1,
+          "color": {},
+          "size": {}
+        },
+        {
+          "id": "8fb43f7e-1d02-41fb-8a46-478303deffe0",
+          "productId": "product02",
+          "productQuantity": 1,
+          "productName": "Ghế Sofa Miami chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 12000000,
+          "productDiscount": 0.05,
+          "color": {
+            "id": "color03",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size05",
+            "sizeName": "1m*2m9",
+            "price": 2000000
+          }
+        }
+      ],
+      "id": 7
     }
   ],
   "products": [
     {
       "id": "product01",
       "productImage": [
-        "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/01/17/bundle-04-2-up-1579236499.png",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -47,10 +128,10 @@
         "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
         "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg"
       ],
-      "productName": "Sofa Miami 2 chỗ hiện đại",
+      "productName": "Ghế Sofa",
       "productShortDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "productDetailDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishiner including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "productDescription": "Tên sản phẩm: GHẾ TRANG ĐIỂM GỖ OCHU - STOOL - NATURAL - Thông số sản phẩm   •    Màu sắc :  Natural  •   Màu sắc :  Natural   •    Chất liệu :  Gỗ cao su nhập khẩu, bề mặt sơn phủ 3 lớp PU  •    Xuất xứ : Việt Nam ( đạt tiêu chuẩn xuất khẩu ) - Công dụng  •    Một chiếc ghế gỗ đơn giản này sẽ mang lại công dụng như:  •    Dùng để ngồi làm việc kết hợp với bàn làm việc để tạo ra một không gian làm việc tốt hơn  •     Còn dùng để decor cho căn phòng nhờ màu sắc và form dáng thiết kế hiện đại ",
+      "productDetailDescription": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <p>when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishiner including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p> when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "productDescription": "<strong>Tên sản phẩm: GHẾ TRANG ĐIỂM GỖ OCHU - STOOL - NATURAL</strong><br/> <Strong> - Thông số sản phẩm</Strong>   <br/>•    Màu sắc :  Natural  <br/>  •   Chất liệu :  Gỗ cao su nhập khẩu, bề mặt sơn phủ 3 lớp PU <br/> •    Xuất xứ : Việt Nam ( đạt tiêu chuẩn xuất khẩu )<br/> <Strong>- Công dụng</Strong> <br/> •    Một chiếc ghế gỗ đơn giản này sẽ mang lại công dụng như: <br/> •    Dùng để ngồi làm việc kết hợp với bàn làm việc để tạo ra một không gian làm việc tốt hơn <br/> •     Còn dùng để decor cho căn phòng nhờ màu sắc và form dáng thiết kế hiện đại ",
       "productStorageInstruction": "Hướng dẫn bảo quản - 1. Vệ sinh Đánh bóng đồ gỗ nội thất đúng cách.  Nội thất gỗ sáng bóng sẽ mang đến vẻ đẹp tươi mới, bừng sáng cho cả căn phòng. Vì thế các gia chủ hãy chú ý những điều sau nếu muốn giữ độ bóng cho nội thất: Đánh bóng cho đồ nội thất gỗ hàng tuần và ít nhất 3, 4 lần trong một năm.  Không đánh bóng quá mức và vệ sinh lớp đánh bóng thừa trước khi khô.  Không đánh bóng quá mức và vệ sinh lớp đánh bóng thừa trước khi khô.   Sử dụng dầu đánh bóng nguyên chất, không pha trộn. Làm sạch nội thất gỗ tự nhiên.  Trong quá trình lau chùi bụi bẩn, làm sạch, các gia chủ lưu ý sử dụng vải mềm hoặc chổi lông vũ để tránh trầy xước. Chú ý những khe hở, góc kẹt của nội thất trong quá trình vệ sinh. Tránh để nước chưa khô, còn tồn đọng gây ẩm mốc.",
       "productPrice": 10000000,
       "productDiscount": 0,
@@ -60,7 +141,7 @@
     {
       "id": "product02",
       "productImage": [
-        "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/01/17/bundle-09-2-up-1579250272.png",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -80,7 +161,7 @@
     {
       "id": "product03",
       "productImage": [
-        "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/01/17/bundle-06-02-up-1579233938.png",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -100,7 +181,7 @@
     {
       "id": "product04",
       "productImage": [
-        "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/01/17/bundle-05-05-up-1579245886.png",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -120,7 +201,7 @@
     {
       "id": "product05",
       "productImage": [
-        "http://lezada.reactdemo.hasthemes.com/assets/images/product/furniture/1.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/01/17/bundle-01-1-up-1579234586.png",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -140,7 +221,7 @@
     {
       "id": "product06",
       "productImage": [
-        "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/03/27/annaanglesbe-2-07e99126ee934395aeb8680f046c3b12-1585315111.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -160,7 +241,7 @@
     {
       "id": "product07",
       "productImage": [
-        "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/product-tmp/2020/08/14/sofa-goc-l12d-kensofa-04-1597376367.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -180,7 +261,7 @@
     {
       "id": "product08",
       "productImage": [
-        "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/product-tmp/2020/08/26/xam-nhat-4-1598424888.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
@@ -200,11 +281,11 @@
     {
       "id": "product09",
       "productImage": [
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/product-tmp/2020/08/14/sofa-goc-l05c2l-kensofa-09-1597376353.jpg",
         "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
-        "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
         "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
         "https://i.pinimg.com/originals/c3/b2/89/c3b2892e17deba5178e1607f7ce90a73.jpg"
       ],
@@ -220,9 +301,9 @@
     {
       "id": "product10",
       "productImage": [
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/product-tmp/2020/08/19/sofa-goc-l09-kensofa-01-1597376376-1-1597804579.jpg",
         "http://lezada.reactdemo.hasthemes.com/assets/images/product/furniture/1.jpg",
         "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
-        "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
         "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
         "https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png",
@@ -240,8 +321,8 @@
     {
       "id": "product11",
       "productImage": [
+        "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/product-tmp/2020/08/28/sofa-goc-l14-kensofa-03c83af86cfa51dca9-1598424822-1598598187.jpg",
         "http://www.nhaxinh.com/photo/7160/sofa-goc-3-101543-1.jpg",
-        "https://happymag.tv/wp-content/uploads/2019/10/studio-ghibli-1.jpg",
         "https://genk.mediacdn.vn/2019/6/16/anh-1-1560665499838121255197.jpg",
         "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
         "https://www.brain-magazine.fr/m/posts/50136/originals/kiki.jpg",
@@ -996,27 +1077,21 @@
       "productDiscount": 0.1,
       "categoryId": "category02",
       "itemCategoryId": "itemCategory24"
-    },
-    {
-      "productName": "asd",
-      "categoryId": "category01",
-      "productPrice": 500000,
-      "id": "DmgJWsT"
-    },
-    {
-      "productName": "asd",
-      "categoryId": "category03",
-      "productPrice": 2000000,
-      "id": "L6ktbk9"
-    },
-    {
-      "productName": "bca",
-      "categoryId": "category03",
-      "productPrice": 500000,
-      "id": "helxERi"
     }
   ],
   "sizes": [
+    {
+      "id": "size01",
+      "sizeName": "1m*1m9",
+      "price": 0,
+      "productId": "product01"
+    },
+    {
+      "id": "size02",
+      "sizeName": "2m*3m9",
+      "price": 0,
+      "productId": "product01"
+    },
     {
       "id": "size03",
       "sizeName": "2m*2m9",
@@ -1034,6 +1109,12 @@
       "sizeName": "1m*2m9",
       "price": 2000000,
       "productId": "product02"
+    },
+    {
+      "id": "size06",
+      "sizeName": "3m*3m",
+      "price": 0,
+      "productId": "product03"
     },
     {
       "id": "size07",
@@ -1126,126 +1207,137 @@
       "productId": "product15"
     },
     {
-      "productId": "product01",
+      "productId": "product05",
       "sizeName": "4m*8m2",
-      "price": 200000,
-      "id": "WEXFRpv"
-    },
-    {
-      "productId": "product05",
-      "sizeName": "8m7",
-      "price": 800000,
-      "id": "g9qXA7C"
-    },
-    {
-      "productId": "product05",
-      "sizeName": "4m9",
-      "price": 400000,
-      "id": "XrRoeD1"
+      "price": 500000,
+      "id": "wpfdT7I"
     }
   ],
   "colors": [
     {
+      "id": "color01",
+      "colorName": "Nâu",
+      "colorCode": "#874d00",
+      "price": 350000,
+      "productId": "product01"
+    },
+    {
       "id": "color03",
       "colorName": "Nâu",
+      "colorCode": "#874d00",
       "price": 350000,
       "productId": "product02"
     },
     {
       "id": "color04",
       "colorName": "Đỏ",
+      "colorCode": "#f5222d",
       "price": 300000,
       "productId": "product02"
     },
     {
       "id": "color05",
       "colorName": "Trắng",
+      "colorCode": "#fff",
       "price": 300000,
       "productId": "product04"
     },
     {
       "id": "color06",
       "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 400000,
       "productId": "product04"
     },
     {
       "id": "color07",
       "colorName": "Xanh da trời",
+      "colorCode": "#13c2c2",
       "price": 550000,
       "productId": "product06"
     },
     {
       "id": "color08",
-      "colorName": "Xanh lam",
+      "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 150000,
       "productId": "product07"
     },
     {
       "id": "color09",
-      "colorName": "Xanh đậm",
+      "colorName": "Đỏ",
+      "colorCode": "#f5222d",
       "price": 550000,
       "productId": "product07"
     },
     {
       "id": "color10",
       "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 500000,
       "productId": "product08"
     },
     {
       "id": "color11",
       "colorName": "Xanh da trời",
+      "colorCode": "#13c2c2",
       "price": 550000,
       "productId": "product09"
     },
     {
       "id": "color12",
-      "colorName": "Xanh lam",
+      "colorName": "Xanh lá",
+      "colorCode": "#52c41a",
       "price": 360000,
       "productId": "product10"
     },
     {
       "id": "color13",
-      "colorName": "Xanh đậm",
+      "colorName": "Hồng",
+      "colorCode": "#ffadd2",
       "price": 550000,
       "productId": "product11"
     },
     {
       "id": "color14",
-      "colorName": "Xanh nhạt",
+      "colorName": "Vàng",
+      "colorCode": "#ffec3d",
       "price": 550000,
       "productId": "product12"
     },
     {
       "id": "color15",
       "colorName": "Hồng",
+      "colorCode": "#ffadd2",
       "price": 550000,
       "productId": "product13"
     },
     {
       "id": "color16",
       "colorName": "Tía",
+      "colorCode": "#531dab",
       "price": 550000,
       "productId": "product14"
     },
     {
       "id": "color17",
       "colorName": "Vàng",
+      "colorCode": "#ffec3d",
       "price": 550000,
       "productId": "product15"
     },
     {
-      "productId": "product05",
-      "colorName": "Xanh",
-      "price": 500000,
-      "id": "3EOpKhJ"
+      "productId": "product04",
+      "colorName": "Xanh da trời",
+      "colorCode": "#13c2c2",
+      "price": 100000,
+      "id": "i5GHgFU"
     },
     {
-      "productId": "product05",
-      "colorName": "Tím",
-      "price": 100000,
-      "id": "MNYL25g"
+      "productId": "product01",
+      "colorName": "cam",
+      "price": 210000,
+      "id": "zNbECFa"
     }
   ],
   "categories": [
@@ -1263,11 +1355,7 @@
     },
     {
       "id": "category04",
-      "categoryName": "Phòng Làm Việc"
-    },
-    {
-      "id": "category05",
-      "categoryName": "Tủ Bếp"
+      "categoryName": "Phòng "
     },
     {
       "id": "category06",
@@ -1456,14 +1544,34 @@
   "users": [
     {
       "id": "user01",
-      "userName": "dat123",
-      "userEmail": "sieuquaydn33@gmail.com",
+      "userEmail": "hadat123@gmail.com",
+      "userName": "datha",
       "userPassword": "123456",
-      "userPhoneNumber": "0935415372",
-      "userRole": "admin",
+      "userPhoneNumber": "5123",
       "carts": [
         {
-          "id": "05133b7a-5ebc-4c7c-bd76-fbc4b36c5581",
+          "id": "71b1cd7a-1953-40cd-a2ed-143bde27bd33",
+          "productId": "product02",
+          "productQuantity": 1,
+          "productName": "Ghế Sofa Miami chỗ hiện đại",
+          "productImage": "https://gaubongonline.vn/wp-content/uploads/2018/02/gau-bong-totoro.jpg",
+          "productPrice": 12000000,
+          "productDiscount": 0.05,
+          "color": {
+            "id": "color03",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size03",
+            "sizeName": "2m*2m9",
+            "price": 0
+          }
+        }
+      ],
+      "wishlist": [
+        {
+          "id": "52aea21a-b4b7-44ee-a243-53c3f16b8c24",
           "productId": "product02",
           "productQuantity": 1,
           "productName": "Ghế Sofa Miami chỗ hiện đại",
@@ -1480,109 +1588,18 @@
             "sizeName": "2m*2m9",
             "price": 0
           }
-        },
-        {
-          "id": "8daa23c2-c826-4ecc-8a34-884ab13962e5",
-          "productId": "product03",
-          "productQuantity": 1,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 9000000,
-          "productDiscount": 0.05,
-          "color": {},
-          "size": {
-            "id": "size07",
-            "sizeName": "3m*3m",
-            "price": 600000
-          }
         }
       ],
-      "wishlist": [],
-      "address": [
-        {
-          "id": "127cd4b7-7af8-4624-8624-66e3f2b80511",
-          "userName": "asasdasd",
-          "addressName": "so 2 askdasd",
-          "cityName": "Thành phố Hồ Chí Minh",
-          "districtName": "Quận 11",
-          "wardName": "Phường 02",
-          "userPhoneNumber": "0935415354"
-        },
-        {
-          "id": "5b80b0bd-1cf8-4452-88fc-c5352f62bb23",
-          "userName": "dat123",
-          "addressName": "sod asd as",
-          "cityName": "Thành phố Hồ Chí Minh",
-          "districtName": "Quận 1",
-          "wardName": "Phường Bến Nghé",
-          "userPhoneNumber": "0935415375"
-        }
-      ],
-      "gender": "Male",
-      "birthday": "01/05/2021"
+      "address": []
     },
     {
       "userPassword": "123456789",
       "userEmail": "khelahni@gmail.com",
       "userName": "khelahni",
-      "userPhoneNumber": "012541",
+      "userPhoneNumber": "0774473993",
       "userRole": "customer",
       "id": "4XpnfQe",
       "carts": [
-        {
-          "id": "0c55c9db-20b6-48d1-bd5d-5b03b1da3b42",
-          "productId": "product06",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 1",
-          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
-          "productPrice": 3000000,
-          "productDiscount": 0.02,
-          "color": {
-            "id": "color07",
-            "colorName": "Xanh da trời",
-            "price": 550000
-          },
-          "size": {
-            "id": "size11",
-            "sizeName": "2m*3m9",
-            "price": 2000000
-          }
-        },
-        {
-          "id": "a3a42b6f-76b9-4cd7-94af-8850b7f64d48",
-          "productId": "product18",
-          "productQuantity": 1,
-          "productName": "Ghế Coque",
-          "productImage": "http://nhaxinh.com/photo/5184/500-san-pham-nha-xinh_(62).jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        }
-      ],
-      "wishlist": [
-        {
-          "id": "61ba7d29-014c-459a-9527-b9dadabf0ba0",
-          "productId": "product22",
-          "productQuantity": 1,
-          "productName": "Ghế Milia",
-          "productImage": "http://nhaxinh.com/photo/5246/ghe-an-milia.jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        },
-        {
-          "id": "5bf28248-8fd4-444c-aefd-b95a3f190369",
-          "productId": "product18",
-          "productQuantity": 1,
-          "productName": "Ghế Coque",
-          "productImage": "http://nhaxinh.com/photo/5184/500-san-pham-nha-xinh_(62).jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        },
         {
           "id": "946bad17-08c3-4c7e-b004-13c55c28b561",
           "productId": "product06",
@@ -1603,7 +1620,40 @@
           }
         }
       ],
-      "address": []
+      "wishlist": [
+        {
+          "id": "dc395d19-2b1d-4cbd-95b0-48175b09cae7",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0,
+          "color": {
+            "id": "color01",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "1m*1m9",
+            "price": 0
+          }
+        }
+      ],
+      "address": [
+        {
+          "id": "03f3e0a4-59fb-4317-8a32-ca01369e5f68",
+          "userName": "Hà Thúc Đạt",
+          "addressName": "05 Trần Thị Kỷ",
+          "cityName": "Thành phố Hồ Chí Minh",
+          "districtName": "Quận 10",
+          "wardName": "Phường 03",
+          "userPhoneNumber": "0774471111"
+        }
+      ],
+      "gender": "Male",
+      "birthday": ""
     },
     {
       "userPassword": "123456",
@@ -1611,21 +1661,50 @@
       "userName": "vinhjr",
       "userPhoneNumber": "0934511541",
       "userRole": "customer",
-      "carts": [],
-      "wishlist": [],
+      "carts": [
+        {
+          "id": "f253e4c7-dbe1-45a6-a70c-3a2fdeb25233",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0,
+          "color": {
+            "id": "color01",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "1m*1m9",
+            "price": 0
+          }
+        }
+      ],
+      "wishlist": [
+        {
+          "id": "f253e4c7-dbe1-45a6-a70c-3a2fdeb25233",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa Miami 2 chỗ hiện đại",
+          "productImage": "http://www.nhaxinh.com/photo/5504/miami_sofa2.jpg",
+          "productPrice": 10000000,
+          "productDiscount": 0,
+          "color": {
+            "id": "color01",
+            "colorName": "Nâu",
+            "price": 350000
+          },
+          "size": {
+            "id": "size01",
+            "sizeName": "1m*1m9",
+            "price": 0
+          }
+        }
+      ],
       "address": [],
       "id": "OPakzv5"
-    },
-    {
-      "userPassword": "123456",
-      "userEmail": "vinhjr1@gmail.com",
-      "userName": "vinhjr1",
-      "userPhoneNumber": "0935624152",
-      "userRole": "customer",
-      "carts": [],
-      "wishlist": [],
-      "address": [],
-      "id": "sM79IW2"
     }
   ],
   "city": [

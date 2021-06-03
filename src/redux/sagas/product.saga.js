@@ -8,10 +8,12 @@ function* getProductListSaga(action) {
       method: 'GET',
       url: 'http://localhost:3002/products?_embed=colors',
       params: {
-        _page: page,
-        _limit: limit,
+        ...page && { _page: page },
+        ...limit && { _limit: limit },
         ...categoryId && { categoryId },
-        ...itemCategoryId && { itemCategoryId },
+        ...page && {_page : page} ,
+        ...limit && {_limit:limit},
+        // ...itemCategoryId && { itemCategoryId },
         ...searchKey && { q: searchKey },
         _sort: sort,
         _order: order,
@@ -44,7 +46,7 @@ function* getProductDetailSaga(action) {
       url: `http://localhost:3002/products/${id}?_embed=colors`,
       params: {
         _embed: 'sizes',
-        _expand: 'itemCategory',
+        // _expand: 'itemCategory',
       }
     });
     yield put({

@@ -8,7 +8,9 @@ function* getCommentSaga(action) {
       method: 'GET',
       url: `http://localhost:3002/comment`,
       params: {
-        productId: productId
+        productId: productId,
+        _sort: "id",
+        _order: "desc"
       }
     });
     yield put({
@@ -60,8 +62,36 @@ function* addCommentSaga(action) {
   }
 }
 
+function* getAllCommentSaga(action) {
+  try {
+    const result = yield axios({
+      method: 'GET',
+      url: `http://localhost:3002/comment`,
+   
+    });
+    yield put({
+      type: 'GET_COMMENT_SUCCESS',
+      payload: {
+        data: result.data
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: 'GET_COMMENT_FAIL',
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+
+
 
 export default function* commentSaga() {
   yield takeEvery('GET_COMMENT_REQUEST', getCommentSaga);
   yield takeEvery('ADD_COMMENT_REQUEST', addCommentSaga);
+
+  //  Get All Data From Comment 
+  yield takeEvery('GET_ALL_COMMENT_REQUEST', getAllCommentSaga);
 }

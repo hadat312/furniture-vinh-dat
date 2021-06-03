@@ -15,14 +15,14 @@ function* registerSaga(action) {
         method: 'POST',
         url: 'http://localhost:3002/users',
         data: {
-          userPassword, 
+          userPassword,
           userEmail,
           userName,
           userPhoneNumber,
           userRole: "customer",
-          carts:[],
-          wishlist:[],
-          addresss:[],
+          carts: [],
+          wishlist: [],
+          addresss: [],
         }
       });
       // console.log("🚀 ~ file: user.saga.js ~ line 21 ~ function*registerSaga ~ result", result)
@@ -233,7 +233,40 @@ function* editUserInfoSaga(action) {
       },
     });
   }
+}
 
+function* addUserTaskSaga(action) {
+  try {
+    const {userPhoneNumber, userEmail ,userName, userRoleName, userPassword} = action.payload;
+    const result = yield axios({
+      method: 'POST',
+      url: 'http://localhost:3002/users',
+      data: {
+        userPassword:userPassword,
+        userEmail:userEmail,
+        userName:userName,
+        userPhoneNumber:userPhoneNumber,
+        userRole:userRoleName,
+        carts: [],
+        wishlist: [],
+        addresss: [],
+      }
+    });
+    yield put({
+      type: 'ADD_USER_TASK_SUCCESS',
+      payload: {
+        data: result.data,
+      },
+    });
+  } catch (e) {
+  yield put({
+    type: "ADD_USER_TASK_FAIL",
+    payload: {
+      error: e.error
+    },
+  });
+}
+  
 }
 
 
@@ -246,5 +279,7 @@ export default function* userSaga() {
   yield takeEvery('GET_USER_LIST_REQUEST', getUserListSaga);
   yield takeEvery('EDIT_USER_LIST_REQUEST', editUserListSaga);
 
-  yield takeEvery('EDIT_USER_INFO_REQUEST',editUserInfoSaga)
+  yield takeEvery('EDIT_USER_INFO_REQUEST', editUserInfoSaga);
+
+  yield takeEvery('ADD_USER_TASK_REQUEST',addUserTaskSaga);
 }

@@ -10,7 +10,7 @@ function ErrorLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            <Header {...routeProps}/>
+            <Header {...other} {...routeProps}/>
             <Component {...other} {...routeProps} />
           </>
         )

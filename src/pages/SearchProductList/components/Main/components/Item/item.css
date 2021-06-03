@@ -1,0 +1,118 @@
+/* CARD */
+
+.main-container__card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  /* align-items: center; */
+  /* justify-content: center!important; */
+}
+
+/* IMAGE */
+
+.main-container__card__img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* .main-container__card::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+} */
+
+/* .main-container__card:hover.main-container__card::after {
+  display: block;
+  opacity: 0.5;
+} */
+
+/* BUTTON ADD TO CARD */
+
+.main-container__card__add-to-card {
+  position: absolute;
+  /* z-index: 4; */
+  font-size: 20px;
+  /* left: 40%;
+  top: 80%;
+  transform: translate(-50%, -20%); */
+  display: block;
+  color: red;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* HIDDEN PRICE & TITLE */
+
+/* .main-container__card:hover .main-container__card__title, .main-container__card:hover .main-container__card__price {
+  visibility: hidden;
+} */
+
+/* .main-container__card:hover~.main-container__card__add-to-card {
+  display: block;
+  color: red;
+  text-decoration: none;
+  font-weight: bold;
+} */
+
+.main-container__card__discount {
+  display: flex!important;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  top: 4%;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: #98d8ca;
+  border-radius: 50%;
+}
+
+.main-container__card__title {
+  font-weight: bold;
+}
+
+.main-container__four-card__add-to-wishlist, .main-container__four-card__remove-from-wishlist, .main-container__one-card__add-to-wishlist, .main-container__one-card__remove-from-wishlist {
+  color: red;
+  font-size: 30px;
+  margin: 5px;
+}
+
+.main-container__card__wishlist, .main-container__card__add-to-wishlist {
+  font-size: 30px;
+  position: absolute;
+  top: 4%;
+  left: 65%;
+  display: block;
+  z-index: 4;
+}
+
+.main-container__card__price {
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+}
+
+.main-container__card__price__old {
+  text-decoration: line-through;
+  color: gray;
+  font-size: 14px;
+}
+
+.main-container__card__price__current {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.view-detail-btn {
+  width: 50%;
+  height: 50px!important;
+  font-weight: bold!important;
+  font-size: 20px!important;
+}

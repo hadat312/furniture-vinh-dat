@@ -253,6 +253,41 @@ export default function userReducer(state = initialState, action) {
       };
     }
 
+    case 'ADD_USER_TASK_REQUEST': {
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: true,
+        },
+      }
+    }
+
+    case 'ADD_USER_TASK_SUCCESS': {
+      const { data } = action.payload;
+      console.log("🚀 ~ file: user.reducer.js ~ line 268 ~ userReducer ~ data", data)
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          data: data,
+          load: false,
+        },
+      }
+    }
+
+    case 'ADD_USER_TASK_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: false,
+          error: error,
+        }
+      }
+    }
+
     default: {
       return state;
     }

@@ -47,11 +47,14 @@ function* addOrderSaga(action) {
       date,
       time,
       userId,
-      carts } = action.payload;
+      carts,
+      status
+    } = action.payload;
     const result = yield axios({
       method: 'POST',
       url: `http://localhost:3002/orders`,
       data: {
+        status: status,
         userName: userName,
         email: email,
         phone: phone,

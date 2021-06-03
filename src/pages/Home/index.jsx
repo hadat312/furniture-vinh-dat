@@ -9,7 +9,7 @@ import {
 
 } from '../../redux/actions'
 
- import {ShoppingCartOutlined} from '@ant-design/icons'
+import { ShoppingCartOutlined } from '@ant-design/icons'
 
 import carousel1 from '../../images/carousel1.jpg';
 import carousel2 from '../../images/carousel2.jpg';
@@ -26,6 +26,9 @@ import avatar1 from '../../images/avatar1.jpg';
 import avatar2 from '../../images/avatar2.jpg';
 import cabinetbg from '../../images/cabinetbg.png';
 import btnup from '../../images/btnup.svg'
+import phongkhach from '../../images/phongkhach.jpg';
+import phongngu from '../../images/phongngu.jpg';
+import phongan from '../../images/phongan.jpg';
 
 import ImgComp from '../../ImgComp'
 
@@ -136,25 +139,25 @@ function HomePage(props) {
         <div className="banner-standard">
           <div className="banner-standard-1">
             <div className="banner-img">
-              <img src={bannerbg1} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
-              <h3 className="banner-standard-title">Wooden Chair</h3>
-              <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p>
+              <img src={phongkhach} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
+              {/* <h3 className="banner-standard-title">Phòng Khách</h3> */}
+              {/* <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p> */}
             </div>
           </div>
 
           <div className="banner-standard-2">
             <div className="banner-img">
-              <img src={bannerbg2} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
-              <h3 className="banner-standard-title">Thumbler Alarm Clock </h3>
-              <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p>
+              <img src={phongngu} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
+              {/* <h3 className="banner-standard-title">Phòng Ngủ</h3> */}
+              {/* <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p> */}
             </div>
           </div>
 
           <div className="banner-standard-3">
             <div className="banner-img">
-              <img src={bannerbg3} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
-              <h3 className="banner-standard-title">Home Decoration</h3>
-              <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p>
+              <img src={phongan} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
+              {/* <h3 className="banner-standard-title">Phòng Ăn</h3> */}
+              {/* <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p> */}
             </div>
           </div>
         </div>
@@ -213,11 +216,11 @@ function HomePage(props) {
               </div>
             </div>
 
-            <button className="btn-countdown" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
+            <button className="btn-countdown"onClick={() => history.push(`/home/${productList.data[0].categoryId}`)}>
               <span>
                 <ShoppingCartOutlined />
               </span>
-              Shop Now
+              Mua sắm ngay
             </button>
           </div>
         </div>
@@ -278,9 +281,9 @@ function HomePage(props) {
             <h2 className="cabinet-title"> Montana shelf collection</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae reprehenderit excepturi laboriosam sapiente ipsam delectus doloremque vel alias eveniet facere!</p>
 
-            <button className="btn-cabinet" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
+            <button className="btn-cabinet" onClick={() => history.push(`/home/${productList.data[0].categoryId}`)}>
               <span>
-              <ShoppingCartOutlined />
+                <ShoppingCartOutlined />
               </span>
               Only $39
             </button>

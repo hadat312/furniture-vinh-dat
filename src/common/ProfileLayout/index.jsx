@@ -19,7 +19,7 @@ function ProfileLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            <Header {...routeProps} />
+            <Header {...other} {...routeProps} />
             <Banner {...routeProps}/>
             <Style.Container>
               <Sidebar {...routeProps} />

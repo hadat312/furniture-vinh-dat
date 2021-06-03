@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Form, Input, Select, Tooltip, Button, Space, Typography, notification } from 'antd';
 // import Moment from 'react-moment';
 // import Item from '../Checkout/component/Item'
+import 'moment/locale/vi'
 import history from '../../utils/history';
 import { ROUTERS } from '../../constants/router';
 import { connect } from 'react-redux';
@@ -225,7 +226,6 @@ function CheckOutPage({
     //     newCheckoutError.city = "";
     // }
     if (isValid) {
-      moment.locale('vi');
       const ordersInfo = {
         status: "Đang giao",
         userName: fillBill.userName,
@@ -237,7 +237,7 @@ function CheckOutPage({
         wardName: wardName,
         userId: fillBill.userId,
         totalPrice: grandTotal,
-        date: moment().format('MMMM Do YYYY'),
+        date: moment().format('LL'),
         time: moment().format('LT'),
         carts: cartList.data
       }
@@ -339,9 +339,6 @@ function CheckOutPage({
       cartList.data.map((cartItem, cartIndex) => {
         const productPrice = ((cartItem.productPrice + (cartItem.color.price || 0) + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount)) * cartItem.productQuantity;
         grandTotal = grandTotal + productPrice;
-        // if (cartItem.userId === userInfoLocalStorage.id
-        // ) {
-        // }
         return (
           <Item
             key={cartItem.productId}
@@ -411,7 +408,7 @@ function CheckOutPage({
                   </label>
                   <Select
                     showSearch
-                    style={{ width: 400 }}
+                    style={{ width: 400, margin: '0px 20px 15px' }}
                     placeholder="Chọn tỉnh/thành phố"
                     optionFilterProp="children"
                     onChange={onChangeSelectedCity}
@@ -434,7 +431,7 @@ function CheckOutPage({
                   </label>
                   <Select
                     showSearch
-                    style={{ width: 400 }}
+                    style={{ width: 400, margin: '0px 20px 15px' }}
                     placeholder="Chọn quận/huyện"
                     optionFilterProp="children"
                     onChange={onChangeSelectedDistrict}
@@ -457,7 +454,7 @@ function CheckOutPage({
                   </label>
                   <Select
                     showSearch
-                    style={{ width: 400 }}
+                    style={{ width: 400, margin: '0px 20px 15px' }}
                     placeholder="Chọn xã/phường"
                     optionFilterProp="children"
                     onChange={onChangeSelectedWard}

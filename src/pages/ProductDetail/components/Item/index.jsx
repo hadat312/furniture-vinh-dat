@@ -18,11 +18,9 @@ import {
 import './styles.css'
 
 import { UserOutlined } from "react-icons/ai";
-function Item(props) {
-  const { commentItem } = props;
+function Item({ commentItem }) {
 
   const { Title } = Typography;
-
   function renderShow() {
     if (commentItem.rate >= 5) {
       return <p>Rất Hài Lòng</p>
@@ -41,8 +39,15 @@ function Item(props) {
       <div className="comment-container">
         <div className="comment-content">
           <div className="comment-side-left">
-            <img src="" alt="" />
-            <h5 className="comment-user">{commentItem.userName}</h5>
+            <div>
+              <Avatar className="avatar__img"
+                style={{ margin: 10 }}
+                size={{ xs: 30, sm: 35, md: 40, lg: 45, xl: 50, xxl: 55 }}
+                // icon={<UserOutlined />}
+                src="https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png"
+              />
+              <div className="comment-user">{commentItem.userName}</div>
+            </div>
           </div>
 
           <div className="comment-side-right">
@@ -51,7 +56,7 @@ function Item(props) {
               {renderShow()}
             </div>
 
-            <h4 className="comment-text">{commentItem.comment}</h4>
+            <p className="comment-text">{commentItem.comment}</p>
             <p>Nhận xét vào {commentItem.time} - {commentItem.date}</p>
           </div>
 

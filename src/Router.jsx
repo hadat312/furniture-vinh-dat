@@ -1,5 +1,5 @@
-import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import history from './utils/history';
 import { ROUTERS } from './constants/router';
 
@@ -47,30 +47,40 @@ import AdminVoucher from  './pages/AdminVoucher'
 import SubCategoryAdmin from './pages/SubcategoryManagement'
 
 function BrowserRouter(props) {
+  const [getSearchKey, setGetSearchKey] = useState('');
   return (
     <Router history={history}>
       <Switch>
+        <Route exact path="/" render={() => <Redirect to={"/home"} />} />
         <HomeLayout
           exact
           path={ROUTERS.HOME}
           component={HomePage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
         <HomeLayout
           exact
           path={ROUTERS.ABOUT}
           component={AboutPage}
+          getSearchKey={getSearchKey} 
+          setGetSearchKey={setGetSearchKey}
         />
 
         <HomeLayout
           exact
           path={ROUTERS.ADMIN}
           component={AdminPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <HomeLayout
           exact
           path={ROUTERS.ADMIN_USER}
           component={AdminUserPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         {/* <HomeLayout
@@ -82,18 +92,24 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.ADMIN_PRODUCT}
           component={AdminProduct}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <HomeLayout
           exact
           path={ROUTERS.ADMIN_SUBCATEGORY}
           component={SubCategoryAdmin}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <HomeLayout
           exact
           path={ROUTERS.ADMIN_VOUCHER}
           component={AdminVoucher}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <Route
@@ -112,35 +128,47 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.CART}
           component={CartPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
         <DefaultLayout
           exact
           path={ROUTERS.WISHLIST}
           component={WishlistPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <ProfileLayout
           exact
           path={ROUTERS.ADDRESS}
           component={AddressPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <ProfileLayout
           exact
           path={ROUTERS.MY_ACCOUNT}
           component={MyAccountPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <ProfileLayout
           exact
           path={ROUTERS.CHANGE_PASSWORD}
           component={ChangePasswordPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <ProfileLayout
           exact
           path={ROUTERS.MY_ORDER}
           component={OrderPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
 
@@ -148,6 +176,8 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.CHECKOUT}
           component={CheckOutPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
         {/* <DefaultLayout
           exact
@@ -158,25 +188,33 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.ERROR}
           component={ErrorPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <DefaultLayout
           exact
           path={ROUTERS.SEARCH_RESULTS}
           component={SearchProductListPage}
-          
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
+
         />
 
         <DefaultLayout
           exact
           path={ROUTERS.PRODUCT}
           component={ProductListPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
 
         <DefaultLayout
           exact
           path={ROUTERS.PRODUCT_DETAIL}
           component={DetailPage}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
         />
       </Switch>
     </Router>

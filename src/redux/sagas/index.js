@@ -13,6 +13,8 @@ import addressSaga from './address.saga'
 
 import commentSaga from './comment.saga'
 
+import searchResultSaga from './searchResult.saga'
+
 
 // Admin Area
 
@@ -33,6 +35,8 @@ export default function* mySaga() {
 
   yield fork(addressSaga);
   yield fork(commentSaga);
+
+  yield fork(searchResultSaga);
 
 
   // Admin Area

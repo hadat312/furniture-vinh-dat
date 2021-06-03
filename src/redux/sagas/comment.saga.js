@@ -8,7 +8,9 @@ function* getCommentSaga(action) {
       method: 'GET',
       url: `http://localhost:3002/comment`,
       params: {
-        productId: productId
+        productId: productId,
+        _sort:'id',
+        _order:'desc'
       }
     });
     yield put({

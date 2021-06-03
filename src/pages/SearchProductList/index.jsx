@@ -17,8 +17,10 @@ import {
 import Main from './components/Main';
 
 function SearchProductListPage({
+  getSearchKey,
+
   userInfo,
-  productList,
+  // productList,
   searchResultList,
   getUserInfo,
   getProductList,
@@ -27,6 +29,9 @@ function SearchProductListPage({
   getItemCategories,
   match
 }) {
+
+  console.log('searchResultList: ', searchResultList)
+  
   const list = [];
   const { Title } = Typography;
   const categoryId = match.params.id;
@@ -39,18 +44,14 @@ function SearchProductListPage({
     }
     getSearchResults({
       page: 1,
-      limit: 20
+      limit: 10,
+      searchKey: getSearchKey,
     })
-    // getProductList({
-    //   page: 1,
-    //   limit: 10,
-    //   // searchKey: searchKey,
-    // })
   }, []);
 
   function onSearch(e) {
     const searchKey = e.target.value;
-    getProductList({
+    getSearchResults({
       page: 1,
       limit: 10,
       searchKey: searchKey,
@@ -58,27 +59,29 @@ function SearchProductListPage({
   }
 
   function sortDescendingProduct() {
-    getProductList({
+    getSearchResults({
       page: 1,
-      limit: 4,
+      limit: 10,
       sort: "productPrice",
-      order: "desc"
+      order: "desc",
+      searchKey: getSearchKey,
     })
   }
 
   function sortAscendingProduct() {
-    getProductList({
+    getSearchResults({
       page: 1,
-      limit: 4,
+      limit: 10,
       sort: "productPrice",
-      order: "asc"
+      order: "asc",
+      searchKey: getSearchKey,
     })
   }
 
   function handleShowMore() {
-    getProductList({
+    getSearchResults({
       more: true,
-      page: productList.page + 1,
+      page: searchResultList.page + 1,
       limit: 4,
       categoryId: categoryId,
       // itemCategoryId: itemCategorySelected,
@@ -150,7 +153,7 @@ function SearchProductListPage({
               <Main
                 categoryId={categoryId}
                 itemInRow={itemInRow}
-                productList={productList}
+                searchResultList={searchResultList}
                 handleShowMore={handleShowMore}
               />
             </div>
@@ -167,13 +170,13 @@ const mapStateToProps = (state) => {
   // const { cartList } = state.cartReducer;
   // const { wishlist } = state.wishlistReducer;
   const { categories, subCategories, itemCategories } = state.categoriesReducer;
-  const { productList } = state.productReducer;
+  // const { productList } = state.productReducer;
   const { searchResultList } = state.searchResultsReducer;
   return {
     subCategories: subCategories,
     itemCategories: itemCategories,
     userInfo: userInfo,
-    productList: productList,
+    // productList: productList,
     searchResultList: searchResultList,
   }
 };
@@ -181,7 +184,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUserInfo: (params) => dispatch(getUserInfoAction(params)),
-    getProductList: (params => dispatch(getProductListAction(params))),
+    // getProductList: (params => dispatch(getProductListAction(params))),
     getSearchResults: (params) => dispatch(getSearchResultsAction(params))
   };
 

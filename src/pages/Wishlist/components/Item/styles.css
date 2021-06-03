@@ -1,66 +1,11 @@
-/* .cart-table{
-    border: 1px solid #e7e7e7;
-    width: 100%;
+.product-thumbnail {
+    width: 250px;
 }
-
-.cart-table th{
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #333;
-    background: #FFF;
-    padding: 10px 8px;
-}
-
-.cart-table thead{
-    width: 100%;
-    border: 1px solid #e7e7e7;
-} */
-
 
 .product-thumbnail img{
     width: auto;
     height: 150px;
-    margin-left: 10px;
-}
-
- /* .minus-btn,.plus-btn{
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 600;
-    background-color: #333;
-    outline: none;
-    color:white;
-    font-size: 15px;
-    margin:0px 5px;
-} */
-
-.plust-cart-minus:hover , .minus-btn:hover, .plus-btn:hover{
-    transition: all ease-in-out 500ms;
-    color: orange;
- 
-}
-
-.plus-cart-minus input{
-    width: 100px;
-    background:none;
-    outline: none;
-
-}
-
-.minus-btn , .plus-btn{
-    width: 26px;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 600;
-    background-color: #333;
-    outline: none;
-    color:white;
-    font-size: 18px;
-    margin:0px 5px;
-    padding: 0px 1px;
+    margin: 0px  30px 0px 20px;
 }
 
 .btn-remove {
@@ -82,56 +27,6 @@
     transition: all ease-in-out 500ms;
     background: red;
 }
-
-/* Cart Coupon */
-
-/* .cart-purpot{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 25px 0px;
-    padding: 25px 0px;
-    border-bottom: 1px solid #333;
-}
-
-.cart-coupon_code{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cart-coupon_code input{
-    outline: none;
-    overflow: hidden;
-    background: none;
-    width: 300px;
-    height: 50px;
-    border-bottom: 2px solid #333;
-    border-top-style: none ;
-    border-left-style: none;
-    border-right-style: none;
-    border-left-style: none;    
-}
-
-
-.btn-apply , .clear-coupon{
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    background: #333;
-    color: white;
-    font-size: 20px;
-    margin-left: 20px;
-    padding: 0.5em 2em;
-    
-}
-
-
-.btn-apply:hover, .clear-coupon:hover{
-    background:#e7e7e7;
-    color: #333;
-    transition: all ease-in 300ms;
-} */
-
 
 hr{
     display: none;

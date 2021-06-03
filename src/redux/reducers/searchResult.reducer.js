@@ -9,7 +9,7 @@ const initialState = {
 export default function searchResultsReducer(state = initialState, action) {
   switch (action.type) {
 
-    case 'GET_PRODUCT_LIST_REQUEST': {
+    case 'GET_SEARCH_RESULTS_REQUEST': {
       return {
         ...state,
         searchResultList: {
@@ -18,7 +18,7 @@ export default function searchResultsReducer(state = initialState, action) {
         },
       }
     }
-    case 'GET_PRODUCT_LIST_SUCCESS': {
+    case 'GET_SEARCH_RESULTS_REQUEST_SUCCESS': {
       const { data, page, more } = action.payload;
       if (more) {
         return {
@@ -47,7 +47,7 @@ export default function searchResultsReducer(state = initialState, action) {
         }
       }
     }
-    case 'GET_PRODUCT_LIST_FAIL': {
+    case 'GET_SEARCH_RESULTS_REQUEST_FAIL': {
       const { error } = action.payload;
       return {
         ...state,

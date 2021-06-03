@@ -9,25 +9,28 @@ body,h1,h2,h3,h4,h5,h6{
 
 .empty-cart-container{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: 100%;
-    height: 100vh;
-}
-
-
-.empty-cart-container img {
-    width: auto;
-    height: 300px;
-}
-
-.empty-cart_title{
-    display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    color: #333;
+    height: 483px;
+    padding: 50px;
+}
+
+
+.empty-cart-container__cart-icon{
+    font-size:125px;
+}
+
+.empty-cart-container__title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-cart-container__title p{
+    font-size:23px;
+    margin: 0px;
 }
 
 .btn-shopping{
@@ -47,14 +50,21 @@ body,h1,h2,h3,h4,h5,h6{
     transition: all ease-in 300ms;
 }
 
-.cart-table-container{
-    /* border: 1px solid ; */
-    width:100%;
-    margin-top: 50px ;
+.cart-container{
+    position: relative;
+    width: 1400px;
+    left: 13%;
+    transform: translateX(4px);
+    margin-top: 50px;
+}
+
+.cart-container__cart-table-container{
+    width: 100%;
+
 }
 
 
-.cart-table-container th{
+.cart-container__cart-table-container th{
     padding: 10px 8px;
     font-size: 15px;
     line-height: 24px;
@@ -65,28 +75,30 @@ body,h1,h2,h3,h4,h5,h6{
     background: #FFF;
 }
 
-.cart-table-container .cart-name{
+.cart-container__cart-table-container .cart-table-container__cart-name{
     text-align: center;
 }
 
 
 
-.cart-table-container  thead{
+.cart-container__cart-table-container  thead{
     width: 100%;
     border-bottom: 1px solid #ededed;
 }
 
 
-.cart-table-container  tr{
+.cart-container__cart-table-container  tr{
     border: 1px solid #ededed;
 }
 
 /*  Cart Coupon */
 
+.cart-coupon_area{
+    padding: 0px 50px 0px;
+}
 
 .cart-content{
-    margin: 25px 0px;
-    padding: 25px 0px;
+    padding: 25px 0px 50px;
 }
 
 .cart-coupon_code{
@@ -125,130 +137,3 @@ body,h1,h2,h3,h4,h5,h6{
     color: #333;
     transition: all ease-in 300ms;
 }
-
-/* .cart-voucher{
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-} */
-
-.cart-total{
-    padding:5px;
-
-}
-
-/* Footer - Space */
-
-.footer-bg{
-    background: #f8f8f8;
-}
-
-
-.footer-purpot{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 120px 20px;
-}
-
-.footer-logo_brand img{
-   width: auto;
-   height: 100px;
-}
-
-.footer-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style-type: none;
-    margin:0px;
-    padding: 0px;
-}
-
-
-
-.footer-about_dropdown , .footer-useful_dropdown, .footer-follow_dropdown{
-     list-style-type: none;
-     padding: 0px;
-
-}
-
-.footer-about_dropdown{
-    margin-right: 100px;
-}
-
-.footer-useful_dropdown{
-    margin-right: 100px;
-}
-
-
-
-.footer-list_title{
-  
-    color: black;
-    text-decoration: none;
-    font: 30px;
-    font-weight: 600;
-}
-
-.footer-list_title:hover{
-    color:black;
-    text-decoration: none;
-}
-
-.footer-list{
-    color: #999;
-    text-decoration: none;
-    font-size: 18px;
-    line-height: 2.5em;
-    text-decoration: none;
-}
-
-.footer-list:hover{
-    color: #333;
-    border-bottom: 1px solid #333;
-    transition: all ease-in-out 300ms;
-    text-decoration: none;
-}
-
-.footer-subscribe input{
-    margin: 10px 0px;
-    width: 300px;
-    height: 50px;
-    border:none;
-    background: none;
-    overflow: hidden;
-    outline: none;
-    border-bottom: 2px solid #333;
-}
-
-.footer-follow_dropdown{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100px;
-}
-
-
-.footer-follow_dropdown img{
-    /* margin-top: 0.95em; */
-    margin: 0.8em 8px;
-    width: 20px;
-    cursor: pointer;
-}
-
-.footer-info{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: #999;
-}
-
-.footer-info p:hover{
-    color: #333;
-    border-bottom: 1px solid #333;
-    transition: all ease-in-out 300ms;
-}
-

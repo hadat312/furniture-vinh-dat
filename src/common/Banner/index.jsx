@@ -56,7 +56,8 @@ function Banner({ location, history, match }) {
       </Breadcrumb.Item>
     );
   });
-  console.log('URL: ', urlValue);
+  // console.log('URL: ', urlValue);
+  // console.log('extraBreadcrumbItems: ', extraBreadcrumbItems);
   return (
     <div className="main-container__banner">
       <div className="banner__bg"

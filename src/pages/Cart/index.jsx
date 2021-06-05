@@ -55,7 +55,7 @@ function CardPage({
 
   // console.log('voucherSelected: ', voucherList.data[0].voucherName || {})
   const [voucherSelected, setVoucherSelected] = useState(0);
-  console.log("🚀 ~ file: index.jsx ~ line 53 ~ voucherSelected", voucherSelected)
+  // console.log("🚀 ~ file: index.jsx ~ line 53 ~ voucherSelected", voucherSelected)
 
   const key = `open${Date.now()}`;
 

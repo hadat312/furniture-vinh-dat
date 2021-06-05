@@ -67,12 +67,20 @@ function ProductDetailPage({
   getComment,
   addComment,
   match,
-  
+  setURLProductDetail,
+  setNameProduct,
 }) {
 
   const productId = match.params.id;
 
+
   const userLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
+
+
+  useEffect(() => {
+    setURLProductDetail(match.url);
+    setNameProduct(productDetail.data.productName);
+  }, [])
 
   useEffect(() => {
     // getCartList();
@@ -81,13 +89,11 @@ function ProductDetailPage({
     getComment({ productId: productId })
   }, [productId])
 
-  
-
-
 
   //chọn màu sắc và kích cỡ mặc định 
   useEffect(() => {
     if (productDetail.data.id) {
+
       setSizeSelected(productDetail.data.sizes[0] || {})
       setColorSelected(productDetail.data.colors[0] || {})
       setChangeImage(productDetail.data.productImage[0] || {})
@@ -99,6 +105,8 @@ function ProductDetailPage({
 
   const { Title } = Typography;
 
+
+
   const imageList = [
     ...productDetail.data.productImage
   ]
@@ -107,7 +115,7 @@ function ProductDetailPage({
   const { TabPane } = Tabs;
 
   function callback(key) {
-    console.log(key);
+    // console.log(key);
   }
 
   const [changeImage, setChangeImage] = useState(productDetail.data.productImage);
@@ -117,6 +125,7 @@ function ProductDetailPage({
   const [colorSelected, setColorSelected] = useState({});
   const [quantity, setQuantity] = useState(1);
 
+  //add: false, delete: true
   const [isAddWishlist, setIsAddWishlist] = useState(false);
 
   const oldPrice = productDetail.data.productPrice + (sizeSelected.price || 0) + (colorSelected.price || 0);
@@ -137,6 +146,44 @@ function ProductDetailPage({
     }
   }
 
+  function updateCurrentCartProduct() {
+    return (
+      notification.success({
+        message: 'Cập nhật vào giỏ thành công',
+        key,
+        placement: 'bottomRight',
+        duration: 2
+      })
+    );
+  }
+
+  function addCurrentCartProduct() {
+    notification.success({
+      message: 'Thêm vào giỏ thành công',
+      key,
+      placement: 'bottomRight',
+      duration: 2
+    });
+  }
+
+  function addCurrentWishlistProduct() {
+    notification.success({
+      message: 'Thêm vào danh sách yêu thích thành công',
+      key,
+      placement: 'bottomRight',
+      duration: 2
+    });
+  }
+
+  function deleteCurrentWishlistProduct() {
+    notification.success({
+      message: 'xóa sản phẩm thành công',
+      key,
+      placement: 'bottomRight',
+      duration: 2
+    });
+  }
+
 
   function onAddToCart() {
     //color, size đều không có
@@ -148,7 +195,7 @@ function ProductDetailPage({
     if (!userLocalStorage) {
       return notification.warning({
 
-        message: 'Chưa đăng nhập',
+        message: 'Chú ý',
         description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
         placement: 'bottomRight',
         key,
@@ -184,12 +231,7 @@ function ProductDetailPage({
           userId: userLocalStorage.id,
           carts: newCart,
         })
-        notification.success({
-          message: 'Cập nhật vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        updateCurrentCartProduct()
       } else {
         addCartTask({
           userId: userLocalStorage.id,
@@ -208,12 +250,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        addCurrentCartProduct()
       }
     } else if (!colorSelected.id) { // nếu chỉ có size
       const existSizeIndex = cartList.data.findIndex((item) => item.size.id === sizeSelected.id);
@@ -238,12 +275,7 @@ function ProductDetailPage({
           userId: userLocalStorage.id,
           carts: newCartList,
         })
-        notification.success({
-          message: 'Cập nhật vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        updateCurrentCartProduct()
       } else {
         addCartTask({
           userId: userLocalStorage.id,
@@ -266,12 +298,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        addCurrentCartProduct()
       }
     } else if (!sizeSelected.id) { // nếu chỉ có color
       const existColorIndex = cartList.data.findIndex((item) => item.color.id === colorSelected.id);
@@ -296,12 +323,7 @@ function ProductDetailPage({
           userId: userLocalStorage.id,
           carts: newCartList,
         })
-        notification.success({
-          message: 'Cập nhật vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        updateCurrentCartProduct()
       } else {
         addCartTask({
           userId: userLocalStorage.id,
@@ -324,12 +346,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        addCurrentCartProduct()
       }
     } else {//có cả color và size
       const existOptionIndex = cartList.data.findIndex((item) => item.color.id === colorSelected.id && item.size.id === sizeSelected.id);
@@ -358,12 +375,7 @@ function ProductDetailPage({
           userId: userLocalStorage.id,
           carts: newCartList,
         })
-        notification.success({
-          message: 'Cập nhật vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        updateCurrentCartProduct()
       } else {
         addCartTask({
           userId: userLocalStorage.id,
@@ -390,12 +402,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào giỏ thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2,
-        });
+        addCurrentCartProduct()
       }
     }
   }
@@ -440,12 +447,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào danh sách yêu thích thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        addCurrentWishlistProduct()
       }
     } else if (!colorSelected.id) { // nếu chỉ có size
       const existSizeIndex = wishlist.data.findIndex((item) => item.size.id === sizeSelected.id);
@@ -471,12 +473,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào danh sách yêu thích thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        addCurrentWishlistProduct()
       }
     } else if (!sizeSelected.id) { // nếu chỉ có color
       const existColorIndex = wishlist.data.findIndex((item) => item.color.id === colorSelected.id);
@@ -502,12 +499,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào danh sách yêu thích thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        addCurrentWishlistProduct()
       }
     }
     else {//có cả color và size
@@ -538,12 +530,7 @@ function ProductDetailPage({
             }
           ]
         })
-        notification.success({
-          message: 'Thêm vào danh sách yêu thích thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2,
-        });
+        addCurrentWishlistProduct()
       }
     }
   }
@@ -563,32 +550,89 @@ function ProductDetailPage({
             ...newWishlist,
           ]
         })
-        notification.success({
-          message: 'xóa sản phẩm thành công',
-          key,
-          placement: 'bottomRight',
-          duration: 2
-        });
+        deleteCurrentWishlistProduct()
       }
 
     })
 
   }
 
-  // function checkExistWishlist(){
-  //   wishlist.data.forEach((wishlistItem, wishlistIndex) => {
-  //     //check xem colorId và sizeId ở detail có === colorId, sizeId ở wishlist ko
-  //     // === thì xóa
-  //     if (wishlistItem.productId === productId
-  //       && wishlistItem.color.id === colorSelected.id
-  //       && wishlistItem.size.id === sizeSelected.id) {
-  //       setIsAddWishlist(true)
-  //     }else{
-  //       setIsAddWishlist(false)
-  //     }
+  function checkExistWishlist() {
+    if (!colorSelected.id && !sizeSelected.id) { // ko có size và cả color
+      const existProductIndex = wishlist.data.findIndex((item) => item.productId === productId);
+      if (existProductIndex === -1) {
+        // setIsAddWishlist(true)
+        return true
+      } else {
+        // setIsAddWishlist(false)
+        return false
+      }
+    } else if (!colorSelected.id) { // nếu chỉ có size
+      const existSizeIndex = wishlist.data.findIndex((item) => item.size.id === sizeSelected.id);
+      if (existSizeIndex === -1) {
+        // setIsAddWishlist(true)
+        return true
+      } else {
+        // setIsAddWishlist(false)
+        return false
+      }
+    } else if (!sizeSelected.id) { // nếu chỉ có color
+      const existColorIndex = wishlist.data.findIndex((item) => item.color.id === colorSelected.id);
+      if (existColorIndex === -1) {
+        // setIsAddWishlist(true)
+        return true
+      } else {
+        // setIsAddWishlist(false)
+        return false
+      }
+    }
+    else {//có cả color và size
+      const existOptionIndex = wishlist.data.findIndex((item) => item.color.id === colorSelected.id && item.size.id === sizeSelected.id);
+      if (existOptionIndex === -1) {
+        // setIsAddWishlist(true)
+        return true
+      } else {
+        // setIsAddWishlist(false)
+        return false
+      }
+    }
 
-  //   })
-  // }
+    // return wishlist.data.map((wishlistItem, wishlistIndex) => {
+    //   //check xem colorId và sizeId ở detail có === colorId, sizeId ở wishlist ko
+    //   // === thì xóa
+    //   if (wishlistItem.productId === productId
+    //     && wishlistItem.color.id === colorSelected.id
+    //     && wishlistItem.size.id === sizeSelected.id) {
+    //     return setIsAddWishlist(true)
+    //   } else {
+    //     return setIsAddWishlist(false)
+    //   }
+
+    // })
+
+    // console.log('colorSelected: ', colorSelected)
+    // console.log('sizeSelected: ', sizeSelected)
+  }
+
+  function addWishlist() {
+    // console.log('add: ', checkExistWishlist())
+    toggleWishlist();
+    // checkExistWishlist();
+    onAddWishlistTask();
+    // if(checkExistWishlist()){
+    //   console.log('add')
+    // }
+  }
+
+  function deleteWishlist() {
+    // console.log('delete: ', checkExistWishlist())
+    toggleWishlist();
+    // checkExistWishlist();
+    onDeleteWishlistTask();
+    // if(!checkExistWishlist()){
+    //   console.log('delete')
+    // }
+  }
 
   function renderImageList() {
     return imageList.map((item, index) => {
@@ -657,9 +701,9 @@ function ProductDetailPage({
   function handleAddComment() {
     if (!userLocalStorage) {
       return notification.warning({
-
-        message: 'Chưa đăng nhập',
-        description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        message: 'Chú ý',
+        description: 'Bạn cần đăng nhập để đánh giá sản phẩm',
+        placement: 'bottomRight',
         key,
         btn: (
           <Button
@@ -673,13 +717,14 @@ function ProductDetailPage({
           </Button>
         ),
       });
-    }if(rate === 0  ){
+    } if (rate === 0) {
       return notification.warning({
-        message: 'Bạn cần chọn đánh giá',
-        // description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        message: 'Chú ý',
+        placement: 'bottomRight',
+        description: 'Bạn cần chọn đánh giá',
         key,
       });
-    }else{
+    } else {
       addComment(commentContent)
     }
   }
@@ -742,7 +787,7 @@ function ProductDetailPage({
 
           <div className="detail-container__content">
             <div className="detail-container__rate">
-              <Rate disabled value={getAvgRate()}/>
+              <Rate disabled value={getAvgRate()} />
               <span className="ant-rate-text">( {commentList.data.length} khách hàng đánh giá )</span>
             </div>
             <div className="detail-container__title">
@@ -794,7 +839,7 @@ function ProductDetailPage({
               <Title level={3}>Quantity</Title>
               <InputNumber
                 // onStep={(value) => console.log(value)}
-                style={{ width: 100 }}
+                style={{ width: 150 }}
                 className="quantity__content__input-number"
                 min={1}
                 max={10}
@@ -803,22 +848,15 @@ function ProductDetailPage({
                   setQuantity(e)
                 }}
               />
-
               <div className="main-container__wishlist-bg">
                 {
                   isAddWishlist
                     ? <AiFillHeart
-                      onClick={() => {
-                        toggleWishlist()
-                        onDeleteWishlistTask();
-                      }}
+                      onClick={deleteWishlist}
                       className="main-container__card__delete-wishlist"
                     />
                     : <AiFillHeart
-                      onClick={() => {
-                        toggleWishlist()
-                        onAddWishlistTask();
-                      }}
+                      onClick={addWishlist}
                       className="main-container__card__add-to-wishlist"
                     />
                 }
@@ -839,7 +877,7 @@ function ProductDetailPage({
 
 
         <div className="detail-container__detail-description">
-          <Title level={3} className="detail-description__container__title">MÔ TẢ SẢN PHẨM</Title>
+          <Title level={3} className="detail-description__container__title">CHI TIẾT SẢN PHẨM</Title>
           <div className="detail-description__container ">
 
             <div className="detail-description__container__content">
@@ -860,7 +898,7 @@ function ProductDetailPage({
                       <Title level={4}>Hướng Dẫn Bảo Quản</Title>
                     }
                     key="2">
-                      <div dangerouslySetInnerHTML={{ __html: productDetail.data.productStorageInstruction }} />
+                    <div dangerouslySetInnerHTML={{ __html: productDetail.data.productStorageInstruction }} />
                   </TabPane>
 
                 </Tabs>
@@ -877,7 +915,7 @@ function ProductDetailPage({
                     <Title level={4}>Thông Số Kỹ Thuật</Title>
                   }
                   key="2">
-                    <div dangerouslySetInnerHTML={{ __html: productDetail.data.productStorageInstruction }} />
+                  <div dangerouslySetInnerHTML={{ __html: productDetail.data.productStorageInstruction }} />
                 </TabPane>
 
               </Tabs>

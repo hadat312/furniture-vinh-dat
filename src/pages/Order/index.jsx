@@ -63,23 +63,10 @@ function OrderPage({
       return {
         ...orderItem,
         regionName: orderItem.addressName + ', ' + orderItem.wardName + ', ' + orderItem.districtName + ', ' + orderItem.cityName,
-        dateTime: orderItem.date + ', ' + orderItem.time,
+        dateTime: 'ngày ' + orderItem.date + ', ' + orderItem.time,
         key: orderItem.id,
       }
     });
-    // orderList.data.forEach((orderListItem, orderIndex) => {
-    //   orderListData.push({
-    //     key: orderListItem.id,
-    //     id: orderListItem.id,
-    //     userName: orderListItem.userName,
-    //     email: orderListItem.email,
-    //     phone: orderListItem.phone,
-    //     address: orderListItem.address,
-    //     date: orderListItem.date,
-    //     time: orderListItem.time,
-    //     totalPrice: orderListItem.totalPrice,
-    //   });
-    // })
 
     const render = (id) => {
       const data = [];
@@ -166,7 +153,13 @@ function OrderPage({
         width: '20%'
       },
       // { title: 'Mã vùng', dataIndex: 'regionCode', width: '15%' },
-      { title: 'Ngày đặt hàng', dataIndex: 'dateTime' },
+      { 
+        title: 'Ngày đặt hàng', 
+        dataIndex: 'dateTime',
+        // render: (text) => {
+        //   <div>{text}</div>
+        // } 
+      },
       {
         title: 'Trạng thái',
         dataIndex: 'status',

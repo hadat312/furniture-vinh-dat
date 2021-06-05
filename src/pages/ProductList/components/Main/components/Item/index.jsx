@@ -31,7 +31,6 @@ function Item({
   // addCartTask,
   // editCartTask,
 }) {
-  console.log("🚀 ~ file: index.jsx ~ line 35 ~ averageRate", averageRate)
 
   const { Meta } = Card;
 
@@ -70,6 +69,7 @@ function Item({
             }}
             className="main-container__card"
             hoverable
+            // bordered={false}
             cover={
               <>{
                 productListItem.productDiscount > 0 && (
@@ -117,11 +117,12 @@ function Item({
             // className="main-container__card__img"
             style={{
               width: "100%",
-              height: "auto"
+              height: 369,
+              borderRadius: 6,
             }}
           />
         </Col>
-        <Col span={12}>
+        <Col span={12} style={{padding:12}}>
           <Row style={marginBot}>
             <Title level={2}>
               {productListItem.productName}
@@ -129,12 +130,8 @@ function Item({
           </Row>
           <Row style={marginBot} className="d-flex align-items-center">
             <span className="main-container__card__price__old mr-2">{originPrice} vnđ</span>
-            <span className="main-container__card__price__current">{initialPrice} vnđ</span>
-<<<<<<< HEAD
-            <Rate  disabled value={averageRate} />
-=======
-           
->>>>>>> 36db4ff (update 6/3)
+            <span className="main-container__card__price__current mr-2">{initialPrice} vnđ</span>
+            <Rate disabled value={averageRate} />
           </Row>
           <Row style={marginBot, { textAlign: "justify" }}>
             <p>{productListItem.productShortDescription}</p>
@@ -143,7 +140,7 @@ function Item({
             <Button
               type="primary"
               className="view-detail-btn"
-              onClick={() => { history.push(`/product/${productListItem.id}`) }}
+              onClick={() => { history.push(`/home/${productListItem.categoryId}/${productListItem.id}`) }}
             >
               Xem chi tiết
             </Button>

@@ -17,7 +17,7 @@ function PlaceOrderLayout(props) {
         return (
           <>
             <Header {...other} {...routeProps}/>
-            <Banner {...routeProps}/>
+            <Banner {...routeProps} {...other}/>
             <Component {...other} {...routeProps} />
             <Footer />
           </>

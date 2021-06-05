@@ -25,7 +25,7 @@ function ProductListPage(props) {
   const categoryId = match.params.id;
 
   const [itemInRow, setItemInRow] = useState(6);
-  const [itemCategorySelected, setItemCategorySelected] = useState(undefined);
+  const [itemCategorySelected, setItemCategorySelected] = useState('');
 
   useEffect(() => {
     getSubCategories({
@@ -66,6 +66,7 @@ function ProductListPage(props) {
       page: 1,
       limit: 4,
       categoryId: categoryId,
+      itemCategoryId: itemCategorySelected,
       sort: "productPrice",
       order: "desc"
     })
@@ -76,6 +77,7 @@ function ProductListPage(props) {
       page: 1,
       limit: 4,
       categoryId: categoryId,
+      itemCategoryId: itemCategorySelected,
       sort: "productPrice",
       order: "asc"
     })
@@ -103,6 +105,11 @@ function ProductListPage(props) {
 
   //set lại state isItemCategories = itemCategoryItem.id
   function onClickItem(e) {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
     return (
       itemCategories.data.map((itemCategoryItem, itemCategoryIndex) => {
         if (e.item.props.children[1] === itemCategoryItem.itemCategoryName) {

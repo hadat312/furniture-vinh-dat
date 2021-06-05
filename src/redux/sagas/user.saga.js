@@ -157,15 +157,15 @@ function* deleteUserListSaga(action) {
 
 // Edit User List
 function* editUserListSaga(action) {
-  console.log("🚀 ~ file: user.saga.js ~ line 148 ~ function*editUserListSaga ~ action", action)
   try {
-    const { id, userName, userEmail, userPhoneNumber } = action.payload;
+    const { id, userName, userImage, userEmail, userPhoneNumber } = action.payload;
     const result = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/users/${id}`,
       data: {
         userName: userName,
         userEmail: userEmail,
+        userImage: userImage,
         userPhoneNumber: userPhoneNumber
       }
     });
@@ -190,7 +190,8 @@ function* editUserListSaga(action) {
 // Edit User Info
 function* editUserInfoSaga(action) {
   try {
-    const { id, userEmail, gender, birthdayString, userPassword, userName, userPhoneNumber, address, userRole } = action.payload;
+    const { id, userEmail, gender, birthdayString, userPassword, userName, userImage, userPhoneNumber, address, userRole } = action.payload;
+    console.log("🚀 ~ file: user.saga.js ~ line 194 ~ function*editUserInfoSaga ~ action.payload", action.payload)
     const result = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/users/${id}`,
@@ -198,6 +199,7 @@ function* editUserInfoSaga(action) {
         userEmail: userEmail,
         userPassword: userPassword,
         userName: userName,
+        userImage: userImage,
         gender: gender,
         birthday: birthdayString,
         userPhoneNumber: userPhoneNumber,

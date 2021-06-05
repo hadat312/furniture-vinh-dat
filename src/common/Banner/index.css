@@ -26,3 +26,16 @@
   left: 13%;
   transform: translateX(4px);
 }
+
+.breadcrumb-container h4 {
+  cursor: pointer;
+}
+
+.breadcrumb-container, .breadcrumb-container>span {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-container>span {
+  font-weight: bold;
+}

@@ -10,7 +10,8 @@ function Item({
   wishlistIndex,
   wishlistItem,
   onDeleteWishlist,
-  checkItemInCart
+  checkItemInCart,
+  productListCategoryId
 }) {
 
   const productPrice = (wishlistItem.productPrice + (wishlistItem.color.price || 0) + (wishlistItem.size.price || 0)) * (1 - wishlistItem.productDiscount);
@@ -42,13 +43,13 @@ function Item({
               style={{ cursor: 'pointer' }}
               src={wishlistItem.productImage}
               alt=""
-              onClick={() => history.push(`/product/${wishlistItem.productId}`)}
+              onClick={() => history.push(`/home/${productListCategoryId}/${wishlistItem.productId}`)}
             />
           </td>
           <td
             className="product-name"
             style={{ width: 450, cursor: 'pointer' }}
-            onClick={() => history.push(`/product/${wishlistItem.productId}`)}
+            onClick={() => history.push(`/home/${productListCategoryId}/${wishlistItem.productId}`)}
           >
             <div>{wishlistItem.productName}</div>
             {wishlistItem.color.colorName && <div>Màu: {wishlistItem.color.colorName}</div>}

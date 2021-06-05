@@ -51,16 +51,24 @@ import SubCategoryAdmin from './pages/SubcategoryManagement'
 
 function BrowserRouter(props) {
   const [getSearchKey, setGetSearchKey] = useState('');
+  const [getNameProduct, setNameProduct] = useState('');
+  const [getURLProductDetail, setURLProductDetail] = useState('');
   return (
     <Router history={history}>
       <Switch>
         <Route exact path="/" render={() => <Redirect to={"/home"} />} />
+        
         <HomeLayout
           exact
           path={ROUTERS.HOME}
           component={HomePage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
         <HomeLayout
           exact
@@ -68,6 +76,11 @@ function BrowserRouter(props) {
           component={AboutPage}
           getSearchKey={getSearchKey} 
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
 
         <AdminLayout
@@ -132,6 +145,11 @@ function BrowserRouter(props) {
           component={CartPage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
         <DefaultLayout
           exact
@@ -139,6 +157,11 @@ function BrowserRouter(props) {
           component={WishlistPage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
 
         <ProfileLayout
@@ -147,6 +170,11 @@ function BrowserRouter(props) {
           component={AddressPage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
 
         <ProfileLayout
@@ -171,6 +199,11 @@ function BrowserRouter(props) {
           component={OrderPage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
 
 
@@ -180,6 +213,11 @@ function BrowserRouter(props) {
           component={CheckOutPage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
         {/* <DefaultLayout
           exact
@@ -201,6 +239,11 @@ function BrowserRouter(props) {
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
 
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
+
         />
 
         <DefaultLayout
@@ -209,6 +252,11 @@ function BrowserRouter(props) {
           component={ProductListPage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
 
         <DefaultLayout
@@ -217,6 +265,11 @@ function BrowserRouter(props) {
           component={DetailPage}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
+
+          setNameProduct={setNameProduct}
+          getNameProduct= {getNameProduct}
+          setURLProductDetail={setURLProductDetail}
+          getURLProductDetail={getURLProductDetail}
         />
       </Switch>
     </Router>

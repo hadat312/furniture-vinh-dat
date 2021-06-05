@@ -145,7 +145,7 @@ __DESCRIPTIONS */
 
 .color-content__item, .size-content__item, .detail-container__order__wishlist-button {
   /* margin-right: 20px!important; */
-  width: 100px;
+  width: 150px;
   text-align: center;
 }
 
@@ -186,10 +186,6 @@ __DESCRIPTIONS */
 
 .btn-outline-primary {
   margin-left: 20px;
-}
-
-.quantity__content__input {
-  width: 160px!important;
 }
 
 /* ICON - + */

@@ -75,6 +75,11 @@ function Header({
     getCategories()
     // getProductList({})
   }, []);
+
+  // useEffect(() => {
+  //   getUserInfo({ id: userInfoLocalStorage.id });
+  // }, [userInfo.data]);
+
   const countCarts = cartList.data.length;
   const countWishlist = wishlist.data.length;
 
@@ -92,7 +97,7 @@ function Header({
 
   function onSearch(e) {
     const searchKey = e.target.value;
-    
+
     getSearchResults({
       // page: 1,
       limit: 10,
@@ -103,7 +108,7 @@ function Header({
 
   function onEnter(e) {
     // addSearchResults(productList.data)
-    if(e.key === 'Enter'){
+    if (e.key === 'Enter') {
       console.log('onEnter: ', e.target.value);
       setGetSearchKey(e.target.value);
       history.push(ROUTERS.SEARCH_RESULTS);
@@ -115,25 +120,26 @@ function Header({
       if (userInfo.data.userRole === 'customer') {
         return (
           <Menu>
-            <Menu.Item key='dropdown-user-info-02'>
+
+            <Menu.Item key='dropdown-user-info-01'>
               <div className="btn-into" onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</div>
             </Menu.Item>
-            <Menu.Item key='dropdown-user-info-04'>
+            <Menu.Item key='dropdown-user-info-02'>
               <div className="btn-into" onClick={() => handleLogout()}>Đăng xuất</div>
             </Menu.Item>
           </Menu>
         );
       }
-      if (userInfo.data.userRole === 'admin') {
+      else if (userInfo.data.userRole === 'admin') {
         return (
           <Menu>
-            <Menu.Item key='dropdown-user-info-01'>
+            <Menu.Item key='dropdown-user-info-03'>
               <div className="btn-into" onClick={() => history.push(ROUTERS.ADMIN)}>Trang admin</div>
             </Menu.Item>
-            <Menu.Item key='dropdown-user-info-02'>
+            <Menu.Item key='dropdown-user-info-04'>
               <div className="btn-into" onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</div>
             </Menu.Item>
-            <Menu.Item key='dropdown-user-info-04'>
+            <Menu.Item key='dropdown-user-info-05'>
               <div className="btn-into" onClick={() => handleLogout()}>Đăng xuất</div>
             </Menu.Item>
           </Menu>
@@ -142,7 +148,7 @@ function Header({
     } else {
       return (
         <Menu>
-          <Menu.Item key='dropdown-user-info-03'>
+          <Menu.Item key='dropdown-user-info-06'>
             <div className="btn-into" onClick={() => history.push(ROUTERS.LOGIN)}>Đăng nhập</div>
           </Menu.Item>
         </Menu>
@@ -153,15 +159,12 @@ function Header({
   function renderCategory() {
     return categories.data.map((categoryItem, categoryIndex) => {
       return (
-        <>
-          <Item
-            key={categoryItem.id}
-            categoryItem={categoryItem}
-          />
-        </>
+        <Item
+          key={'category-', categoryIndex + 1}
+          categoryItem={categoryItem}
+        />
       )
-
-    })
+    });
   }
 
   function renderCategoryResponsive() {
@@ -175,7 +178,7 @@ function Header({
             }}
           >
             <Item
-              key={categoryItem.id}
+              key={'category-responsive-', categoryIndex + 1}
               categoryItem={categoryItem}
               fontWeightBold='bold'
             />
@@ -190,7 +193,7 @@ function Header({
       searchResultList.data.map((searchResultItem, searchResultIndex) => {
         return (
           <Menu.Item
-            key={'dropdown-search-results-' + searchResultIndex}
+            key={'dropdown-search-results-' + searchResultIndex + 1}
             onClick={() => history.push(`/home/${searchResultItem.categoryId}/${searchResultItem.id}`)}
           >
             {searchResultItem.productName}
@@ -201,166 +204,176 @@ function Header({
   }
 
   return (
-    <>
-      <Style.HeaderContainer headerHeight="80" className="header">
-        <nav>
-          {/* BRAND */}
-          <div className="header__brand">
-            <div className="brand__bg">
-              <img src={logo1} onClick={() => history.push(ROUTERS.HOME)} />
-            </div>
+    <Style.HeaderContainer headerHeight="80" className="header">
+      <nav>
+        {/* BRAND */}
+        <div className="header__brand">
+          <div className="brand__bg">
+            <img src={logo1} onClick={() => history.push(ROUTERS.HOME)} />
           </div>
+        </div>
 
-          {/* HEADER MENU */}
-          {
-            isShowSearchBar
-              ? (
-                <div className="header__search">
-                  <div className="header__search__search-bar">
-                    <Dropdown
-                      overlay={
-                        <Menu>
-                          {renderSearchResults()}
-                        </Menu>
-                      }
-                      placement="bottomCenter" arrow>
-                      <Input
-                        className="header__search__input-search"
-                        placeholder="Nhập tên sản phẩm..."
-                        onChange={(e) => onSearch(e)}
-                        // onPressEnter={(e) => onEnter(e)}
-                        onKeyDown={(e)=>onEnter(e)}
-                      />
-                    </Dropdown>
-                  </div>
-                </div>
-              )
-              : (
-                <div className="header__nav-links-menu">
-                  <ul>
-                    {renderCategory()}
-                    <li><a onClick={() => history.push(ROUTERS.ABOUT)}>GIỚI THIỆU</a></li>
-                  </ul>
-                </div>
-              )
-          }
-
-          {/* SEARCH, WISHLIST, CART AND USER */}
-          <div className="header__nav-links-user">
-            <ul>
-              <li >
-                {
-                  isShowSearchBar
-                    ? <AiOutlineClose
-                      className="nav-links-user__search-icon"
-                      onClick={() => { setIsShowSearchBar(!isShowSearchBar) }}
+        {/* HEADER MENU */}
+        {
+          isShowSearchBar
+            ? (
+              <div className="header__search">
+                <div className="header__search__search-bar">
+                  <Dropdown
+                    overlay={
+                      <Menu>
+                        {renderSearchResults()}
+                      </Menu>
+                    }
+                    placement="bottomCenter" arrow>
+                    <Input
+                      className="header__search__input-search"
+                      placeholder="Nhập tên sản phẩm..."
+                      onChange={(e) => onSearch(e)}
+                      // onPressEnter={(e) => onEnter(e)}
+                      onKeyDown={(e) => onEnter(e)}
                     />
-                    : <AiOutlineSearch
-                      className="nav-links-user__search-icon"
-                      onClick={() => setIsShowSearchBar(!isShowSearchBar)}
-                    />
-                }
+                  </Dropdown>
+                </div>
+              </div>
+            )
+            : (
+              <div className="header__nav-links-menu">
+                <ul>
+                  {renderCategory()}
+                  <li><a onClick={() => history.push(ROUTERS.ABOUT)}>GIỚI THIỆU</a></li>
+                </ul>
+              </div>
+            )
+        }
 
-              </li>
-              <li className="nav-links-user__wishlist">
-                <Badge size="small" count={countWishlist} >
-                  <AiOutlineHeart
-                    className="nav-links-user__heart-icon"
-                    onClick={() => { history.push(ROUTERS.WISHLIST) }}
+        {/* SEARCH, WISHLIST, CART AND USER */}
+        <div className="header__nav-links-user">
+          <ul>
+            <li >
+              {
+                isShowSearchBar
+                  ? <AiOutlineClose
+                    className="nav-links-user__search-icon"
+                    onClick={() => { setIsShowSearchBar(!isShowSearchBar) }}
                   />
-                </Badge>
-              </li>
-              <li className="nav-links-user__carts">
-                <Badge size="small" count={countCarts}>
-                  <AiOutlineShoppingCart
-                    className="nav-links-user__cart-icon"
-                    onClick={() => { history.push(ROUTERS.CART) }}
+                  : <AiOutlineSearch
+                    className="nav-links-user__search-icon"
+                    onClick={() => setIsShowSearchBar(!isShowSearchBar)}
                   />
-                </Badge>
-              </li>
-              <li>
-                {
-                  userInfo.data.id
-                    ? <Dropdown overlay={optionUser} placement="bottomCenter" className="nav-links-user__dropdown" arrow>
-                      <div>
-                        <Avatar className="avatar__img"
-                          style={{ margin: 10 }}
-                          size={{ xs: 30, sm: 35, md: 40, lg: 45, xl: 50, xxl: 55 }}
-                          // icon={<UserOutlined />}
-                          src="https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png"
-                        />
-                        <p className="user-info">{userInfo.data.userName}</p>
-                      </div>
-                    </Dropdown>
-                    : <Dropdown overlay={optionUser} placement="bottomCenter" arrow>
-                      <div>
-                        <AiOutlineUser className="nav-links-user__user-icon" />
-                      </div>
-                    </Dropdown>
-                }
-              </li>
-              <li>
-                <AiOutlineMenu
-                  className="hamburger-container__hamburger-icon"
-                  onClick={() => setIsShowDrawer(true)}
-                />
-              </li>
-            </ul>
-          </div>
-          <div className="header__nav-links-menu-responsive">
-            <Drawer
-              title={
-                <>
-                  <AiOutlineClose
-                    style={{ fontSize: 20 }}
-                    onClick={() => setIsShowDrawer(false)}
-                  />
-                  <Style.UlDrawer >
-                    <li >
-                      <Badge size="small" count={countWishlist} >
-                        <AiOutlineHeart
-                          className="nav-links-user__heart-icon"
-                          onClick={() => { history.push(ROUTERS.WISHLIST) }}
-                        />
-                      </Badge>
-                    </li>
-                    <li>
-                      <Badge size="small" count={countCarts}>
-                        <AiOutlineShoppingCart
-                          className="nav-links-user__cart-icon"
-                          onClick={() => { history.push(ROUTERS.CART) }}
-                        />
-                      </Badge>
-                    </li>
-                  </Style.UlDrawer>
-                </>
               }
-              placement="right"
-              closable={false}
-              onClose={() => setIsShowDrawer(false)}
-              visible={isShowDrawer}
-            >
-              <ul>
-                {renderCategoryResponsive()}
-                <div
-                  style={{
-                    padding: '12px',
-                  }}
-                >
-                  <a
-                    style={{ fontWeight: 'bold' }}
-                    onClick={() => history.push(ROUTERS.ABOUT)}
-                  >
-                    GIỚI THIỆU
-                  </a>
-                </div>
-              </ul>
-            </Drawer>
-          </div>
-        </nav>
 
-      </Style.HeaderContainer>
-    </>
+            </li>
+            <li className="nav-links-user__wishlist">
+              <Badge size="small" count={countWishlist} >
+                <AiOutlineHeart
+                  className="nav-links-user__heart-icon"
+                  onClick={() => { history.push(ROUTERS.WISHLIST) }}
+                />
+              </Badge>
+            </li>
+            <li className="nav-links-user__carts">
+              <Badge size="small" count={countCarts}>
+                <AiOutlineShoppingCart
+                  className="nav-links-user__cart-icon"
+                  onClick={() => { history.push(ROUTERS.CART) }}
+                />
+              </Badge>
+            </li>
+            <li>
+              {
+                userInfo.data.id
+                  ?
+                  <Dropdown
+                    overlay={optionUser}
+                    placement="bottomCenter"
+                    className="nav-links-user__dropdown"
+                    arrow
+                  >
+                    <div>
+                      <Avatar className="avatar__img"
+                        style={{ margin: 10 }}
+                        size={{ xs: 30, sm: 35, md: 40, lg: 45, xl: 50, xxl: 55 }}
+                        // icon={<UserOutlined />}
+                        src={userInfo.data.userImage}
+                      />
+                      <p className="user-info">{userInfo.data.userName}</p>
+                    </div>
+                  </Dropdown>
+                  :
+                  <Dropdown
+                    overlay={optionUser}
+                    placement="bottomCenter"
+                    arrow
+                  >
+                    <div>
+                      <AiOutlineUser className="nav-links-user__user-icon" />
+                    </div>
+                  </Dropdown>
+
+              }
+            </li>
+            <li>
+              <AiOutlineMenu
+                className="hamburger-container__hamburger-icon"
+                onClick={() => setIsShowDrawer(true)}
+              />
+            </li>
+          </ul>
+        </div>
+        <div className="header__nav-links-menu-responsive">
+          <Drawer
+            title={
+              <>
+                <AiOutlineClose
+                  style={{ fontSize: 20 }}
+                  onClick={() => setIsShowDrawer(false)}
+                />
+                <Style.UlDrawer >
+                  <li >
+                    <Badge size="small" count={countWishlist} >
+                      <AiOutlineHeart
+                        className="nav-links-user__heart-icon"
+                        onClick={() => { history.push(ROUTERS.WISHLIST) }}
+                      />
+                    </Badge>
+                  </li>
+                  <li>
+                    <Badge size="small" count={countCarts}>
+                      <AiOutlineShoppingCart
+                        className="nav-links-user__cart-icon"
+                        onClick={() => { history.push(ROUTERS.CART) }}
+                      />
+                    </Badge>
+                  </li>
+                </Style.UlDrawer>
+              </>
+            }
+            placement="right"
+            closable={false}
+            onClose={() => setIsShowDrawer(false)}
+            visible={isShowDrawer}
+          >
+            <ul>
+              {renderCategoryResponsive()}
+              <div
+                style={{
+                  padding: '12px',
+                }}
+              >
+                <a
+                  style={{ fontWeight: 'bold' }}
+                  onClick={() => history.push(ROUTERS.ABOUT)}
+                >
+                  GIỚI THIỆU
+                  </a>
+              </div>
+            </ul>
+          </Drawer>
+        </div>
+      </nav>
+
+    </Style.HeaderContainer>
   );
 }
 

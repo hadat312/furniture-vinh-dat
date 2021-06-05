@@ -53,12 +53,12 @@ function SideBarAdmin(props) {
       width="260px"
       breakpoint="lg"
       collapsedWidth="0"
-      onBreakpoint={broken => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
+      // onBreakpoint={broken => {
+      //   console.log('broken', broken);
+      // }}
+      // onCollapse={(collapsed, type) => {
+      //   console.log('collapsed, type', collapsed, type);
+      // }}
     >
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="logo">

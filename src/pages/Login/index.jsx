@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 
 import history from '../../utils/history';
+import { ROUTERS } from '../../constants/router';
 import { REGEX } from '../../constants/validate';
 import { connect } from 'react-redux';
 import logo from '../../images/logo.webp';
@@ -14,11 +15,11 @@ import gmail from '../../images/gmail.svg'
 
 import './styles.css'
 
-import { loginAction } from '../../redux/actions'
-import { ROUTERS } from '../../constants/router';
 
-function LoginPage(props) {
-    const { addLogin } = props;
+import { loginAction } from '../../redux/actions'
+
+
+function LoginPage({ userInfo, addLogin }) {
 
 
     const [loginForm, setLoginForm] = useState([]);
@@ -40,13 +41,13 @@ function LoginPage(props) {
             [name]: type === "checkbox" ? checked : value,
         });
     }
-
+    console.log('userInfo: ', userInfo)
     function handleLogin() {
         let isValid = true;
 
         const newLoginError = {
             userEmail: "",
-            passwouserPasswordrd: "",
+            userPassword: "",
         }
 
         // if (fieldData.userEmail.trim().length === 0) {
@@ -58,18 +59,24 @@ function LoginPage(props) {
         if (fieldData.userEmail.trim().length === 0) {
             newLoginError.userEmail = "Bạn chưa nhập email";
             isValid = false;
-          } else if (!REGEX.EMAIL_REGEX.test(fieldData.userEmail.trim())) {
+        } else if (!REGEX.EMAIL_REGEX.test(fieldData.userEmail.trim())) {
             newLoginError.userEmail = "Vui lòng nhập lại địa chỉ Email hợp lệ !";
             isValid = false;
-          } else {
+        } else {
             newLoginError.userEmail = "";
-          }
+        }
 
         if (fieldData.userPassword.trim().length === 0) {
             newLoginError.userPassword = "Bạn chưa nhập mật khẩu";
             isValid = false;
-        } else {
+        } 
+        // else if (userInfo.error.length !== 0) {
+        //     newLoginError.userPassword = userInfo.error;
+        //     isValid = false;
+        // } 
+        else {
             newLoginError.userPassword = "";
+            isValid = true;
         }
 
         if (isValid) {
@@ -78,7 +85,7 @@ function LoginPage(props) {
             setLoginError({ ...newLoginError });
         }
 
-        
+
     }
 
     return (
@@ -88,7 +95,7 @@ function LoginPage(props) {
             <div className="whole-container">
                 <div className="header-container container ">
                     <div className="header-content">
-                        <img className="header-logo-brand" src={logo} alt="" />
+                        <img className="header-logo-brand" src={logo} alt="" onClick={() => history.push(ROUTERS.HOME)}/>
 
                         <div className="header-title" onClick={() => history.push(ROUTERS.REGISTER)} >Sign Up</div>
                     </div>
@@ -170,4 +177,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

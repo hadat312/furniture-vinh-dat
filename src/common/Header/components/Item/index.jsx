@@ -15,14 +15,14 @@ function Item({
   return (
     <>
       <li>
-        <a
-          style={{
-            fontWeight: `${fontWeightBold}`
-          }}
-          onClick={() => {
-            history.push(`/home/${categoryItem.id}`)
-          }}
-        >
+        <a onClick={() => {
+          window.scrollTo({
+            top: 100,
+            left: 100,
+            behavior: 'smooth'
+          });
+          history.push(`/home/${categoryItem.id}`)
+        }}>
           {categoryItem.categoryName.toUpperCase()}
         </a>
       </li>

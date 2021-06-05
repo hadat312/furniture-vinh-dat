@@ -30,12 +30,13 @@ function CardPage({
 
 }) {
 
-  useEffect(() => {
-    getProductList({});
-  }, [])
+  // useEffect(() => {
+  //   getProductList({});
+  // }, [])
 
   useEffect(() => {
     getVoucher();
+    getProductList({});
   }, [])
 
   // useEffect(() => {
@@ -237,7 +238,6 @@ function CardPage({
         const productPrice = ((cartItem.productPrice + (cartItem.color.price || 0)
           + (cartItem.size.price || 0)) * (1 - cartItem.productDiscount)) * cartItem.productQuantity;
         grandTotal = (grandTotal + productPrice);
-
         grandCount = grandCount + cartItem.productQuantity;
 
         return productList.data.map((productListItem, productListIndex) => {
@@ -287,7 +287,7 @@ function CardPage({
               <div className="empty-cart-container__title">
                 <p>Không có sản phẩm nào trong giỏ hàng</p>
               </div>
-              <button className="btn-shopping" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
+              <button className="btn-shopping" onClick={() => history.push(ROUTERS.HOME)}>
                 Tiếp tục mua sắm
               </button>
             </div>

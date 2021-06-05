@@ -9,12 +9,13 @@ body,h1,h2,h3,h4,h5,h6{
 
 
 .comment-container{
+  margin-top: 10px;
   width: 100%;
 }
 
 .comment-content{
   display: flex;
-  border-bottom: 1px #874d00 solid;
+  border-top: 1px #874d00 solid;
   padding: 7px 0px;
 }
 

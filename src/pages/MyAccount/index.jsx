@@ -55,7 +55,7 @@ function ProfilePage({
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
 
-  let birthdayString = '';
+  let birthdayString = userInfo.data.birthday;
   const dateFormatList = 'DD/MM/YYYY';
 
   const layout = {
@@ -100,8 +100,9 @@ function ProfilePage({
             .validateFields()
             .then(values => {
               // editForm.resetFields();
-              // console.log('Success:', values);
+              console.log('Success:', values);
               setIsModalVisible(false);
+              // console.log('birthdayString: ', birthdayString)
               const changeProfile = {
                 ...values,
                 birthdayString,
@@ -124,7 +125,7 @@ function ProfilePage({
             userPhoneNumber: userInfo.data.userPhoneNumber || '',
             userEmail: userInfo.data.userEmail,
             gender: userInfo.data.gender || '',
-            birthday: moment(userInfo.data.birthday, dateFormatList)
+            birthday: userInfo.data.birthday && moment(userInfo.data.birthday, dateFormatList)
 
           }}
         >
@@ -224,62 +225,6 @@ function ProfilePage({
     )
   }
 
-  // function getBase64(img, callback) {
-  //   const reader = new FileReader();
-  //   reader.addEventListener('load', () => callback(reader.result));
-  //   reader.readAsDataURL(img);
-  // }
-
-  // function beforeUpload(file) {
-  //   console.log('file: ', file)
-  //   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  //   if (!isJpgOrPng) {
-  //     message.error('Bạn chỉ có thể tải lên ảnh có định dạng JPG/PNG!');
-  //   }
-  //   const isLessthan2M = file.size / 1024 / 1024 < 2;
-  //   if (!isLessthan2M) {
-  //     message.error('Ảnh phải nhỏ hơn 2MB!');
-  //   }
-  //   console.log("isJpgOrPng", isJpgOrPng)
-  //   console.log("isLessthan2M: ", isLessthan2M)
-  //   return isJpgOrPng && isLessthan2M;
-  // }
-
-  // function onChangeImage(info) {
-  //   console.log(info.fileList)
-  //   const isJpgOrPng = info.fileList.type === 'image/jpeg' || info.fileList.type === 'image/png';
-  //   if (!isJpgOrPng) {
-  //     message.error('Bạn chỉ có thể tải lên ảnh có định dạng JPG/PNG!');
-  //   }
-  //   const isLessthan2M = info.fileList.size / 1024 / 1024 < 2;
-  //   if (!isLessthan2M) {
-  //     message.error('Ảnh phải nhỏ hơn 2MB!');
-  //   }
-
-  //   if (isJpgOrPng && isLessthan2M) {
-  //     if (info.fileList.status === 'uploading') {
-  //       setLoading(true);
-  //     }
-  //     if (info.fileList.status === 'done') {
-  //       console.log('info done: ', info.fileList)
-  //       // Get this url from response in real world.
-  //       // getBase64(info.file.originFileObj, imageUrl =>
-  //       //   setLoading(false),
-  //       //   setImageUrl(imageUrl)
-  //       //   // this.setState({
-  //       //   //   imageUrl,
-  //       //   //   loading: false,
-  //       //   // }),
-  //       // );
-  //     }
-  //     console.log('info: ', info.fileList)
-  //   }
-  // };
-
-  // function onFinish(values) {
-  //   console.log('Success:', values);
-  // }
-
   return (
     <Row>
       <Col span={12}>
@@ -304,78 +249,12 @@ function ProfilePage({
 
         </Card>
       </Col>
-
-      {/* <Col span={12}>
-        <Card title={
-          <Title style={{ textAlign: 'center' }} level={4}>Đổi ảnh đại diện</Title>
-        } bordered={false}>
-          <div className="change-avatar-container">
-            <div className="change-avatar-container__avatar">
-              <Avatar
-                size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 150 }}
-                src=""
-              />
-            </div>
-            <div className="change-avatar-container__link">
-              <Form
-                name="basic"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-              >
-                <Form.Item
-                  name="avatar"
-                  rules={[
-                    {
-                      validator(_, value) {
-                        console.log('validator: ', value)
-                        const isJpgOrPng = value.file.type === 'image/jpeg' || value.file.type === 'image/png';
-                        const isLessthan2M = value.file.size / 1024 / 1024 < 2;
-                        if (!isJpgOrPng) {
-                          return message.error('Bạn chỉ có thể tải lên ảnh có định dạng JPG/PNG!');
-                        }
-                        if (!isLessthan2M) {
-                          return message.error('Ảnh phải nhỏ hơn 2MB!');
-                        }
-
-                        // if (!value) {
-                        //   return Promise.reject('Không được để trống!');
-                        // }
-                        // else if (value.length < 5 || value.length > 350) {
-                        //   return Promise.reject('Chiều dài địa chỉ nên từ 5 đến 350 ký tự');
-                        // } else {
-                        //   return Promise.resolve();
-                        // }
-                      }
-                    }
-
-                  ]}
-                >
-                  <Upload
-                    listType='picture'
-                    beforeUpload={() => false}
-                    onChange={(value) => onChangeImage(value)}
-                    maxCount={1}
-                    showUploadList={false}
-                  >
-                  </Upload>
-                </Form.Item>
-                
-                <Form.Item>
-                  <Button htmlType="submit" icon={<AiOutlineUpload />}>Tải ảnh lên</Button>
-                </Form.Item>
-              </Form>
-
-            </div>
-          </div>
-        </Card>
-      </Col> */}
     </Row>
   );
 }
 
 const mapStateToProps = (state) => {
   const { userInfo } = state.userReducer;
-  // console.log("🚀 ~ file: index.jsx ~ line 220 ~ mapStateToProps ~ userInfo", userInfo.data)
   return {
     userInfo: userInfo,
   }

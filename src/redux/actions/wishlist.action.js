@@ -6,7 +6,6 @@ export function getWishListAction(params) {
 }
 
 export const addWishlistTaskAction = (params) => {
-console.log("🚀 ~ file: wishlist.action.js ~ line 9 ~ addWishlistTaskAction ~ params", params)
   return {
     type: 'ADD_WISH_LIST_TASK_REQUEST',
     payload: params,

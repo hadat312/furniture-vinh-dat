@@ -11,12 +11,12 @@ function* getProductListSaga(action) {
         ...page && { _page: page },
         ...limit && { _limit: limit },
         ...categoryId && { categoryId },
-        ...page && {_page : page} ,
-        ...limit && {_limit:limit},
-        // ...itemCategoryId && { itemCategoryId },
+        ...page && { _page: page },
+        ...limit && { _limit: limit },
+        ...itemCategoryId && { itemCategoryId },
         ...searchKey && { q: searchKey },
-        _sort: sort,
-        _order: order,
+        ...sort && { _sort: sort },
+        ...order && { _order: order },
         _embed: "sizes",
       }
     });
@@ -46,7 +46,7 @@ function* getProductDetailSaga(action) {
       url: `http://localhost:3002/products/${id}?_embed=colors`,
       params: {
         _embed: 'sizes',
-        // _expand: 'itemCategory',
+        _expand: 'itemCategory',
       }
     });
     yield put({

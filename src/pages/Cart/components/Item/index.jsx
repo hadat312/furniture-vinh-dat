@@ -20,7 +20,6 @@ function Item({
   editCart,
   productListCategoryId
 }) {
-  console.log("🚀 ~ file: index.jsx ~ line 23 ~ productListCategoryId", productListCategoryId)
 
 
   const [quantity, setQuantity] = useState(cartItem.productQuantity);
@@ -62,7 +61,7 @@ function Item({
           <td
             className="product-name"
             style={{ width: 250, cursor: 'pointer', marginLeft: 30 }}
-            onClick={() => history.push(`/product/${cartItem.productId}`)}
+            onClick={() => history.push(`/home/${productListCategoryId}/${cartItem.productId}`)}
           >
             <div>{cartItem.productName}</div>
             {cartItem.color.colorName && <div>Màu: {cartItem.color.colorName}</div>}

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Item from './components/Item'
 import { connect } from 'react-redux';
 import {
+  getProductListAction,
   getWishListAction,
   deleteWishlistTaskAction,
   addWishListToCartAction,
@@ -15,12 +16,17 @@ import { AiOutlineHeart } from "react-icons/ai";
 
 import './wishlist.css';
 function WishlistPage({
+  productList,
+  getProductList,
   cartList,
   wishlist,
   deleteWishlist,
   addCartTask,
   clearWishList
 }) {
+  useEffect(() => {
+    getProductList({});
+  }, [])
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -267,20 +273,28 @@ function WishlistPage({
     if (wishlist.load) return <p>Loading...</p>;
     return (
       wishlist.data.map((wishlistItem, wishlistIndex) => {
-        return (
-          <>
-            <Item
-              key={wishlistItem.productId}
-              wishlistIndex={wishlistIndex}
-              wishlistItem={wishlistItem}
-              cartItem={cartList.data[wishlistIndex]}
-              checkItemInCart={checkItemInCart}
-              onDeleteWishlist={onDeleteWishlist}
-              userInfo={userInfo}
-            />
-            <hr />
-          </>
-        );
+
+        return productList.data.map((productListItem, productListIndex) => {
+          if (productListItem.id === wishlistItem.productId) {
+            return (
+              <>
+                <Item
+                  key={wishlistItem.productId}
+                  wishlistIndex={wishlistIndex}
+                  wishlistItem={wishlistItem}
+                  cartItem={cartList.data[wishlistIndex]}
+                  productListCategoryId={productListItem.categoryId}
+                  checkItemInCart={checkItemInCart}
+                  onDeleteWishlist={onDeleteWishlist}
+                  userInfo={userInfo}
+                />
+                <hr />
+              </>
+            );
+          }
+        })
+
+        
       })
     );
   }
@@ -296,7 +310,7 @@ function WishlistPage({
                 <p>Chưa có danh mục yêu thích</p>
                 <p>Thêm sản phẩm vào danh sách yêu thích để hiển thị ở đây.</p>
               </div>
-              <button className="btn-shopping" onClick={() => history.push(ROUTERS.LIVING_ROOM)}>
+              <button className="btn-shopping" onClick={() => history.push(ROUTERS.HOME)}>
                 Tiếp tục mua sắm
           </button>
             </div>
@@ -325,10 +339,11 @@ function WishlistPage({
 }
 
 const mapStateToProps = (state) => {
+  const { productList } = state.productReducer;
   const { wishlist } = state.wishlistReducer;
-  console.log("🚀 ~ file: index.jsx ~ line 319 ~ mapStateToProps ~ wishlist", wishlist)
   const { cartList } = state.cartReducer;
   return {
+    productList: productList,
     wishlist: wishlist,
     cartList: cartList,
   }
@@ -336,6 +351,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getProductList: (params) => dispatch(getProductListAction(params)),
     getWishList: (params) => dispatch(getWishListAction(params)),
     deleteWishlist: (params) => dispatch(deleteWishlistTaskAction(params)),
     addCartTask: (params) => dispatch(addCartTaskAction(params)),

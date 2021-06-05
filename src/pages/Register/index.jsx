@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
+import { ROUTERS } from '../../constants/router';
 import history from '../../utils/history';
 import { REGEX } from '../../constants/validate';
 import logo from '../../images/logo.webp';
@@ -119,7 +120,7 @@ function RegisterPage(props) {
                     <div className="header-content">
                         <img className="header-logo-brand" src={logo} alt="" />
 
-                        <div className="header-title" onClick={() => history.push('/Login')} >Sign In</div>
+                        <div className="header-title" onClick={() => history.push(ROUTERS.LOGIN)} >Sign In</div>
                     </div>
                 </div>
 

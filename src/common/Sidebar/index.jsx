@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Menu, Avatar, Input, Typography, Popover, Upload, notification } from 'antd';
+import ImgCrop  from 'antd-img-crop';
 import { AiOutlineUpload, AiOutlineCheck } from "react-icons/ai";
 import history from '../../utils/history';
 import { ROUTERS } from '../../constants/router';
@@ -74,7 +75,7 @@ function Sidebar({ userInfo, getUserInfo, editUser }) {
 
   function checkImage(value) {
     const isJpgOrPng = value.file.type === 'image/jpeg' || value.file.type === 'image/png';
-    const isLessThan2M = value.file.size / 1024 / 1024 < 2;
+    const isLessThan2M = value.file.size / 1024 / 1024 <= 1;
     if (!isJpgOrPng) {
       showFormatErrorNotification();
     }
@@ -83,17 +84,17 @@ function Sidebar({ userInfo, getUserInfo, editUser }) {
     }
     if (isJpgOrPng && isLessThan2M) {
       setGetImage(value);
-      setDisableValueBtn(false);
+      setDisableValueBtn(false)
     }
   }
 
   function onSave() {
+    setDisableValueBtn(true)
     const thumbUrl = getImage.fileList[0].thumbUrl;
     // console.log('thumbUrl: ', thumbUrl)
     const pathSnippets = thumbUrl.split(",").filter((i) => i);
-    console.log("🚀 ~ file: index.jsx ~ line 94 ~ onSave ~ pathSnippets", pathSnippets)
     // console.log('URL: ', URL.createObjectURL(`${pathSnippets[0]},${pathSnippets[1]}`))
-    // editUser({ id: userInfo.data.id, userImage: getImage.fileList.thumbUrl });
+    editUser({ id: userInfo.data.id, userImage: thumbUrl });
     showNotification();
   }
 
@@ -111,20 +112,28 @@ function Sidebar({ userInfo, getUserInfo, editUser }) {
     })
   }
 
-  console.log('getImage: ', getImage)
+  // console.log('getImage: ', getImage)
   return (
     <Style.SidebarContainer>
       <div className="account-avatar">
         <Popover content={
           <>
-            <Upload
-              listType='picture'
-              beforeUpload={() => false}
-              onChange={(value) => checkImage(value)}
-              maxCount={1}
-            >
-              <Button icon={<AiOutlineUpload />}>Tải ảnh lên</Button>
-            </Upload>
+            <ImgCrop 
+            modalTitle={
+              <Title level={4}>Chỉnh sửa ảnh</Title>
+            }
+            modalCancel="Hủy bỏ"
+            modalOk="Xác nhận"
+            rotate>
+              <Upload
+                listType='picture'
+                beforeUpload={() => false}
+                onChange={(value) => checkImage(value)}
+                maxCount={1}
+              >
+                <Button icon={<AiOutlineUpload />}>Tải ảnh lên</Button>
+              </Upload>
+            </ImgCrop>
             <Button disabled={disableValueBtn} icon={<AiOutlineCheck />} onClick={onSave}>Lưu</Button>
           </>
         } title={
@@ -134,7 +143,7 @@ function Sidebar({ userInfo, getUserInfo, editUser }) {
             style={{ margin: 10 }}
             size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 70, xxl: 70 }}
             // icon={<UserOutlined />}
-            src="https://phunuhiendai.vn/wp-content/uploads/2018/11/Morico-Saigon-Classical-ph%E1%BB%A5-n%E1%BB%AF-hi%E1%BB%87n-%C4%91%E1%BA%A1i-B%C3%ACa-1.png"
+            src={userInfo.data.userImage}
           />
         </Popover>
 

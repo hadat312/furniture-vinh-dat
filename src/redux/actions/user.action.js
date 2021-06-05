@@ -26,6 +26,7 @@ export const getUserInfoAction = (params) => {
 }
 
 export const editUserInfoAction = (params) => {
+console.log("🚀 ~ file: user.action.js ~ line 29 ~ editUserInfoAction ~ params", params)
   return {
     type: 'EDIT_USER_INFO_REQUEST',
     payload: params,

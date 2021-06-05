@@ -70,6 +70,7 @@ export default function userReducer(state = initialState, action) {
     }
     case 'LOGIN_FAIL': {
       const { error } = action.payload;
+      console.log("🚀 ~ file: user.reducer.js ~ line 73 ~ userReducer ~ action.payload", action.payload)
       return {
         ...state,
         userInfo: {

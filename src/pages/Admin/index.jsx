@@ -24,9 +24,8 @@ function AdminPage(props) {
     //     setIsCollapsed(!isCollapsed)
     // }
     const { userInfo, getUserInfo, userList, getUserList, deleteUserList } = props;
-
+    const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
     useEffect(() => {
-        const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
         if (userInfoLocalStorage && userInfoLocalStorage.id) {
             getUserInfo({ id: userInfoLocalStorage.id });
         }
@@ -60,7 +59,7 @@ function AdminPage(props) {
             <div className="dashboard-container">
                 <div className="sidebar-container">
                     <div className="sidebar-img">
-                        <img src={logo1} alt="logo" />
+                        <img src={logo1} alt="logo" onClick={history.push(ROUTERS.HOME)} style={{cursor: 'pointer'}}/>
                     </div>
 
                     <div className="sidebar-title">

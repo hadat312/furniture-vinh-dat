@@ -65,7 +65,8 @@ function WishlistPage({
     }
   }
 
-  function checkItemInCart(wishlistIndex, wishlistId, colorSelected, sizeSelected) {
+  function checkItemInCart(wishlistIndex, wishlistProductId, colorSelected, sizeSelected) {
+    console.log('colorSelected, sizeSelected: ', colorSelected, sizeSelected);
     /**
      * wishlist và cart không có color và size
      * wishlist và cart không có color
@@ -73,54 +74,101 @@ function WishlistPage({
      * wishlist và cart có cả color và size
      * ...
      */
-    let isExist = true;
+    let isExist = false;
 
-    if (cartList.data.length > 0) {
+    // if (cartList.data.length > 0) {
 
-      console.log("tồn tại item trong cart");
-      cartList.data.forEach((cartItem, cartIndex) => {
-        if (colorSelected.id && sizeSelected.id && cartItem.color.id && cartItem.size.id) {
-          if (cartItem.color.id === colorSelected.id && cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
-            isExist = true; // pass
-          } else {
-            isExist = false; // pass
-          }
-        }
-        else if (!cartItem.size.id && !sizeSelected.id && colorSelected.id && cartItem.color.id) {
-          if (cartItem.color.id === colorSelected.id && wishlistId === cartItem.productId) {
-            isExist = true; // pass
-          } else {
-            isExist = false; // pass
-          }
-        }
-        else if (!cartItem.color.id && !colorSelected.id && cartItem.size.id && sizeSelected.id) {
-          if (cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
-            isExist = true; // pass
-          } else {
-            isExist = false; // pass
-          }
-        }
-        else if (!colorSelected.id && !sizeSelected.id && !cartItem.color.id && !cartItem.size.id) {
-          if (wishlistId === cartItem.productId) {
-            isExist = true; // pass
-          } else {
-            isExist = false; // pass
-          }
-        }
-      })
-    } else if (cartList.data.length === 0) {
+    //   console.log("tồn tại item trong cart");
+    //   cartList.data.forEach((cartItem, cartIndex) => {
+    //     console.log('cartItem.color, cartItem.size: ', cartItem.color, cartItem.size) 
+    //     if (colorSelected.id && sizeSelected.id && cartItem.color.id && cartItem.size.id) { //cartItem có size và color
+    //       if (cartItem.color.id === colorSelected.id && cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
+    //         isExist = true; // pass
+    //       } else {
+    //         isExist = false; // pass
+    //       }
+    //     }
+
+    //     if (!cartItem.size.id && !sizeSelected.id && colorSelected.id && cartItem.color.id) { //cartItem có color
+    //       if (cartItem.color.id === colorSelected.id && wishlistId === cartItem.productId) {
+    //         isExist = true; // pass
+    //       } else {
+    //         isExist = false; // pass
+    //       }
+    //     }
+    //     if (!cartItem.color.id && !colorSelected.id && cartItem.size.id && sizeSelected.id) { //cartItem có size
+    //       if (cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
+    //         isExist = true; // pass
+    //       } else {
+    //         isExist = false; // pass
+    //       }
+    //     }
+    //     if (!colorSelected.id && !sizeSelected.id && !cartItem.color.id && !cartItem.size.id) {
+    //       if (wishlistId === cartItem.productId) {
+    //         isExist = true; // pass
+    //       } else {
+    //         isExist = false; // pass
+    //       }
+    //     }
+    //   })
+    // } else if (cartList.data.length === 0) {
+    //   console.log("ko tồn tại item trong cart");
+    //   isExist = false; // pass
+    // }
+
+    if (cartList.data.length === 0) {
       console.log("ko tồn tại item trong cart");
-      isExist = false; // pass
-    }
+      isExist = false;
+    } else {
 
-    console.log('isExist', isExist);
+      if (!colorSelected.id && !sizeSelected.id) { //ko tồn tại color, size
+        //kiểm tra id sản phẩm có tồn tại trong cart ko
+        const existProductIndex = cartList.data.findIndex((item) => item.productId === wishlistProductId);
+        if (existProductIndex !== -1) {
+          // console.log("existProductIndex !== -1: ", existProductIndex)
+          isExist = true;
+        } else {
+          // console.log("existProductIndex: ", existProductIndex)
+          isExist = false;
+        }
+      } else if (!colorSelected.id) { // chỉ có size
+        //kiểm tra id size có tồn tại trong cart ko
+        const existSizeIndex = cartList.data.findIndex((item) => item.size.id === sizeSelected.id);
+        if (existSizeIndex !== -1) {
+          // console.log("existSizeIndex !== -1: ", existSizeIndex)
+          isExist = true;
+        } else {
+          // console.log("existSizeIndex: ", existSizeIndex)
+          isExist = false;
+        }
+      } else if (!sizeSelected.id) { // chỉ có color
+        //kiểm tra id color có tồn tại trong cart ko
+        const existColorIndex = cartList.data.findIndex((item) => item.color.id === colorSelected.id);
+        if (existColorIndex !== -1) {
+          // console.log("existColorIndex !== -1: ", existColorIndex)
+          isExist = true;
+        } else {
+          // console.log("existColorIndex: ", existColorIndex)
+          isExist = false;
+        }
+      } else {//có cả color và size
+        const existOptionIndex = cartList.data.findIndex((item) => item.color.id === colorSelected.id && item.size.id === sizeSelected.id);
+        if (existOptionIndex !== -1) {
+          console.log("existOptionIndex !== -1: ", existOptionIndex)
+          isExist = true;
+        } else {
+          console.log("existOptionIndex: ", existOptionIndex)
+          isExist = false;
+        }
+      }
+    }
 
     if (isExist) {
       // console.log("error");
       showError();
       // console.log("true: ", isExist);
     } else {
-      console.log("added");
+      // console.log("added");
       onAddToCart(wishlistIndex, colorSelected, sizeSelected);
       // console.log("false: ", isExist);
     }
@@ -294,7 +342,7 @@ function WishlistPage({
           }
         })
 
-        
+
       })
     );
   }

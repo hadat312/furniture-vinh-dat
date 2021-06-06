@@ -266,8 +266,8 @@ function BrowserRouter(props) {
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
 
-          setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          setNameProduct={setNameProduct} //thừa
+          getNameProduct= {getNameProduct} //thừa
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />

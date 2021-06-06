@@ -81,7 +81,6 @@ export default function addressReducer(state = initialState, action) {
     }
     case 'ADD_ADDRESS_SUCCESS': {
       const { data } = action.payload;
-      console.log("🚀 ~ file: address.reducer.js ~ line 84 ~ addressReducer ~ action.payload", action.payload)
       return {
         ...state,
         address: {

@@ -9,8 +9,8 @@ import banner from '../../images/cartbg.jpg';
 import './index.css';
 
 function Banner({ location, history, match, getURLProductDetail, getNameProduct }) {
-  console.log("🚀 ~ file: index.jsx ~ line 12 ~ Banner ~ getNameProduct: ", getNameProduct)
-  console.log("🚀 ~ file: index.jsx ~ line 12 ~ Banner ~ getURLProductDetail: ", getURLProductDetail)
+  // console.log("🚀 ~ file: index.jsx ~ line 12 ~ Banner ~ getNameProduct: ", getNameProduct)
+  // console.log("🚀 ~ file: index.jsx ~ line 12 ~ Banner ~ getURLProductDetail: ", getURLProductDetail)
   const { Title } = Typography;
   // console.log('location: ', location);
   // console.log('match: ', match);

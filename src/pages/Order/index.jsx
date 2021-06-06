@@ -3,12 +3,17 @@ import { Table, Input, Button, Space, Tag, Typography, Card, Modal } from 'antd'
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
+import history from '../../utils/history';
+
 import {
+  getProductListAction,
   getOrderListAction,
-  deleteOrderAction
+  deleteOrderAction,
 } from '../../redux/actions';
 import * as Style from './styles';
 function OrderPage({
+  productList,
+  getProductList,
   orderList,
   getOrderList,
   deleteOrder,
@@ -20,6 +25,7 @@ function OrderPage({
   const { Title } = Typography;
 
   useEffect(() => {
+    getProductList({})
     getOrderList({ userId: userInfo.id });
   }, []);
 
@@ -27,7 +33,7 @@ function OrderPage({
   //   getOrderList({ userId: userInfo.id });
   // }, [orderList.data]);
 
-  const [selectionType, setSelectionType] = useState('checkbox');
+  // const [selectionType, setSelectionType] = useState('checkbox');
 
   // const rowSelection = {
   //   onChange: (selectedRowKeys, selectedRows) => {
@@ -56,6 +62,8 @@ function OrderPage({
       },
     });
   }
+
+
 
 
   function NestedTable() {
@@ -97,13 +105,27 @@ function OrderPage({
         }
       })
 
+      const goToProductDetail = (value) => {
+        productList.data.forEach((productItem, productIndex) => {
+          orderList.data.forEach((orderItem, orderIndex) => {
+            if (id === orderItem.id) {
+              orderItem.carts.forEach((cartItem, cartIndex) => {
+                if (productItem.id === cartItem.productId && value === cartItem.productName) {
+                  history.push(`/home/${productItem.categoryId}/${productItem.id}`)
+                }
+              })
+            }
+          })
+        })
+      }
+
 
       const columns = [
         {
           title: 'Tên sản phẩm',
           dataIndex: 'productName',
           render: (value) =>
-            <Style.CustomText>{value}</Style.CustomText>,
+            <Style.CustomText onClick={() => goToProductDetail(value)}>{value}</Style.CustomText>,
           width: '30%'
         },
         { title: 'Màu', dataIndex: 'colorName', width: '10%' },
@@ -122,7 +144,7 @@ function OrderPage({
             <div>{value * 100 + '%'}</div>
         },
         {
-          title: 'Tổng tiền',
+          title: 'Thành tiền',
           dataIndex: 'totalPrice',
           render: (value) =>
             <div>{value.toLocaleString() + ' vnđ'}</div>
@@ -138,8 +160,6 @@ function OrderPage({
       );
     };
 
-    console.log('orderList: ', orderListData);
-
     const columns = [
       {
         title: 'Tên khách hàng',
@@ -153,8 +173,8 @@ function OrderPage({
         width: '20%'
       },
       // { title: 'Mã vùng', dataIndex: 'regionCode', width: '15%' },
-      { 
-        title: 'Ngày đặt hàng', 
+      {
+        title: 'Ngày đặt hàng',
         dataIndex: 'dateTime',
         // render: (text) => {
         //   <div>{text}</div>
@@ -183,7 +203,6 @@ function OrderPage({
         title: 'Hành động',
         key: 'operation',
         render: (text) =>
-          // <Tag color='red' style={{ cursor: "pointer" }}><DeleteOutlined /></Tag>
           <Space justify="center">
             <Button danger onClick={() => showDeleteConfirm(text.id)}><DeleteOutlined /></Button>
           </Space>
@@ -220,14 +239,17 @@ function OrderPage({
   );
 }
 const mapStateToProps = (state) => {
+  const { productList } = state.productReducer;
   const { orderList } = state.orderReducer;
   return {
+    productList: productList,
     orderList: orderList,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getProductList: (params => dispatch(getProductListAction(params))),
     getOrderList: (params) => dispatch(getOrderListAction(params)),
     deleteOrder: (params) => dispatch(deleteOrderAction(params)),
   };

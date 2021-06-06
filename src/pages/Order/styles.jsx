@@ -17,5 +17,6 @@ export const CustomText = styled.div`
     overflow: hidden;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    cursor: pointer;
     /* width: 200px; */
 `;

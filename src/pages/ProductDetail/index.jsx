@@ -83,7 +83,6 @@ function ProductDetailPage({
     getComment({ productId: productId })
   }, [productId])
 
-
   //chọn màu sắc và kích cỡ mặc định 
   useEffect(() => {
     if (productDetail.data.id) {
@@ -809,6 +808,8 @@ function ProductDetailPage({
                 <Radio.Group
                   onChange={(e) => {
                     setSizeSelected(e.target.value)
+
+                    
                     // setIsAddWishlist(!isAddWishlist)
                   }}
 

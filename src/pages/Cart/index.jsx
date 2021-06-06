@@ -265,6 +265,16 @@ function CardPage({
     );
   }
 
+  let countQuantity = 0;
+  function onCountQuantity() {
+    cartList.data.forEach((cartItem, cartIndex) => {
+      countQuantity += cartItem.productQuantity
+      console.log(countQuantity)
+    })
+    return countQuantity;
+  }
+
+
   function onChangePrice(values) {
     return voucherList.data.map((voucherItem, voucherIndex) => {
       if (values === voucherItem.id) {
@@ -274,8 +284,6 @@ function CardPage({
       }
     })
   }
-
-
 
   return (
     <>
@@ -314,7 +322,7 @@ function CardPage({
                     </div>
 
                     <div className="cart-voucher-right">
-                      <p>Tạm tính {cartList.data.length} sản phẩm</p>
+                    <p>Tạm tính {onCountQuantity()} sản phẩm</p>
                       <Form
                       >
                         <Form.Item name="voucherId">

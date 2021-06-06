@@ -76,12 +76,6 @@ function ProductDetailPage({
 
   const userLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
 
-
-  useEffect(() => {
-    setURLProductDetail(match.url);
-    setNameProduct(productDetail.data.productName);
-  }, [])
-
   useEffect(() => {
     // getCartList();
     getWishList();
@@ -97,6 +91,8 @@ function ProductDetailPage({
       setSizeSelected(productDetail.data.sizes[0] || {})
       setColorSelected(productDetail.data.colors[0] || {})
       setChangeImage(productDetail.data.productImage[0] || {})
+      setURLProductDetail(match.url);
+      setNameProduct(productDetail.data.productName);
     }
   }, [productDetail.data])
 
@@ -596,19 +592,6 @@ function ProductDetailPage({
         return false
       }
     }
-
-    // return wishlist.data.map((wishlistItem, wishlistIndex) => {
-    //   //check xem colorId và sizeId ở detail có === colorId, sizeId ở wishlist ko
-    //   // === thì xóa
-    //   if (wishlistItem.productId === productId
-    //     && wishlistItem.color.id === colorSelected.id
-    //     && wishlistItem.size.id === sizeSelected.id) {
-    //     return setIsAddWishlist(true)
-    //   } else {
-    //     return setIsAddWishlist(false)
-    //   }
-
-    // })
 
     // console.log('colorSelected: ', colorSelected)
     // console.log('sizeSelected: ', sizeSelected)

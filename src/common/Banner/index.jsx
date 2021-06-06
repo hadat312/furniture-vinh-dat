@@ -9,6 +9,8 @@ import banner from '../../images/cartbg.jpg';
 import './index.css';
 
 function Banner({ location, history, match, getURLProductDetail, getNameProduct }) {
+  console.log("🚀 ~ file: index.jsx ~ line 12 ~ Banner ~ getNameProduct: ", getNameProduct)
+  console.log("🚀 ~ file: index.jsx ~ line 12 ~ Banner ~ getURLProductDetail: ", getURLProductDetail)
   const { Title } = Typography;
   // console.log('location: ', location);
   // console.log('match: ', match);
@@ -97,7 +99,7 @@ function Banner({ location, history, match, getURLProductDetail, getNameProduct 
     //slice(start, end): lấy giá trị trong khoảng từ index(start) tới index(end) 
     //không có .join("/") thì giữa 2 giá trị là dấu ","
     const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
-    
+
     // console.log("extraBreadcrumbItems ~ url: ", url)
     // console.log("breadcrumbNameMap[url]: ", breadcrumbNameMap[url]);
 

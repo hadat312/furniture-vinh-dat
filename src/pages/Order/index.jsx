@@ -103,7 +103,7 @@ function OrderPage({
           title: 'Tên sản phẩm',
           dataIndex: 'productName',
           render: (value) =>
-            <Style.CustomText>{value.toLocaleString() + ' vnđ'}</Style.CustomText>,
+            <Style.CustomText>{value}</Style.CustomText>,
           width: '30%'
         },
         { title: 'Màu', dataIndex: 'colorName', width: '10%' },

@@ -76,46 +76,6 @@ function WishlistPage({
      */
     let isExist = false;
 
-    // if (cartList.data.length > 0) {
-
-    //   console.log("tồn tại item trong cart");
-    //   cartList.data.forEach((cartItem, cartIndex) => {
-    //     console.log('cartItem.color, cartItem.size: ', cartItem.color, cartItem.size) 
-    //     if (colorSelected.id && sizeSelected.id && cartItem.color.id && cartItem.size.id) { //cartItem có size và color
-    //       if (cartItem.color.id === colorSelected.id && cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
-    //         isExist = true; // pass
-    //       } else {
-    //         isExist = false; // pass
-    //       }
-    //     }
-
-    //     if (!cartItem.size.id && !sizeSelected.id && colorSelected.id && cartItem.color.id) { //cartItem có color
-    //       if (cartItem.color.id === colorSelected.id && wishlistId === cartItem.productId) {
-    //         isExist = true; // pass
-    //       } else {
-    //         isExist = false; // pass
-    //       }
-    //     }
-    //     if (!cartItem.color.id && !colorSelected.id && cartItem.size.id && sizeSelected.id) { //cartItem có size
-    //       if (cartItem.size.id === sizeSelected.id && wishlistId === cartItem.productId) {
-    //         isExist = true; // pass
-    //       } else {
-    //         isExist = false; // pass
-    //       }
-    //     }
-    //     if (!colorSelected.id && !sizeSelected.id && !cartItem.color.id && !cartItem.size.id) {
-    //       if (wishlistId === cartItem.productId) {
-    //         isExist = true; // pass
-    //       } else {
-    //         isExist = false; // pass
-    //       }
-    //     }
-    //   })
-    // } else if (cartList.data.length === 0) {
-    //   console.log("ko tồn tại item trong cart");
-    //   isExist = false; // pass
-    // }
-
     if (cartList.data.length === 0) {
       console.log("ko tồn tại item trong cart");
       isExist = false;

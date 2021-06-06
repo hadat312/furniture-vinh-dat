@@ -175,6 +175,7 @@ function AddressPage({
   }
 
   function onEditProduct(text) {
+    console.log("🚀 ~ file: index.jsx ~ line 178 ~ onEditProduct ~ text", text)
     city.data.map((cityItem, cityIndex) => {
       if (cityItem.name === addressSelected.cityName) {
         return (

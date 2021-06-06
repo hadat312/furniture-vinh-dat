@@ -91,54 +91,6 @@
   "orders": [
     {
       "status": "Đang giao",
-      "userName": "Xuân Vinh",
-      "email": "hathucdat3@gmail.com",
-      "phone": "0774473993",
-      "addressName": "25, võ thị sáu",
-      "cityName": "Thành phố Hồ Chí Minh",
-      "districtName": "Quận 11",
-      "wardName": "Phường 01",
-      "totalPrice": 18000000,
-      "date": "28 tháng 5 năm 2021",
-      "time": "8:16 PM",
-      "userId": "4XpnfQe",
-      "carts": [],
-      "id": 2
-    },
-    {
-      "status": "Đang giao",
-      "userName": "Ngọc Hổ",
-      "email": "hathucdat7@gmail.com",
-      "phone": "0774473993",
-      "addressName": "25, võ thị sáu",
-      "cityName": "Thành phố Hồ Chí Minh",
-      "districtName": "Quận 12",
-      "wardName": "Phường Thạnh Lộc",
-      "totalPrice": 49632500,
-      "date": "30 tháng 5 năm 2021",
-      "time": "11:35",
-      "userId": "4XpnfQe",
-      "carts": [],
-      "id": 7
-    },
-    {
-      "status": "Đang giao",
-      "userName": "kehlani",
-      "email": "khelahni@gmail.com",
-      "phone": "0935415275",
-      "addressName": "số 2 bàu hạc",
-      "cityName": "Thành phố Hà Nội",
-      "districtName": "Quận Bắc Từ Liêm",
-      "wardName": "Phường Cổ Nhuế 1",
-      "totalPrice": 36550500,
-      "date": "1 tháng 6 năm 2021",
-      "time": "22:57",
-      "userId": "4XpnfQe",
-      "carts": [],
-      "id": 8
-    },
-    {
-      "status": "Đang giao",
       "userName": "khelahni",
       "email": "khelahni@gmail.com",
       "phone": "0935415275",
@@ -304,6 +256,42 @@
         }
       ],
       "id": 11
+    },
+    {
+      "status": "Đang giao",
+      "userName": "Hà Thúc Đạt",
+      "email": "hathucdat1@gmail.com",
+      "phone": "0774473993",
+      "addressName": "25, võ thị sáu",
+      "cityName": "Thành phố Đà Nẵng",
+      "districtName": "Quận Liên Chiểu",
+      "wardName": "Phường Hòa Khánh Bắc",
+      "totalPrice": 2775000,
+      "date": "6 tháng 6 năm 2021",
+      "time": "12:18",
+      "userId": "user01",
+      "carts": [
+        {
+          "id": "0cb92328-6b2a-4320-b8e2-110ad0475153",
+          "productId": "product13",
+          "productQuantity": 1,
+          "productName": "Bench Jazz",
+          "productImage": "http://www.nhaxinh.com/photo/3791/bench-jazz.jpg",
+          "productPrice": 5000000,
+          "productDiscount": 0.5,
+          "color": {
+            "id": "color15",
+            "colorName": "Hồng",
+            "price": 550000
+          },
+          "size": {
+            "id": "size19",
+            "sizeName": "0.5m*1m",
+            "price": 0
+          }
+        }
+      ],
+      "id": 12
     }
   ],
   "products": [
@@ -1390,7 +1378,7 @@
       "id": "size17",
       "sizeName": "0.5m*1.5m",
       "price": 500000,
-      "productId": "product11"
+      "productId": "product13"
     },
     {
       "id": "size18",
@@ -1759,64 +1747,7 @@
       "userPassword": "123456",
       "userPhoneNumber": "0774473995",
       "userRole": "admin",
-      "carts": [
-        {
-          "productId": "product01",
-          "productQuantity": 2,
-          "productName": "Ghế Sofa",
-          "productImage": "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/01/17/bundle-04-2-up-1579236499.png",
-          "productPrice": 10000000,
-          "productDiscount": 0,
-          "color": {
-            "id": "color01",
-            "colorName": "Nâu",
-            "price": 350000
-          },
-          "size": {
-            "id": "size01",
-            "sizeName": "1m*1m9",
-            "price": 0
-          }
-        },
-        {
-          "productId": "product03",
-          "productQuantity": 2,
-          "productName": "Sofa Miami 2 chỗ hiện đại",
-          "productImage": "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/images/2020/01/17/bundle-06-02-up-1579233938.png",
-          "productPrice": 9000000,
-          "productDiscount": 0.05,
-          "color": {},
-          "size": {
-            "id": "size06",
-            "sizeName": "3m*3m",
-            "price": 0
-          }
-        },
-        {
-          "productId": "product07",
-          "productQuantity": 2,
-          "productName": "Ghế Sofa Miami 3",
-          "productImage": "https://cdn.fitin.vn/cms-ecom/thumbs/300x300/product-tmp/2020/08/14/sofa-goc-l12d-kensofa-04-1597376367.jpg",
-          "productPrice": 12000000,
-          "productDiscount": 0.15,
-          "color": {
-            "id": "color08",
-            "colorName": "Xanh lá",
-            "price": 150000
-          },
-          "size": {}
-        },
-        {
-          "productId": "product17",
-          "productQuantity": 3,
-          "productName": "Ghế Miami",
-          "productImage": "http://nhaxinh.com/photo/5769/ghe_an_miami-am696_-_copy.jpg",
-          "productPrice": 20000000,
-          "productDiscount": 0.1,
-          "color": {},
-          "size": {}
-        }
-      ],
+      "carts": [],
       "wishlist": [
         {
           "id": "3a85e0b2-62a1-4f0e-a3af-17e4ac231b71",

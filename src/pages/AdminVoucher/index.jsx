@@ -51,16 +51,15 @@ function AdminVoucher({
   voucherList,
   createVoucher,
   getVoucherAdmin,
-  voucherSelected,
-  setVoucherSelect,
 }) {
-  console.log("🚀 ~ file: index.jsx ~ line 57 ~ voucherList", voucherList)
 
   useEffect(() => {
     getProductListAdmin();
     getCategoryListAdmin();
     getVoucherAdmin();
   }, []);
+
+  
 
   const [isShowModify, setIsShowModify] = useState(false);
 
@@ -72,31 +71,13 @@ function AdminVoucher({
 
   const [editForm] = Form.useForm();
 
+  const [voucherSelected, setVoucherSelected] = useState({})
+  console.log("🚀 ~ file: index.jsx ~ line 73 ~ voucherSelected", voucherSelected)
 
-  // function renderCategoryOptions() {
-  //   return categoryList.data.map((categoryItem, categoryIndex) => {
-  //     return (
-  //       <Select.Option key={categoryIndex} value={categoryItem.id}>
-  //         {categoryItem.categoryName}
-  //       </Select.Option>
-  //     )
-  //   })
-  // }
 
-  // function renderProductOptions() {
-  //   return categoryList.data.map((categoryItem, categoryIndex) => {
-  //     return productList.data.map((productListItem, productListIndex) => {
-  //       if (categoryItem.id === productListItem.categoryId) {
-  //         return (
-  //           <Select.Option key={productListIndex} value={productListItem.id}>
-  //             {productListItem.productName}
-  //           </Select.Option>
-  //         )
-  //       }
-  //     })
-  //   })
-  // }
-
+  useEffect(() => {
+    editForm.resetFields();
+  }, [voucherSelected]);
 
   function handleCreateVoucher() {
     setIsShowModify(true);
@@ -104,16 +85,13 @@ function AdminVoucher({
 
   function handleEditVoucher(record) {
     setIsModalVisible(true)
-    setVoucherSelect(record)
+    setVoucherSelected(record)
   }
 
 
 
   function handleSubmitForm() {
     const values = productForm.getFieldsValue();
-    if (voucherList.id) {
-      editVoucherAdmin({ id: voucherList.id, ...values })
-    }
     createVoucher(values)
   }
 
@@ -138,25 +116,27 @@ function AdminVoucher({
       key: 'productName',
     },
     {
+      title: 'Mã khuyến mãi',
+      dataIndex: 'voucherCode',
+      // key: 'voucherCode',
+    },
+    {
       title: 'Giá khuyễn mãi',
       dataIndex: 'voucherPrice',
       render: (_, record) => <div>{parseInt(record.voucherPrice).toLocaleString()}</div>
       // key: 'productImage',
     },
 
-
     {
       title: 'Hành động',
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => {
-        console.log("🚀 ~ file: index.jsx ~ line 152 ~ record", record)
         return (
           <Space>
             <Button type="primary" ghost
-              onClick={() => handleEditVoucher(record)}
+              onClick={() => { handleEditVoucher(record) }}
             >
-              {/* {console.log("🚀 ~ file: index.jsx ~ line 205 ~ AdminVoucher ~ record", record)} */}
               <EditOutlined />
             </Button>
             <Popconfirm
@@ -187,30 +167,26 @@ function AdminVoucher({
 
     <>
       <Row justify="space-between" align="center">
-        <img src={logo1} alt="Bodhi Logo Brand" style={{ width: "auto", height: "50px" }} />
+        <img src={logo1}
+          alt="Bodhi Logo Brand"
+          style={{ width: "auto", height: "50px", cursor: "pointer" }}
+          onClick={() => { history.push(ROUTERS.HOME) }}
+        />
         <Button type="primary" onClick={() => handleCreateVoucher()}>
           <PlusOutlined /> Thêm Mã Khuyến Mãi
         </Button>
       </Row>
+
       <div className="admin-area_container">
         <Table
           style={{ width: "100%", }}
           loading={voucherList.load}
           columns={tableColumns}
           dataSource={tableData}
-        // expandable={{
-        //   expandedRowRender: (record) => {
-        //     return (
-        //       <div>
-
-        //       </div>
-        //     )
-        //   },
-        //   // rowExpandable: (record) => record.sizes.length > 0 || record.colors.length > 0
-        // }}
         />
+
         <Drawer
-          title="Thêm mã Khuyên Mãi"
+          title="Thêm mã khuyến mãi"
           width={500}
           visible={isShowModify}
           onClose={() => setIsShowModify(false)}
@@ -228,18 +204,70 @@ function AdminVoucher({
             layout="vertical"
             name="productForm"
           >
-            <Form.Item name="voucherName" label="Tên mã khuyến mãi">
+            <Form.Item
+              name="voucherName"
+              label="Tên mã khuyến mãi"
+              rules={[
+                {
+                  required: true,
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.reject('Không được để trống!');
+                    }
+                    else {
+                      return Promise.resolve();
+                    }
+                  }
+                }
+              ]}
+            >
               <Input placeholder="Tên mã khuyến mãi" />
             </Form.Item>
 
+            <Form.Item
+              name="voucherCode"
+              label="Mã khuyến mãi"
+              rules={[
+                {
+                  required: true,
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.reject('Không được để trống!');
+                    }
+                    else {
+                      return Promise.resolve();
+                    }
+                  }
+                }
+              ]}
+            >
+              <Input placeholder="Mã khuyến mãi" />
+            </Form.Item>
 
-            <Form.Item name="voucherPrice" label="Giá khuyễn mãi">
+            <Form.Item
+              name="voucherPrice"
+              label="Giá khuyễn mãi"
+              rules={[
+                {
+                  required: true,
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.reject('Không được để trống!');
+                    }
+                    else {
+                      return Promise.resolve();
+                    }
+                  }
+                }
+              ]}
+            >
               <InputNumber
                 formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 placeholder="Giá khuyến mãi"
-                style={{ width: '100%' }}
+                style={{ width: '50%' }}
               />
             </Form.Item>
+
           </Form>
         </Drawer>
 
@@ -249,28 +277,86 @@ function AdminVoucher({
           onOk={handleOk}
           onCancel={handleCancel}>
           <Form
-            // {...layout}
             form={editForm}
             name="basic"
-            initialValues={
-              voucherSelected.id
-              && {...voucherSelected}
-            }
+            initialValues={{
+              ...voucherSelected
+            }}
             onFinish={(values) => {
-              editVoucherAdmin({ id: voucherSelected.id, ...values })
+              const newVoucher = {
+                voucherName: values.voucherName,
+                voucherCode: values.voucherCode,
+                voucherPrice: values.voucherPrice,
+              }
+              editVoucherAdmin({
+                id: voucherSelected.id,
+                newVoucher: newVoucher
+              })
             }}
           >
             <Form.Item
               label="Voucher Name"
               name="voucherName"
+              rules={[
+                {
+                  required: true,
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.reject('Không được để trống!');
+                    }
+                    else {
+                      return Promise.resolve();
+                    }
+                  }
+                }
+              ]}
             >
               <Input />
             </Form.Item>
+
+            <Form.Item
+              label="Voucher Code"
+              name="voucherCode"
+              rules={[
+                {
+                  required: true,
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.reject('Không được để trống!');
+                    }
+                    else {
+                      return Promise.resolve();
+                    }
+                  }
+                }
+              ]}
+            >
+              <Input maxLength={10} />
+            </Form.Item>
+
+
             <Form.Item
               label="Voucher Price"
               name="voucherPrice"
+              rules={[
+                {
+                  required: true,
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.reject('Không được để trống!');
+                    }
+                    else {
+                      return Promise.resolve();
+                    }
+                  }
+                }
+              ]}
             >
-              <Input />
+              <InputNumber
+                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                placeholder="Giá"
+                style={{ width: '50%' }}
+              />
             </Form.Item>
           </Form>
 
@@ -287,13 +373,11 @@ function AdminVoucher({
 const mapStateToProps = (state) => {
   const { productList, categoryList } = state.adminProductReducer;
   const { voucherList } = state.adminVoucherReducer;
-  const { voucherSelected } = state.adminCommonReducer;
   return {
     productList: productList,
     categoryList: categoryList,
 
     voucherList: voucherList,
-    voucherSelected: voucherSelected,
 
   }
 };
@@ -311,7 +395,6 @@ const mapDispatchToProps = (dispatch) => {
     deleteVoucherAdmin: (params) => dispatch(deleteVoucherAdminAction(params)),
 
     editVoucherAdmin: (params) => dispatch(editVoucherAdminAction(params)),
-    setVoucherSelect: (params) => dispatch(setVoucherSelectAction(params)),
   };
 
 }

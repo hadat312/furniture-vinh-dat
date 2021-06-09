@@ -127,6 +127,7 @@ export default function adminVoucherReducer(state = initialState, action) {
 
     case 'ADMIN/EDIT_VOUCHER_SUCCESS': {
       const { data } = action.payload;
+      console.log("🚀 ~ file: voucher.reducer.js ~ line 130 ~ adminVoucherReducer ~ data", data)
       const newVoucherList = state.voucherList.data
       const voucherIndex = newVoucherList.findIndex((item) => item.id === data.id);
       newVoucherList.splice(voucherIndex, 1, data);

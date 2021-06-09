@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { notification, Table, Divider, Button, Select, Form } from 'antd';
+import { notification, Table, Divider, Button, Select, Form, Input } from 'antd';
 import Item from './components/Item';
 import { connect } from 'react-redux';
 import {
@@ -30,9 +30,15 @@ function CardPage({
 
 }) {
 
-  // useEffect(() => {
-  //   getProductList({});
-  // }, [])
+  const [voucherKey, setVoucherKey] = useState("");
+
+  const [isVoucherName, setIsVoucherName] = useState("");
+
+  const [isVoucherPrice, setIsVoucherPrice] = useState(0);
+
+  useEffect(() => {
+    getProductList({});
+  }, [])
 
   useEffect(() => {
     getVoucher();
@@ -55,7 +61,6 @@ function CardPage({
 
   // console.log('voucherSelected: ', voucherList.data[0].voucherName || {})
   const [voucherSelected, setVoucherSelected] = useState(0);
-  // console.log("🚀 ~ file: index.jsx ~ line 53 ~ voucherSelected", voucherSelected)
 
   const key = `open${Date.now()}`;
 
@@ -136,6 +141,7 @@ function CardPage({
   }
 
   function onUpdateQuantity(cartIndex, value, colorSelected, sizeSelected) {
+    // console.log("🚀 ~ file: index.jsx ~ line 138 ~ onUpdateQuantity ~ cartIndex", cartIndex)
 
     if (!colorSelected.id && !sizeSelected.id) { //ko có size và color
       const newCart = cartList.data;
@@ -285,7 +291,31 @@ function CardPage({
     })
   }
 
+  function onChangeVoucherSearch(e) {
+    setVoucherKey(e);
+
+  }
+
+  function addToGetVoucher() {
+    const voucherIndex = voucherList.data.findIndex((voucherItem) => {   //  Tìm index return lại voucherKey === voucherItem.voucherCode tại index đó 
+      return voucherKey === voucherItem.voucherCode;      
+    })
+
+    if (voucherIndex !== -1) {
+      setIsVoucherName(voucherList.data[voucherIndex].voucherName);
+      setIsVoucherPrice(voucherList.data[voucherIndex].voucherPrice);
+    } else {
+      setIsVoucherName('');
+      setIsVoucherPrice(0);
+      notification.warning({
+        message: 'Mã khuyến mãi đã hết hạn sử dụng hoặc không đúng',
+        // description: 'Bạn cần đăng nhập để thêm vào giỏ hàng',
+        key,
+      });
+    }
+  }
   return (
+
     <>
       {
         cartList.data.length === 0
@@ -322,8 +352,8 @@ function CardPage({
                     </div>
 
                     <div className="cart-voucher-right">
-                    <p>Tạm tính {onCountQuantity()} sản phẩm</p>
-                      <Form
+                      <p>Tạm tính {onCountQuantity()} sản phẩm</p>
+                      {/* <Form
                       >
                         <Form.Item name="voucherId">
                           <Select
@@ -335,11 +365,14 @@ function CardPage({
                             {renderVoucherList()}
                           </Select>
                         </Form.Item>
-                      </Form>
-                      {/* <h6>Giảm Giá:{voucherList.data.voucherPrice} </h6>
-                <h6>Thành Tiền: </h6> */}
-                      <div className="cart-discount">Giảm Giá:{parseInt(voucherSelected).toLocaleString() + "VND"}</div>
-                      <div className="cart-total">Thành Tiền: {parseFloat(grandTotal - voucherSelected).toLocaleString() + "VND"} </div>
+                      </Form>  */}
+                      <div className="cart-voucher-place">
+                        <Input placeholder="Nhập mã khuyến mãi" onChange={(e) => onChangeVoucherSearch(e.target.value)} />
+                        <Button type="primary" onClick={addToGetVoucher}>Nhận Code</Button>
+                      </div>
+                      {isVoucherName !== '' && <div className="cart-voucher_name">Tên Mã Khuyến Mãi: {isVoucherName}</div>}
+                      {isVoucherPrice !== 0 && <div className="cart-discount">Giảm Giá:{parseInt(isVoucherPrice).toLocaleString() + "VND"}</div>}
+                      <div className="cart-total">Thành Tiền: {parseFloat(grandTotal - isVoucherPrice).toLocaleString() + "VND"} </div>
                     </div>
                   </div>
 

@@ -17,7 +17,6 @@ function BillAddress({ userInfo, getUserInfo }) {
       return (
         <>
         <div>
-
         
           <Row className="custom-row">
             <Col>Họ và Tên: <span className="text-bold">{userInfo.data.userName}</span></Col>

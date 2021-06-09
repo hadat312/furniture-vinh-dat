@@ -3,14 +3,14 @@ import axios from 'axios';
 
 function* getProductListAdminSaga(action) {
   try {
-    const {searchKey} =action.payload
+    const searchKey = action.payload?.searchKey;
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/products?_embed=colors',
       params: {
         _expand: 'category',
         _embed: 'sizes',
-        ...searchKey && {q: searchKey}
+        ...searchKey && { q: searchKey }
       }
     });
     yield put({
@@ -53,12 +53,12 @@ function* getCategoryListAdminSaga(action) {
 
 function* getCategorySearchKey(action) {
   try {
-    const {searchKey} = action.payload
+    const { searchKey } = action.payload
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/categories',
-      params:{
-        ...searchKey && {q: searchKey},
+      params: {
+        ...searchKey && { q: searchKey },
       }
     });
     yield put({
@@ -81,31 +81,51 @@ function* createProductAdminSaga(action) {
   try {
     const {
       productSpecificationsLength,
-      productSpecificationsHeight, 
+      productSpecificationsHeight,
       productSpecificationsWidth,
       productDescription,
       productStorageInstruction,
-      productName, 
+      productName,
+      productImage,
       categoryId,
-       productPrice,
-       productDiscount
-      } = action.payload;
+      itemCategoryId,
+      // originPrice,
+      // initialPrice,
+      productShortDescription,
+      productPrice,
+      productDiscount
+    } = action.payload;
     const createResult = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/products',
       data: {
         productName,
         categoryId,
+        itemCategoryId,
         productPrice,
         productSpecificationsLength,
         productSpecificationsHeight,
         productSpecificationsWidth,
+        productShortDescription,
         productDescription,
         productStorageInstruction,
         productDiscount,
+        productImage,
+        // originPrice,
+        // initialPrice
       }
     });
     yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
+    // const productResult = yield axios({
+    //   method: 'GET',
+    //   url: `http://localhost:3002/products`,
+    // });
+    // yield put({
+    //   type: "ADMIN/GET_PRODUCT_LIST_REQUEST",
+    //   payload: {
+    //     data: productResult.data
+    //   }
+    // });
     yield put({
       type: "ADMIN/CREATE_PRODUCT_SUCCESS",
       payload: {
@@ -124,15 +144,37 @@ function* createProductAdminSaga(action) {
 
 function* editProductAdminSaga(action) {
   try {
-    const { id, productName, categoryId, productPrice,productDiscount } = action.payload;
+    const { 
+      id,
+      productName,
+      categoryId,
+      itemCategoryId,
+      productPrice,
+      productDiscount,
+      productImage,
+      productDescription,
+      productShortDescription,
+      productStorageInstruction,
+      productSpecificationsLength,
+      productSpecificationsHeight,
+      productSpecificationsWidth,
+    } = action.payload;
     const editResult = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/products/${id}`,
       data: {
         productName,
         categoryId,
+        itemCategoryId,
         productPrice,
-        productDiscount
+        productDiscount,
+        productSpecificationsLength,
+        productSpecificationsHeight,
+        productSpecificationsWidth,
+        productShortDescription,
+        productImage,
+        productDescription,
+        productStorageInstruction
       }
     });
     yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
@@ -343,6 +385,7 @@ function* deleteColorOptionAdminSaga(action) {
 
 export default function* adminProductSaga() {
   yield takeEvery('ADMIN/GET_PRODUCT_LIST_REQUEST', getProductListAdminSaga);
+
   yield takeEvery('ADMIN/GET_CATEGORY_LIST_REQUEST', getCategoryListAdminSaga);
   yield takeEvery('ADMIN/CREATE_PRODUCT_REQUEST', createProductAdminSaga);
   yield takeEvery('ADMIN/EDIT_PRODUCT_REQUEST', editProductAdminSaga);
@@ -351,7 +394,7 @@ export default function* adminProductSaga() {
   yield takeEvery('ADMIN/EDIT_OPTION_REQUEST', editOptionAdminSaga);
   yield takeEvery('ADMIN/DELETE_OPTION_REQUEST', deleteOptionAdminSaga);
 
-  yield takeEvery('ADMIN/GET_CATEGORY_SEARCHKEY_REQUEST',getCategorySearchKey)
+  yield takeEvery('ADMIN/GET_CATEGORY_SEARCHKEY_REQUEST', getCategorySearchKey)
 
   // Create Option Color
   yield takeEvery('ADMIN/CREATE_COLOR_OPTION_REQUEST', createOptionColorAdminSaga);

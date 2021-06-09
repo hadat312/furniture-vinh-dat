@@ -4,7 +4,7 @@ const initialState = {
     load: false,
     error: '',
   },
-  
+
   userList: {
     data: [],
     load: false,
@@ -112,7 +112,7 @@ export default function userReducer(state = initialState, action) {
         },
       }
     }
-  
+
     // GET USER LIST
 
     case 'GET_USER_LIST_REQUEST': {
@@ -194,17 +194,17 @@ export default function userReducer(state = initialState, action) {
     }
 
     case 'EDIT_USER_LIST_SUCCESS': {
-      const { id, data } = action.payload;
-      // console.log("🚀 ~ file: user.reducer.js ~ line 197 ~ userReducer ~ id", id)
-      const anotherUserList = state.userList.data;
-      anotherUserList.splice(id, 1, data);
+      const { data } = action.payload;
+      const newUserList = state.userList.data
+      const userListIndex = newUserList.findIndex((item) => item.id === data.id);
+      newUserList.slice(userListIndex, 1, data);
       return {
         ...state,
         userList: {
           ...state.userList,
-          data: anotherUserList,
+          data: newUserList,
           load: false,
-        }, 
+        },
       };
     }
 
@@ -266,7 +266,6 @@ export default function userReducer(state = initialState, action) {
 
     case 'ADD_USER_TASK_SUCCESS': {
       const { data } = action.payload;
-      console.log("🚀 ~ file: user.reducer.js ~ line 268 ~ userReducer ~ data", data)
       return {
         ...state,
         userInfo: {
@@ -288,6 +287,121 @@ export default function userReducer(state = initialState, action) {
         }
       }
     }
+
+    case 'ADD_USER_LIST_REQUEST': {
+      return {
+        ...state,
+        userList: {
+          ...state.userList,
+          load: true,
+        },
+      }
+    }
+
+    case 'ADD_USER_LIST_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        userList: {
+          ...state.userList,
+          data: [
+            ...state.userList.data,
+            data,
+          ],
+          load: false,
+        },
+      }
+    }
+
+    case 'ADD_USER_LIST_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        userList: {
+          ...state.userList,
+          load: false,
+          error: error,
+        }
+      }
+    }
+
+    // Update Admin profile
+    case 'UPDATE_PROFILE_ADMIN_REQUEST': {
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: true,
+        },
+      }
+    }
+
+    case 'UPDATE_PROFILE_ADMIN_SUCCESS': {
+      const { data } = action.payload;
+      const newUser = state.userInfo.data
+      const newUserIndex = newUser.findIndex((item) => item.id === data.id);
+      newUser.slice(newUserIndex, 1, data);
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          data: newUser,
+          load: false,
+        },
+      };
+    }
+
+    case 'UPDATE_PROFILE_ADMIN_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: false,
+          error: error,
+        },
+      };
+    }
+
+    //  change Password
+    case 'CHANGE_PASSWORD_ADMIN_REQUEST': {
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: true,
+        },
+      }
+    }
+
+    case 'CHANGE_PASSWORD_ADMIN_SUCCESS': {
+      const { data } = action.payload;
+      console.log("🚀 ~ file: user.reducer.js ~ line 378 ~ userReducer ~ data", data)
+      const newPassWord = state.userInfo.data
+      const passWordIndex = newPassWord.findIndex((item) => item.id === data.id);
+      newPassWord.slice(passWordIndex, 1, data);
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          data: newPassWord,
+          load: false,
+        },
+      };
+    }
+
+    case 'CHANGE_PASSWORD_ADMIN_FAIL': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: false,
+          error: error,
+        },
+      };
+    }
+
 
     default: {
       return state;

@@ -120,7 +120,6 @@ function Header({
       if (userInfo.data.userRole === 'customer') {
         return (
           <Menu>
-
             <Menu.Item key='dropdown-user-info-01'>
               <div className="btn-into" onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</div>
             </Menu.Item>

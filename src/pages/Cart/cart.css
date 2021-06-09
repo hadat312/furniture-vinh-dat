@@ -53,9 +53,10 @@ body,h1,h2,h3,h4,h5,h6{
 .cart-container{
     position: relative;
     width: 1400px;
-    left: 13%;
-    transform: translateX(4px);
-    margin-top: 50px;
+    margin:50px auto 0px;
+    /* left: 13%; */
+    /* transform: translateX(4px); */
+    /* margin-top: 50px; */
 }
 
 .cart-container__cart-table-container{
@@ -146,16 +147,31 @@ body,h1,h2,h3,h4,h5,h6{
     
 }
 
-.cart-total, .cart-discount{
+.cart-total, .cart-discount, .cart-voucher_name{
     font-size: 17px;
     font-weight: 700;
     color:#333;
     padding: 12px 12px 5px 10px;
 }
 
+.cart-voucher-left{
+    width: 700px;
+}
+
 .cart-voucher-right{
+    width: calc(100% - 700px);
     background: #F7F7F7;
     padding:40px;
+}
+
+.cart-voucher-place{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-voucher-place button{
+    margin-left: 10px;
 }
 /* Footer - Space */
 

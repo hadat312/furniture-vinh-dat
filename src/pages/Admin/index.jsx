@@ -6,6 +6,8 @@ import logo1 from '../../images/logo1.jpg'
 
 import './styles.css';
 
+// import { Line } from '@ant-design/charts';
+
 import {
     getUserInfoAction,
     getUserListAction,
@@ -14,58 +16,52 @@ import {
 import { ROUTERS } from '../../constants/router';
 
 function AdminPage(props) {
-    // const { Header, Content, Footer, Sider } = Layout;
 
-    // const [isCollapsed, setIsCollapsed] = useState(true)
+    const data = [
+        { year: '1991', value: 3 },
+        { year: '1992', value: 4 },
+        { year: '1993', value: 3.5 },
+        { year: '1994', value: 5 },
+        { year: '1995', value: 4.9 },
+        { year: '1996', value: 6 },
+        { year: '1997', value: 7 },
+        { year: '1998', value: 9 },
+        { year: '1999', value: 13 },
+    ];
 
-    // const [isCollapsed, setIsCollapsed] = useState(true)
-
-    // const toggle = () => {
-    //     setIsCollapsed(!isCollapsed)
-    // }
-    const { userInfo, getUserInfo, userList, getUserList, deleteUserList } = props;
-    const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
-    useEffect(() => {
-        if (userInfoLocalStorage && userInfoLocalStorage.id) {
-            getUserInfo({ id: userInfoLocalStorage.id });
-        }
-    }, []);
-
-    useEffect(() => {
-        getUserList({
-            page: 1,
-            limit: 20,
-        })
-    }, []);
-
-
-    const [isShowToggle, setIsShowToggle] = useState(true);
-
-
-    function renderUserList() {
-        if (userList.load) return <p>Loading...</p>
-        return userList.data.map((userListItem, userListIndex) => {
-            return (
-                <Item
-                    key={userListItem.id}
-                    userListItem={userListItem}
-                />
-            )
-        })
-    }
+    const config = {
+        data,
+        height: 400,
+        xField: 'year',
+        yField: 'value',
+        point: {
+            size: 5,
+            shape: 'diamond',
+        },
+        label: {
+            style: {
+                fill: '#aaa',
+            },
+        },
+    };
 
     return (
         <>
             <div className="dashboard-container">
                 <div className="sidebar-container">
-                    <div className="sidebar-img">
-                        <img src={logo1} alt="logo" onClick={history.push(ROUTERS.HOME)} style={{cursor: 'pointer'}}/>
-                    </div>
-
                     <div className="sidebar-title">
+                        <img src={logo1} 
+                        alt="logo" 
+                        style={{cursor: 'pointer'}} 
+                        // onClick={history.push(ROUTERS.HOME)}
+                        />
                         <h3>DashBoard</h3>
                     </div>
                 </div>
+            </div>
+
+            <div className="dashboard-main">
+                {/* <Line {...config} /> */}
             </div>
 
         </>

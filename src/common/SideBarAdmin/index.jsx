@@ -2,17 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Button, Menu, Avatar, Layout, Typography } from 'antd';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
   ShoppingCartOutlined,
   ShopOutlined,
   HomeOutlined,
-  TableOutlined,
-  LogoutOutlined
-
+  LogoutOutlined,
+  UsergroupAddOutlined,
+  UnlockOutlined,
+  TeamOutlined
 } from '@ant-design/icons';
 import history from '../../utils/history';
 import { ROUTERS } from '../../constants/router';
@@ -49,40 +46,48 @@ function SideBarAdmin(props) {
 
   return (
     <Sider
-      style={{ backgroundColor: '#fff', height: '100%', marginTop: 130 }}
+      style={{ backgroundColor: '#fff', height: '100%' }}
       width="260px"
       breakpoint="lg"
       collapsedWidth="0"
-      // onBreakpoint={broken => {
-      //   console.log('broken', broken);
-      // }}
-      // onCollapse={(collapsed, type) => {
-      //   console.log('collapsed, type', collapsed, type);
-      // }}
+    // onBreakpoint={broken => {
+    //   console.log('broken', broken);
+    // }}
+    // onCollapse={(collapsed, type) => {
+    //   console.log('collapsed, type', collapsed, type);
+    // }}
     >
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "35px" }}>
         <div className="logo">
           <img src={logo1} alt="" />
         </div>
       </div>
 
-      <Menu theme="" mode="inline" defaultSelectedKeys={['1']}>
+      <Menu theme="" mode="inline" defaultSelectedKeys={['1']}  >     
         <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => { history.push(ROUTERS.ADMIN) }}>
           Dashboard
            </Menu.Item>
         <Menu.Item key="2" icon={<ShopOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_PRODUCT) }} >
           Quản lý sản phẩm
           </Menu.Item>
-        <Menu.Item key="4" icon={<UserOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_USER) }}>
+        <Menu.Item key="3" icon={<TeamOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_USER) }}>
           Quản lý thành viên
          </Menu.Item>
 
-        <Menu.Item key="3" icon={<ShoppingCartOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_VOUCHER) }}>
+        <Menu.Item key="4" icon={<ShoppingCartOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_VOUCHER) }}>
           Quản lý mã khuyến mãi
           </Menu.Item>
 
-        <Menu.Item key="3" icon={<LogoutOutlined />} onClick={handleLogOut}>
-          Đăng Xuất ({userInfo.data.userName})
+        <Menu.Item key="5" icon={<UserOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_PROFILE) }}>
+          Tài khoản ({userInfo.data.userName})
+          </Menu.Item>
+
+        <Menu.Item key="6" icon={<UnlockOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_CHANGE_PASSWORD) }}>
+          Đổi mật khẩu
+          </Menu.Item>
+
+        <Menu.Item key="7" icon={<LogoutOutlined />} onClick={handleLogOut}>
+          Đăng Xuất
           </Menu.Item>
       </Menu>
 

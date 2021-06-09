@@ -9,7 +9,7 @@ import {
 
 } from '../../redux/actions'
 
-import { ShoppingCartOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons'
 
 import carousel1 from '../../images/carousel1.jpg';
 import carousel2 from '../../images/carousel2.jpg';
@@ -38,10 +38,11 @@ import './home.css';
 function HomePage(props) {
   const { getProductList, productList } = props;
 
+
   useEffect(() => {
     getProductList({
       page: 1,
-      limit: 9,
+      limit: 20,
     });
   }, [])
 
@@ -97,12 +98,15 @@ function HomePage(props) {
   function renderProductList() {
     if (productList.load) return <p>Loading...</p>
     return productList.data.map((productListItem, productListIndex) => {
-      return (
-        <Item
-          key={productListItem.id}
-          productListItem={productListItem}
-        />
-      )
+      // console.log("productListItem" ,productListItem.productRanking)
+      if (productListItem.productRanking === "yes") {
+        return (
+          <Item
+            key={productListItem.id}
+            productListItem={productListItem}
+          />
+        )
+      }
     })
   }
 
@@ -122,10 +126,10 @@ function HomePage(props) {
             );
           })}
           <button className="next" id="next" onClick={() => Next()}>
-            <i class="fa fa-chevron-right" aria-hidden="true" />
+            <RightOutlined />
           </button>
           <button className="pre" id="pre" onClick={() => Pre()}>
-            <i class="fa fa-chevron-left" aria-hidden="true" />
+            <LeftOutlined />
           </button>
         </div>
       </div>
@@ -140,24 +144,20 @@ function HomePage(props) {
           <div className="banner-standard-1">
             <div className="banner-img">
               <img src={phongkhach} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
-              {/* <h3 className="banner-standard-title">Phòng Khách</h3> */}
-              {/* <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p> */}
             </div>
           </div>
 
           <div className="banner-standard-2">
             <div className="banner-img">
               <img src={phongngu} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
-              {/* <h3 className="banner-standard-title">Phòng Ngủ</h3> */}
-              {/* <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p> */}
+
             </div>
           </div>
 
           <div className="banner-standard-3">
             <div className="banner-img">
               <img src={phongan} alt="" onClick={() => history.push(ROUTERS.PRODUCT)} />
-              {/* <h3 className="banner-standard-title">Phòng Ăn</h3> */}
-              {/* <p onClick={() => history.push(ROUTERS.PRODUCT)}>Shop Now</p> */}
+
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@ function HomePage(props) {
               </div>
             </div>
 
-            <button className="btn-countdown"onClick={() => history.push(`/home/${productList.data[0].categoryId}`)}>
+            <button className="btn-countdown" onClick={() => history.push(`/home/${productList.data[0].categoryId}`)}>
               <span>
                 <ShoppingCartOutlined />
               </span>

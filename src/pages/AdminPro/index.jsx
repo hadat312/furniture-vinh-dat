@@ -5,7 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
-import { AudioOutlined } from '@ant-design/icons';
+import { AudioOutlined, UploadOutlined } from '@ant-design/icons';
 
 import {
     Row,
@@ -21,6 +21,8 @@ import {
     InputNumber,
     Checkbox,
     Card,
+    Upload,
+    message,
 } from 'antd';
 
 import {
@@ -42,7 +44,9 @@ import {
     setColorSelectAction,
 
     setProductSelectAction,
-    getCategoryListSearchKey
+    getCategoryListSearchKey,
+    getItemCategoriesAction,
+    getSubCategoriesAction
 } from '../../redux/actions';
 
 
@@ -76,6 +80,11 @@ function AdminProduct(props) {
 
         setProductSelect,
         productSelected,
+
+        getItemCategory,
+        itemCategories,
+        getSubCategory,
+        subCategories
     } = props;
     const [isShowModify, setIsShowModify] = useState(false);
 
@@ -86,7 +95,7 @@ function AdminProduct(props) {
     // Show Create Option Color
     const [isColorOptionForm, setIsColorOptionForm] = useState(false);
     const [isShowCreateColor, setIsShowCreateColor] = useState(false);
-    const [isShowModifyColor, setIsShowModifyColor] = useState(false);
+    // const [isShowModifyColor, setIsShowModifyColor] = useState(false);  
 
     const [productForm] = Form.useForm();
 
@@ -97,15 +106,64 @@ function AdminProduct(props) {
 
     const [searchKey, setSearchKey] = useState(null);
 
+    const [isCategory, setIsCategory] = useState("");
+
+    const [isSubCategory, setIsSubCategory] = useState("");
+
+    const formProductImages = productSelected.id
+        ? productSelected.productImage.map((image, index) => ({
+            uid: index,
+            name: `image-${index + 1}.jpg`,
+            type: 'image/jpeg',
+            thumbUrl: image,
+        }))
+        : []
+
+    const initialValues = productSelected.id
+        ? {
+            ...productSelected,
+            productImage: formProductImages
+        }
+        : {
+            // productSpecificationsLength: 100,
+            // productSpecificationsHeight: 100,
+            // productSpecificationsWidth: 100,
+        }
+
+
     useEffect(() => {
         getProductListAdmin({ searchKey: searchKey })
     }, [searchKey])
+
+    // useEffect(() => {
+    //     getItemCategory({
+    //         isCategory: isCategory
+    //     })
+    // }, [isCategory])
+
+
+
+    // useEffect(() => {            // Checked
+    //     if (isShowModify) {
+    //         setIsColorOptionForm()
+    //     }
+    // })
 
 
 
     // useEffect(() => {
     //     getProductListAdmin({ categoryId: categoryId })
     // }, [categoryId])
+
+    useEffect(() => {
+        getSubCategory()
+    }, []);
+
+    useEffect(() => {
+        getItemCategory({
+            subCategoryId: isSubCategory
+        })
+    }, [isSubCategory])
 
     useEffect(() => {
         getProductListAdmin();
@@ -119,11 +177,13 @@ function AdminProduct(props) {
     }, [isShowModify]);
 
     //  Show Create Option Color
-    useEffect(() => {
-        if (isShowModifyColor) {
-            setIsShowCreateColor(false)
+
+    useEffect(() => {     // Nghĩa là khi vào trang mở Drawer,
+        //  setIsShowCreateColor(false) =>   isShowCreateColor(false) để hiện button Thêm Tùy chọn,  Line 410
+        if (isShowModify) {
+            setIsShowCreateColor(false)     //setIsShowModifyColor
         }
-    }, [isShowModifyColor])
+    }, [isShowModify])
 
     useEffect(() => {
         productForm.resetFields();
@@ -149,27 +209,35 @@ function AdminProduct(props) {
 
     function handleCreateProduct() {
         setIsShowModify(true);
-        setProductSelect({});
+        setProductSelect({});     // test tối qua 7/6/2021
     }
+
+
+    // Lưu vào Reducer
+
 
     function handleSubmitForm() {
         const values = productForm.getFieldsValue();
-        if (productSelected.id) {
-            editProductAdmin({ id: productSelected.id, ...values });
+
+        const newProductImage = (values.productImage || []).map((file) => file.thumbUrl);
+
+        const newProduct = {
+            ...values,
+            productImage: newProductImage,
+            productDescription: dataDescription,
+            productStorageInstruction: dataStorageInstruction
         }
-        if (colorSelected.id) {
-            editProductAdmin({ id: colorSelected.id, ...values })
+        if (productSelected.id || colorSelected.id) {
+            // editProductAdmin({ id: colorSelected.id, ...values })
+            editProductAdmin({ id: colorSelected.id, ...newProduct })
         }
         else {
-            const newProduct = {
-                ...values,
-                productDescription: dataDescription,
-                productStorageInstruction: dataStorageInstruction
-            }
             createProductAdmin(newProduct)
         }
         setIsShowModify(false);
     }
+
+    // console.log("productSelected ", productSelected)
 
 
     const tableColumns = [
@@ -228,22 +296,48 @@ function AdminProduct(props) {
         },
     ];
 
-    const tableData = productList.data.map((productItem) => {
-        let minValue = 0;
-        let maxValue = 0;
-        productItem.sizes.forEach((option) => {
-            productItem.colors.forEach((anotherOption) => {
+    const tableData = productList.data.map((productItem, productIndex) => {
+        let maxValueSize = 0;
+        let minValueSize = 0;
+        
+        
+        let maxValueColor = 0;
+        let minValueColor = 0;
+        
+        console.log("🚀 ~ file: index.jsx ~ line 300 ~ tableData ~ productIndex", productIndex)
+        
+        productItem.sizes.forEach((option, optionIndex) => {
+            console.log("🚀 ~ file: index.jsx ~ line 308 ~ productItem.sizes.forEach ~ optionIndex", optionIndex)
+            if (optionIndex === 0) {       // Ngay tại index bằng 0 khi chạy vòng lặp, sẽ gán giá trị option price cho biến minValue
 
-                if (option.price > maxValue && anotherOption.price > maxValue) maxValue = option.price + anotherOption.price;
-                if (option.price < minValue && anotherOption.price < minValue) minValue = option.price + anotherOption.price;
-            })
+                minValueSize = option.price   // Lúc này minValueColor = 200.000
+            }                                  
+                                            
+            
+            if (option.price > maxValueSize) maxValueSize = option.price;    //  nhạp option size = 500.000
+            if (option.price < minValueSize) minValueSize = option.price
+        })
+        console.log("🚀 ~ file: index.jsx ~ line 303 ~ tableData ~ minValueSize", minValueSize)
+
+        productItem.colors.forEach((anotherOption, anotherOptionIndex) => {
+            if (anotherOptionIndex === 0) {    // Ngay tại index = 0 khi chạy ở vòng lặp đầu tiên, sẽ gán giá tiền colors vào min Value Color
+                minValueColor = anotherOption.price;      // Lúc này minValueColor = 300.000
+            }
+
+            if (anotherOption.price > maxValueColor) maxValueColor = anotherOption.price;
+
+            if (anotherOption.price < minValueColor) minValueColor = anotherOption.price;
         })
 
-        // productItem.colors.forEach((anotherOption) => {
-        //     // console.log("🚀 ~ file: index.jsx ~ line 196 ~ productItem.colors.forEach ~ anotherOption", anotherOption)
-        //     if(anotherOption.price > maxValue) maxValue=anotherOption.price;
-        //     if(anotherOption.price < minValue) minValue=anotherOption.price;
-        // })
+
+        let maxTotal = maxValueColor + maxValueSize;
+        // console.log("🚀 ~ file: index.jsx ~ line 330 ~ tableData ~ maxTotal", maxTotal)
+
+        let minTotal = minValueColor + minValueSize;
+
+        // lúc này minTotal = 300.000  (colors) + 200.000 (Sizes)  + 20.000.000 (product)
+
+        // 20.500.000  -  20.800.000
 
 
         return {
@@ -251,10 +345,12 @@ function AdminProduct(props) {
             key: productItem.id,
             categoryName: productItem.category.categoryName,
             productDiscount: productItem.productDiscount,
-            minMaxPrice: productItem.sizes.length > 0
-                ? productItem.sizes.length === 1
-                    ? (productItem.productPrice + maxValue).toLocaleString()
-                    : `${(productItem.productPrice + minValue).toLocaleString()} - ${(productItem.productPrice + maxValue).toLocaleString()}`
+            minMaxPrice: productItem.sizes.length > 0 || productItem.colors.length > 0       /// nếu option sizes và option color > 0 sẽ nhảy vào line 341 , bé hơn nhảy vào 347
+                ? (productItem.sizes.length === 1 && productItem.colors.length <= 1) || (productItem.sizes.length <= 1 && productItem.colors.length === 1)  
+                // TH: nếu size.length === 1
+                    ? (productItem.productPrice + maxTotal).toLocaleString()
+                    : `${(productItem.productPrice + minTotal).toLocaleString()} - ${(productItem.productPrice + maxTotal).toLocaleString()}`
+
                 : productItem.productPrice.toLocaleString()
         }
     });
@@ -267,6 +363,17 @@ function AdminProduct(props) {
                 </Select.Option>
             )
         })
+    }
+
+    function renderItemCategoryOption() {
+        return itemCategories.data.map((itemCategoryItem, itemCategoryIndex) => {
+            return (
+                <Select.Option key={itemCategoryIndex} value={itemCategoryItem.id}>
+                    {itemCategoryItem.itemCategoryName}
+                </Select.Option>
+            )
+        })
+
     }
 
     function renderProductId() {
@@ -290,7 +397,7 @@ function AdminProduct(props) {
                         createOptionAdmin({
                             productId: productSelected.id,
                             ...values,
-                            setProductSelect,
+                            // setProductSelect,  // test tối 7/6/2021
                         })
                         setIsShowCreateOption(false);
                     }}
@@ -424,12 +531,12 @@ function AdminProduct(props) {
             <div style={{ marginTop: 16 }}>
                 <h4>Danh sách màu sắc</h4>
                 {
-                    colorSelected.id &&
+                    colorSelected.id &&            // nếu có id colorSelected và colors.length >0 sẽ hiển thị phần item colors đã được tạo
                     colorSelected.colors.length > 0 &&
                     renderColorOptionItems()
                 }
-                {isShowCreateColor
-                    ? renderCreateOptionColor()
+                {isShowCreateColor                   // isShowCreateColor (true) => hiển thị 1 form tạo color 
+                    ? renderCreateOptionColor()      // isShowCreateColor(false) => hiển thị button thêm tùy chọn
                     : (
                         <Button
                             type="dashed"
@@ -445,32 +552,36 @@ function AdminProduct(props) {
         )
     }
 
-    function onChange(values) {          // Render Category Name
+    function onChange(values) { // Render Category Name
+        setIsCategory(values)
+        subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
+            itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
+                if (values === subCategoryItem.categoryId && subCategoryItem.id === itemCategoryItem.subCategoryId) {
+                    setIsSubCategory(subCategoryItem.id)
+                    // console.log("subCategoryId: " ,subCategoryItem.id)
+                }
+            })
+        })
 
     }
+    // console.log("IsCategory: ", isCategory)
 
-    function onChangeLength(value) {     // Onchange Chiều Dài trong mô tả sản phẩm
-        console.log('changedLength', value);
-    }
+    function onChangeItemCategory() {
 
-    function onChangeHeight(value) {    // Onchange Chiều Cao trong mô tả sản phẩm
-        console.log('changedHeight', value);
-    }
-
-    function onChangeWidth(value) {   // Onchange Chiều Rộng trong mô tả sản phẩm
-        console.log('changedWidth', value);
     }
 
     function onChangeDescriptionEditor(event, editor) {  // Onchange Description
         const data = editor.getData();
         setDataDescription(data);
-        // console.log({ data });
     }
 
     function onChangeProductStorageInstruction(even, editor) {   // Onchange Product Storage Instruction
         const data = editor.getData();
         setDataStorageInstruction(data)
     }
+
+
+
 
     // Search - Area
 
@@ -486,21 +597,44 @@ function AdminProduct(props) {
     );
 
     const onSearch = value => setSearchKey(value);
-    console.log("searchKey: ", searchKey)
 
+    // Tinh Initial Value & Origin Value
+    let originPrice = 0;
+    let initialPrice = 0;
+
+    // if (productListItem.colors.length === 0 && productListItem.sizes.length === 0) {
+    //     originPrice = productListItem.productPrice.toLocaleString();
+    //     initialPrice = (productListItem.productPrice * (1 - productListItem.productDiscount)).toLocaleString();
+    //   } else if (productListItem.colors.length === 0) {
+    //     originPrice = ((productListItem.productPrice + productListItem.sizes[0].price)).toLocaleString();
+    //     initialPrice = ((productListItem.productPrice + productListItem.sizes[0].price) * (1 - productListItem.productDiscount)).toLocaleString();
+    //   } else if (productListItem.sizes.length === 0) {
+    //     originPrice = ((productListItem.productPrice + productListItem.colors[0].price)).toLocaleString();
+    //     initialPrice = ((productListItem.productPrice + productListItem.colors[0].price) * (1 - productListItem.productDiscount)).toLocaleString();
+    //   } else {
+    //     originPrice = ((productListItem.productPrice + productListItem.colors[0].price + productListItem.sizes[0].price)).toLocaleString();
+    //     initialPrice = ((productListItem.productPrice + productListItem.colors[0].price + productListItem.sizes[0].price) * (1 - productListItem.productDiscount)).toLocaleString();
+    //   }
+
+
+    const { TextArea } = Input;
     return (
         <>
             <div className="logo-brand">
-                <img src={logo1} alt="Bodhi Logo Brand" style={{ width: "auto", height: "50px" }} />
+                <img src={logo1}
+                    alt="Bodhi Logo Brand"
+                    style={{ width: "auto", height: "50px", cursor: "pointer" }}
+                    onClick={() => { history.push(ROUTERS.HOME) }}
+                />
             </div>
             <Row justify="space-between" align="center" style={{ marginTop: 16 }}>
                 <Space direction="vertical" >
-                    <Search placeholder="input search text" onSearch={onSearch} enterButton style={{width:"300px"}}/>
+                    <Search placeholder="input search text" onSearch={onSearch} enterButton style={{ width: "300px" }} />
                 </Space>
 
                 <Button type="primary" onClick={() => handleCreateProduct()}>
                     <PlusOutlined /> Thêm Mới
-                     </Button>
+                </Button>
             </Row>
 
             <Row justify="center" style={{ marginBottom: 16 }}>
@@ -557,7 +691,6 @@ function AdminProduct(props) {
                             )
                         },
                         rowExpandable: (record) => record.sizes.length > 0 || record.colors.length > 0
-                        // rowExpandable: (record) => record.colors.length > 0
                     }}
                 />
                 <Drawer
@@ -568,7 +701,7 @@ function AdminProduct(props) {
                     footer={(
                         <Row justify="end">
                             <Space>
-                                <Button>Hủy</Button>
+                                <Button onClick={() => setIsShowModify(false)}>Hủy</Button>
                                 <Button type="primary" onClick={() => handleSubmitForm()}>Lưu</Button>
                             </Space>
                         </Row>
@@ -578,24 +711,68 @@ function AdminProduct(props) {
                         form={productForm}
                         layout="vertical"
                         name="productForm"
-                        initialValues={productSelected.id
-                            ? { ...productSelected, hasOption: false }
-                            : {}
-                        }
+                        initialValues={{
+                            ...initialValues,
+                            hasOption: false
+                        }}
                     >
                         <Form.Item name="productName" label="Tên sản phẩm">
                             <Input placeholder="Tên sản phẩm" />
                         </Form.Item>
 
-                        <Form.Item name="categoryId" label="Loại sản phẩm">
-                            <Select placeholder="Loại sản phẩm" onChange={onChange} >
+                        <Form.Item name="categoryId" label="Loại phòng">
+                            <Select placeholder="Loại phòng" >
                                 {renderCategoryOptions()}
                             </Select>
                         </Form.Item>
 
+                        <Form.Item name="itemCategoryId" label="Loại sản phẩm">
+                            <Select placeholder="Loại sản phẩm" onChange={onChangeItemCategory}>
+                                {renderItemCategoryOption()}
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item name="productShortDescription" label="Mô tả sản phẩm">
+                            <TextArea rows={4} />
+                        </Form.Item>
+
+                        <Form.Item
+                            valuePropName="fileList"
+                            name="productImage"
+                            label="Ảnh sản phẩm"
+                            getValueFromEvent={(e) => {
+                                if (Array.isArray(e)) return e;
+                                return e && e.fileList
+                            }}
+                            validateFirst
+                            rules={[
+                                { required: true },
+                                () => ({
+                                    validator(_, value) {
+                                        if (!['image/png', 'image/jpeg'].includes(value[0].type)) {
+                                            return Promise.reject('File không đúng định dạng')
+                                        }
+                                        return Promise.resolve();
+                                    }
+                                })
+                            ]}
+                        >
+                            <Upload
+                                listType='picture'
+                                beforeUpload={() => false}
+                            >
+                                <Button icon={<UploadOutlined />}>Click to upload</Button>
+                            </Upload>
+                        </Form.Item>
+
+
 
                         <Form.Item name="productDiscount" label="Giảm giá sản phẩm">
-                            <Input placeholder="Giảm giá sản phẩm" />
+                            <InputNumber
+                                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                placeholder="Giá khuyến mãi"
+                                style={{ width: '100%' }}
+                            />
                         </Form.Item>
 
 
@@ -605,6 +782,50 @@ function AdminProduct(props) {
                                 placeholder="Giá gốc"
                                 style={{ width: '100%' }}
                             />
+                        </Form.Item>
+
+                        
+                    <div>
+                        <h6 style={{marginBottom: "5px"}}>Mô Tả Sản Phẩm</h6>
+                        <CKEditor
+
+                            editor={ClassicEditor}
+                            name="productDescription"
+                            onChange={(event, editor) => onChangeDescriptionEditor(event, editor)}
+                            onBlur={(event, editor) => {
+                                // console.log('Blur.', editor);
+                            }}
+                            onFocus={(event, editor) => {
+                                // console.log('Focus.', editor);
+                            }}
+                        />
+                    </div>
+
+                    <div style={{marginTop: "10px "}}>
+                        <h6 >Hướng Dẫn Bảo Quản</h6>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            name="productStorageInstruction"
+                            onChange={(event, editor) => onChangeProductStorageInstruction(event, editor)}
+                            onBlur={(event, editor) => {
+                                // console.log('Blur.', editor);
+                            }}
+                            onFocus={(event, editor) => {
+                                // console.log('Focus.', editor);
+                            }}
+                        />
+                    </div>
+
+                        <Form.Item name="productSpecificationsLength" label="Thông số chiều Dài (cm)">
+                            <InputNumber min={100} max={400} />
+                        </Form.Item>
+
+                        <Form.Item name="productSpecificationsHeight" label="Thông số chiều Cao">
+                            <InputNumber min={100} max={400} />
+                        </Form.Item>
+
+                        <Form.Item name="productSpecificationsWidth" label="Thông số chiều Rộng">
+                            <InputNumber min={100} max={400} />
                         </Form.Item>
 
                         {productSelected.id && (
@@ -617,69 +838,8 @@ function AdminProduct(props) {
                         )}
                     </Form>
 
-                    <Form
-                        form={productForm}
-                        layout="vertical"
-                        // name="productForm"
-                        initialValues={{
-                            productSpecificationsLength: 100,
-                            productSpecificationsHeight: 100,
-                            productSpecificationsWidth: 100,
-                        }}
-                    >
-                        <Form.Item name="productSpecificationsLength" label="Thông số chiều Dài (cm)">
-                            <InputNumber min={100} max={400} onChange={onChangeLength} />
-                        </Form.Item>
 
-                        <Form.Item name="productSpecificationsHeight" label="Thông số chiều Cao">
-                            <InputNumber min={100} max={400} onChange={onChangeHeight} />
-                        </Form.Item>
-
-                        <Form.Item name="productSpecificationsWidth" label="Thông số chiều Rộng">
-                            <InputNumber min={100} max={400} onChange={onChangeWidth} />
-                        </Form.Item>
-                    </Form>
-
-                    <div>
-                        <h6>Mô Tả Sản Phẩm</h6>
-                        <CKEditor
-
-                            editor={ClassicEditor}
-                            // data="<p>Hello from CKEditor 5!</p>"
-                            // onReady={editor => {
-                            //     // You can store the "editor" and use when it is needed.
-                            //     console.log('Editor is ready to use!', editor);
-                            // }}
-                            onChange={(event, editor) => onChangeDescriptionEditor(event, editor)}
-                            onBlur={(event, editor) => {
-                                console.log('Blur.', editor);
-                            }}
-                            onFocus={(event, editor) => {
-                                console.log('Focus.', editor);
-                            }}
-                        />
-                    </div>
-
-                    <div>
-                        <h6>Hướng Dẫn Bảo Quản</h6>
-                        <CKEditor
-                            editor={ClassicEditor}
-                            // data="<p>Hello from CKEditor 5!</p>"
-                            // onReady={editor => {
-                            //     // You can store the "editor" and use when it is needed.
-                            //     console.log('Editor is ready to use!', editor);
-                            // }}
-                            onChange={(event, editor) => onChangeProductStorageInstruction(event, editor)}
-                            onBlur={(event, editor) => {
-                                console.log('Blur.', editor);
-                            }}
-                            onFocus={(event, editor) => {
-                                console.log('Focus.', editor);
-                            }}
-                        />
-                    </div>
-
-
+                    {/* 1>Giải thích - isOptionForm : khi isOptionForm checked thì mới hiện ra  */}
                     {isOptionForm && productSelected.id && renderProductOptionForm()}
 
                     {isColorOptionForm && colorSelected.id && renderColorOptionForm()}
@@ -694,6 +854,7 @@ function AdminProduct(props) {
 
 const mapStateToProps = (state) => {
     const { productList, categoryList } = state.adminProductReducer;
+    const { itemCategories, subCategories } = state.categoriesReducer;
     const { productSelected, colorSelected } = state.adminCommonReducer;
     return {
         productList: productList,
@@ -701,6 +862,9 @@ const mapStateToProps = (state) => {
 
         productSelected: productSelected,
         colorSelected: colorSelected,
+
+        itemCategories: itemCategories,
+        subCategories: subCategories
     }
 };
 
@@ -722,6 +886,8 @@ const mapDispatchToProps = (dispatch) => {
         createOptionColor: (params) => dispatch(createOptionColorAction(params)),
         setColorSelect: (params) => dispatch(setColorSelectAction(params)),
 
+        getItemCategory: (params) => dispatch(getItemCategoriesAction(params)),
+        getSubCategory: (params) => dispatch(getSubCategoriesAction(params)),
         // getCategorySearchKey: (params) => dispatch(getCategoryListSearchKey(params)),
     };
 }

@@ -20,6 +20,7 @@ import HomePage from './pages/Home';
 
 import AboutPage from './pages/About'
 
+
 import SearchProductListPage from './pages/SearchProductList';
 import ProductListPage from './pages/ProductList';
 import DetailPage from './pages/ProductDetail';
@@ -46,8 +47,10 @@ import LoginPage from './pages/Login';
 import AdminPage from './pages/Admin';
 import AdminUserPage from './pages/AdminUser';
 import AdminProduct from './pages/AdminPro';
-import AdminVoucher from './pages/AdminVoucher'
-import SubCategoryAdmin from './pages/SubcategoryManagement'
+import AdminVoucher from './pages/AdminVoucher';
+import AdminProfile from './pages/AdminProfile'
+import AdminChangePassword from './pages/ChangePasswordAdmin';
+
 
 function BrowserRouter(props) {
   const [getSearchKey, setGetSearchKey] = useState('');
@@ -57,7 +60,7 @@ function BrowserRouter(props) {
     <Router history={history}>
       <Switch>
         <Route exact path="/" render={() => <Redirect to={"/home"} />} />
-        
+
         <HomeLayout
           exact
           path={ROUTERS.HOME}
@@ -66,7 +69,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -74,11 +77,11 @@ function BrowserRouter(props) {
           exact
           path={ROUTERS.ABOUT}
           component={AboutPage}
-          getSearchKey={getSearchKey} 
+          getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -99,11 +102,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
         />
 
-        {/* <HomeLayout
-          exact
-          path={ROUTERS.ADMIN_PRODUCT}
-          component={AdminProductPage}
-        /> */}
+
         <AdminLayout
           exact
           path={ROUTERS.ADMIN_PRODUCT}
@@ -111,10 +110,20 @@ function BrowserRouter(props) {
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
         />
+
         <AdminLayout
           exact
-          path={ROUTERS.ADMIN_SUBCATEGORY}
-          component={SubCategoryAdmin}
+          path={ROUTERS.ADMIN_PROFILE}
+          component={AdminProfile}
+          getSearchKey={getSearchKey}
+          setGetSearchKey={setGetSearchKey}
+        />
+
+
+        <AdminLayout
+          exact
+          path={ROUTERS.ADMIN_CHANGE_PASSWORD}
+          component={AdminChangePassword}
           getSearchKey={getSearchKey}
           setGetSearchKey={setGetSearchKey}
         />
@@ -147,7 +156,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -159,7 +168,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -172,7 +181,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -201,7 +210,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -215,7 +224,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -240,7 +249,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
 
@@ -254,7 +263,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct}
-          getNameProduct= {getNameProduct}
+          getNameProduct={getNameProduct}
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />
@@ -267,7 +276,7 @@ function BrowserRouter(props) {
           setGetSearchKey={setGetSearchKey}
 
           setNameProduct={setNameProduct} //thừa
-          getNameProduct= {getNameProduct} //thừa
+          getNameProduct={getNameProduct} //thừa
           setURLProductDetail={setURLProductDetail}
           getURLProductDetail={getURLProductDetail}
         />

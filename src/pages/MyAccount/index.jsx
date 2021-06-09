@@ -58,6 +58,11 @@ function ProfilePage({
   let birthdayString = userInfo.data.birthday;
   const dateFormatList = 'DD/MM/YYYY';
 
+  function onChange(date, dateString) {
+    console.log("🚀 ~ file: index.jsx ~ line 62 ~ onChange ~ dateString", dateString)
+    birthdayString = dateString.trim();
+  }
+
   const layout = {
     labelCol: { span: 7 },
     wrapperCol: { span: 16 },
@@ -75,9 +80,7 @@ function ProfilePage({
 
 
 
-  function onChange(date, dateString) {
-    birthdayString = dateString.trim();
-  }
+ 
 
   function showNotification() {
     const key = `open${Date.now()}`;

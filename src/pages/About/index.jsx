@@ -38,6 +38,8 @@ import brand5 from '../../images/brand5.png';
 import brand6 from '../../images/brand6.png';
 import btnplay from '../../images/btnplay.png';
 
+import {  RightOutlined ,LeftOutlined } from '@ant-design/icons'
+
 import './styles.css'
 
 
@@ -88,10 +90,10 @@ function AboutPage() {
                         );
                     })}
                     <button className="next" id="next" onClick={() => Next()}>
-                        <i class="fa fa-chevron-right" aria-hidden="true"/>
+                        <RightOutlined />
                     </button>
                     <button className="pre" id="pre" onClick={() => Pre()}>
-                        <i class="fa fa-chevron-left" aria-hidden="true"/>
+                        <LeftOutlined />
                     </button>
                     <div className="banner-purpot">
                         <div className="banner-title">About</div>

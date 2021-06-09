@@ -3,7 +3,7 @@ const initialState = {
 
   colorSelected: {},
 
-  voucherSelected: {},
+
 };
 
 export default function adminCommonReducer(state = initialState, action) {
@@ -14,6 +14,7 @@ export default function adminCommonReducer(state = initialState, action) {
         productSelected: action.payload,
       }
     }
+
     case 'ADMIN/CREATE_OPTION_SUCCESS': {
       const { data } = action.payload;
       return {
@@ -66,6 +67,7 @@ export default function adminCommonReducer(state = initialState, action) {
       const newProductOptions = state.productSelected.sizes;
       const optionIndex = newProductOptions.findIndex((item) => item.id === data.id);
       newProductOptions.splice(optionIndex, 1);
+      console.log("🚀 ~ file: common.reducer.js ~ line 71 ~ adminCommonReducer ~ newProductOptions", newProductOptions)
       return {
         ...state,
         productSelected: {
@@ -103,13 +105,6 @@ export default function adminCommonReducer(state = initialState, action) {
       }
     }
 
-    //voucher
-    case 'ADMIN/SET_VOUCHER_SELECTED': {
-      return {
-        ...state,
-        voucherSelected: action.payload,
-      }
-    }
     default: {
       return state;
     }

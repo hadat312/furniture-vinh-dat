@@ -208,7 +208,7 @@ function OrderPage({
           </Space>
 
       },
-    ];
+    ]
 
 
     return (

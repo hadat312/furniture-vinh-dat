@@ -48,6 +48,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import './productDetail.css';
+import { EditOutlined } from '@ant-design/icons';
 
 
 function ProductDetailPage({
@@ -80,20 +81,23 @@ function ProductDetailPage({
     // getCartList();
     getWishList();
     getProductDetail({ id: productId });
+
     getComment({ productId: productId })
   }, [productId])
 
   //chọn màu sắc và kích cỡ mặc định 
   useEffect(() => {
     if (productDetail.data.id) {
-
       setSizeSelected(productDetail.data.sizes[0] || {})
       setColorSelected(productDetail.data.colors[0] || {})
       setChangeImage(productDetail.data.productImage[0] || {})
       setURLProductDetail(match.url);
       setNameProduct(productDetail.data.productName);
     }
-  }, [productDetail.data])
+  }, [productDetail.data.id])
+
+  const asd = match.url;
+  console.log("🚀 ~ file: index.jsx ~ line 100 ~ asd", asd)
 
 
   // console.log('data: ', productDetail.data)
@@ -545,7 +549,7 @@ function ProductDetailPage({
             ...newWishlist,
           ]
         })
-        deleteCurrentWishlistProduct()
+        deleteCurrentWishlistProduct()    // Notification
       }
 
     })
@@ -621,11 +625,12 @@ function ProductDetailPage({
       return (
         <img
           className="imageOption"
-          key={'image-', index}
+          key={`image-${index}`}
           src={item}
           onMouseEnter={() => {
             setChangeImage(item)
           }}
+          alt=""
         />
       )
     })
@@ -636,7 +641,7 @@ function ProductDetailPage({
     return productDetail.data.sizes.map((sizesItem, sizesIndex) => {
       return (
         <Radio.Button
-          key={'sizeItem' + (sizesIndex + 1)}
+          key={sizesIndex}
           value={sizesItem}
           className="size-content__item" >
           {sizesItem.sizeName}
@@ -647,6 +652,7 @@ function ProductDetailPage({
 
   function renderColorsOptions() {
     return productDetail.data.colors.map((colorItem, colorIndex) => {
+      // console.log("🚀 ~ file: index.jsx ~ line 626 ~ returnproductDetail.data.colors.map ~ colorItem", colorItem)
       return (
         <Radio.Button
           key={'colorItem' + (colorIndex + 1)}
@@ -672,7 +678,7 @@ function ProductDetailPage({
   moment.locale('vi');
   const commentContent = {
     comment: fillText.comment,
-    date: moment().format('MMMM Do YYYY'),
+    date: moment().format('MMMM DD YYYY'),
     time: moment().format('LT'),
     rate: rate,
     userId: userInfo.data.id,
@@ -746,6 +752,7 @@ function ProductDetailPage({
   };
   // -----------------------------------
 
+
   return (
     <>
       <div className="detail-container">
@@ -759,7 +766,7 @@ function ProductDetailPage({
             </div>
             <div className="detail-container__thumbnail">
               <div className="thumbnail__item">
-                <Slider {...settings} style={{ width: '100%', align: 'center' }}>
+                <Slider {...settings} style={{ width: '100%' }}>
                   {renderImageList()}
                 </Slider>
               </div>
@@ -786,15 +793,15 @@ function ProductDetailPage({
             </div>
             <div className="detail-container__color">
               {
-                colorSelected.id && <Title level={3} className="color-title">Color</Title>
+                colorSelected.id && <Title level={3} className="color-title">Màu sắc</Title>
               }
               <div>
                 <Radio.Group
                   onChange={(e) => {
-                    setColorSelected(e.target.value)
-                    // setIsAddWishlist(!isAddWishlist)
+                    setColorSelected(e.target.value);
                   }}
                   value={colorSelected}
+                // setIsAddWishlist(!isAddWishlist)
                 >
                   {renderColorsOptions()}
                 </Radio.Group>
@@ -802,14 +809,14 @@ function ProductDetailPage({
             </div>
             <div className="detail-container__size">
               {
-                sizeSelected.id && <Title level={3} className="size-title">Size</Title>
+                sizeSelected.id && <Title level={3} className="color-title">Kích thước</Title>
               }
               <div>
                 <Radio.Group
                   onChange={(e) => {
                     setSizeSelected(e.target.value)
 
-                    
+
                     // setIsAddWishlist(!isAddWishlist)
                   }}
 
@@ -834,7 +841,7 @@ function ProductDetailPage({
               />
               <div className="main-container__wishlist-bg">
                 {
-                  isAddWishlist
+                  isAddWishlist   // Ban đầu là False sẽ có icon trắng  ,  Click vào thành true sẽ ra nút vàng
                     ? <AiFillHeart
                       onClick={deleteWishlist}
                       className="main-container__card__delete-wishlist"
@@ -899,7 +906,8 @@ function ProductDetailPage({
                     <Title level={4}>Thông Số Kỹ Thuật</Title>
                   }
                   key="2">
-                  <div dangerouslySetInnerHTML={{ __html: productDetail.data.productStorageInstruction }} />
+                  <div dangerouslySetInnerHTML={{ __html: productDetail.data.productSpecificationsLength }} />
+                  {/* In productSpecificationLength, Width, Height */}
                 </TabPane>
 
               </Tabs>

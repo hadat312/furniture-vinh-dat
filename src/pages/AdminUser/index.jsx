@@ -1,10 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Item from './components/Item'
 import history from '../../utils/history'
 
-import { Input, Space, Col, Modal, Button, Pagination, Row, Form, Checkbox, Select } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
+import { ROUTERS } from '../../constants/router';
+
+import {
+    Row,
+    Table,
+    Button,
+    Space,
+    Drawer,
+    Form,
+    Input,
+    Select,
+    Popconfirm,
+    List,
+    InputNumber,
+    Checkbox,
+    Card,
+    Modal,
+    Tag
+
+} from 'antd';
 
 import {
     EditOutlined,
@@ -13,126 +30,140 @@ import {
 } from '@ant-design/icons';
 
 
-import logo1 from '../../images/logo1.jpg'
-import { ROUTERS } from '../../constants/router';
-
 import {
-    deleteUserListAction,
     getUserListAction,
-    getUserInfoAction,
-    editUserListAction,
-
-    addUserTaskAction
+    addUserListAction,
+    deleteUserListAction,
+    editUserListAction
 } from '../../redux/actions'
+
+import logo1 from '../../images/logo1.jpg'
 
 import './styles.css'
 
 function AdminUserPage(props) {
-    const { userInfo,
-        getUserInfo,
+
+    const {
         userList,
         getUserList,
+        addUserList,
         deleteUserList,
-        editUserList,
-        addUser
-    } = props;
+        editUserList
+    } = props
+
+
+
+    const { Option } = Select;
+
+    const [isShowModifyCreate, setIsShowModifyCreate] = useState(false);
+
+    const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
+
+    const [productForm] = Form.useForm();
+
+    const [editForm] = Form.useForm();   // value From Edit
+
+    const [userSelected, setUserSelected] = useState("");
 
     const [userRoleName, setUserRole] = useState();
+
+
+    const [searchKey, setSearchKey] = useState();
+
+    useEffect(() => {
+        editForm.resetFields();
+    }, [userSelected]);
 
 
     useEffect(() => {
         getUserList({
             page: 1,
-            limit: 5,
+            limit: 12,
+            searchKey: searchKey
         })
-    }, []);
-
-    useEffect(() => {
-        const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
-        if (userInfoLocalStorage && userInfoLocalStorage.id) {
-            getUserInfo({ id: userInfoLocalStorage.id });
-        }
-    }, []);
+    }, [searchKey])
 
     const { Search } = Input;
+    const onSearch = value => setSearchKey(value);
 
-    const [productForm] = Form.useForm();
-
-    const [searchKey, setSearchKey] = useState('');
-
-    //  Function Edit
-
-    function handleEditUserList(values, id) {
-        // window.location.reload();
-        userList.data.map((userListItem) => {
-            if (id === userListItem.id) {
-                return editUserList({ ...values, id: userListItem.id })
+    const tableColumns = [
+        {
+            title: 'Tên người dùng',
+            dataIndex: 'userName',
+            key: 'userName',
+        },
+        {
+            title: 'Email ',
+            dataIndex: 'userEmail',
+            key: 'userEmail',
+        },
+        {
+            title: 'Loại tài khoản  ',
+            dataIndex: 'userRole',
+            render: (_, record) => {
+                return (
+                    <p><Tag style={{ fontSize: 16 }} color="gold">{record.userRole}</Tag></p>
+                )
             }
-        })
-    }
-
-    function onDeleteUserList(id) {
-        console.log("🚀 ~ file: index.jsx ~ line 61 ~ onDeleteUserList ~ id", id)
-        userList.data.map((userListItem) => {
-            if (id === userListItem.id) {
-                return deleteUserList({ id: userListItem.id });
+        },
+        {
+            title: 'Số diện thoại',
+            dataIndex: 'userPhoneNumber',
+            key: 'userPhoneNumber',
+        },
+        {
+            title: 'Hành động',
+            dataIndex: 'action',
+            key: 'action',
+            render: (_, record) => {
+                return (
+                    <Space>
+                        <Button type="primary" ghost
+                            onClick={() => handleEditUser(record)}
+                        >
+                            <EditOutlined />
+                        </Button>
+                        <Popconfirm
+                            title={`Bạn có chắc muốn xóa ${record.userName}`}
+                            onConfirm={() => deleteUserList({ id: record.id })}
+                            okText="Xóa"
+                            cancelText="Hủy"
+                        >
+                            <Button danger ><DeleteOutlined /></Button>
+                        </Popconfirm>
+                    </Space>
+                )
             }
-        })
-    }
-
-    // Filter User List
-
-    const filterUserList = userList.data.filter((item) => {
-        return item.userName.trim().toLowerCase().indexOf(searchKey.trim().toLowerCase()) !== -1
-    });
-
-
-    function renderUserList() {
-        if (filterUserList.load) return <p>Loading...</p>
-        return filterUserList.map((userListItem, userListIndex) => {
-            return (
-                <Item
-                    key={userListItem.id}
-                    userListItem={userListItem}
-                    onDeleteUserList={onDeleteUserList}
-                    handleEditUserList={handleEditUserList}
-                />
-            )
-        })
-    }
-
-    // Modal 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-        const values = productForm.getFieldsValue();
-        addUser({
-            ...values,
-            userRoleName
-        })
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-    // Form Ant
-    const layout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 },
-    };
-    const tailLayout = {
-        wrapperCol: { offset: 8, span: 16 },
-    };
+        },
+    ]
 
 
 
-    // render Option Role
+    const tableData = userList.data.map((userListItem) => {
+        return {
+            ...userListItem,
+            key: userListItem.id,
+            userName: userListItem.userName,
+            userEmail: userListItem.userEmail,
+            userRole: userListItem.userRole,
+            userPhoneNumber: userListItem.userPhoneNumber,
+
+        }
+
+    })
+
+
+    const prefixSelector = (
+        <Form.Item name="prefix" noStyle>
+            <Select
+                style={{
+                    width: 70,
+                }}
+            >
+                <Option value="86">+84</Option>
+            </Select>
+        </Form.Item>
+    );
 
     const USER_ROLE = [
         {
@@ -155,128 +186,302 @@ function AdminUserPage(props) {
         })
     }
 
-    function onChange(values) {
+    function onChangeUserRole(id) {
         return USER_ROLE.map((userRoleItem, userRoleIndex) => {
-            if (values === userRoleItem.id) {
-                return (
-                    setUserRole(userRoleItem.userRole)
-                )
+            if (id === userRoleItem.id) {
+                setUserRole(userRoleItem.userRole)
             }
         })
+    }
+
+    // console.log("userRole :", userRoleName)  
+
+    const showModal = () => {
+        setIsModalVisibleEdit(true);
+    };
+
+    const handleOk = () => {
+        const values = editForm.getFieldsValue();
+
+        const newUser = {
+            ...values,
+            userRole: userRoleName
+        }
+        editUserList({
+            ...newUser,
+            id: userSelected.id,
+
+        })
+
+        setIsModalVisibleEdit(false);
+        editForm.submit();
+    };
+
+    const handleCancel = () => {
+        setIsModalVisibleEdit(false);
+    };
+
+
+    function handleCreateUser() {
+        setIsShowModifyCreate(true)
+    }
+
+    function handleSubmitForm() { // Add UserList
+        const values = productForm.getFieldsValue();
+        addUserList({
+            ...values,
+            userRoleName
+        })
+
+    }
+
+
+
+
+    function handleEditUser(record) {  // edit user
+        setIsModalVisibleEdit(true)
+        setUserSelected(record)
     }
 
 
 
     return (
         <>
-            <div className="admin-user_area">
-                <div className="admin-logo-brand">
-                    <img src={logo1} alt="Bodhi Logo Brand" style={{ width: "auto", height: "50px" }} />
-                </div>
-                <div className="admin-user-header ">
-                    <h3>Danh sách thành viên</h3>
-
-                    <Input.Search
-                        onChange={(e) => setSearchKey(e.target.value)}
-                        placeholder="Search..." style={{ width: 300 }}
-                    />
-
-
-                    <Button type="primary" onClick={showModal}>
-                        <PlusOutlined /> Thêm Mới Thành Viên
-                    </Button>
-                </div>
-
-                <div className="main-admin-user_container">
-                    <table className="admin-user_table">
-                        <thead>
-                            <tr>
-                                <th>ID Thành Viên</th>
-                                <th>Tên Thành Viên</th>
-                                <th>Email Thành viên</th>
-                                <th>Số Điện Thoại</th>
-                                <th>Hành Động</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        {renderUserList()}
-                    </table>
-                </div>
+            <div className="logo-brand">
+                <img src={logo1}
+                    alt="Bodhi Logo Brand"
+                    style={{ width: "auto", height: "50px", cursor: "pointer" }}
+                    onClick={() => { history.push(ROUTERS.HOME) }}
+                />
             </div>
+            <Row justify="space-between" align="center">
+                <Space direction="vertical" >
+                    <Search placeholder="input search text" onSearch={onSearch} enterButton style={{ width: "300px" }} />
+                </Space>
 
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <Form
-                    {...layout}
-                    form={productForm}
-                    name="basic"
-                    initialValues={{ remember: true }}
+                <Button type="primary" onClick={() => handleCreateUser()}>
+                    <PlusOutlined /> Thêm thành viên
+                 </Button>
+
+
+            </Row>
+            <h3 className="admin-user_title">Danh sách thành viên</h3>
+            <div className="admin-user_container">
+                <Table
+                    style={{ width: "100%", }}
+                    loading={userList.load}
+                    columns={tableColumns}
+                    dataSource={tableData}
+                />
+
+                <Drawer
+                    title="Thêm thành viên"
+                    width={500}
+                    visible={isShowModifyCreate}
+                    onClose={() => setIsShowModifyCreate(false)}
+                    footer={(
+                        <Row justify="end">
+                            <Space>
+                                <Button>Hủy</Button>
+                                <Button type="primary" onClick={() => handleSubmitForm()} >Lưu</Button>
+                            </Space>
+                        </Row>
+                    )}
                 >
-                    <Form.Item
-                        label="Tên thành viên"
-                        name="userName"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                    <Form
+                        form={productForm}
+                        layout="vertical"
+                        name="productForm"
                     >
-                        <Input />
-                    </Form.Item>
+                        <Form.Item name="userName" label="Tên thành viên">
+                            <Input placeholder="Tên thành viên" />
+                        </Form.Item>
 
-                    <Form.Item name="userRoleName" label="User Role">
-                        <Select placeholder="User Role" onChange={onChange} >
-                            {renderUserRoleOption()}
-                        </Select>
-                    </Form.Item>
+                        <Form.Item
+                            name="userEmail"
+                            label="Email"
+                            rules={[
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please input your E-mail!',
+                                },
+                            ]}
+                        >
+                            <Input placeholder="Email thành viên" />
+                        </Form.Item>
 
+                        <Form.Item name="userRoleName" label="User Role">
+                            <Select placeholder="User Role" onChange={onChangeUserRole} >
+                                {renderUserRoleOption()}
+                            </Select>
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Số điện thoại"
-                        name="userPhoneNumber"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        <Form.Item
+                            name="userPassword"
+                            label="Mật Khẩu"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                        >
+                            <Input.Password placeholder="Nhập Mật Khẩu" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="confirmPassword"
+                            label="Xác nhận mật khẩu"
+                            dependencies={['password']}
+                            hasFeedback
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Cần nhập đúng mật khẩu!',
+                                },
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || getFieldValue('userPassword') === value) {
+                                            return Promise.resolve();
+                                        }
+
+                                        return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="userPhoneNumber"
+                            label="Số điện thoại"
+                            rules={[
+                                {
+                                    required: true,
+                                    validator(_, value) {
+                                        if (!value) {
+                                            return Promise.reject('Không được để trống!');
+                                        }
+                                        else if (!/((09|03|07|08|05)+([0-9]{8})\b)/g.test(value)) {
+                                            return Promise.reject('Số điện thoại không đúng định dạng!');
+                                        } else {
+                                            return Promise.resolve();
+                                        }
+                                    }
+                                }
+                            ]}
+                            hasFeedback
+                        >
+                            <Input className="text-bold" />
+                        </Form.Item>
+                    </Form>
+                </Drawer>
+
+                <Modal
+                    title="Chỉnh sửa thông tin thành viên"
+                    visible={isModalVisibleEdit}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                >
+                    <Form
+                        form={editForm}
+                        name="basic"
+                        initialValues={{
+                            ...userSelected,
+                        }}
+
+                        onFinish={(values) => {
+
+                        }}
                     >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Email"
-                        name="userEmail"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Mật khẩu"
-                        name="userPassword"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
-                </Form>
-            </Modal>
 
 
+                        <Form.Item name="userRoleName" label="User Role">
+                            <Select placeholder="User Role" onChange={onChangeUserRole} >
+                                {renderUserRoleOption()}
+                            </Select>
+                        </Form.Item>
+
+                        {/* <Form.Item name="userRoleName" label="User Role">
+                            <Select placeholder="User Role" onChange={onChangeUserRole} >
+                                {renderUserRoleOption()}
+                            </Select>
+                        </Form.Item> */}
+
+                        {/* 
+                        <Form.Item
+                            name="userPassword"
+                            label="Mật Khẩu"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                        >
+                            <Input.Password placeholder="Nhập Mật Khẩu" />
+                        </Form.Item> */}
+
+                        {/* <Form.Item
+                            name="confirmPassword"
+                            label="Xác nhận mật khẩu"
+                            dependencies={['password']}
+                            hasFeedback
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Cần nhập đúng mật khẩu!',
+                                },
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || getFieldValue('userPassword') === value) {
+                                            return Promise.resolve();
+                                        }
+
+                                        return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password />
+                        </Form.Item> */}
+
+                       
+                    </Form>
+
+                </Modal>
+
+
+            </div>
         </>
     )
+
+
 }
 
-
 const mapStateToProps = (state) => {
-    const { userInfo, userList } = state.userReducer;
+    const { userList } = state.userReducer;
     return {
-        userInfo: userInfo,
         userList: userList,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserInfo: (params) => dispatch(getUserInfoAction(params)),
-
         getUserList: (params) => dispatch(getUserListAction(params)),
+
+        addUserList: (params) => dispatch(addUserListAction(params)),
+
         deleteUserList: (params) => dispatch(deleteUserListAction(params)),
 
         editUserList: (params) => dispatch(editUserListAction(params)),
-
-        addUser: (params) => dispatch(addUserTaskAction(params)),
     };
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminUserPage);

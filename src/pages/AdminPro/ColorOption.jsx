@@ -13,7 +13,7 @@ import {
 import { EditOutlined, CloseOutlined } from '@ant-design/icons';
 
 import {
-  
+
   editColorOptionAdminAction,
   deleteColorOptionAdminAction
 } from '../../redux/actions'
@@ -25,7 +25,6 @@ function ColorOption({
   editColorOption,
   deleteColorOption
 }) {
-  console.log("🚀 ~ file: ColorOption.jsx ~ line 26 ~ colorItem", colorItem)
 
   const [isEditForm, setIsEditForm] = useState(false);
 
@@ -74,7 +73,7 @@ function ColorOption({
       <Row justify="space-between">
         <Space>
           <div>{colorItem.colorName}</div>
-          <div>{colorItem.price}</div>
+          <div>{colorItem.price.toLocaleString()}</div>
         </Space>
         <Space>
           <Button type="text" size="small" onClick={() => setIsEditForm(true)}>
@@ -100,14 +99,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   
-
-    editColorOption:(params) => dispatch(editColorOptionAdminAction(params)),
-    deleteColorOption:(params) => dispatch(deleteColorOptionAdminAction(params)),
 
 
-   
-   
+    editColorOption: (params) => dispatch(editColorOptionAdminAction(params)),
+    deleteColorOption: (params) => dispatch(deleteColorOptionAdminAction(params)),
+
+
+
+
   };
 }
 

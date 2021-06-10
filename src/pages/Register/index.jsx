@@ -108,6 +108,7 @@ function RegisterPage(props) {
             // localStorage.setItem('userInfo', JSON.stringify(addUserInfo));
         } else {
             // history.push('/Login')
+          
             setUserError({ ...newUserError });
         }
     };

@@ -19,10 +19,9 @@ function AdminLayout(props) {
       render={(routeProps) => {
         return (
           <>
-            {/* <Header {...routeProps} /> */}
             <div style={{ display: 'flex', maxWidth: '1370px', margin: 'auto' }}>
-              <SideBarAdmin {...routeProps}  style={{width: "300px"}}/>
-              <div style={{ width: 'calc(100% - 300px)', marginLeft: '26px', marginTop: "0px"}}>
+              <SideBarAdmin {...routeProps} style={{ width: "300px" }} />
+              <div style={{ width: 'calc(100% - 300px)', marginLeft: '26px' }}>
                 <Component {...other} {...routeProps} />
               </div>
             </div>

@@ -10,7 +10,6 @@ const initialState = {
 
 export default function commentReducer(state = initialState, action) {
   switch (action.type) {
-
     // Get Comment
     case 'GET_COMMENT_REQUEST': {
       return {

@@ -6,7 +6,7 @@ import { ROUTERS } from '../../../constants/router'
 
 function* createVoucherAdminSaga(action) {
   try {
-    const { voucherName, voucherPrice } = action.payload;
+    const { voucherName, voucherPrice, voucherCode } = action.payload;
     const result = yield axios({
       method: 'POST',
       url: 'http://localhost:3002/voucher',
@@ -14,7 +14,8 @@ function* createVoucherAdminSaga(action) {
         voucherName: voucherName,
         // categoryId: categoryId,
         // productId: productId,
-        voucherPrice: voucherPrice
+        voucherCode: voucherCode,
+        voucherPrice: voucherPrice,
       }
     });
     yield put({
@@ -37,16 +38,16 @@ function* createVoucherAdminSaga(action) {
 
 function* editVoucherAdminSaga(action) {
   try {
-    const { id, voucherName, voucherPrice } = action.payload;
+    const { id,newVoucher} = action.payload;
     const editResult = yield axios({
       method: 'PATCH',
       url: `http://localhost:3002/voucher/${id}`,
       data: {
-        voucherName,
-        voucherPrice,
+      voucherName:newVoucher.voucherName,
+      voucherCode:newVoucher.voucherCode,
+      voucherPrice:newVoucher.voucherPrice,
       }
     });
-    console.log(" action.payload: ",  action.payload)
     // yield put({ type: "ADMIN/GET_VOUCHER_REQUEST" });
     yield put({
       type: "ADMIN/EDIT_VOUCHER_SUCCESS",
@@ -148,5 +149,5 @@ export default function* voucherSaga() {
 
   yield takeEvery('ADMIN/DELETE_VOUCHER_REQUEST', deleteVoucherListSaga);
 
-  yield takeEvery('ADMIN/EDIT_VOUCHER_REQUEST',editVoucherAdminSaga)
+  yield takeEvery('ADMIN/EDIT_VOUCHER_REQUEST', editVoucherAdminSaga)
 }

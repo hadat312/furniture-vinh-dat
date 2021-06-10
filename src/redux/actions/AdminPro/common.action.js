@@ -13,10 +13,3 @@ export function setColorSelectAction(params) {
   }
 }
 
-export function setVoucherSelectAction(params) {
-  // console.log("🚀 ~ file: common.action.js ~ line 9 ~ setColorSelectAction ~ params", params)
-  return {
-    type: 'ADMIN/SET_VOUCHER_SELECTED',
-    payload: params,
-  }
-}

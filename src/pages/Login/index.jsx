@@ -14,6 +14,7 @@ import gmail from '../../images/gmail.svg'
 
 
 import './styles.css'
+import {  UserOutlined } from '@ant-design/icons'
 
 
 import { loginAction } from '../../redux/actions'

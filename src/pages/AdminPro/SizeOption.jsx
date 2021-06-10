@@ -23,8 +23,24 @@ function SizeOption({
   deleteOptionAdmin,
   productId,
 }) {
-  
+
   const [isEditForm, setIsEditForm] = useState(false);
+
+  const [editSizeOption] = Form.useForm();
+
+  function handleEditSizeOption() {
+
+    const values = editSizeOption.getFieldsValue();
+
+    editOptionAdmin({
+      id: sizeOptionItem.id,
+      productId,
+      ...values
+    })
+
+    setIsEditForm(false);   // Đóng form
+
+  }
 
   if (isEditForm) {
     return (
@@ -35,15 +51,8 @@ function SizeOption({
       >
         <Form
           name="editProductOption"
+          form={editSizeOption}
           initialValues={sizeOptionItem}
-          onFinish={(values) => {
-            editOptionAdmin({
-              id: sizeOptionItem.id,
-              productId,
-              ...values,
-            });
-            setIsEditForm(false);
-          }}
         >
           <Form.Item name="sizeName" label="Tùy chọn">
             <Input placeholder="Cập nhật kích thước" />
@@ -58,7 +67,7 @@ function SizeOption({
           <Row justify="end">
             <Space>
               <Button onClick={() => setIsEditForm(false)}>Hủy</Button>
-              <Button type="primary" htmlType="submit">Xác nhận</Button>
+              <Button type="primary" onClick={handleEditSizeOption}>Xác nhận</Button>
             </Space>
           </Row>
         </Form>
@@ -71,7 +80,7 @@ function SizeOption({
       <Row justify="space-between">
         <Space>
           <div>{sizeOptionItem.sizeName}</div>
-          <div>{sizeOptionItem.price}</div>
+          <div>{sizeOptionItem.price.toLocaleString()}</div>
         </Space>
         <Space>
           <Button type="text" size="small" onClick={() => setIsEditForm(true)}>
@@ -90,7 +99,7 @@ function SizeOption({
     </Card>
   );
 }
-        
+
 const mapStateToProps = (state) => {
   return {}
 };

@@ -110,7 +110,6 @@ body,h1,h2,h3,h4,h5,h6{
 
 .banner-standard{
     display: flex;
-
     overflow: hidden;
 }
 
@@ -143,7 +142,6 @@ body,h1,h2,h3,h4,h5,h6{
  .banner-img > img {
     cursor: pointer; 
     max-width:  100%;
-    cursor: pointer;
 } 
 
  .banner-img > img:hover {

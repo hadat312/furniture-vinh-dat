@@ -8,13 +8,13 @@ body,h1,h2,h3,h4,h5,h6{
 }
 
 
-.sidebar-container{
+.sidebar-title{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.sidebar-img img {
+.sidebar-title img {
     width: auto;
     height: 50px;
 }

@@ -63,32 +63,32 @@ function SideBarAdmin(props) {
         </div>
       </div>
 
-      <Menu theme="" mode="inline" defaultSelectedKeys={['1']}  >     
+      <Menu theme="" mode="inline" defaultSelectedKeys={['1']}  >
         <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => { history.push(ROUTERS.ADMIN) }}>
           Dashboard
-           </Menu.Item>
+        </Menu.Item>
         <Menu.Item key="sideBar-02" icon={<ShopOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_PRODUCT) }} >
-          <div>Quản lý sản phẩm</div>
-          </Menu.Item>
+          Quản lý sản phẩm
+        </Menu.Item>
         <Menu.Item key="3" icon={<TeamOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_USER) }}>
           Quản lý thành viên
-         </Menu.Item>
+        </Menu.Item>
 
         <Menu.Item key="4" icon={<ShoppingCartOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_VOUCHER) }}>
           Quản lý mã khuyến mãi
-          </Menu.Item>
+        </Menu.Item>
 
         <Menu.Item key="5" icon={<UserOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_PROFILE) }}>
           Tài khoản ({userInfo.data.userName})
-          </Menu.Item>
+        </Menu.Item>
 
         <Menu.Item key="6" icon={<UnlockOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_CHANGE_PASSWORD) }}>
           Đổi mật khẩu
-          </Menu.Item>
+        </Menu.Item>
 
         <Menu.Item key="7" icon={<LogoutOutlined />} onClick={handleLogOut}>
           Đăng Xuất
-          </Menu.Item>
+        </Menu.Item>
       </Menu>
 
     </Sider>

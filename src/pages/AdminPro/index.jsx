@@ -86,24 +86,23 @@ function AdminProduct(props) {
         getSubCategory,
         subCategories
     } = props;
-    console.log("🚀 ~ file: index.jsx ~ line 89 ~ AdminProduct ~ productSelected", productSelected)
+        console.log("🚀 ~ file: index.jsx ~ line 89 ~ AdminProduct ~ productSelected", productSelected)
     const [isShowModify, setIsShowModify] = useState(false);
 
-    // {} là create / Object có data là edit
     const [isOptionForm, setIsOptionForm] = useState(false);
     const [isShowCreateOption, setIsShowCreateOption] = useState(false);
 
     // Show Create Option Color
     const [isColorOptionForm, setIsColorOptionForm] = useState(false);
     const [isShowCreateColor, setIsShowCreateColor] = useState(false);
-    // const [isShowModifyColor, setIsShowModifyColor] = useState(false);  
 
     const [productForm] = Form.useForm();
 
-    const [dataDescription, setDataDescription] = useState('');
+    const [productDetailDescription, setProductDetailDescription] = useState('');
 
     const [dataStorageInstruction, setDataStorageInstruction] = useState('');
 
+    const [dataProductShortDescription, setDataProductShortDescription] = useState('');
 
     const [searchKey, setSearchKey] = useState(null);
 
@@ -120,41 +119,21 @@ function AdminProduct(props) {
         }))
         : []
 
+
     const initialValues = productSelected.id
         ? {
             ...productSelected,
-            productImage: formProductImages
+            productImage: formProductImages,
         }
-        : {
-            // productSpecificationsLength: 100,
-            // productSpecificationsHeight: 100,
-            // productSpecificationsWidth: 100,
-        }
+        : {}
+
 
 
     useEffect(() => {
         getProductListAdmin({ searchKey: searchKey })
     }, [searchKey])
 
-    // useEffect(() => {
-    //     getItemCategory({
-    //         isCategory: isCategory
-    //     })
-    // }, [isCategory])
 
-
-
-    // useEffect(() => {            // Checked
-    //     if (isShowModify) {
-    //         setIsColorOptionForm()
-    //     }
-    // })
-
-
-
-    // useEffect(() => {
-    //     getProductListAdmin({ categoryId: categoryId })
-    // }, [categoryId])
 
     useEffect(() => {
         getSubCategory()
@@ -203,7 +182,6 @@ function AdminProduct(props) {
     // Function - Area
 
     function handleEditProduct(record) {
-        console.log("🚀 ~ file: index.jsx ~ line 206 ~ handleEditProduct ~ record", record)
         setIsShowModify(true);
         setProductSelect(record);
         setColorSelect(record);
@@ -226,8 +204,9 @@ function AdminProduct(props) {
         const newProduct = {
             ...values,
             productImage: newProductImage,
-            productDescription: dataDescription,
-            productStorageInstruction: dataStorageInstruction
+            productDetailDescription: productDetailDescription,
+            productStorageInstruction: dataStorageInstruction,
+            productShortDescription: dataProductShortDescription
         }
         if (productSelected.id || colorSelected.id) {
             // editProductAdmin({ id: colorSelected.id, ...values })
@@ -240,6 +219,7 @@ function AdminProduct(props) {
     }
 
     // console.log("productSelected ", productSelected)
+
 
 
     const tableColumns = [
@@ -554,27 +534,14 @@ function AdminProduct(props) {
         )
     }
 
-    function onChange(values) { // Render Category Name
-        setIsCategory(values)
-        subCategories.data.forEach((subCategoryItem, subCategoryIndex) => {
-            itemCategories.data.forEach((itemCategoryItem, itemCategoryIndex) => {
-                if (values === subCategoryItem.categoryId && subCategoryItem.id === itemCategoryItem.subCategoryId) {
-                    setIsSubCategory(subCategoryItem.id)
-                    // console.log("subCategoryId: " ,subCategoryItem.id)
-                }
-            })
-        })
-
-    }
-    // console.log("IsCategory: ", isCategory)
 
     function onChangeItemCategory() {
 
     }
 
-    function onChangeDescriptionEditor(event, editor) {  // Onchange Description
+    function onChangeDetailDescriptionEditor(event, editor) {  // Onchange Description
         const data = editor.getData();
-        setDataDescription(data);
+        setProductDetailDescription(data);
     }
 
     function onChangeProductStorageInstruction(even, editor) {   // Onchange Product Storage Instruction
@@ -582,6 +549,11 @@ function AdminProduct(props) {
         setDataStorageInstruction(data)
     }
 
+    function onChangeProductShortDescription(even, editor) {
+        const data = editor.getData();
+        setDataProductShortDescription(data)
+
+    }
 
 
 
@@ -733,10 +705,23 @@ function AdminProduct(props) {
                                 {renderItemCategoryOption()}
                             </Select>
                         </Form.Item>
+                        <div>
+                            <h6 style={{ marginBottom: "5px" }}>Giới Thiệu Sản Phẩm</h6>
+                            <CKEditor
+                                key={productSelected.id}
+                                editor={ClassicEditor}
+                                name="productShortDescription"
+                                data={productSelected.productShortDescription}
+                                onChange={(event, editor) => onChangeProductShortDescription(event, editor)}
+                                onBlur={(event, editor) => {
+                                    // console.log('Blur.', editor);
+                                }}
+                                onFocus={(event, editor) => {
+                                    // console.log('Focus.', editor);
+                                }}
+                            />
+                        </div>
 
-                        <Form.Item name="productShortDescription" label="Mô tả sản phẩm">
-                            <TextArea rows={4} />
-                        </Form.Item>
 
                         <Form.Item
                             valuePropName="fileList"
@@ -792,8 +777,9 @@ function AdminProduct(props) {
                             <CKEditor
 
                                 editor={ClassicEditor}
-                                name="productDescription"
-                                onChange={(event, editor) => onChangeDescriptionEditor(event, editor)}
+                                name="productDetailDescription"
+                                data={productSelected.productDetailDescription}
+                                onChange={(event, editor) => onChangeDetailDescriptionEditor(event, editor)}
                                 onBlur={(event, editor) => {
                                     // console.log('Blur.', editor);
                                 }}
@@ -808,6 +794,7 @@ function AdminProduct(props) {
                             <CKEditor
                                 editor={ClassicEditor}
                                 name="productStorageInstruction"
+                                data={productSelected.productStorageInstruction}
                                 onChange={(event, editor) => onChangeProductStorageInstruction(event, editor)}
                                 onBlur={(event, editor) => {
                                     // console.log('Blur.', editor);
@@ -818,7 +805,7 @@ function AdminProduct(props) {
                             />
                         </div>
 
-                        
+
 
                         {productSelected.id && (
                             <>

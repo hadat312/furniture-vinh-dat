@@ -14,7 +14,7 @@ import gmail from '../../images/gmail.svg'
 
 
 import './styles.css'
-import {  UserOutlined } from '@ant-design/icons'
+import { UserOutlined,UnlockOutlined } from '@ant-design/icons'
 
 
 import { loginAction } from '../../redux/actions'
@@ -70,7 +70,7 @@ function LoginPage({ userInfo, addLogin }) {
         if (fieldData.userPassword.trim().length === 0) {
             newLoginError.userPassword = "Bạn chưa nhập mật khẩu";
             isValid = false;
-        } 
+        }
         // else if (userInfo.error.length !== 0) {
         //     newLoginError.userPassword = userInfo.error;
         //     isValid = false;
@@ -96,7 +96,7 @@ function LoginPage({ userInfo, addLogin }) {
             <div className="whole-container">
                 <div className="header-container container ">
                     <div className="header-content">
-                        <img className="header-logo-brand" src={logo} alt="" onClick={() => history.push(ROUTERS.HOME)}/>
+                        <img className="header-logo-brand" src={logo} alt="" onClick={() => history.push(ROUTERS.HOME)} />
 
                         <div className="header-title" onClick={() => history.push(ROUTERS.REGISTER)} >Sign Up</div>
                     </div>
@@ -110,16 +110,20 @@ function LoginPage({ userInfo, addLogin }) {
                         <h1>Login</h1>
                         <form action="">
                             <div className="text-input">
-                                <i className="fa fa-user" aria-hidden="true"></i>
+                                {/* <i className="fa fa-user" aria-hidden="true"></i> */}
+                                <div>
+                                    <UserOutlined className="icon" />
+                                </div>
                                 <input type="text" className="form-control" placeholder="Your Email" id="email" name="userEmail" onChange={(e) => handleChange(e)} />
-                                <div className="text-warning">{loginError.userEmail}</div>
                             </div>
+                                <div className="text-warningh">{loginError.userEmail}</div>
 
                             <div className="text-input">
-                                <i className="fa fa-lock" aria-hidden="true"></i>
+                                {/* <i className="fa fa-lock" aria-hidden="true"></i> */}
+                                <UnlockOutlined className="icon"/>
                                 <input type="password" className="form-control" placeholder="Your Password" id="pwd" name="userPassword" onChange={(e) => handleChange(e)} />
-                                <div className="text-warning">{loginError.userPassword}</div>
                             </div>
+                                <div className="text-warningh">{loginError.userPassword}</div>
 
                             <div className="form-contact">
                                 <div className="form-active">
@@ -140,7 +144,7 @@ function LoginPage({ userInfo, addLogin }) {
                                         onClick={() => handleLogin()}
                                     >
                                         Continue
-                                   </button>
+                                    </button>
                                 </div>
 
 

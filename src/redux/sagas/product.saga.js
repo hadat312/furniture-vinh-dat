@@ -49,6 +49,7 @@ function* getProductDetailSaga(action) {
         _expand: 'itemCategory',
       }
     });
+    // console.log("🚀 ~ file: product.saga.js ~ line 52 ~ function*getProductDetailSaga ~ result", result)
     yield put({
       type: "GET_PRODUCT_DETAIL_SUCCESS",
       payload: {

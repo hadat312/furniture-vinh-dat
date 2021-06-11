@@ -346,8 +346,12 @@ __DESCRIPTIONS */
   font-weight: 600;
 }
 
-table, th, td {
-  border: 1px solid #dee2e6;
+table {
+  width: 100%;
+}
+
+.info-product_column, .info-product_row{
+  border: 1px solid #e7e7e7;
 }
 
 .coll {

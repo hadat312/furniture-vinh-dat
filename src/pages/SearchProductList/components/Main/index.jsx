@@ -9,25 +9,32 @@ import Item from './components/Item';
 function Main({
   itemInRow,
   searchResultList,
-  handleShowMore,
+  // handleShowMore,
   categoryId,
 }) {
-  // console.log("main-categoryId: ", categoryId);
-  // get data từ localStorage để kiểm tra
 
-  // console.log(productList.data[0].colors[1].price);
+  const [showMore, setShowMore] = useState(7);
+
+  function handleShowMore() {
+    if (showMore < searchResultList.data.length) {
+      setShowMore(showMore + 8)
+    }
+  }
 
   function renderSearchResult() {
     if (searchResultList.load) return <p>Loading...</p>;
     return searchResultList.data.map((searchResultItem, searchResultIndex) => {
-      return (
-        <Item
-          key={searchResultItem.id}
-          categoryId={categoryId}
-          searchResultItem={searchResultItem}
-          itemInRow={itemInRow}
-        />
-      );
+
+      if (searchResultIndex <= showMore) {
+        return (
+          <Item
+            key={searchResultItem.id}
+            categoryId={categoryId}
+            searchResultItem={searchResultItem}
+            itemInRow={itemInRow}
+          />
+        );
+      }
     })
   }
 
@@ -39,9 +46,10 @@ function Main({
       </Row>
       <div className="d-flex justify-content-center mt-5">
         {/* nếu tổng số sản phẩm(length) là chẵn =>  hiện button [Show more]*/}
-        {searchResultList.data.length % 4 === 0 && (
+        {/* {searchResultList.data.length % 4 === 0 && (
           <Button onClick={handleShowMore}>Show more</Button>
-        )}
+        )} */}
+        <Button onClick={handleShowMore}>Show more</Button>
       </div>
 
     </div>

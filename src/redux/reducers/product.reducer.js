@@ -29,33 +29,36 @@ export default function productReducer(state = initialState, action) {
       }
     }
     case 'GET_PRODUCT_LIST_SUCCESS': {
-      const { data, page, more } = action.payload;
-      if (more) {
-        return {
-          ...state,
-          productList: {
-            ...state.productList,
-            data: [
-              //kế thừa lại data cũ
-              ...state.productList.data,
-              //cập nhật thêm data mới
-              ...data,
-            ],
-            page: page,
-            load: false,
-          },
-        }
-      } else {
+      const { 
+        // page, more,
+        data
+      } = action.payload;
+      // if (more) {
+      //   return {
+      //     ...state,
+      //     productList: {
+      //       ...state.productList,
+      //       data: [
+      //         //kế thừa lại data cũ
+      //         ...state.productList.data,
+      //         //cập nhật thêm data mới
+      //         ...data,
+      //       ],
+      //       page: page,
+      //       load: false,
+      //     },
+      //   }
+      // } else {
         return {
           ...state,
           productList: {
             ...state.productList,
             data: data,
-            page: page,
+            // page: page,
             load: false,
           },
         }
-      }
+      // }
     }
     case 'GET_PRODUCT_LIST_FAIL': {
       const { error } = action.payload;

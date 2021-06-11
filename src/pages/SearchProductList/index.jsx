@@ -29,10 +29,6 @@ function SearchProductListPage({
   getItemCategories,
   match
 }) {
-
-  console.log('searchResultList: ', searchResultList)
-  
-  const list = [];
   const { Title } = Typography;
   const categoryId = match.params.id;
   const [itemInRow, setItemInRow] = useState(6);
@@ -43,8 +39,8 @@ function SearchProductListPage({
       getUserInfo({ id: userInfoLocalStorage.id });
     }
     getSearchResults({
-      page: 1,
-      limit: 10,
+      // page: 1,
+      // limit: 10,
       searchKey: getSearchKey,
     })
   }, []);
@@ -52,17 +48,17 @@ function SearchProductListPage({
   function onSearch(e) {
     const searchKey = e.target.value;
     getSearchResults({
-      page: 1,
-      limit: 10,
+      // page: 1,
+      // limit: 10,
       searchKey: searchKey,
     })
   }
 
   function sortDescendingProduct() {
     getSearchResults({
-      page: 1,
-      limit: 10,
-      sort: "productPrice",
+      // page: 1,
+      // limit: 10,
+      sort: "productDiscount",
       order: "desc",
       searchKey: getSearchKey,
     })
@@ -70,23 +66,23 @@ function SearchProductListPage({
 
   function sortAscendingProduct() {
     getSearchResults({
-      page: 1,
-      limit: 10,
-      sort: "productPrice",
+      // page: 1,
+      // limit: 10,
+      sort: "productDiscount",
       order: "asc",
       searchKey: getSearchKey,
     })
   }
 
-  function handleShowMore() {
-    getSearchResults({
-      more: true,
-      page: searchResultList.page + 1,
-      limit: 4,
-      categoryId: categoryId,
-      // itemCategoryId: itemCategorySelected,
-    });
-  }
+  // function handleShowMore() {
+  //   getSearchResults({
+  //     more: true,
+  //     page: searchResultList.page + 1,
+  //     limit: 4,
+  //     categoryId: categoryId,
+  //     // itemCategoryId: itemCategorySelected,
+  //   });
+  // }
 
   return (
     <div className="product-container">
@@ -128,14 +124,16 @@ function SearchProductListPage({
                   className="input-search-content"
                 />
                 <div className="sideBar__sort-price">
-                  <Title level={3}>Sắp xếp theo giá</Title>
+                  <div style={{ padding: 10 }}>
+                    <Title level={3} >Sắp xếp theo % giảm giá</Title>
+                  </div>
                   <Menu key="g1" title="Item 1" mode="inline">
                     <Menu.Item
                       key="1"
                       onClick={sortDescendingProduct}
                     >
                       Giảm dần
-                      </Menu.Item>
+                    </Menu.Item>
                     <Menu.Item
                       key="2"
                       onClick={sortAscendingProduct}
@@ -154,7 +152,7 @@ function SearchProductListPage({
                 categoryId={categoryId}
                 itemInRow={itemInRow}
                 searchResultList={searchResultList}
-                handleShowMore={handleShowMore}
+              // handleShowMore={handleShowMore}
               />
             </div>
           </Col>

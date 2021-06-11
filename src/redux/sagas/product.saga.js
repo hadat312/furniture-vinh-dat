@@ -3,16 +3,16 @@ import axios from 'axios';
 
 function* getProductListSaga(action) {
   try {
-    const { more, page, limit, categoryId, itemCategoryId, searchKey, sort, order } = action.payload;
+    const { 
+      // page, limit, more, 
+      categoryId, itemCategoryId, searchKey, sort, order } = action.payload;
     const result = yield axios({
       method: 'GET',
       url: 'http://localhost:3002/products?_embed=colors',
       params: {
-        ...page && { _page: page },
-        ...limit && { _limit: limit },
+        // ...page && { _page: page },
+        // ...limit && { _limit: limit },
         ...categoryId && { categoryId },
-        ...page && { _page: page },
-        ...limit && { _limit: limit },
         ...itemCategoryId && { itemCategoryId },
         ...searchKey && { q: searchKey },
         ...sort && { _sort: sort },
@@ -24,8 +24,8 @@ function* getProductListSaga(action) {
       type: "GET_PRODUCT_LIST_SUCCESS",
       payload: {
         data: result.data,
-        page,
-        more,
+        // page,
+        // more,
       },
     });
   } catch (e) {

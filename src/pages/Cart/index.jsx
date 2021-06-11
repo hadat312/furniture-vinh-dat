@@ -381,7 +381,7 @@ function CardPage({
                       <button className="btn-clear" onClick={() => handleClearCartTask()}>XÓA TOÀN BỘ</button>
                       <button className="btn-checkout"
                         onClick={onAddCheckOut}
-                      >XÁC NHẬN GIỎ HÀNG</button>
+                      >THANH TOÁN</button>
                     </div>
                   </div>
                 </div>

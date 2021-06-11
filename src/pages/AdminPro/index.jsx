@@ -226,7 +226,7 @@ function AdminProduct(props) {
         const newProduct = {
             ...values,
             productImage: newProductImage,
-            productDescription: dataDescription,
+            productDetailDescription: dataDescription,
             productStorageInstruction: dataStorageInstruction
         }
         if (productSelected.id || colorSelected.id) {

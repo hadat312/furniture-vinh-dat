@@ -346,7 +346,7 @@ __DESCRIPTIONS */
   font-weight: 600;
 }
 
-table, th, td {
+.table-product-detail, .table-product-detail tbody, .table-product-detail td {
   border: 1px solid #dee2e6;
 }
 

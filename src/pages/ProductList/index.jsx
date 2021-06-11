@@ -105,6 +105,7 @@ function ProductListPage(props) {
 
   //set lại state isItemCategories = itemCategoryItem.id
   function onClickItem(e) {
+    console.log("🚀 ~ file: index.jsx ~ line 108 ~ onClickItem ~ e", e)
     window.scrollTo({
       top: 0,
       left: 0,

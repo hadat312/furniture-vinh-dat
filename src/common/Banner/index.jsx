@@ -123,6 +123,7 @@ function Banner({ location, history, match, getURLProductDetail, getNameProduct 
       }
     })
   });
+
   return (
     <div className="main-container__banner">
       <div className="banner__bg"

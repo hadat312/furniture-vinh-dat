@@ -6349,9 +6349,40 @@
           "productDiscount": 0.3,
           "color": {},
           "size": {}
+        },
+        {
+          "id": "5699776a-02ae-4c50-9edd-44bd316ed115",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa 2 Chỗ The Beanbag House Urbana Modunlar Sofa",
+          "productImage": "https://cdn.fitin.vn/cms-ecom/thumbs/1200x1200/product-tmp/2020/05/15/urbana-modunlar-sofa-beanbag-1-1589513315.png",
+          "productPrice": 10000000,
+          "productDiscount": 0.4,
+          "color": {},
+          "size": {
+            "id": "-9FrvNW",
+            "sizeName": "1.7m*0.85m",
+            "price": 200000
+          }
         }
       ],
-      "wishlist": [],
+      "wishlist": [
+        {
+          "id": "5699776a-02ae-4c50-9edd-44bd316ed115",
+          "productId": "product01",
+          "productQuantity": 1,
+          "productName": "Sofa 2 Chỗ The Beanbag House Urbana Modunlar Sofa",
+          "productImage": "https://cdn.fitin.vn/cms-ecom/thumbs/1200x1200/product-tmp/2020/05/15/urbana-modunlar-sofa-beanbag-1-1589513315.png",
+          "productPrice": 10000000,
+          "productDiscount": 0.4,
+          "color": {},
+          "size": {
+            "id": "-9FrvNW",
+            "sizeName": "1.7m*0.85m",
+            "price": 200000
+          }
+        }
+      ],
       "address": [],
       "birthday": "04/06/2021",
       "gender": "Female",

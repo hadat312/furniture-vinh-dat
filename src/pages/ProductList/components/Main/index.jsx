@@ -68,7 +68,7 @@ function Main(props) {
               itemInRow = 24 => show 1 item
             */
             itemInRow={itemInRow}
-            averageRate={count !== 0 ? Math.ceil(totalRate / count) : 0}
+            averageRate={count !== 0 ? (totalRate / count) : 0}
             count={count}
           />
         );

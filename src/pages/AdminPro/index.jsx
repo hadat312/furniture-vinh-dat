@@ -792,7 +792,7 @@ function AdminProduct(props) {
                             <CKEditor
 
                                 editor={ClassicEditor}
-                                name="productDescription"
+                                name="productDetailDescription"
                                 onChange={(event, editor) => onChangeDescriptionEditor(event, editor)}
                                 onBlur={(event, editor) => {
                                     // console.log('Blur.', editor);

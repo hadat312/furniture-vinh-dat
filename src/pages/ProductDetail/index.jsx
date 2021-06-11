@@ -928,7 +928,7 @@ function ProductDetailPage({
             </div>
           </div>
           <div className="detail-review__container_comment-space">
-            <input type="text" name="comment" onChange={(e) => handleChange(e)} placeholder="Viết đánh giá của ban tại đây" />
+            <input type="text" name="comment" onChange={(e) => handleChange(e)} placeholder="Viết đánh giá của bạn tại đây" />
             <button className="btn-review" onClick={handleAddComment}>Đánh Giá</button>
           </div>
           <div className="detail-review__container__list-review ">
@@ -940,6 +940,7 @@ function ProductDetailPage({
       </div >
     </>
   );
+
 }
 
 const mapStateToProps = (state) => {

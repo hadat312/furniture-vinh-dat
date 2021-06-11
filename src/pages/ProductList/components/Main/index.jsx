@@ -5,7 +5,7 @@ import {
   getItemCategoriesAction,
   getProductListAction,
   getAllCommentAction
-  
+
 } from '../../../../redux/actions';
 import Item from './components/Item';
 import './main.css';
@@ -14,39 +14,36 @@ function Main(props) {
 
     itemInRow,
     productList,
-    handleShowMore,
+    // handleShowMore,
     categoryId,
     getAllComment,
     commentList
   } = props;
-  useEffect(() => {
-    getAllComment();
-  }, [])
-  // console.log("main-categoryId: ", categoryId);
-  // get data từ localStorage để kiểm tra
 
-  // console.log(productList.data[0].colors[1].price);
+  const [showMore, setShowMore] = useState(7);
+
   useEffect(() => {
     getAllComment();
   }, [])
 
-  /*{ 
-    let totalRate = 0;
-let count =0;
-function renderAverageRate(){
-  return productDetail.data.map((productDetailItem) => {
-    return commentList.data.map((commentItem) => {
-      if(commentItem.productId === productDetailItem.id){
-        totalRate = totalRate + commentItem.rate;
-        count = count + 1;
-      }
-    })
-  })
-}
+  //khi length productList thay đổi thì setShowMore trở về giá trị mặc định
+  useEffect(() => {
+    setShowMore(7)
+  }, [productList.data.length])
 
-// rate = {count !== 0 ? Math.ceil(totalRate / count ) : 0}
-   } */
+  useEffect(() => {
+    getAllComment();
+  }, [])
 
+  console.log("showMore", showMore)
+
+  const [isDisabledBtn, setIsDisabledBtn] = useState(false);
+
+  function handleShowMore() {
+    if (showMore < productList.data.length) {
+      setShowMore(showMore + 8)
+    }
+  }
 
 
   function renderProductList() {
@@ -60,16 +57,23 @@ function renderAverageRate(){
           count = count + 1
         }
       })
-      return (
-        <Item
-          key={productListItem.id}
-          categoryId={categoryId}
-          productListItem={productListItem}
-          itemInRow={itemInRow}
-          averageRate={count !== 0 ? Math.ceil(totalRate / count) : 0}
-          count={count}
-        />
-      );
+      if (productListIndex <= showMore) {
+
+        return (
+          <Item
+            key={productListItem.id}
+            categoryId={categoryId}
+            productListItem={productListItem}
+            /*
+              itemInRow = 6 => show 4 item
+              itemInRow = 24 => show 1 item
+            */
+            itemInRow={itemInRow}
+            averageRate={count !== 0 ? Math.ceil(totalRate / count) : 0}
+            count={count}
+          />
+        );
+      }
     })
   }
 
@@ -81,9 +85,11 @@ function renderAverageRate(){
       </Row>
       <div className="d-flex justify-content-center mt-5">
         {/* nếu tổng số sản phẩm(length) là chẵn =>  hiện button [Show more]*/}
-        {productList.data.length % 4 === 0 && (
-          <Button onClick={handleShowMore}>Show more</Button>
-        )}
+        {/* {productList.data.length % 4 === 0 && (
+          // <Button onClick={handleShowMore}>Show more</Button>
+          )} */}
+        <Button disabled={isDisabledBtn} onClick={handleShowMore}>Xem thêm</Button>
+
       </div>
 
     </div>

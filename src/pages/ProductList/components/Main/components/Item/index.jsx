@@ -134,7 +134,8 @@ function Item({
             <Rate disabled value={averageRate} />
           </Row>
           <Row style={marginBot, { textAlign: "justify" }}>
-            <p>{productListItem.productShortDescription}</p>
+            {/* <p>{productListItem.productShortDescription}</p> */}
+            <p dangerouslySetInnerHTML={{ __html: productListItem.productShortDescription }} />
           </Row>
           <Row>
             <Button

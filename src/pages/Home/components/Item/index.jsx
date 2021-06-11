@@ -16,7 +16,7 @@ function Item(props) {
                     <div className="text-discount">
                         {-productListItem.productDiscount * 100} %
                     </div>
-                    <div className="text_new">New</div>
+                    <div className="text_new">Hot</div>
                 </div>
 
                 <div className="product-title">

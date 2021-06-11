@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Col, Row, Typography } from 'antd';
+import { Alert, Button, Card, Col, Rate, Row, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { connect } from 'react-redux';
@@ -12,23 +12,11 @@ import history from '../../../../../../utils/history';
 import { ROUTERS } from '../../../../../../constants/router';
 import './item.css';
 function Item({
-  // sizeId,
-  // colorId,
-  // colorName,
-  // sizeName,
-  // initialColorPrice,
-  // initialSizePrice,
   searchResultItem,
   itemInRow,
   productListItem,
   categoryId,
-  // wishlist,
-  // cartList,
-
-  // addWishlistTask,
-  // deleteWishlistTask,
-  // addCartTask,
-  // editCartTask,
+  averageRate
 }) {
   console.log("🚀 ~ file: index.jsx ~ line 33 ~ categoryId", categoryId)
 
@@ -98,6 +86,7 @@ function Item({
               <div className="main-container__card__price">
                 <span className="main-container__card__price__old">{originPrice} vnđ</span>
                 <span className="main-container__card__price__current">{initialPrice} vnđ</span>
+                <Rate  disabled value={averageRate} />
               </div>
             </div>
           </Card >

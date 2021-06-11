@@ -81,7 +81,7 @@ function* getCategorySearchKey(action) {
 function* createProductAdminSaga(action) {
   try {
     const {
-      productDescription,
+      productDetailDescription,
       productStorageInstruction,
       productName,
       productImage,
@@ -101,7 +101,7 @@ function* createProductAdminSaga(action) {
         productPrice,
        
         productShortDescription,
-        productDescription,
+        productDetailDescription,
         productStorageInstruction,
         productDiscount,
         productImage,

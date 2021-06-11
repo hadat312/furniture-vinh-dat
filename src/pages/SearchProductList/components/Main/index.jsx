@@ -1,17 +1,23 @@
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getItemCategoriesAction,
-  getProductListAction
+  getProductListAction,
+  getAllCommentAction
 } from '../../../../redux/actions';
 import Item from './components/Item';
 function Main({
   itemInRow,
   searchResultList,
-  // handleShowMore,
+  commentList,
+  getAllComment,
   categoryId,
 }) {
+
+  useEffect(() => {
+    getAllComment();
+  }, [])
 
   const [showMore, setShowMore] = useState(7);
 
@@ -23,7 +29,17 @@ function Main({
 
   function renderSearchResult() {
     if (searchResultList.load) return <p>Loading...</p>;
+    if(searchResultList.data.length === 0) return<Typography.Title level={4}>Chưa có sản phẩm</Typography.Title>
     return searchResultList.data.map((searchResultItem, searchResultIndex) => {
+
+      let totalRate = 0;
+      let count = 0;
+      commentList.data.map((commentListItem) => {
+        if (searchResultItem.id === commentListItem.productId) {
+          totalRate = totalRate + commentListItem.rate
+          count = count + 1
+        }
+      })
 
       if (searchResultIndex <= showMore) {
         return (
@@ -32,6 +48,8 @@ function Main({
             categoryId={categoryId}
             searchResultItem={searchResultItem}
             itemInRow={itemInRow}
+            averageRate={count !== 0 ? Math.ceil(totalRate / count) : 0}
+            count={count}
           />
         );
       }
@@ -49,7 +67,7 @@ function Main({
         {/* {searchResultList.data.length % 4 === 0 && (
           <Button onClick={handleShowMore}>Show more</Button>
         )} */}
-        <Button onClick={handleShowMore}>Show more</Button>
+        <Button onClick={handleShowMore}>Xem thêm</Button>
       </div>
 
     </div>
@@ -58,14 +76,17 @@ function Main({
 
 const mapStateToProps = (state) => {
   const { itemCategories } = state.categoriesReducer;
+  const { commentList } = state.commentReducer;
   return {
     itemCategories: itemCategories,
+    commentList: commentList
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getItemCategories: (params) => dispatch(getItemCategoriesAction(params)),
+    getAllComment: (params) => dispatch(getAllCommentAction(params)),
   };
 }
 

@@ -163,16 +163,9 @@ function HomePage(props) {
         </div>
       </div>
 
-      <div className="section-container container">
-        <div className="section-content">
-          <p>SS-2020 84</p>
-          <p>INNOVATIVE  DESIGN</p>
-        </div>
-      </div>
-
       <div className="product-space-container">
         <h1 className="product-space-title">
-          Clever & unique ideas
+          SẢN PHẨM BÁN CHẠY
         </h1>
         <div className="product-space-list">
           <div className="product-space-side-left">

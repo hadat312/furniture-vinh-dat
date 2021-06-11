@@ -1,4 +1,4 @@
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -35,8 +35,6 @@ function Main(props) {
     getAllComment();
   }, [])
 
-  console.log("showMore", showMore)
-
   const [isDisabledBtn, setIsDisabledBtn] = useState(false);
 
   function handleShowMore() {
@@ -48,6 +46,7 @@ function Main(props) {
 
   function renderProductList() {
     if (productList.load) return <p>Loading...</p>;
+    if(productList.data.length === 0) return<Typography.Title level={4}>Chưa có sản phẩm</Typography.Title>
     return productList.data.map((productListItem, productListIndex) => {
       let totalRate = 0;
       let count = 0;

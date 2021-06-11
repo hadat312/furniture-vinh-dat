@@ -54,9 +54,6 @@ body,h1,h2,h3,h4,h5,h6{
     position: relative;
     width: 1400px;
     margin:50px auto 0px;
-    /* left: 13%; */
-    /* transform: translateX(4px); */
-    /* margin-top: 50px; */
 }
 
 .cart-container__cart-table-container{

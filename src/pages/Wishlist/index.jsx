@@ -20,15 +20,19 @@ function WishlistPage({
   getProductList,
   cartList,
   wishlist,
+  getWishList,
   deleteWishlist,
   addCartTask,
   clearWishList
 }) {
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
   useEffect(() => {
     getProductList({});
   }, [])
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  
 
   const key = `open${Date.now()}`;
 
@@ -54,7 +58,7 @@ function WishlistPage({
           <Button
             type="primary"
             onClick={() => {
-              notification.close(key);
+              // notification.close(key);
               history.push(ROUTERS.LOGIN);
             }}
           >

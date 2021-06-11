@@ -67,14 +67,14 @@ function RegisterPage(props) {
         if (fieldData.userPhoneNumber.trim().length === 0) {
             newUserError.userPhoneNumber = "Phone is required";
             isValid = false;
-          }
-          else if (REGEX.PHONE_NUMBER_REGEX.test(fieldData.userPhoneNumber) === false) {
+        }
+        else if (REGEX.PHONE_NUMBER_REGEX.test(fieldData.userPhoneNumber) === false) {
             newUserError.userPhoneNumber = "Vui lòng nhập lại số di động hợp lệ"
             isValid = false;
-          }
-          else {
+        }
+        else {
             newUserError.userPhoneNumber = "";
-          }
+        }
 
         if (fieldData.userEmail.trim().length === 0) {
             newUserError.userEmail = "Email is required";
@@ -108,7 +108,7 @@ function RegisterPage(props) {
             // localStorage.setItem('userInfo', JSON.stringify(addUserInfo));
         } else {
             // history.push('/Login')
-          
+
             setUserError({ ...newUserError });
         }
     };
@@ -135,32 +135,32 @@ function RegisterPage(props) {
                             <div className="text-input">
                                 <i className="fa fa-user" aria-hidden="true"></i>
                                 <input type="text" className="form-control" placeholder="Your Name" id="name" name="userName" onChange={(e) => handleChange(e)} />
-                                <div className="text-warning">{userError.userName}</div>
                             </div>
+                            <div className="text-warning">{userError.userName}</div>
 
                             <div className="text-input">
                                 <i class="fa fa-mobile" aria-hidden="true"></i>
                                 <input type="text" className="form-control" placeholder="Your Phone Number" id="name" name="userPhoneNumber" onChange={(e) => handleChange(e)} />
-                                <div className="text-warning">{userError.userPhoneNumber}</div>
                             </div>
+                            <div className="text-warning">{userError.userPhoneNumber}</div>
 
                             <div className="text-input">
                                 <i className="fa fa-user" aria-hidden="true"></i>
                                 <input type="text" className="form-control" placeholder="Your Email" id="email" name="userEmail" onChange={(e) => handleChange(e)} />
-                                <div className="text-warning">{userError.userEmail}</div>
                             </div>
+                            <div className="text-warning">{userError.userEmail}</div>
 
                             <div className="text-input">
                                 <i className="fa fa-lock" aria-hidden="true"></i>
                                 <input type="password" className="form-control" placeholder="Your Password" id="pwd" name="userPassword" onChange={(e) => handleChange(e)} />
-                                <div className="text-warning">{userError.userPassword}</div>
                             </div>
+                            <div className="text-warning">{userError.userPassword}</div>
 
                             <div className="text-input">
                                 <i className="fa fa-lock" aria-hidden="true"></i>
                                 <input type="password" className="form-control" placeholder="Confirm Password" id="rePwd" name="confirmPassword" onChange={(e) => handleChange(e)} />
-                                <div className="text-warning">{userError.confirmPassword}</div>
                             </div>
+                            <div className="text-warning">{userError.confirmPassword}</div>
 
                             <div className="form-check">
                                 <input type="checkbox" className="form-check-input" value="id" id="flexCheckDefault" name="check" />

@@ -92,7 +92,7 @@ function Sidebar({ userInfo, getUserInfo, editUser }) {
     setDisableValueBtn(true)
     const thumbUrl = getImage.fileList[0].thumbUrl;
     // console.log('thumbUrl: ', thumbUrl)
-    const pathSnippets = thumbUrl.split(",").filter((i) => i);
+    // const pathSnippets = thumbUrl.split(",").filter((i) => i);
     // console.log('URL: ', URL.createObjectURL(`${pathSnippets[0]},${pathSnippets[1]}`))
     editUser({ id: userInfo.data.id, userImage: thumbUrl });
     showNotification();
@@ -118,14 +118,16 @@ function Sidebar({ userInfo, getUserInfo, editUser }) {
       <div className="account-avatar">
         <Popover content={
           <>
-            <ImgCrop 
+            {/* <ImgCrop 
             modalTitle={
               <Title level={4}>Chỉnh sửa ảnh</Title>
             }
             modalCancel="Hủy bỏ"
             modalOk="Xác nhận"
             rotate>
-              <Upload
+              
+            </ImgCrop> */}
+            <Upload
                 listType='picture'
                 beforeUpload={() => false}
                 onChange={(value) => checkImage(value)}
@@ -133,7 +135,6 @@ function Sidebar({ userInfo, getUserInfo, editUser }) {
               >
                 <Button icon={<AiOutlineUpload />}>Tải ảnh lên</Button>
               </Upload>
-            </ImgCrop>
             <Button disabled={disableValueBtn} icon={<AiOutlineCheck />} onClick={onSave}>Lưu</Button>
           </>
         } title={

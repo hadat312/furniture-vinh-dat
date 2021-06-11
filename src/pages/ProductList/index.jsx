@@ -63,23 +63,23 @@ function ProductListPage(props) {
 
   function sortDescendingProduct() {
     getProductList({
-      // page: 1,
-      // limit: 4,
+      page: 1,
+      limit: 4,
       categoryId: categoryId,
       itemCategoryId: itemCategorySelected,
-      // sort: "productPrice",
-      // order: "desc"
+      sort: "productPrice",
+      order: "desc"
     })
   }
 
   function sortAscendingProduct() {
     getProductList({
-      // page: 1,
-      // limit: 4,
+      page: 1,
+      limit: 4,
       categoryId: categoryId,
       itemCategoryId: itemCategorySelected,
-      // sort: "productPrice",
-      // order: "asc"
+      sort: "productPrice",
+      order: "asc"
     })
   }
 

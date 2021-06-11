@@ -77,22 +77,26 @@ function AddressPage({
   const { Option } = Select;
 
   const [isShowModify, setIsShowModify] = useState(false);
-  // const [isShowCreateOption, setIsShowCreateOption] = useState(false);
 
   const [editForm] = Form.useForm();
 
 
   const { confirm } = Modal;
-
+  //get onChange cityName, districtName, wardName
   const [changeCityName, setChangeCityName] = useState('');
   const [changeDistrictName, setChangeDistrictName] = useState('');
   const [changeWardName, setChangeWardName] = useState('');
 
-  const [isSelected, setIsSelected] = useState(false);
+  //isSelected => disable false, !isSelected => disable true
+  const [isSelectedDistrict, setIsSelectedDistrict] = useState(false);
+  const [isSelectedWard, setIsSelectedWard] = useState(false);
+
+  //get cityCode, districtCode, wardCode
   const [cityCode, setCityCode] = useState('');
   const [districtCode, setDistrictCode] = useState('');
   const [wardCode, setWardCode] = useState('');
 
+  //get cityName, districtName, wardName
   const [cityName, setCityName] = useState('Chưa chọn mã vùng');
   const [districtName, setDistrictName] = useState('Chưa chọn mã vùng');
   const [wardName, setWardName] = useState('Chưa chọn mã vùng');
@@ -114,7 +118,6 @@ function AddressPage({
 
   useEffect(() => {
     editForm.resetFields();
-    // setIsOptionForm(productSelected.productOptions?.length > 0);
   }, [addressSelected.id]);
 
   function showAddAddressNotification() {
@@ -196,13 +199,19 @@ function AddressPage({
 
 
   function onChangeSelectedCity(value) {
+
+    // if (addressSelected.id) {
+    //   setOriginValues({ districtValue: '', warValue: '' })
+    // }
     //value: là code của city
     const cityFiltered = city.data.filter((item) => item.code === value);
     setCityName(cityFiltered[0].name);
     setCityCode(value);
 
     //setIsSelected(true) để check disabled của district
-    setIsSelected(true)
+    setIsSelectedDistrict(true)
+
+
     console.log(`City ${cityCode}`);
   }
 
@@ -214,7 +223,7 @@ function AddressPage({
     setDistrictCode(value);
 
     //setIsSelected(true) để check disabled của ward
-    setIsSelected(true)
+    setIsSelectedWard(true)
     console.log(`District ${districtCode}`);
   }
   function onChangeSelectedWard(value) {
@@ -222,33 +231,11 @@ function AddressPage({
     const wardFiltered = ward.data.filter((item) => item.code === value);
     setWardName(wardFiltered[0].name);
     setWardCode(value);
-    setIsSelected(true)
     console.log(`Ward ${wardCode}`);
-  }
-
-  function onFocusCity() {
-    console.log('focus', changeCityName);
-  }
-
-  function onFocusDistrict() {
-    console.log('focus', changeDistrictName);
-  }
-
-  function onFocusWard() {
-    console.log('focus', changeWardName);
-  }
-
-
-  function onBlur() {
-    console.log('blur');
   }
 
   function onSearch(val) {
     // console.log('search:', val);
-  }
-
-  function onClear() {
-    console.log('clear');
   }
 
   function renderCity() {
@@ -301,7 +288,7 @@ function AddressPage({
 
     },
   ];
-  // console.log('addressSelected: ', addressSelected);
+
   return (
     <>
       <Card
@@ -362,7 +349,9 @@ function AddressPage({
                   userPhoneNumber: values.userPhoneNumber,
                 })
 
-                editAddress({ userId: userId.id, address: changeAddress })
+                editAddress({ userId: userId.id, address: changeAddress });
+                setIsSelectedDistrict(false);
+                setIsSelectedWard(false);
                 showEditAddressNotification();
                 console.log('Edit Success:', changeAddress);
               } else {
@@ -394,6 +383,7 @@ function AddressPage({
       >
         {/* {console.log('selected: ', addressSelected)} */}
         <Form
+
           form={editForm}
           // layout="horizontal"
           {...layout}
@@ -405,15 +395,12 @@ function AddressPage({
           //   gender: userInfo.data.gender || '',
           // }}
           initialValues={addressSelected.id
-            ? {
-              ...addressSelected,
-              city: changeCityName,
-              district: addressSelected.districtName,
-              ward: addressSelected.wardName,
-            }
-            : {
-
-            }
+            && {
+            ...addressSelected,
+            city: addressSelected.cityName,
+            district: addressSelected.districtName,
+            ward: addressSelected.wardName,
+          }
           }
         >
           <Form.Item
@@ -468,15 +455,7 @@ function AddressPage({
               placeholder="Chọn tỉnh/thành phố"
               optionFilterProp="children"
               onChange={onChangeSelectedCity}
-              onFocus={onFocusCity}
-              onBlur={onBlur}
               onSearch={onSearch}
-              // value={cityName}
-              // defaultValue={changeCityName}
-              onClear={onClear}
-              filterOption={(input, option) =>
-                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
             >
               {renderCity()}
             </Select>
@@ -497,14 +476,8 @@ function AddressPage({
               placeholder="Chọn quận/huyện"
               optionFilterProp="children"
               onChange={onChangeSelectedDistrict}
-              onFocus={onFocusDistrict}
-              onBlur={onBlur}
               onSearch={onSearch}
-              // value={districtName}
-              filterOption={(input, option) =>
-                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-              disabled={isSelected ? false : true}
+              disabled={isSelectedDistrict ? false : true}
             >
               {renderDistrictOfCity()}
             </Select>
@@ -525,15 +498,8 @@ function AddressPage({
               placeholder="Chọn xã/phường"
               optionFilterProp="children"
               onChange={onChangeSelectedWard}
-              onFocus={onFocusWard}
-              onBlur={onBlur}
               onSearch={onSearch}
-              // value={wardName}
-              filterOption={(input, option) =>
-                //option: lấy tất cả option
-                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-              disabled={isSelected ? false : true}
+              disabled={isSelectedWard ? false : true}
             >
               {renderWardOfDistrict()}
             </Select>

@@ -5,13 +5,9 @@ import SideBarAdmin from '../SideBarAdmin'
 function AdminLayout(props) {
   const { exact, path, component: Component, ...other } = props;
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  if (userInfo && userInfo.id) {
-    if (userInfo.userRole !== 'admin') {
-      return <Redirect to="/home" />;
-    }
-  } else {
-    return <Redirect to="/home/login" />;
-  }
+  // if (!userInfo || userInfo.userRole !== 'admin') {
+  //   return <Redirect to="/home" />;
+  // }
   return (
     <Route
       exact={exact}

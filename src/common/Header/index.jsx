@@ -132,13 +132,13 @@ function Header({
       else if (userInfo.data.userRole === 'admin') {
         return (
           <Menu>
-            <Menu.Item key='dropdown-user-info-03'>
+            <Menu.Item key='dropdown-admin-info-01'>
               <div className="btn-into" onClick={() => history.push(ROUTERS.ADMIN)}>Trang admin</div>
             </Menu.Item>
-            <Menu.Item key='dropdown-user-info-04'>
+            <Menu.Item key='dropdown-admin-info-02'>
               <div className="btn-into" onClick={() => history.push(ROUTERS.MY_ACCOUNT)}>Hồ sơ cá nhân</div>
             </Menu.Item>
-            <Menu.Item key='dropdown-user-info-05'>
+            <Menu.Item key='dropdown-admin-info-03'>
               <div className="btn-into" onClick={() => handleLogout()}>Đăng xuất</div>
             </Menu.Item>
           </Menu>

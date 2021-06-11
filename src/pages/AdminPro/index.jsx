@@ -86,6 +86,7 @@ function AdminProduct(props) {
         getSubCategory,
         subCategories
     } = props;
+    console.log("🚀 ~ file: index.jsx ~ line 89 ~ AdminProduct ~ productSelected", productSelected)
     const [isShowModify, setIsShowModify] = useState(false);
 
     // {} là create / Object có data là edit
@@ -202,6 +203,7 @@ function AdminProduct(props) {
     // Function - Area
 
     function handleEditProduct(record) {
+        console.log("🚀 ~ file: index.jsx ~ line 206 ~ handleEditProduct ~ record", record)
         setIsShowModify(true);
         setProductSelect(record);
         setColorSelect(record);
@@ -299,25 +301,25 @@ function AdminProduct(props) {
     const tableData = productList.data.map((productItem, productIndex) => {
         let maxValueSize = 0;
         let minValueSize = 0;
-        
-        
+
+
         let maxValueColor = 0;
         let minValueColor = 0;
-        
-        console.log("🚀 ~ file: index.jsx ~ line 300 ~ tableData ~ productIndex", productIndex)
-        
+
+        // console.log("🚀 ~ file: index.jsx ~ line 300 ~ tableData ~ productIndex", productIndex)
+
         productItem.sizes.forEach((option, optionIndex) => {
-            console.log("🚀 ~ file: index.jsx ~ line 308 ~ productItem.sizes.forEach ~ optionIndex", optionIndex)
+            // console.log("🚀 ~ file: index.jsx ~ line 308 ~ productItem.sizes.forEach ~ optionIndex", optionIndex)
             if (optionIndex === 0) {       // Ngay tại index bằng 0 khi chạy vòng lặp, sẽ gán giá trị option price cho biến minValue
 
                 minValueSize = option.price   // Lúc này minValueColor = 200.000
-            }                                  
-                                            
-            
+            }
+
+
             if (option.price > maxValueSize) maxValueSize = option.price;    //  nhạp option size = 500.000
             if (option.price < minValueSize) minValueSize = option.price
         })
-        console.log("🚀 ~ file: index.jsx ~ line 303 ~ tableData ~ minValueSize", minValueSize)
+        // console.log("🚀 ~ file: index.jsx ~ line 303 ~ tableData ~ minValueSize", minValueSize)
 
         productItem.colors.forEach((anotherOption, anotherOptionIndex) => {
             if (anotherOptionIndex === 0) {    // Ngay tại index = 0 khi chạy ở vòng lặp đầu tiên, sẽ gán giá tiền colors vào min Value Color
@@ -346,8 +348,8 @@ function AdminProduct(props) {
             categoryName: productItem.category.categoryName,
             productDiscount: productItem.productDiscount,
             minMaxPrice: productItem.sizes.length > 0 || productItem.colors.length > 0       /// nếu option sizes và option color > 0 sẽ nhảy vào line 341 , bé hơn nhảy vào 347
-                ? (productItem.sizes.length === 1 && productItem.colors.length <= 1) || (productItem.sizes.length <= 1 && productItem.colors.length === 1)  
-                // TH: nếu size.length === 1
+                ? (productItem.sizes.length === 1 && productItem.colors.length <= 1) || (productItem.sizes.length <= 1 && productItem.colors.length === 1)
+                    // TH: nếu size.length === 1
                     ? (productItem.productPrice + maxTotal).toLocaleString()
                     : `${(productItem.productPrice + minTotal).toLocaleString()} - ${(productItem.productPrice + maxTotal).toLocaleString()}`
 
@@ -784,49 +786,39 @@ function AdminProduct(props) {
                             />
                         </Form.Item>
 
+
+                        <div>
+                            <h6 style={{ marginBottom: "5px" }}>Mô Tả Sản Phẩm</h6>
+                            <CKEditor
+
+                                editor={ClassicEditor}
+                                name="productDescription"
+                                onChange={(event, editor) => onChangeDescriptionEditor(event, editor)}
+                                onBlur={(event, editor) => {
+                                    // console.log('Blur.', editor);
+                                }}
+                                onFocus={(event, editor) => {
+                                    // console.log('Focus.', editor);
+                                }}
+                            />
+                        </div>
+
+                        <div style={{ marginTop: "10px " }}>
+                            <h6 >Hướng Dẫn Bảo Quản</h6>
+                            <CKEditor
+                                editor={ClassicEditor}
+                                name="productStorageInstruction"
+                                onChange={(event, editor) => onChangeProductStorageInstruction(event, editor)}
+                                onBlur={(event, editor) => {
+                                    // console.log('Blur.', editor);
+                                }}
+                                onFocus={(event, editor) => {
+                                    // console.log('Focus.', editor);
+                                }}
+                            />
+                        </div>
+
                         
-                    <div>
-                        <h6 style={{marginBottom: "5px"}}>Mô Tả Sản Phẩm</h6>
-                        <CKEditor
-
-                            editor={ClassicEditor}
-                            name="productDescription"
-                            onChange={(event, editor) => onChangeDescriptionEditor(event, editor)}
-                            onBlur={(event, editor) => {
-                                // console.log('Blur.', editor);
-                            }}
-                            onFocus={(event, editor) => {
-                                // console.log('Focus.', editor);
-                            }}
-                        />
-                    </div>
-
-                    <div style={{marginTop: "10px "}}>
-                        <h6 >Hướng Dẫn Bảo Quản</h6>
-                        <CKEditor
-                            editor={ClassicEditor}
-                            name="productStorageInstruction"
-                            onChange={(event, editor) => onChangeProductStorageInstruction(event, editor)}
-                            onBlur={(event, editor) => {
-                                // console.log('Blur.', editor);
-                            }}
-                            onFocus={(event, editor) => {
-                                // console.log('Focus.', editor);
-                            }}
-                        />
-                    </div>
-
-                        <Form.Item name="productSpecificationsLength" label="Thông số chiều Dài (cm)">
-                            <InputNumber min={100} max={400} />
-                        </Form.Item>
-
-                        <Form.Item name="productSpecificationsHeight" label="Thông số chiều Cao">
-                            <InputNumber min={100} max={400} />
-                        </Form.Item>
-
-                        <Form.Item name="productSpecificationsWidth" label="Thông số chiều Rộng">
-                            <InputNumber min={100} max={400} />
-                        </Form.Item>
 
                         {productSelected.id && (
                             <>

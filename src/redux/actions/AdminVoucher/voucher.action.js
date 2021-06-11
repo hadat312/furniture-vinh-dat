@@ -29,7 +29,6 @@ export const deleteVoucherAdminAction = (params) => {
 }
 
 export const editVoucherAdminAction = (params) => {
-console.log("🚀 ~ file: voucher.action.js ~ line 32 ~ editVoucherAdminAction ~ params", params)
   return {
     type: 'ADMIN/EDIT_VOUCHER_REQUEST',
     payload: params

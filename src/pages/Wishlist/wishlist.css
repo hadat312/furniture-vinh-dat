@@ -35,7 +35,8 @@ body,h1,h2,h3,h4,h5,h6{
 .wishlist-container{
     position: relative;
     width: 1400px;
-    left: 13%;
+    /* left: 13%; */
+    left:4%;
     transform: translateX(4px);
     margin-top: 50px;
 }

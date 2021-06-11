@@ -96,9 +96,6 @@ function ProductDetailPage({
     }
   }, [productDetail.data.id])
 
-  const asd = match.url;
-  console.log("🚀 ~ file: index.jsx ~ line 100 ~ asd", asd)
-
 
   // console.log('data: ', productDetail.data)
 
@@ -904,7 +901,7 @@ function ProductDetailPage({
                   <table className="info-product_container">
                     <tr className="info-product_column">
                       <td  className="info-product_row">Kích Thước: (m)</td>
-                      <td>{sizeSelected.sizeName}</td>
+                      <td className="info-product_row">{sizeSelected.sizeName}</td>
                     </tr>
                   </table>
                   {/* <div dangerouslySetInnerHTML={{ __html: productDetail.data.productSpecificationsLength }} /> */}

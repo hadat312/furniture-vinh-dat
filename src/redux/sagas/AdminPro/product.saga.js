@@ -110,16 +110,7 @@ function* createProductAdminSaga(action) {
       }
     });
     yield put({ type: "ADMIN/GET_PRODUCT_LIST_REQUEST" });
-    // const productResult = yield axios({
-    //   method: 'GET',
-    //   url: `http://localhost:3002/products`,
-    // });
-    // yield put({
-    //   type: "ADMIN/GET_PRODUCT_LIST_REQUEST",
-    //   payload: {
-    //     data: productResult.data
-    //   }
-    // });
+   
     yield put({
       type: "ADMIN/CREATE_PRODUCT_SUCCESS",
       payload: {
@@ -146,7 +137,7 @@ function* editProductAdminSaga(action) {
       productPrice,
       productDiscount,
       productImage,
-      productDescription,
+      productDetailDescription,
       productShortDescription,
       productStorageInstruction,
      
@@ -162,7 +153,7 @@ function* editProductAdminSaga(action) {
         productDiscount,
         productShortDescription,
         productImage,
-        productDescription,
+        productDetailDescription,
         productStorageInstruction
       }
     });

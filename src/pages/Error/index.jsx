@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import history from '../../utils/history';
 
+import {ROUTERS} from '../../constants/router'
+
 import logo3 from  '../../images/logo3.png'
 
 import './styles.css'
@@ -23,7 +25,7 @@ function ErrorPage() {
             </h1>
             <p className="direction-page">
               PLEASE GO BACK TO
-            <span onClick={() => history.push('/phong-khach')}> HOMEPAGE </span>
+            <span onClick={() => history.push(ROUTERS.HOME)}> HOMEPAGE </span>
             </p>
           </div>
 

@@ -812,8 +812,6 @@ function ProductDetailPage({
                 <Radio.Group
                   onChange={(e) => {
                     setSizeSelected(e.target.value)
-
-
                     // setIsAddWishlist(!isAddWishlist)
                   }}
 
@@ -856,7 +854,7 @@ function ProductDetailPage({
                 onClick={onAddToCart}
               >
                 Thêm vào giỏ hàng
-          </Button>
+              </Button>
 
             </div>
           </div>
@@ -903,23 +901,13 @@ function ProductDetailPage({
                     <Title level={4}>Thông Số Kỹ Thuật</Title>
                   }
                   key="2">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td class="coll"><strong>Chiều Dài (cm)</strong></td>
-                        <td class="colr"><span>{productDetail.data.productSpecificationsLength}</span></td>
-                      </tr>
-                      <tr>
-                        <td class="coll"><strong>Chiều Rộng (cm)</strong></td>
-                        <td class="colr"><span>{productDetail.data.productSpecificationsWidth}</span></td>
-                      </tr>
-                      <tr>
-                        <td class="coll"><strong>Chiều Cao (cm)</strong></td>
-                        <td class="colr"><span>{productDetail.data.productSpecificationsHeight}</span></td>
-                      </tr>
-                    </tbody>
+                  <table className="info-product_container">
+                    <tr className="info-product_column">
+                      <td  className="info-product_row">Kích Thước: (m)</td>
+                      <td>{sizeSelected.sizeName}</td>
+                    </tr>
                   </table>
-                  {/* <div dangerouslySetInnerHTML={{ __html: productDetail.data.productSpecifications }} /> */}
+                  {/* <div dangerouslySetInnerHTML={{ __html: productDetail.data.productSpecificationsLength }} /> */}
                 </TabPane>
 
               </Tabs>

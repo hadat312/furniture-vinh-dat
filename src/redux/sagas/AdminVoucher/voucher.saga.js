@@ -53,6 +53,7 @@ function* editVoucherAdminSaga(action) {
       type: "ADMIN/EDIT_VOUCHER_SUCCESS",
       payload: {
         data: editResult.data,
+        id:id
       },
     });
   } catch (e) {
@@ -74,6 +75,7 @@ function* deleteVoucherListSaga(action) {
     });
 
     yield put({ type: "ADMIN/GET_VOUCHER_REQUEST" });
+    
     yield put({
       type: "DELETE_VOUCHER_LIST_SUCCESS",
       payload: id

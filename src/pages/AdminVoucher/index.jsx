@@ -72,12 +72,11 @@ function AdminVoucher({
   const [editForm] = Form.useForm();
 
   const [voucherSelected, setVoucherSelected] = useState({})
-  console.log("🚀 ~ file: index.jsx ~ line 73 ~ voucherSelected", voucherSelected)
 
 
   useEffect(() => {
     editForm.resetFields();
-  }, [voucherSelected]);
+  }, [voucherSelected.id]);
 
   function handleCreateVoucher() {
     setIsShowModify(true);

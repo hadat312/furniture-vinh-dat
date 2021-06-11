@@ -6,7 +6,7 @@ h1, h2, h3, h4, h5, h6 {
 .detail-container {
   position: relative;
   max-width: 1400px;
-  left: 13%;
+  left: 4%;
   transform: translateX(4px);
   margin-top: 80px;
   margin-bottom: 80px;
@@ -244,11 +244,21 @@ __DESCRIPTIONS */
 }
 
 .detail-description__container__content {
-  width: calc(100% - 600px);
+  width: calc(100% - 800px);
 }
 
 .detail-specifications__container__content {
-  width: 400px;
+  width: 500px;
+}
+
+.info-product_container{
+  width: 100%;
+}
+
+.info-product_column , .info-product_row {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 
 /* REPLY COMMENT */

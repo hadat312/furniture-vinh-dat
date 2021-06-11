@@ -10,6 +10,7 @@ function* getProductListAdminSaga(action) {
       params: {
         _expand: 'category',
         _embed: 'sizes',
+        
         ...searchKey && { q: searchKey }
       }
     });
@@ -80,17 +81,12 @@ function* getCategorySearchKey(action) {
 function* createProductAdminSaga(action) {
   try {
     const {
-      productSpecificationsLength,
-      productSpecificationsHeight,
-      productSpecificationsWidth,
       productDescription,
       productStorageInstruction,
       productName,
       productImage,
       categoryId,
       itemCategoryId,
-      // originPrice,
-      // initialPrice,
       productShortDescription,
       productPrice,
       productDiscount
@@ -103,9 +99,7 @@ function* createProductAdminSaga(action) {
         categoryId,
         itemCategoryId,
         productPrice,
-        productSpecificationsLength,
-        productSpecificationsHeight,
-        productSpecificationsWidth,
+       
         productShortDescription,
         productDescription,
         productStorageInstruction,
@@ -155,9 +149,7 @@ function* editProductAdminSaga(action) {
       productDescription,
       productShortDescription,
       productStorageInstruction,
-      productSpecificationsLength,
-      productSpecificationsHeight,
-      productSpecificationsWidth,
+     
     } = action.payload;
     const editResult = yield axios({
       method: 'PATCH',
@@ -168,9 +160,6 @@ function* editProductAdminSaga(action) {
         itemCategoryId,
         productPrice,
         productDiscount,
-        productSpecificationsLength,
-        productSpecificationsHeight,
-        productSpecificationsWidth,
         productShortDescription,
         productImage,
         productDescription,

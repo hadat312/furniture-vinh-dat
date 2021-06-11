@@ -7,6 +7,7 @@ const initialState = {
 };
 
 export default function adminCommonReducer(state = initialState, action) {
+  console.log("🚀 ~ file: common.reducer.js ~ line 10 ~ adminCommonReducer ~ state", state)
   switch (action.type) {
     case 'ADMIN/SET_PRODUCT_SELECTED': {
       return {
@@ -14,6 +15,7 @@ export default function adminCommonReducer(state = initialState, action) {
         productSelected: action.payload,
       }
     }
+
 
     case 'ADMIN/CREATE_OPTION_SUCCESS': {
       const { data } = action.payload;

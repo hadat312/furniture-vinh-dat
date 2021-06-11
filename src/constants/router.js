@@ -19,15 +19,17 @@ export const ROUTERS = {
   REGISTER: '/home/Register/',
   
   SEARCH_RESULTS: '/home/search/',
-  PRODUCT: '/home/:id/',
-  PRODUCT_DETAIL: '/home/:id/:id/',
+
   
   ADMIN: '/home/admin',
   ADMIN_USER: '/home/admin/user',
   ADMIN_PRODUCT : '/home/admin/product',
   ADMIN_VOUCHER : '/home/admin/voucher',
   ADMIN_PROFILE: '/home/admin/profile',
-  ADMIN_CHANGE_PASSWORD:'/home/admin/changepassword'
+  ADMIN_CHANGE_PASSWORD:'/home/admin/changepassword',
 
 
+  PRODUCT: '/home/:id/',
+  PRODUCT_DETAIL: '/home/:id/:id/',
+  
 }

@@ -55,7 +55,8 @@ function CheckOutPage({
     });
   }, []);
 
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelectedDistrict, setIsSelectedDistrict] = useState(false);
+  const [isSelectedWard, setIsSelectedWard] = useState(false);
 
   const [isOnChangeCity, setIsOnChangeCity] = useState(false);
   const [isOnChangeDistrict, setIsOnChangeDistrict] = useState(false);
@@ -81,29 +82,20 @@ function CheckOutPage({
 
   const [fillBill, setFillBill] = useState({
     userName: "",
-    // lastName: "",
     email: "",
     phone: "",
-    // company: "",
     address: "",
     city: "",
     district: "",
     ward: "",
     userId: userInfoLocalStorage.id
-    // image: image,
-    // id: id,
-    // name: name,
-    // price: price,
-
   })
 
   const [checkoutError, setCheckoutError] = useState({
     userName: "",
-    // lastName: "",
     email: "",
     phone: "",
     address: "",
-    // company: "",
     city: "",
     district: "",
     ward: "",
@@ -114,7 +106,6 @@ function CheckOutPage({
 
   function handleChange(e) {
     const { name, value, checked, type } = e.target;
-    console.log("🚀 ~ file: index.jsx ~ line 80 ~ handleChange ~ value", value)
     setFillBill({
       ...fillBill,
       [name]: type === "checkbox" ? checked : value,
@@ -142,56 +133,63 @@ function CheckOutPage({
       newCheckoutError.userName = "Vui lòng không để trống";
       isValid = false;
     } else {
-      // isValid = true;
-      newCheckoutError.userName = "";
+      if (fillBill.userName.trim().length < 5) {
+        newCheckoutError.userName = "Tên phải ít nhất 5 ký tự";
+        isValid = false;
+      }
+      else {
+        newCheckoutError.userName = "";
+      }
     }
 
-    // if (fillBill.lastName.trim().length === 0) {
-    //     newCheckoutError.lastName = "Vui lòng không để trống";
-    //     isValid = false;
-    // } else {
-    //     // isValid = true;
-    //     newCheckoutError.lastName = "";
-    // }
+    const emailRegEx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; // RegEx email
 
     if (fillBill.email.trim().length === 0) {
       newCheckoutError.email = "Vui lòng không để trống";
       isValid = false;
     } else {
-      // isValid = true;
-      newCheckoutError.email = "";
+      if (!fillBill.email.trim().match(emailRegEx)) {
+        newCheckoutError.email = "Email không đúng định dạng";
+        isValid = false;
+      } else {
+        newCheckoutError.email = "";
+      }
     }
+
+
+    const phoneNumberRegEx = /((09|03|07|08|05)+([0-9]{8})\b)/g; //RegEx VN phone number
 
     if (fillBill.phone.trim().length === 0) {
       newCheckoutError.phone = "Vui lòng không để trống";
       isValid = false;
     } else {
-      // isValid = true;
-      newCheckoutError.phone = "";
+      if (!fillBill.phone.trim().match(phoneNumberRegEx)) {
+        newCheckoutError.phone = "Số điện thoại không đúng định dạng";
+        isValid = false;
+      } else {
+        newCheckoutError.phone = "";
+      }
     }
-
-    // if (fillBill.company.trim().length === 0) {
-    //     newCheckoutError.company = "Vui lòng không để trống";
-    //     isValid = false;
-    // } else {
-    //     isValid = true;
-    //     newCheckoutError.company = "";
-    // }
 
 
     if (fillBill.address.trim().length === 0) {
       newCheckoutError.address = "Vui lòng không để trống";
       isValid = false;
     } else {
-      isValid = true;
-      newCheckoutError.address = "";
+      if (fillBill.address.trim().length < 8 || fillBill.address.trim().length > 100) {
+        newCheckoutError.address = "Chiều dài địa chỉ nên từ 8 đến 100 ký tự";
+        isValid = false;
+      } else {
+        // isValid = true;
+        newCheckoutError.address = "";
+      }
     }
 
     if (!isOnChangeCity) {
       isValid = false;
       newCheckoutError.city = "Vui lòng không để trống";
     } else {
-      isValid = true;
+      // isValid = true;
       newCheckoutError.city = "";
     }
 
@@ -199,7 +197,7 @@ function CheckOutPage({
       isValid = false;
       newCheckoutError.district = "Vui lòng không để trống";
     } else {
-      isValid = true;
+      // isValid = true;
       newCheckoutError.district = "";
     }
 
@@ -207,24 +205,10 @@ function CheckOutPage({
       isValid = false;
       newCheckoutError.ward = "Vui lòng không để trống";
     } else {
-      isValid = true;
+      // isValid = true;
       newCheckoutError.ward = "";
     }
-    // if (fillBill.country.trim().length === 0) {
-    //     newCheckoutError.country = "Vui lòng không để trống";
-    //     isValid = false;
-    // } else {
-    //     isValid = true;
-    //     newCheckoutError.country = "";
-    // }
 
-    // if (fillBill.city.trim().length === 0) {
-    //     newCheckoutError.city = "Vui lòng không để trống";
-    //     isValid = false;
-    // } else {
-    //     isValid = true;
-    //     newCheckoutError.city = "";
-    // }
     if (isValid) {
       const ordersInfo = {
         status: "Đang giao",
@@ -245,6 +229,7 @@ function CheckOutPage({
       const key = `open${Date.now()}`;
       notification.success({
         message: 'Đặt hàng thành công thành công',
+        placement: 'bottomRight',
         key,
         duration: 2
       });
@@ -258,40 +243,40 @@ function CheckOutPage({
   function onChangeSelectedCity(value) {
     //value: là code của city
 
-    //check đã chọ city
+    //check đã chọn city
     setIsOnChangeCity(true)
     const cityFiltered = city.data.filter((item) => item.code === value);
     setCityName(cityFiltered[0].name);
     setCityCode(value);
 
     //setIsSelected(true) để check disabled của district
-    setIsSelected(true)
+    setIsSelectedDistrict(true)
     console.log(`City ${cityCode}`);
   }
 
 
   function onChangeSelectedDistrict(value) {
     //value: là code của district
-
-    //check đã chọ district
+    console.log(`District ${value}`)
+    //check đã chọn district
     setIsOnChangeDistrict(true)
     const districtFiltered = district.data.filter((item) => item.code === value);
     setDistrictName(districtFiltered[0].name);
     setDistrictCode(value);
 
     //setIsSelected(true) để check disabled của ward
-    setIsSelected(true)
+    setIsSelectedWard(true)
     console.log(`District ${districtCode}`);
   }
   function onChangeSelectedWard(value) {
     //value: là code của ward
 
-    //check đã chọ ward
+    //check đã chọn ward
     setIsOnChangeWard(true)
     const wardFiltered = ward.data.filter((item) => item.code === value);
     setWardName(wardFiltered[0].name);
     setWardCode(value);
-    setIsSelected(true)
+    // setIsSelected(true)
     console.log(`Ward ${wardCode}`);
   }
 
@@ -441,7 +426,7 @@ function CheckOutPage({
                     filterOption={(input, option) =>
                       option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
-                    disabled={isSelected ? false : true}
+                    disabled={isSelectedDistrict ? false : true}
                   >
                     {renderDistrictOfCity()}
                   </Select>
@@ -465,7 +450,7 @@ function CheckOutPage({
                       //option: lấy tất cả option
                       option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
-                    disabled={isSelected ? false : true}
+                    disabled={isSelectedWard ? false : true}
                   >
                     {renderWardOfDistrict()}
                   </Select>

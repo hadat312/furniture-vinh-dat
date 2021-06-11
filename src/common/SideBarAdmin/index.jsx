@@ -67,8 +67,8 @@ function SideBarAdmin(props) {
         <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => { history.push(ROUTERS.ADMIN) }}>
           Dashboard
            </Menu.Item>
-        <Menu.Item key="2" icon={<ShopOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_PRODUCT) }} >
-          Quản lý sản phẩm
+        <Menu.Item key="sideBar-02" icon={<ShopOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_PRODUCT) }} >
+          <div>Quản lý sản phẩm</div>
           </Menu.Item>
         <Menu.Item key="3" icon={<TeamOutlined />} onClick={() => { history.push(ROUTERS.ADMIN_USER) }}>
           Quản lý thành viên

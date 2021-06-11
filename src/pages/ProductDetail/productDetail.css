@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
 }
 
-.detail-container__thumbnail{
+.detail-container__thumbnail {
   padding: 0px 20px;
 }
 
@@ -86,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .detail-container__color>h3, .detail-container__size>h3, .detail-container__quantity>h3 {
-  width: 100px;
+  width: 120px;
 }
 
 .detail-container__color>div, .detail-container__size>div, .detail-container__quantity .quantity__content__input-number {
@@ -143,9 +143,13 @@ __DESCRIPTIONS */
 
 /*COLOR-CONTENT__ITEM, SIZE-CONTENT__ITEM , BTN-INCREASE, BTN-DECREASE , __WISHLIST-BUTTON */
 
-.color-content__item, .size-content__item, .detail-container__order__wishlist-button {
+.color-content__item, .detail-container__order__wishlist-button {
   /* margin-right: 20px!important; */
   width: 150px;
+  text-align: center;
+}
+.size-content__item{
+  width: auto;
   text-align: center;
 }
 
@@ -330,4 +334,23 @@ __DESCRIPTIONS */
   color: #333;
   font-size: 24px;
   font-weight: 600;
+}
+
+table, th, td {
+  border: 1px solid #dee2e6;
+}
+
+.coll {
+  padding: 18px 30px;
+  background-color: #f2f2f4;
+  font-weight: 600;
+  line-height: 1.71;
+  border-right: 1px solid #dee2e6;
+  text-transform: capitalize;
+  width: 200px;
+}
+
+.colr {
+  padding: 18px 30px;
+  width: 275px;
 }

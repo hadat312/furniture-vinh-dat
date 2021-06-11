@@ -725,6 +725,7 @@ function ProductDetailPage({
           <Item
             key={'commentItem' + commentItem.id}
             commentItem={commentItem}
+            userImage={userInfo.data.userImage}
           />
         )
       })
@@ -741,8 +742,6 @@ function ProductDetailPage({
 
 
   const settings = {
-    // dots: true,
-    // fade: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
@@ -788,9 +787,7 @@ function ProductDetailPage({
               <span className="detail-price__old">{oldPrice.toLocaleString()} vnđ</span>
               <span className="detail-price__current">{newPrice.toLocaleString()} vnđ</span>
             </div>
-            <div className="detail-container__descriptions">
-              <p>{productDetail.data.productShortDescription}</p>
-            </div>
+            <div className="detail-container__descriptions" dangerouslySetInnerHTML={{ __html: productDetail.data.productShortDescription }} />
             <div className="detail-container__color">
               {
                 colorSelected.id && <Title level={3} className="color-title">Màu sắc</Title>
@@ -809,7 +806,7 @@ function ProductDetailPage({
             </div>
             <div className="detail-container__size">
               {
-                sizeSelected.id && <Title level={3} className="color-title">Kích thước</Title>
+                sizeSelected.id && <Title level={3} className="size-title">Kích thước</Title>
               }
               <div>
                 <Radio.Group
@@ -827,7 +824,7 @@ function ProductDetailPage({
               </div>
             </div>
             <div className="detail-container__quantity">
-              <Title level={3}>Quantity</Title>
+              <Title level={3}>Số lượng</Title>
               <InputNumber
                 // onStep={(value) => console.log(value)}
                 style={{ width: 150 }}
@@ -881,7 +878,7 @@ function ProductDetailPage({
                       <Title level={4}>Mô Tả Sản Phẩm</Title>
                     }
                     key="1">
-                    <div dangerouslySetInnerHTML={{ __html: productDetail.data.productDescription }} />
+                    <div dangerouslySetInnerHTML={{ __html: productDetail.data.productDetailDescription }} />
                   </TabPane>
 
                   <TabPane
@@ -906,8 +903,23 @@ function ProductDetailPage({
                     <Title level={4}>Thông Số Kỹ Thuật</Title>
                   }
                   key="2">
-                  <div dangerouslySetInnerHTML={{ __html: productDetail.data.productSpecificationsLength }} />
-                  {/* In productSpecificationLength, Width, Height */}
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td class="coll"><strong>Chiều Dài (cm)</strong></td>
+                        <td class="colr"><span>{productDetail.data.productSpecificationsLength}</span></td>
+                      </tr>
+                      <tr>
+                        <td class="coll"><strong>Chiều Rộng (cm)</strong></td>
+                        <td class="colr"><span>{productDetail.data.productSpecificationsWidth}</span></td>
+                      </tr>
+                      <tr>
+                        <td class="coll"><strong>Chiều Cao (cm)</strong></td>
+                        <td class="colr"><span>{productDetail.data.productSpecificationsHeight}</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  {/* <div dangerouslySetInnerHTML={{ __html: productDetail.data.productSpecifications }} /> */}
                 </TabPane>
 
               </Tabs>

@@ -96,9 +96,6 @@ function ProductDetailPage({
     }
   }, [productDetail.data.id])
 
-  const asd = match.url;
-  console.log("🚀 ~ file: index.jsx ~ line 100 ~ asd", asd)
-
 
   // console.log('data: ', productDetail.data)
 
@@ -556,68 +553,16 @@ function ProductDetailPage({
 
   }
 
-  function checkExistWishlist() {
-    if (!colorSelected.id && !sizeSelected.id) { // ko có size và cả color
-      const existProductIndex = wishlist.data.findIndex((item) => item.productId === productId);
-      if (existProductIndex === -1) {
-        // setIsAddWishlist(true)
-        return true
-      } else {
-        // setIsAddWishlist(false)
-        return false
-      }
-    } else if (!colorSelected.id) { // nếu chỉ có size
-      const existSizeIndex = wishlist.data.findIndex((item) => item.size.id === sizeSelected.id);
-      if (existSizeIndex === -1) {
-        // setIsAddWishlist(true)
-        return true
-      } else {
-        // setIsAddWishlist(false)
-        return false
-      }
-    } else if (!sizeSelected.id) { // nếu chỉ có color
-      const existColorIndex = wishlist.data.findIndex((item) => item.color.id === colorSelected.id);
-      if (existColorIndex === -1) {
-        // setIsAddWishlist(true)
-        return true
-      } else {
-        // setIsAddWishlist(false)
-        return false
-      }
-    }
-    else {//có cả color và size
-      const existOptionIndex = wishlist.data.findIndex((item) => item.color.id === colorSelected.id && item.size.id === sizeSelected.id);
-      if (existOptionIndex === -1) {
-        // setIsAddWishlist(true)
-        return true
-      } else {
-        // setIsAddWishlist(false)
-        return false
-      }
-    }
-
-    // console.log('colorSelected: ', colorSelected)
-    // console.log('sizeSelected: ', sizeSelected)
-  }
 
   function addWishlist() {
-    // console.log('add: ', checkExistWishlist())
     toggleWishlist();
-    // checkExistWishlist();
     onAddWishlistTask();
-    // if(checkExistWishlist()){
-    //   console.log('add')
-    // }
   }
 
   function deleteWishlist() {
-    // console.log('delete: ', checkExistWishlist())
     toggleWishlist();
-    // checkExistWishlist();
     onDeleteWishlistTask();
-    // if(!checkExistWishlist()){
-    //   console.log('delete')
-    // }
+   
   }
 
   function renderImageList() {
@@ -635,6 +580,7 @@ function ProductDetailPage({
       )
     })
   }
+  console.log("imageList: ", imageList)
 
 
   function renderSizeOptions() {
@@ -904,7 +850,7 @@ function ProductDetailPage({
                   <table className="info-product_container">
                     <tr className="info-product_column">
                       <td  className="info-product_row">Kích Thước: (m)</td>
-                      <td>{sizeSelected.sizeName}</td>
+                      <td className="info-product_row">{sizeSelected.sizeName}</td>
                     </tr>
                   </table>
                   {/* <div dangerouslySetInnerHTML={{ __html: productDetail.data.productSpecificationsLength }} /> */}
